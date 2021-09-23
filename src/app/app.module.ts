@@ -20,6 +20,8 @@ import { SenderComponent } from './MyComponents/sender/sender.component';
 import {HttpClientModule} from '@angular/common/http';
 import { API_Services } from './APIS/freeapi.service';
 import { VerifyComponent } from './MyComponents/verify/verify.component';
+import { toBase64String } from '@angular/compiler/src/output/source_map';
+
 
 
 
@@ -45,7 +47,8 @@ import { VerifyComponent } from './MyComponents/verify/verify.component';
     RouterModule,
     FormsModule,
     ProfileRouting,
-    HttpClientModule
+    HttpClientModule,
+    
     
     
   ],
