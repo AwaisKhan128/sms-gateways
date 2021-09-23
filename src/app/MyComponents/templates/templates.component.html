@@ -1,0 +1,166 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light" id="nav_bar">
+  <div class="container-fluid">
+    <a class="navbar-brand" [routerLink]='["../dashboard"]'>SMS Gateway</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <!-- Routerlink with href -->
+          <a class="nav-link " [routerLink]='["../dashboard"]' aria-current="page">Dashboard</a>
+        </li>
+        <li class="nav-item ">
+          <!-- Routerlink with href -->
+          <a class="nav-link" [routerLink]='["../personal"]'>Profile</a>
+        </li>
+        <li class="nav-item ">
+          <!-- Routerlink with href -->
+          <a class="nav-link active" [routerLink]='["templates"]'>Templates</a>
+        </li>
+
+        <li class="nav-item ">
+          <!-- Routerlink with href -->
+          <a class="nav-link" [routerLink]='["../contacts"]'>Contacts</a>
+        </li>
+
+        <li class="nav-item ">
+          <!-- Routerlink with href -->
+          <a class="nav-link" [routerLink]='["../messages"]'>Messages</a>
+        </li>
+
+        <li class="nav-item ">
+          <!-- Routerlink with href -->
+          <a class="nav-link" [routerLink]='["../sender"]'>Sender</a>
+        </li>
+
+        <li class="nav-item ">
+          <!-- Routerlink with href -->
+          <a class="nav-link">Auto Responder</a>
+        </li>
+
+
+      </ul>
+
+      <button class="btn btn-outline-success" type="button">Logout</button>
+    </div>
+  </div>
+</nav>
+
+<div class="card mt-5 w-auto h-auto">
+
+
+  <div class="d-flex">
+    <h1 class="ms-2">
+      <b>
+        Manage Templates
+
+      </b>
+    </h1>
+
+    <div class="row ms-auto">
+
+      <div class="col ms-auto">
+        <button class="btn btn-outline-success ms-auto me-2" type="button">Create Template</button>
+
+        <button class="btn btn-outline-success ms-auto" type="button">Delete Template</button>
+      </div>
+
+    </div>
+
+  </div>
+
+
+
+
+</div>
+
+<div class="card mt-1 w-auto h-auto">
+
+
+  <div class="d-flex">
+
+    <div class="d-flex">
+      <h3 class="ms-3 mt-2">
+        Show
+      </h3>
+      <select class="form-select form-select-sm mb-1 ms-1 me-1" aria-label=".form-select-sm example">
+        <option selected>Open this select menu</option>
+        <option value="1">One</option>
+        <option value="2">Two</option>
+        <option value="3">Three</option>
+      </select>
+
+      <h4 class="me-2 mt-2 ">
+        entries
+      </h4>
+
+
+
+    </div>
+
+    <div class="ms-auto">
+
+      <div class="d-flex ms-auto"> 
+        <label for="exampleDataList" class="form-label mt-2">Search</label>
+        <input class="form-control" list="datalistOptions" id="exampleDataList" placeholder="Type to search...">
+        <datalist id="datalistOptions">
+          <option value="San Francisco">
+          <option value="New York">
+          <option value="Seattle">
+          <option value="Los Angeles">
+          <option value="Chicago">
+        </datalist>
+      </div>
+
+    </div>
+
+  </div>
+
+
+
+</div>
+
+
+<div class="card mt-1 w-auto h-auto">
+  <table>
+    <tr>
+      <th>
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" >
+          <label class="form-check-label" for="flexCheckDefault">
+          </label>
+        </div>
+      </th>
+
+      <th>
+       Name
+      </th>
+
+      <th>
+        Message
+      </th>
+    </tr>
+
+    <tr>
+      <td>
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" checked>
+          <label class="form-check-label" for="flexCheckDefault">
+          </label>
+        </div>
+      </td>
+
+      <td>
+        Awais
+      </td>
+
+      <td>
+        Hi! there. There are two onces
+      </td>
+
+
+    </tr>
+  </table>
+</div>

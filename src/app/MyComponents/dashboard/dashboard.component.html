@@ -1,0 +1,152 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light" id="nav_bar">
+  <div class="container-fluid">
+    <a class="navbar-brand" [routerLink]='["dashboard"]'>SMS Gateway</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+            <!-- Routerlink with href -->
+          <a class="nav-link active" [routerLink]='["dashboard"]' aria-current="page">Dashboard</a>
+        </li>
+        <li class="nav-item " >
+            <!-- Routerlink with href -->
+          <a class="nav-link" [routerLink]='["../personal"]'>Profile</a>
+        </li>
+        <li class="nav-item ">
+          <!-- Routerlink with href -->
+        <a class="nav-link" [routerLink]='["../templates"]'>Templates</a>
+      </li>
+
+      <li class="nav-item ">
+          <!-- Routerlink with href -->
+        <a class="nav-link" [routerLink]='["../contacts"]'>Contacts</a>
+      </li>
+        
+      <li class="nav-item ">
+          <!-- Routerlink with href -->
+        <a class="nav-link" [routerLink]='["../messages"]'>Messages</a>
+      </li>
+
+      <li class="nav-item ">
+          <!-- Routerlink with href -->
+        <a class="nav-link" [routerLink]='["../sender"]'>Sender</a>
+      </li>
+
+      <li class="nav-item ">
+          <!-- Routerlink with href -->
+        <a class="nav-link" >Auto Responder</a>
+      </li>
+
+
+        
+      </ul>
+    
+      <button class="btn btn-outline-success" type="button">Logout</button>
+    </div>
+  </div>
+</nav>
+
+<div style="margin-top: 100px;" class="mx-auto">
+
+  <div class="container-fluid ">
+    <div class="row d-inline-flex">
+      <div class="col">
+        <div class="container-fluid  ">
+
+          <div class="card   text-dark shadow  bg-body rounded" style="width: 18rem;color:pink">
+            
+            <div class="card-body  text-dark" style="color: pink;">
+              <p class="card-text text-center">0</p>
+              <h5 class="card-title text-center">Sent</h5>
+              <a href="#" class="btn btn-primary d-flex justify-content-center">More Info</a>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+      <div class="col">
+        <div class="container-fluid">
+          
+          <div class="card  bg-info text-dark shadow  bg-body rounded" style="width: 18rem;">
+            
+            <div class="card-body  bg-info text-dark ">
+              <p class="card-text text-center">0</p>
+              <h5 class="card-title text-center">Received</h5>
+              <a href="#" class="btn btn-primary d-flex justify-content-center">More Info</a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <div class="col">
+        <div class="container-fluid">
+          
+          <div class="card  bg-light text-dark shadow  bg-body rounded" style="width: 18rem;">
+            
+            <div class="card-body  bg-light text-dark ">
+              <p class="card-text text-center">0</p>
+              <h5 class="card-title text-center">Failed</h5>
+              <a href="#" class="btn btn-primary d-flex justify-content-center">More Info</a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  
+    <div class="row d-inline-flex" style="margin-top: 10px;">
+      <div class="col">
+        <div class="container-fluid">
+          
+          <div class="card  bg-info text-dark shadow  bg-body rounded" style="width: 18rem;">
+            
+            <div class="card-body  bg-light text-dark ">
+              <p class="card-text text-center">0</p>
+              <h5 class="card-title text-center">Queued</h5>
+              <a href="#" class="btn btn-primary d-flex justify-content-center">More Info</a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <div class="col">
+        <div class="container-fluid">
+          
+          <div class="card  bg-info text-dark shadow  bg-body rounded" style="width: 18rem;">
+            
+            <div class="card-body  bg-success text-white ">
+              <p class="card-text text-center">0</p>
+              <h5 class="card-title text-center">Schedule</h5>
+              <a href="#" class="btn btn-primary d-flex justify-content-center">More Info</a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <div class="col">
+        <div class="container-fluid">
+          
+          <div class="card  bg-info text-dark shadow  bg-body rounded" 
+          style="width: 18rem;">
+            
+            <div class="card-body  bg-warning text-dark ">
+              <p class="card-text text-center">0</p>
+              <h5 class="card-title text-center">Pending</h5>
+              <a href="#" class="btn btn-primary d-flex justify-content-center">More Info</a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  
+  
+  </div>
+</div>
+
+
+
+

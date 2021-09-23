@@ -59,7 +59,7 @@
  */
 import 'zone.js';  // Included with Angular CLI.
 
-
+import * as $ from 'jquery';
 /***************************************************************************************************
  * APPLICATION IMPORTS
  */

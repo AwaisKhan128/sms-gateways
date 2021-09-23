@@ -1,0 +1,36 @@
+<div class="container h-auto p-2">
+    <div class="row align-items-center h-100 p-2">
+        <div class="col-7 mx-auto ">
+            <div class="card h-100 border-primary justify-content-center">
+                <div class="mb-10 p-2">
+
+                    <div class="jumbotron ">
+                        <h2 class="display-3 d-flex justify-content-center">Type Your Code Here</h2>
+                        <p class="lead d-flex justify-content-center">Coder verifier powered by SMS Gateways </p>
+
+                        <div class="mt-10">
+                            
+                            <form (ngSubmit)="Verify()">
+                                <div class="card-block" >
+                          
+                                  <div class="mb-3">
+                                    <label for="otp1" class="form-label">OTP</label>
+                                    <input type="number" [(ngModel)]="code" class="form-control" id="otp1" aria-describedby="emailHelp">
+                                  </div>
+                                  
+                                  
+                                  <button type="submit" class="btn btn-primary">
+                                      Verify</button>
+
+                          
+                                </div>
+                              </form>
+                        </div>
+                        
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

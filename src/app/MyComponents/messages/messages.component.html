@@ -1,0 +1,173 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light" id="nav_bar">
+    <div class="container-fluid">
+      <a class="navbar-brand" [routerLink]='["../dashboard"]'>SMS Gateway</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item" >
+              <!-- Routerlink with href -->
+            <a class="nav-link " [routerLink]='["../dashboard"]' aria-current="page">Dashboard</a>
+          </li>
+          <li class="nav-item ">
+              <!-- Routerlink with href -->
+            <a class="nav-link" [routerLink]='["../personal"]'>Profile</a>
+          </li>
+          <li class="nav-item ">
+            <!-- Routerlink with href -->
+          <a class="nav-link" [routerLink]='["../templates"]'>Templates</a>
+        </li>
+  
+        <li class="nav-item ">
+            <!-- Routerlink with href -->
+          <a class="nav-link" [routerLink]='["../contacts"]'>Contacts</a>
+        </li>
+          
+        <li class="nav-item ">
+            <!-- Routerlink with href -->
+          <a class="nav-link active" [routerLink]='["messages"]'>Messages</a>
+        </li>
+  
+        <li class="nav-item ">
+            <!-- Routerlink with href -->
+          <a class="nav-link" [routerLink]='["../sender"]'>Sender</a>
+        </li>
+  
+        <li class="nav-item ">
+            <!-- Routerlink with href -->
+          <a class="nav-link" >Auto Responder</a>
+        </li>
+  
+          
+        </ul>
+      
+        <button class="btn btn-outline-success" type="button">Logout</button>
+      </div>
+    </div>
+  </nav>
+  <div class="card mt-5 w-auto h-auto" >
+    <h1 class="mb-3">
+      Messages
+    </h1>
+    
+
+    <div class="row ">
+
+      <div class="col-4">
+        <label for="selects"> Select Devices</label>
+        <select class="form-select form-select-sm me-auto" id="selects" aria-label=".form-select-sm example">
+          <option selected>Open this select menu</option>
+          <option value="1">One</option>
+          <option value="2">Two</option>
+          <option value="3">Three</option>
+        </select>
+      </div>
+
+      <div class="col-4">
+        <label for="selects1"> Status</label>
+        <select class="form-select form-select-sm me-auto" id="selects1" aria-label=".form-select-sm example">
+          <option selected>All</option>
+          <option value="1">One</option>
+          <option value="2">Two</option>
+          <option value="3">Three</option>
+        </select>
+      </div>
+
+      <div class="col-4">
+        <label for="selects1"> Type</label>
+        <select class="form-select form-select-sm me-auto" id="selects1" aria-label=".form-select-sm example">
+          <option selected>All</option>
+          <option value="1">SMS</option>
+          <option value="2">MMS</option>
+          
+        </select>
+      </div>
+    </div>
+
+    <div class="row d-inline-flex">
+
+      
+        <div class="col-sm-3">
+          <label for="selects1"> Mobile Number</label>
+          <select class="form-select form-select-sm me-auto" id="selects1" aria-label=".form-select-sm example">
+            <option selected>All</option>
+            <option value="1">One</option>
+            <option value="2">Two</option>
+            <option value="3">Three</option>
+          </select>
+        </div>
+
+        <div class="col-sm-3">
+          <label for="selects1"> Messages</label>
+          <select class="form-select form-select-sm me-auto" id="selects1" aria-label=".form-select-sm example">
+            <option selected>All</option>
+            <option value="1">One</option>
+            <option value="2">Two</option>
+            <option value="3">Three</option>
+          </select>
+        </div>
+     
+
+      <div class="col-sm-3">
+        <label for="selects1"> Start Date</label>
+        <select class="form-select form-select-sm me-auto" id="selects1" aria-label=".form-select-sm example">
+          <option selected>All</option>
+          <option value="1">One</option>
+          <option value="2">Two</option>
+          <option value="3">Three</option>
+        </select>
+      </div>
+
+      <div class="col-sm-3">
+        <label for="selects1"> End Date</label>
+        <select class="form-select form-select-sm me-auto" id="selects1" aria-label=".form-select-sm example">
+          <option selected>All</option>
+          <option value="1">One</option>
+          <option value="2">Two</option>
+          <option value="3">Three</option>
+        </select>
+      </div>
+
+    </div>
+
+
+<div class="d-flex">
+
+  <button class="btn btn-primary ms-1 mt-1 mb-1 me-1">
+    Search
+  </button>
+
+  <button class="btn btn-warning ms-1 mt-1 mb-1 me-1">
+    Export 
+  </button>
+
+  <button class="btn btn-info ms-1 mt-1 mb-1 me-1">
+    Resend
+  </button>
+
+  <button class="btn btn-primary ms-1 mt-1 mb-1 me-1">
+    Remove
+  </button>
+
+
+  <div class="ms-auto mt-2 ">
+        <select class="form-select form-select-sm me-auto" id="selects1" aria-label=".form-select-sm example">
+          <option selected>All</option>
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+        </select>
+  </div>
+
+</div>
+
+
+  
+
+
+  </div>
+
+  <div class="card mt-2 w-auto h-auto" >
+  
+  </div>
