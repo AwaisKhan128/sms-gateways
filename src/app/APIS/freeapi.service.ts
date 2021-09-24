@@ -3,6 +3,7 @@ import { HttpClient,HttpHeaders,HttpParams } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { CreateAcc } from '../Classes/createAcc_';
 import { API_BASE_URLS, CLICKSEND_API_ENDPOINTS, CLICKSEND_STATISTICS_TYPE, HTTP_HEADER_OPTIONS} from './APIConfig';
+import { StatisticSMS } from '../Classes/StatisticSMS';
 
 
 
@@ -38,7 +39,7 @@ export class API_Services{
     }
     
 
-    getClickSendStatistic(type: CLICKSEND_STATISTICS_TYPE):Observable<any>
+    getClickSendStatistic(type: CLICKSEND_STATISTICS_TYPE):Observable<StatisticSMS>
     {
         let stat_type = ""
         if (type == 0) {
@@ -48,6 +49,15 @@ export class API_Services{
             stat_type = CLICKSEND_API_ENDPOINTS.STATISTICS_MMS
         }
         const FULL_URL = API_BASE_URLS.CLICKSEND_BASE_URL+stat_type
-        return this.httpClient.get(FULL_URL,{headers:HTTP_HEADER_OPTIONS.CLICKSEND_HEADER})
+        return this.httpClient.get<StatisticSMS>(FULL_URL,
+            {headers:HTTP_HEADER_OPTIONS.CLICKSEND_HEADER})
     }
 }
+
+// getHeroes(): Observable<Hero[]> {
+    //   return this.http.get<Hero[]>(this.heroesUrl)
+    //     .pipe(
+    //       tap(_ => this.log('fetched heroes')),
+    //       catchError(this.handleError<Hero[]>('getHeroes', []))
+    //     );
+    // }
