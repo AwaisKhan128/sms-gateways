@@ -2,7 +2,7 @@ import { Observable } from 'rxjs';
 import { HttpClient,HttpParams } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { CreateAcc } from '../Classes/createAcc_';
-import { API_BASE_URLS, CLICKSEND_API_ENDPOINTS } from './CLICKSENDApiEndPoints';
+import { API_BASE_URLS, CLICKSEND_API_ENDPOINTS, CLICKSEND_STATISTICS_TYPE } from './CLICKSENDApiEndPoints';
 
 
 
@@ -35,10 +35,18 @@ export class API_Services{
         return this.httpClient.put('https://rest.clicksend.com/v3/account-verify/verify/'+code,{headers:headers})
     }
     
-    getSMSStatistic(auth: String):Observable<any>
+
+    getClickSendStatistic(auth: String, type: CLICKSEND_STATISTICS_TYPE):Observable<any>
     {
+        let stat_type = ""
+        if (type == 0) {
+            stat_type = CLICKSEND_API_ENDPOINTS.STATISTICS_SMS
+        }
+        else {
+            stat_type = CLICKSEND_API_ENDPOINTS.STATISTICS_MMS
+        }
         const headers = { 'Authorization-Type': 'Basic '+auth };
-        const FULL_URL = API_BASE_URLS.CLICKSEND_BASE_URL+CLICKSEND_API_ENDPOINTS.STATISTICS_SMS
+        const FULL_URL = API_BASE_URLS.CLICKSEND_BASE_URL+stat_type
         return this.httpClient.get(FULL_URL,{headers:headers})
     }
 }

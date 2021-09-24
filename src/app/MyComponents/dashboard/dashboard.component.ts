@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { type } from 'os';
+import { API_Services } from 'src/app/APIS/freeapi.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -7,9 +9,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DashboardComponent implements OnInit {
 
-  constructor() { }
+  constructor(private freeapi :API_Services) {
+
+   }
 
   ngOnInit(): void {
+    
   }
 
 }
