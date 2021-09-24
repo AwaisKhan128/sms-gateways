@@ -1,15 +1,17 @@
 import { Observable } from 'rxjs';
-import { HttpClient,HttpParams } from "@angular/common/http";
+import { HttpClient,HttpHeaders,HttpParams } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { CreateAcc } from '../Classes/createAcc_';
-import { API_BASE_URLS, CLICKSEND_API_ENDPOINTS, CLICKSEND_STATISTICS_TYPE } from './CLICKSENDApiEndPoints';
+import { API_BASE_URLS, CLICKSEND_API_ENDPOINTS, CLICKSEND_STATISTICS_TYPE, HTTP_HEADER_OPTIONS} from './CLICKSENDApiEndPoints';
 
 
 
 @Injectable()
 export class API_Services{
 
-
+    httpOptions = {
+        headers: new HttpHeaders({ 'Authorization': 'Basic ' })
+      };
 
     constructor(private httpClient:HttpClient)
     {
@@ -36,7 +38,7 @@ export class API_Services{
     }
     
 
-    getClickSendStatistic(auth: String, type: CLICKSEND_STATISTICS_TYPE):Observable<any>
+    getClickSendStatistic(type: CLICKSEND_STATISTICS_TYPE):Observable<any>
     {
         let stat_type = ""
         if (type == 0) {
@@ -45,8 +47,7 @@ export class API_Services{
         else {
             stat_type = CLICKSEND_API_ENDPOINTS.STATISTICS_MMS
         }
-        const headers = { 'Authorization-Type': 'Basic '+auth };
         const FULL_URL = API_BASE_URLS.CLICKSEND_BASE_URL+stat_type
-        return this.httpClient.get(FULL_URL,{headers:headers})
+        return this.httpClient.get(FULL_URL,{headers:HTTP_HEADER_OPTIONS.CLICK_SEND_HEADER})
     }
 }

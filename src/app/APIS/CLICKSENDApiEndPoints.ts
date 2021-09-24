@@ -1,5 +1,8 @@
-export enum headers {
-    CLICKSEND_HEADERS = 
+import { HttpHeaders } from "@angular/common/http";
+
+
+export const HTTP_HEADER_OPTIONS = {
+    CLICK_SEND_HEADER: new HttpHeaders({ 'Authorization-Type': 'Basic Z2FkaWc1NDQ5NkB0aW5pbGFsby5jb206RDkyRENERkYtNUI4Ny00QzE0LTA2MUUtMTkyRTUxREM1REUy'}),
 }
 
 
