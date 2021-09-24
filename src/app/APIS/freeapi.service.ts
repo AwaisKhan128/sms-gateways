@@ -2,7 +2,7 @@ import { Observable } from 'rxjs';
 import { HttpClient,HttpHeaders,HttpParams } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { CreateAcc } from '../Classes/createAcc_';
-import { API_BASE_URLS, CLICKSEND_API_ENDPOINTS, CLICKSEND_STATISTICS_TYPE, HTTP_HEADER_OPTIONS} from './CLICKSENDApiEndPoints';
+import { API_BASE_URLS, CLICKSEND_API_ENDPOINTS, CLICKSEND_STATISTICS_TYPE, HTTP_HEADER_OPTIONS} from './APIConfig';
 
 
 
@@ -48,6 +48,6 @@ export class API_Services{
             stat_type = CLICKSEND_API_ENDPOINTS.STATISTICS_MMS
         }
         const FULL_URL = API_BASE_URLS.CLICKSEND_BASE_URL+stat_type
-        return this.httpClient.get(FULL_URL,{headers:HTTP_HEADER_OPTIONS.CLICK_SEND_HEADER})
+        return this.httpClient.get(FULL_URL,{headers:HTTP_HEADER_OPTIONS.CLICKSEND_HEADER})
     }
 }
