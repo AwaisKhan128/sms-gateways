@@ -1,61 +1,82 @@
-<h1>
-  Log in
-</h1>
-<div class="login-block d-flex justify-content-center" >
+<div class="container h-auto p-2">
+  <div class="row align-items-center h-100 p-2">
+      <div class="col-7 mx-auto ">
+        <div class="card h-auto shadow-sm p-3 mb-5 bg-white rounded border-primary justify-content-center">
+              <div class="mb-10 p-2">
+                
+                
+                <h1 class="display-4 ms-5">
+                  Log in
+                </h1>
+                <div class="login-block d-flex justify-content-center" >
+                
+                  <div class="container-fluid ">
+                    <form (ngSubmit)="LogIn()">
+                      <div class="card-block">
+                
+                        <div class="mb-3">
+                          <label for="exampleInputEmail1" class="form-label">User Name</label>
+                          <input type="text" [(ngModel)]="uname" name="uname" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                          
+                        </div>
+                        <div class="mb-3">
+                          <label for="exampleInputPassword1" class="form-label">Password</label>
+                          <input type="password" [(ngModel)]="passcode" name="passcode" class="form-control" id="exampleInputPassword1">
+                        </div>
+                        <div class="mb-3 ">
+                          <p>Not a Member?
+                            <a [routerLink]='["createacc"]' class="link-primary">Click Here </a>
+                          </p>
+                
+                
+                        </div>
+                        <div class="mb-3 ">
+                          <p>Wants to switch to board?
+                            <a [routerLink]='["profile"]' class="link-primary">Profile </a>
+                          </p>
+                
+                        </div>
+                
+                        <div class="mb-3 ">
+                          <p>Wants to switch to Verify?
+                            <a [routerLink]='["verify"]' class="link-primary">Verify </a>
+                          </p>
+                
+                        </div>
+                
+                        <button type="submit" class="btn btn-primary">Login</button>
+                
+                      </div>
+                    </form>
+                
+                    <!-- Google Sign in -->
 
-  <div class="container-fluid ">
-    <form>
-      <div class="card-block">
+                    <div class="row">
+                      <div class="container-fluid ms-3" >
+                        <button  type="button" class="btn btn-light; mb-2">
+                          <img style="padding-left: 30;" src="https://img.icons8.com/color/16/000000/google-logo.png"> Signup Using Google
+                        </button>
+                      </div>
 
-        <div class="mb-3">
-          <label for="exampleInputEmail1" class="form-label">Email address</label>
-          <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-          <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
-        </div>
-        <div class="mb-3">
-          <label for="exampleInputPassword1" class="form-label">Password</label>
-          <input type="password" class="form-control" id="exampleInputPassword1">
-        </div>
-        <div class="mb-3 ">
-          <p>Not a Member?
-            <a [routerLink]='["createacc"]' class="link-primary">Click Here </a>
-          </p>
+                    </div>
+                
+                    <div class="row">
+                      <div class="container-fluid ms-3"  >
+                        <button type="button" class="btn btn-light">
+                          <img  width="30" height="20" src="https://1000logos.net/wp-content/uploads/2021/04/Facebook-logo-768x480.png"> Signup Using Facebook
+                        </button>
+                      </div>
+
+                    </div>
 
 
-        </div>
-        <div class="mb-3 ">
-          <p>Wants to switch to board?
-            <a [routerLink]='["profile"]' class="link-primary">Profile </a>
-          </p>
+                
+                    <!--  -->
+                  </div>
+                </div>
 
-        </div>
-
-        <div class="mb-3 ">
-          <p>Wants to switch to Verify?
-            <a [routerLink]='["verify"]' class="link-primary">Verify </a>
-          </p>
-
-        </div>
-
-        <button type="submit" class="btn btn-primary">Login</button>
-
+              </div>
+          </div>
       </div>
-    </form>
-
-    <!-- Google Sign in -->
-
-    <div class="container" >
-      <button  type="button" class="btn btn-light;mb-40">
-        <img style="padding-left: 30;" src="https://img.icons8.com/color/16/000000/google-logo.png"> Signup Using Google
-      </button>
-    </div>
-
-    <div class="container" style="margin: auto;" >
-      <button type="button" class="btn btn-light">
-        <img  width="30" height="20" src="https://1000logos.net/wp-content/uploads/2021/04/Facebook-logo-768x480.png"> Signup Using Facebook
-      </button>
-    </div>
-
-    <!--  -->
   </div>
 </div>

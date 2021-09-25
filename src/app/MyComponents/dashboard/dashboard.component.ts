@@ -12,7 +12,7 @@ export class DashboardComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    $("#billing").hide();
+    // $("#billing").hide();
   }
 
 }

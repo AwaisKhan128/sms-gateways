@@ -23,6 +23,8 @@ import { VerifyComponent } from './MyComponents/verify/verify.component';
 import { toBase64String } from '@angular/compiler/src/output/source_map';
 import { TopupsComponent } from './MyComponents/topups/topups.component';
 import { BillingComponent } from './MyComponents/billing/billing.component';
+import { AdminComponent } from './MyComponents/admin/admin.component';
+import { ResellersComponent } from './MyComponents/resellers/resellers.component';
 
 
 
@@ -43,7 +45,9 @@ import { BillingComponent } from './MyComponents/billing/billing.component';
     SenderComponent,
     VerifyComponent,
     TopupsComponent,
-    BillingComponent
+    BillingComponent,
+    AdminComponent,
+    ResellersComponent
   ],
   imports: [
     BrowserModule,

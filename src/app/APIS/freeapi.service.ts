@@ -40,4 +40,12 @@ export class API_Services{
         return this.httpClient.put('https://rest.clicksend.com/v3/account-verify/send',body,{headers:headers})
     }
 
+    getLogin(auth:string):Observable<any>
+    {
+        const headers = { 'Authorization': 'Basic '+auth };
+        return this.httpClient.get('https://rest.clicksend.com/v3/account',{headers:headers})
+    }
+
+
+    
 }
