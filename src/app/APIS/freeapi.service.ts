@@ -1,4 +1,4 @@
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { HttpClient,HttpHeaderResponse,HttpParams } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { CreateAcc } from '../Classes/createAcc_';
@@ -52,8 +52,46 @@ export class API_Services{
     sendSMS(param: SendSMSParam):Observable<SendSMSResponse>
     {
         const url= API_BASE_URLS.CLICKSEND_BASE_URL + CLICKSEND_API_ENDPOINTS.SMS_SEND
-        return this.httpClient.post(url, param, {headers:HTTP_HEADER_OPTIONS.CLICKSEND_HEADER})  
+        return this.httpClient.post(url, param, {headers:HTTP_HEADER_OPTIONS.CLICKSEND_HEADER})
+        .pipe(
+            tap((response: SendSMSResponse) => this.log(`Response Status => ${response.response_code} &&
+            Response Message => ${response.response_msg}`)),
+            catchError(this.handleError<SendSMSResponse>('addHero'))
+        );  
     }
  
 
+    /**
+   * Handle Http operation that failed.
+   * Let the app continue.
+   * @param operation - name of the operation that failed
+   * @param result - optional value to return as the observable result
+   */
+  private handleError<T>(operation = 'operation', result?: T) {
+    return (error: any): Observable<T> => {
+
+      // TODO: send the error to remote logging infrastructure
+      console.error(error); // log to console instead
+
+      // TODO: better job of transforming error for user consumption
+      this.log(`${operation} failed: ${error.message}`);
+
+      // Let the app keep running by returning an empty result.
+      return of(result as T);
+    };
+  }
+
+  /** Log a HeroService message with the MessageService */
+  private log(message: string) {
+   
+  }
+
 }
+
+function tap(arg0: (newHero: any) => void): import("rxjs").OperatorFunction<Object, unknown> {
+    throw new Error('Function not implemented.');
+}
+function catchError(arg0: (error: any) => Observable<any>): import("rxjs").OperatorFunction<unknown, SendSMSResponse> {
+    throw new Error('Function not implemented.');
+}
+
