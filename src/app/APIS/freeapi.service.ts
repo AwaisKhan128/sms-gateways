@@ -1,9 +1,10 @@
 import { Observable } from 'rxjs';
-import { HttpClient,HttpParams } from "@angular/common/http";
+import { HttpClient,HttpHeaderResponse,HttpParams } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { CreateAcc } from '../Classes/createAcc_';
 import { send_Code } from '../Classes/Verify_acc';
 import { API_BASE_URLS, CLICKSEND_API_ENDPOINTS, HTTP_HEADER_OPTIONS } from './APIConfig';
+import { SendSMSParam } from '../Classes/sms_param/send_sms_param';
 
 
 
@@ -47,11 +48,11 @@ export class API_Services{
     }
 
 
-    sendSMS():Observable<any>
+    sendSMS(param: SendSMSParam):Observable<any>
     {
         const url= API_BASE_URLS.CLICKSEND_BASE_URL + CLICKSEND_API_ENDPOINTS.SMS_SEND
-        return this.httpClient.post(url, body:  , {headers:headers})  
-          //.get(url,{headers:HTTP_HEADER_OPTIONS.CLICKSEND_HEADER})
+        return this.httpClient.post(url, param, {headers:HTTP_HEADER_OPTIONS.CLICKSEND_HEADER})  
     }
-    
+ 
+
 }
