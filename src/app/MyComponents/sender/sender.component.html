@@ -88,7 +88,7 @@
 
             <div class="mb-3">
               <label for="exampleInputPassword1" class="form-label">To</label>
-              <input type="string" class="form-control" id="exampleInputPassword1" placeholder="+923002933101,+93220113331">
+              <input type="string" class="form-control" id="exampleInputPassword1" placeholder="+923002933101,+93220113331" [(ngModel)]="messageTo" name="messageTo">
             </div>
 
             <div class=" d-flex">
@@ -109,7 +109,7 @@
             <div class="mt-1 mb-2">
               <label for="exampleInputPassword1" class="form-label">Message</label>
 
-              <input type="string" class="form-control" id="message" placeholder="Type your message">
+              <input type="string" class="form-control" id="message" placeholder="Type your message" [(ngModel)]="messageBody" name="messageBody">
 
             </div>
 

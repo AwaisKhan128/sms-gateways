@@ -13,8 +13,8 @@ import { SendSMSResponse } from 'src/app/Classes/SMS/send_sms_response';
 export class SenderComponent implements OnInit {
 
   source: string = "node.js";
-  body: string = "Hello there";
-  to: string = "+61411111111,+61422222222";
+  messageBody: string | undefined;//= "Hello there";
+  messageTo: string =  ""; //"+61411111111,+61422222222";
   custom_string: string = "this is a test";
 
   response: SendSMSResponse | undefined;
@@ -27,12 +27,12 @@ export class SenderComponent implements OnInit {
 
   actionSendSMS() {
     var messagesList : MyMessage[] = [] ;
-    var splitted = this.to.split(","); 
+    var splitted = this.messageTo.split(","); 
     if (splitted.length > 0) {
         splitted.forEach((element) => { 
           const m : MyMessage = {
             source : this.source,
-            body : this.body,
+            body : this.messageBody,
             to : element,
             custom_string : this.custom_string
             //schedule: 1632731133,
