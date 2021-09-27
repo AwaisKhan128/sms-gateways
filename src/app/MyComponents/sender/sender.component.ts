@@ -25,7 +25,8 @@ export class SenderComponent implements OnInit {
       source : "php",
       body : "Hello there",
       to : "{+61411111111}",
-      custom_string : "this is a test"
+      custom_string : "this is a test",
+      schedule: 1632731133,
     };
     const param : SendSMSParam = {messages: [m]};
     this.apiService.sendSMS(param)

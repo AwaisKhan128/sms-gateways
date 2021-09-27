@@ -52,8 +52,7 @@ export class API_Services{
     sendSMS(param: SendSMSParam):Observable<SendSMSResponse>
     {
         const url= API_BASE_URLS.CLICKSEND_BASE_URL + CLICKSEND_API_ENDPOINTS.SMS_SEND
-        return this.httpClient.post(url, param, {headers:HTTP_HEADER_OPTIONS.CLICKSEND_HEADER})
-        
+        return this.httpClient.post(url, param, {headers:HTTP_HEADER_OPTIONS.CLICKSEND_HEADER});  
     }
  
 
@@ -83,11 +82,3 @@ export class API_Services{
   }
 
 }
-
-function tap(arg0: (newHero: any) => void): import("rxjs").OperatorFunction<Object, unknown> {
-    throw new Error('Function not implemented.');
-}
-function catchError(arg0: (error: any) => Observable<any>): import("rxjs").OperatorFunction<unknown, SendSMSResponse> {
-    throw new Error('Function not implemented.');
-}
-

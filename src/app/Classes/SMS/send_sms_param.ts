@@ -13,6 +13,7 @@ export interface MyMessage {
     body?:          string;
     to?:            string;
     custom_string?: string;
+    schedule?:      number;
 }
 
 // Converts JSON strings to/from your types
