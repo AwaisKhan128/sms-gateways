@@ -1,100 +1,92 @@
-<script>
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/9.0.2/firebase-app.js";
-  import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.0.2/firebase-analytics.js";
-  // TODO: Add SDKs for Firebase products that you want to use
-  // https://firebase.google.com/docs/web/setup#available-libraries
+<div class="container h-auto p-2">
+  <div class="row align-items-center h-auto p-2">
+      <div class="col-7 mx-auto ">
+        <div class="card h-auto shadow-sm p-3 mb-5 bg-white rounded justify-content-center">
+              <div class="mb-10 p-2">
+                
+ 
+                <div class="ms-auto">
+                  <h1 class="container-fluid display-4" id="heads">
+                    Create Account
+                  </h1>
+                
+                  <div class="container-fluid p-auto">
+                    <form (ngSubmit)="CreateIt()">
+                
+                      <div class="mb-3">
+                        <label for="uname" class="form-label">Username</label>
+                        <input class="form-control" [(ngModel)]="uname" name="uname" id="uname">
+                      </div>
+                
+                      <div class="mb-3">
+                        <label for="business_name" class="form-label">Business Profile</label>
+                        <input class="form-control" [(ngModel)]="business_name" name="business_name" id="business_name">
+                      </div>
+                
+                      <div class="mb-3">
+                        <label for="fname" class="form-label">First Name</label>
+                        <input class="form-control" [(ngModel)]="fname" name="fname" id="fname">
+                      </div>
+                
+                      <div class="mb-3">
+                        <label for="lname" class="form-label">Last Name</label>
+                        <input class="form-control" [(ngModel)]="lname" name="lname" id="lname">
+                      </div>
+                
+                
+                      <div class="row ">
+                        <div class="col-sm-2 mt-4">
+                
+                          <div class="ms-auto mt-3 ">
+                            <select class="form-select form-select-sm me-auto" id="selects1" aria-label=".form-select-sm example">
+                
+                              <!-- <option  id="options"  selected>Select Country</option> -->
+                              <option *ngFor="let country of contries_data" id="option_value" [value]="country.code">
+                                {{country.value}}
+                              </option>
+                
+                            </select>
+                          </div>
+                          
+                        </div>
+                        <div class="col">
+                
+                          <div class="mb-2">
+                            <label for="number" class="form-label">Phone</label>
+                            <input type="number" class="form-control" placeholder="Without Country Code" [(ngModel)]="number" name="number" id="number">
+                          </div>
+                
+                        </div>
+                      </div>
+                
+                
+                
+                      <div class="mb-3">
+                        <label for="email" class="form-label">Email</label>
+                        <input type="email" class="form-control" [(ngModel)]="email" name="email" id="email"
+                          aria-describedby="emailHelp">
+                        <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+                      </div>
+                      <div class="mb-3">
+                        <label for="email1" class="form-label">Password</label>
+                        <input type="password" class="form-control" [(ngModel)]="email1" name="email1" id="email1"
+                          aria-describedby="emailHelp">
+                
+                      </div>
+                      <div class="mb-3 ">
+                      </div>
+                      <button type="submit" class="btn btn-primary">Create Account</button>
+                    </form>
+                  </div>
+                
+                </div>
 
-  // Your web app's Firebase configuration
-  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-  const firebaseConfig = {
-    apiKey: "AIzaSyApwLqNxrxhOyN7DvuoH-W5SM_f1xzNWyk",
-    authDomain: "sms-gateway-2911d.firebaseapp.com",
-    projectId: "sms-gateway-2911d",
-    storageBucket: "sms-gateway-2911d.appspot.com",
-    messagingSenderId: "220103101311",
-    appId: "1:220103101311:web:db46b49d91cb3ad28aa84a",
-    measurementId: "G-CV1Z2CRDCZ"
-  };
-
-  // Initialize Firebase
-  const app = initializeApp(firebaseConfig);
-  const analytics = getAnalytics(app);
-</script>
-
-<div class="ms-auto">
-  <h1 class="container-fluid" id="heads">
-    Create Account
-  </h1>
-
-  <div class="container-fluid p-auto">
-    <form (ngSubmit)="CreateIt()">
-
-      <div class="mb-3">
-        <label for="uname" class="form-label">Username</label>
-        <input class="form-control" [(ngModel)]="uname" name="uname" id="uname">
-      </div>
-
-      <div class="mb-3">
-        <label for="business_name" class="form-label">Business Profile</label>
-        <input class="form-control" [(ngModel)]="business_name" name="business_name" id="business_name">
-      </div>
-
-      <div class="mb-3">
-        <label for="fname" class="form-label">First Name</label>
-        <input class="form-control" [(ngModel)]="fname" name="fname" id="fname">
-      </div>
-
-      <div class="mb-3">
-        <label for="lname" class="form-label">Last Name</label>
-        <input class="form-control" [(ngModel)]="lname" name="lname" id="lname">
-      </div>
-
-
-      <div class="row ">
-        <div class="col-sm-2 mt-4">
-
-          <div class="ms-auto mt-3 ">
-            <select class="form-select form-select-sm me-auto" id="selects1" aria-label=".form-select-sm example">
-
-              <!-- <option  id="options"  selected>Select Country</option> -->
-              <option *ngFor="let country of contries_data" id="option_value" [value]="country.code">
-                {{country.value}}
-              </option>
-
-            </select>
+              </div>
           </div>
-          
-        </div>
-        <div class="col">
-
-          <div class="mb-2">
-            <label for="number" class="form-label">Phone</label>
-            <input type="number" class="form-control" placeholder="Without Country Code" [(ngModel)]="number" name="number" id="number">
-          </div>
-
-        </div>
       </div>
-
-
-
-      <div class="mb-3">
-        <label for="email" class="form-label">Email</label>
-        <input type="email" class="form-control" [(ngModel)]="email" name="email" id="email"
-          aria-describedby="emailHelp">
-        <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
-      </div>
-      <div class="mb-3">
-        <label for="email1" class="form-label">Password</label>
-        <input type="password" class="form-control" [(ngModel)]="email1" name="email1" id="email1"
-          aria-describedby="emailHelp">
-
-      </div>
-      <div class="mb-3 ">
-      </div>
-      <button type="submit" class="btn btn-primary">Create Account</button>
-    </form>
   </div>
-
 </div>
 
-<!--  -->
+
+
+

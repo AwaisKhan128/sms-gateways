@@ -20,6 +20,12 @@ import { SenderComponent } from './MyComponents/sender/sender.component';
 import {HttpClientModule} from '@angular/common/http';
 import { API_Services } from './APIS/freeapi.service';
 import { VerifyComponent } from './MyComponents/verify/verify.component';
+import { toBase64String } from '@angular/compiler/src/output/source_map';
+import { TopupsComponent } from './MyComponents/topups/topups.component';
+import { BillingComponent } from './MyComponents/billing/billing.component';
+import { AdminComponent } from './MyComponents/admin/admin.component';
+import { ResellersComponent } from './MyComponents/resellers/resellers.component';
+
 
 
 
@@ -37,7 +43,11 @@ import { VerifyComponent } from './MyComponents/verify/verify.component';
     ContactsComponent,
     MessagesComponent,
     SenderComponent,
-    VerifyComponent
+    VerifyComponent,
+    TopupsComponent,
+    BillingComponent,
+    AdminComponent,
+    ResellersComponent
   ],
   imports: [
     BrowserModule,
@@ -45,7 +55,8 @@ import { VerifyComponent } from './MyComponents/verify/verify.component';
     RouterModule,
     FormsModule,
     ProfileRouting,
-    HttpClientModule
+    HttpClientModule,
+    
     
     
   ],

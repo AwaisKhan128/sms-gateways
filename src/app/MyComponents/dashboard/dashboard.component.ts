@@ -1,8 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-//import { log } from 'console';
-// import { type } from 'os';
-import { API_Services } from 'src/app/APIS/freeapi.service';
-import { StatisticSMS } from 'src/app/Classes/StatisticSMS';
+import * as $ from 'jquery';
 
 @Component({
   selector: 'app-dashboard',
@@ -11,19 +8,11 @@ import { StatisticSMS } from 'src/app/Classes/StatisticSMS';
 })
 export class DashboardComponent implements OnInit {
 
-  s_sms: StatisticSMS | undefined;
-
-
-  constructor(private freeapi :API_Services) {
-
-   }
+  window: any["$"] = $; 
+  constructor() { }
 
   ngOnInit(): void {
-      this.freeapi.getClickSendStatistic(0)
-        .subscribe(s_sms => this.s_sms = s_sms)
+    // $("#billing").hide();
   }
 
 }
-
-
-// 

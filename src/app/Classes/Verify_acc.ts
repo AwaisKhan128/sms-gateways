@@ -1,3 +1,11 @@
+export class send_Code{
+    user_phone:any;
+    type:any;
+    country:any
+}
+
+
+
 export class getVerResp
 {
     http_code:string|any;
@@ -15,6 +23,8 @@ export class getVerResp1
     banned:any;
     balance:any;
     user_phone:any;
+
+
     reply_to:any;
     delivery_to:any;
     user_first_name:any;
