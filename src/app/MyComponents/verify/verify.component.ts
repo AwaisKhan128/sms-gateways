@@ -7,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class VerifyComponent implements OnInit {
   code:any;
+  number:any;
 
   constructor() { }
 
@@ -16,6 +17,11 @@ export class VerifyComponent implements OnInit {
   public Verify():void
   {
 
+  }
+
+  public SendOTP():void
+  {
+    
   }
 
 }

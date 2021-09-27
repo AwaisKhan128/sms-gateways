@@ -1,3 +1,4 @@
+import { SharedService } from './../../Classes/shared_services';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -6,10 +7,21 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./profile.component.css']
 })
 export class ProfileComponent implements OnInit {
+  
+  data:string|any;
 
-  constructor() { }
+  constructor(private sharedService:SharedService) { }
 
   ngOnInit(): void {
+
+    let json = localStorage.getItem("user_data");
+    if(json!=null)
+    {
+
+      this.data = JSON.parse(json);
+    }
+
+    console.log(this.data);
   }
   /* Set the width of the side navigation to 250px */
 

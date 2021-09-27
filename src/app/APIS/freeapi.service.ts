@@ -46,6 +46,30 @@ export class API_Services{
         return this.httpClient.get('https://rest.clicksend.com/v3/account',{headers:headers})
     }
 
+    getLoginAuthDB(id:number,table:string):Observable<any>
+    {
+        const header = {'Access-Control-Allow-Origin':'*'};
+        return this.httpClient.get('http://localhost:8000/select/'+id+'/'+table,{headers:header});
+    }
+
+    setUserDetailsDB(id:number,username:string,ip_addr:string,device:string,table:string)
+    {
+        const header = {'Access-Control-Allow-Origin':'*'};
+        return this.httpClient.get('http://localhost:8000/insert/'+
+        table+'?id='+id+'&username='+username+'&ip_addr='+ip_addr+'&device='+device,{headers:header});
+    }
+
+    modifyUserDetailsDB(id:number,ip_addr:string,device:string,table:string)
+    {
+        const header = {'Access-Control-Allow-Origin':'*'};
+        return this.httpClient.get('http://localhost:8000/modify/'+
+        table+'?id='+id+'&ip_addr='+ip_addr+'&device='+device,{headers:header});
+    }
+
+
+
+
+
 
     
 }

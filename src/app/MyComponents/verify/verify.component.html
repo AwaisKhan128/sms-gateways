@@ -8,23 +8,26 @@
                         <h2 class="display-3 d-flex justify-content-center">Type Your Code Here</h2>
                         <p class="lead d-flex justify-content-center">Coder verifier powered by SMS Gateways </p>
 
+                        
+
                         <div class="mt-10">
                             
                             <form (ngSubmit)="Verify()">
                                 <div class="card-block" >
-                          
+
                                   <div class="mb-3">
                                     <label for="otp1" class="form-label">OTP</label>
-                                    <input type="number" [(ngModel)]="code" class="form-control" id="otp1" aria-describedby="emailHelp">
+                                    <input type="number" [(ngModel)]="code" name="code" class="form-control" id="otp1" aria-describedby="emailHelp">
                                   </div>
                                   
                                   
-                                  <button type="submit" class="btn btn-primary">
-                                      Verify</button>
-
+                                      <button type="submit"  class="btn btn-primary d-flex-inline ms-auto">
+                                          Verify</button>
                           
                                 </div>
                               </form>
+
+
                         </div>
                         
                     </div>
