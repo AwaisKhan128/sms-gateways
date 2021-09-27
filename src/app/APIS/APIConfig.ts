@@ -1,11 +1,17 @@
 import { HttpHeaders } from "@angular/common/http";
+import { EncodeDecode } from "../Classes/EncodeDec64";
 
+var username = 'gadig54496@tinilalo.com'
+var password = 'D92DCDFF-5B87-4C14-061E-192E51DC5DE2'
+var encoded = EncodeDecode.b64EncodeUnicode(username+':'+password);
 
 export const HTTP_HEADER_OPTIONS = {
     CLICKSEND_HEADER: new HttpHeaders(
-        { 'Authorization-Type': 'Basic Z2FkaWc1NDQ5NkB0aW5pbGFsby5jb206RDkyRENERkYtNUI4Ny00QzE0LTA2MUUtMTkyRTUxREM1REUy',
-            "Content-Type": "application/json"}
-        ),
+        { 
+            'Authorization':'Basic '+encoded,
+            'Content-Type': 'application/json'
+        }
+    ),
 }
 
 

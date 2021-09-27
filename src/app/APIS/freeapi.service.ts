@@ -53,11 +53,7 @@ export class API_Services{
     {
         const url= API_BASE_URLS.CLICKSEND_BASE_URL + CLICKSEND_API_ENDPOINTS.SMS_SEND
         return this.httpClient.post(url, param, {headers:HTTP_HEADER_OPTIONS.CLICKSEND_HEADER})
-        .pipe(
-            tap((response: SendSMSResponse) => this.log(`Response Status => ${response.response_code} &&
-            Response Message => ${response.response_msg}`)),
-            catchError(this.handleError<SendSMSResponse>('addHero'))
-        );  
+        
     }
  
 

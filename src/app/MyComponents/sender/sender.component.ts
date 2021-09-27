@@ -12,7 +12,7 @@ import { SendSMSResponse } from 'src/app/Classes/SMS/send_sms_response';
 })
 export class SenderComponent implements OnInit {
 
-  response!: SendSMSResponse;
+  response: SendSMSResponse | undefined;
 
 
   constructor(private apiService: API_Services) { }
@@ -29,7 +29,7 @@ export class SenderComponent implements OnInit {
     };
     const param : SendSMSParam = {messages: [m]};
     this.apiService.sendSMS(param)
-    .subscribe(response => this.response = response);
+    .subscribe(response => {this.response = response});
   }
 
 }
