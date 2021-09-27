@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+//import { log } from 'console';
 // import { type } from 'os';
 import { API_Services } from 'src/app/APIS/freeapi.service';
 import { StatisticSMS } from 'src/app/Classes/StatisticSMS';
