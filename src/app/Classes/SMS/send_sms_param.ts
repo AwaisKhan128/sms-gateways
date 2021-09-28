@@ -12,6 +12,7 @@ export interface MyMessage {
     source?:        string;
     body?:          string;
     to?:            string;
+    from?:          string;
     custom_string?: string;
     schedule?:      number;
 }

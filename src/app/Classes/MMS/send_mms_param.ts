@@ -5,11 +5,11 @@
 //   const sendMmsParam = Convert.toSendMmsParam(json);
 
 export interface SendMMSParam {
-    messages?:   Message[];
+    messages?:   MMsMessage[];
     media_file?: string;
 }
 
-export interface Message {
+export interface MMsMessage {
     subject?:       string;
     from?:          string;
     to?:            string;
