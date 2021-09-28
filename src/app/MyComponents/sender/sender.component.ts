@@ -46,4 +46,9 @@ export class SenderComponent implements OnInit {
           .subscribe(response => {this.response = response});
     }
   }
+
+  actionSendMMS() {
+    
+  }
+
 }
