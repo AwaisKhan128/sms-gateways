@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { API_Services } from 'src/app/APIS/freeapi.service';
 import { HistoryResponse, HistoryDatum } from 'src/app/Classes/SMS/sms_history_response';
-import { mergeMap, concatMap, switchMap, map } from 'rxjs/operators';
-import { concat, forkJoin } from 'rxjs';
+import { forkJoin } from 'rxjs';
 import { CLICKSEND_STATISTICS_TYPE } from 'src/app/APIS/APIConfig';
 
 
@@ -27,14 +26,16 @@ export class MessagesComponent implements OnInit {
         response => {
           const smsArray =  response.data?.data
           this.sms_history_array = smsArray as HistoryDatum[]
+          this.sms_history_array.map(e=> e.message_type = "SMS")
         }
       );
     }
     else if(history_type == 1){
       this.apiService.getMMSHistory().subscribe(
         response => {
-          const mmsArray =  response.data?.data
+          const mmsArray =  response.data?.data//?.map(i => i.message_type = "mms")
           this.sms_history_array = mmsArray as HistoryDatum[]
+          this.sms_history_array.map(e=> e.message_type = "MMS")
         }
       )
     }
@@ -42,10 +43,16 @@ export class MessagesComponent implements OnInit {
       const call_sms_api = this.apiService.getSMSHisory(1632817220, 1632903620)
       const call_mms_api = this.apiService.getMMSHistory()
       forkJoin([call_sms_api,call_mms_api]).subscribe( responses =>{
-        const smsArray =  responses[0].data?.data  as HistoryDatum[]
-        const mmsArray =  responses[1].data?.data  as HistoryDatum[]
-        smsArray.map(sms => this.sms_history_array.push(sms))
-        mmsArray.map(mms => this.sms_history_array.push(mms))
+        var smsArray =  responses[0].data?.data  as HistoryDatum[]
+        var mmsArray =  responses[1].data?.data  as HistoryDatum[]
+        smsArray.map(sms => {
+          sms.message_type = "SMS"
+          this.sms_history_array.push(sms)
+        })
+        mmsArray.map(mms => {
+          mms.message_type = "MMS"
+          this.sms_history_array.push(mms)
+        })
       })
     }
   }

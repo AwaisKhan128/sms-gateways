@@ -53,6 +53,7 @@ export interface HistoryDatum {
     _media_file_url?: string;
     subject?:         string;
     priority?:        number;
+    message_type?:    string;
 }
 
 export enum APIUsername {
