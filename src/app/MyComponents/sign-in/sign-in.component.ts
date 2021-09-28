@@ -8,9 +8,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 
 
-
-
-
 @Component({
   selector: 'app-sign-in',
   templateUrl: './sign-in.component.html',
@@ -58,18 +55,12 @@ export class SignInComponent implements OnInit {
         this.getAccDetails1 = data.data;
         this.getAccCurrency = data._currency;
         this.getsubAcc = data._subaccount;
+        // this.router.navigate(['profile/dashboard'], { queryParams: { order: this.getAccDetails1.user_id } });
+  
 
-
-        
       }
     )
     
-
-
-
-    
-
-
   }
 
 }
