@@ -43,7 +43,9 @@ export class API_Services{
     getLogin(auth:string):Observable<any>
     {
         const headers = { 'Authorization': 'Basic '+auth };
-        return this.httpClient.get('https://rest.clicksend.com/v3/account',{headers:headers})
+        return this.httpClient.get('https://rest.clicksend.com/v3/account',{headers:headers})4
+
+        
     }
 
 
