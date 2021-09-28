@@ -4,7 +4,7 @@
 //
 //   const sendMmsParam = Convert.toSendMmsParam(json);
 
-export interface SendMmsParam {
+export interface SendMMSParam {
     messages?:   Message[];
     media_file?: string;
 }
@@ -20,11 +20,11 @@ export interface Message {
 
 // Converts JSON strings to/from your types
 export class Convert {
-    public static toSendMmsParam(json: string): SendMmsParam {
+    public static toSendMmsParam(json: string): SendMMSParam {
         return JSON.parse(json);
     }
 
-    public static sendMmsParamToJson(value: SendMmsParam): string {
+    public static sendMmsParamToJson(value: SendMMSParam): string {
         return JSON.stringify(value);
     }
 }

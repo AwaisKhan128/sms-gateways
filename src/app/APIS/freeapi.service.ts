@@ -5,7 +5,8 @@ import { CreateAcc } from '../Classes/createAcc_';
 import { send_Code } from '../Classes/Verify_acc';
 import { API_BASE_URLS, CLICKSEND_API_ENDPOINTS, HTTP_HEADER_OPTIONS } from './APIConfig';
 import { SendSMSParam } from '../Classes/SMS/send_sms_param';
-import { SendSMSResponse } from '../Classes/SMS/send_sms_response';
+import { SendResponse } from '../Classes/SMS/send_sms_response';
+import { SendMMSParam } from '../Classes/MMS/send_mms_param';
 
 
 
@@ -49,12 +50,20 @@ export class API_Services{
     }
 
 
-    sendSMS(param: SendSMSParam):Observable<SendSMSResponse>
+    sendSMS(param: SendSMSParam):Observable<SendResponse>
     {
         const url= API_BASE_URLS.CLICKSEND_BASE_URL + CLICKSEND_API_ENDPOINTS.SMS_SEND
         return this.httpClient.post(url, param, {headers:HTTP_HEADER_OPTIONS.CLICKSEND_HEADER});  
     }
  
+
+    sendMMS(param: SendMMSParam):Observable<SendResponse>
+    {
+        const url= API_BASE_URLS.CLICKSEND_BASE_URL + CLICKSEND_API_ENDPOINTS.MMS_SEND
+        return this.httpClient.post(url, param, {headers:HTTP_HEADER_OPTIONS.CLICKSEND_HEADER});  
+    }
+
+
 
     /**
    * Handle Http operation that failed.

@@ -1,8 +1,3 @@
-// To parse this data:
-//
-//   import { Convert, SendResponse } from "./file";
-//
-//   const sendResponse = Convert.toSendResponse(json);
 
 export interface SendResponse {
     http_code?:     number;
