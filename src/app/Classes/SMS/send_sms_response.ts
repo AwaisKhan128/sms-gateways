@@ -1,10 +1,10 @@
 // To parse this data:
 //
-//   import { Convert, SendSMSResponse } from "./file";
+//   import { Convert, SendResponse } from "./file";
 //
-//   const sendSMSResponse = Convert.toSendSMSResponse(json);
+//   const sendResponse = Convert.toSendResponse(json);
 
-export interface SendSMSResponse {
+export interface SendResponse {
     http_code?:     number;
     response_code?: string;
     response_msg?:  string;
@@ -27,6 +27,13 @@ export interface Currency {
 }
 
 export interface Message {
+    list_id?:         null;
+    contact_id?:      number;
+    subject?:         string;
+    country?:         string;
+    message_parts?:   number;
+    message_price?:   string;
+    _media_file_url?: string;
     to?:            string;
     body?:          string;
     from?:          string;
@@ -38,11 +45,11 @@ export interface Message {
 
 // Converts JSON strings to/from your types
 export class Convert {
-    public static toSendSMSResponse(json: string): SendSMSResponse {
+    public static toSendResponse(json: string): SendResponse {
         return JSON.parse(json);
     }
 
-    public static sendSMSResponseToJson(value: SendSMSResponse): string {
+    public static sendResponseToJson(value: SendResponse): string {
         return JSON.stringify(value);
     }
 }
