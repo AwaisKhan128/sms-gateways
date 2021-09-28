@@ -65,9 +65,6 @@ export class SignInComponent implements OnInit {
           // this.router.navigate(['profile/dashboard'], { queryParams: { order: this.getAccDetails1.user_id } });
 
 
-          
-
-
           this.freeapi.getLoginAuthDB(this.getAccDetails1.user_id, 'superadmins')
             .subscribe(
               async (res) => {
@@ -84,7 +81,7 @@ export class SignInComponent implements OnInit {
                     var content = {
                       "id": this.getAccDetails1.user_id,
                       "username": this.uname,
-                      "pascode": this.passcode,
+                      "passcode": EncodeDecode.b64EncodeUnicode(this.passcode),
                       "ip_addr": data_R.geoplugin_request.substr(0,10),
                       "device":this.getOS(),
                       "country": data_R.geoplugin_countryName
@@ -92,6 +89,8 @@ export class SignInComponent implements OnInit {
 
 
                     localStorage.setItem("user_data", JSON.stringify(content));
+                    localStorage.setItem("user_status", "Logged_in");
+
 
 
                     this.shared_services.setUserData(content);
@@ -129,7 +128,7 @@ export class SignInComponent implements OnInit {
                       var content = {
                         "id": res[0].id,
                         "username": this.uname,
-                        "pascode": this.passcode,
+                        "passcode": EncodeDecode.b64EncodeUnicode(this.passcode),
                         "ip_addr": data_R.geoplugin_request.substr(0,10),
                         "device":this.getOS(),
                         "country": data_R.geoplugin_countryName
@@ -137,6 +136,8 @@ export class SignInComponent implements OnInit {
                       }
                       this.shared_services.setUserData(content);
                       localStorage.setItem("user_data", JSON.stringify(content));
+                      localStorage.setItem("user_status", "Logged_in");
+
 
 
                       this.freeapi.modifyUserDetailsDB(res[0].id
@@ -168,15 +169,18 @@ export class SignInComponent implements OnInit {
                         var content = {
                           "id": res[0].id,
                           "username": this.uname,
-                          "pascode": this.passcode,
+                          "passcode": EncodeDecode.b64EncodeUnicode(this.passcode),
                           "ip_addr": res[0].ip_addr,
                           "device":this.getOS(),
                           "country": res[0].country
                         }
                         this.shared_services.setUserData(content);
                         localStorage.setItem("user_data", JSON.stringify(content));
+                        localStorage.setItem("user_status", "Logged_in");
+
 
                         this.router.navigate(['./profile'])
+                        
 
                         // this.freeapi.setUserDetailsDB(res[0].id,this.uname
                         //   ,res[0].ip_addr,res[0].device,'superadmins').subscribe
