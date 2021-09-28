@@ -26,7 +26,7 @@ export class SignInComponent implements OnInit {
   array:any;
 
 
-  
+
 
   getAccDetails11: getAccDetails1[] |any;
   getdb_signinresp : getSignin_responseDBforSuper[]|any;
@@ -183,6 +183,8 @@ export class SignInComponent implements OnInit {
                       localStorage.setItem("user_data", JSON.stringify(content));
 
                       this.router.navigate(['./profile'])
+
+                      
     
                       // this.freeapi.setUserDetailsDB(res[0].id,this.uname
                       //   ,res[0].ip_addr,res[0].device,'superadmins').subscribe
