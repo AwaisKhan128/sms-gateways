@@ -31,5 +31,6 @@ export enum CLICKSEND_API_ENDPOINTS {
 
 export enum CLICKSEND_STATISTICS_TYPE {
     sms = 0,
-    mms = 1
+    mms = 1,
+    all = 2
 }

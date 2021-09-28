@@ -7,7 +7,7 @@ import { API_BASE_URLS, CLICKSEND_API_ENDPOINTS, HTTP_HEADER_OPTIONS } from './A
 import { SendSMSParam } from '../Classes/SMS/send_sms_param';
 import { SendResponse } from '../Classes/SMS/send_sms_response';
 import { SendMMSParam } from '../Classes/MMS/send_mms_param';
-import { SMSHistoryResponse } from '../Classes/SMS/sms_history_response';
+import { HistoryResponse } from '../Classes/SMS/sms_history_response';
 
 
 
@@ -64,7 +64,7 @@ export class API_Services{
         return this.httpClient.post(url, param, {headers:HTTP_HEADER_OPTIONS.CLICKSEND_HEADER});  
     }
 
-    getSMSHisory(date_from?: number | undefined, date_to?: number | undefined):Observable<SMSHistoryResponse>
+    getSMSHisory(date_from?: number | undefined, date_to?: number | undefined):Observable<HistoryResponse>
     {
         var url= API_BASE_URLS.CLICKSEND_BASE_URL + CLICKSEND_API_ENDPOINTS.SMS_HISTORY
         if (date_from !== undefined && date_to !== undefined) {
@@ -79,7 +79,7 @@ export class API_Services{
         return this.httpClient.get(url, {headers: HTTP_HEADER_OPTIONS.CLICKSEND_HEADER})
     }
 
-    getMMSHistory() {
+    getMMSHistory():Observable<HistoryResponse> {
         const url= API_BASE_URLS.CLICKSEND_BASE_URL + CLICKSEND_API_ENDPOINTS.MMS_HISTORY
         return this.httpClient.get(url,{headers: HTTP_HEADER_OPTIONS.CLICKSEND_HEADER})
     }

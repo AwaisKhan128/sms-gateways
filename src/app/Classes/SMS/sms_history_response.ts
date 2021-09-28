@@ -4,7 +4,7 @@
 //
 //   const sMSHistoryResponse = Convert.toSMSHistoryResponse(json);
 
-export interface SMSHistoryResponse {
+export interface HistoryResponse {
     http_code?:     number;
     response_code?: string;
     response_msg?:  string;
@@ -20,10 +20,10 @@ export interface Data {
     prev_page_url?: null;
     from?:          number;
     to?:            number;
-    data?:          SMSHistoryDatum[];
+    data?:          HistoryDatum[];
 }
 
-export interface SMSHistoryDatum {
+export interface HistoryDatum {
     direction?:     Direction;
     date?:          number;
     to?:            string;
@@ -77,11 +77,11 @@ export enum Status {
 
 // Converts JSON strings to/from your types
 export class Convert {
-    public static toSMSHistoryResponse(json: string): SMSHistoryResponse {
+    public static toSMSHistoryResponse(json: string): HistoryResponse {
         return JSON.parse(json);
     }
 
-    public static sMSHistoryResponseToJson(value: SMSHistoryResponse): string {
+    public static sMSHistoryResponseToJson(value: HistoryResponse): string {
         return JSON.stringify(value);
     }
 }
