@@ -53,13 +53,15 @@ export class DashboardComponent implements OnInit {
     .subscribe(
       res=>
       {
+
+        console.log(res);
           this.getAccDetails = res;
           this.getAccDetails1 = res.data;
           this.getAccCurrency = res._currency;
           this.getsubAcc = res._subaccount;
 
           // ---------------------Populating items-------------------
-          
+
 
       },
       err=>
