@@ -49,6 +49,10 @@ export interface SMSHistoryDatum {
     first_name?:    null;
     last_name?:     null;
     _api_username?: APIUsername;
+    date_added?:      number;
+    _media_file_url?: string;
+    subject?:         string;
+    priority?:        number;
 }
 
 export enum APIUsername {
