@@ -1,5 +1,5 @@
 import { Observable, of } from 'rxjs';
-import { HttpClient,HttpHeaderResponse,HttpParams } from "@angular/common/http";
+import { HttpClient,HttpHeaderResponse,HttpHeaders,HttpParams } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { CreateAcc } from '../Classes/createAcc_';
 import { send_Code } from '../Classes/Verify_acc';
@@ -7,6 +7,7 @@ import { API_BASE_URLS, CLICKSEND_API_ENDPOINTS, HTTP_HEADER_OPTIONS } from './A
 import { SendSMSParam } from '../Classes/SMS/send_sms_param';
 import { SendResponse } from '../Classes/SMS/send_sms_response';
 import { SendMMSParam } from '../Classes/MMS/send_mms_param';
+import { SMSHistoryResponse } from '../Classes/SMS/sms_history_response';
 
 
 
@@ -62,6 +63,27 @@ export class API_Services{
         const url= API_BASE_URLS.CLICKSEND_BASE_URL + CLICKSEND_API_ENDPOINTS.MMS_SEND
         return this.httpClient.post(url, param, {headers:HTTP_HEADER_OPTIONS.CLICKSEND_HEADER});  
     }
+
+    getSMSHisory(date_from?: number | undefined, date_to?: number | undefined):Observable<SMSHistoryResponse>
+    {
+        var url= API_BASE_URLS.CLICKSEND_BASE_URL + CLICKSEND_API_ENDPOINTS.SMS_HISTORY
+        if (date_from !== undefined && date_to !== undefined) {
+            url += "?date_from="+date_from+"&date_to="+date_to
+        }
+        else if (date_from !== undefined) {
+            url += "?date_from="+date_from
+        }
+        else if (date_to !== undefined) {
+            url += "?date_to="+date_to
+        }
+        return this.httpClient.get(url, {headers: HTTP_HEADER_OPTIONS.CLICKSEND_HEADER})
+    }
+
+    getMMSHistory() {
+        const url= API_BASE_URLS.CLICKSEND_BASE_URL + CLICKSEND_API_ENDPOINTS.MMS_HISTORY
+        return this.httpClient.get(url,{headers: HTTP_HEADER_OPTIONS.CLICKSEND_HEADER})
+    }
+
 
 
 
