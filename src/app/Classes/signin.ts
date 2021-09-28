@@ -67,3 +67,13 @@ export class getsubAcc
     share_campaigns: any;
     notes: any;
 }
+
+
+export class getSignin_responseDBforSuper
+{
+    id:any;
+    username:any;
+    ip_addr:any;
+    device:any;
+
+}

@@ -25,6 +25,7 @@ import { TopupsComponent } from './MyComponents/topups/topups.component';
 import { BillingComponent } from './MyComponents/billing/billing.component';
 import { AdminComponent } from './MyComponents/admin/admin.component';
 import { ResellersComponent } from './MyComponents/resellers/resellers.component';
+import { SharedService } from './Classes/shared_services';
 
 
 
@@ -61,7 +62,8 @@ import { ResellersComponent } from './MyComponents/resellers/resellers.component
     
   ],
   providers: [
-  API_Services
+  API_Services,
+  SharedService
   ],
   bootstrap: [AppComponent]
 })
