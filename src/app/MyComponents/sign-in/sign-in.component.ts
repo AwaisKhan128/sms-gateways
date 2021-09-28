@@ -25,6 +25,9 @@ export class SignInComponent implements OnInit {
   getAccDetails1:any;
   array:any;
 
+
+  
+
   getAccDetails11: getAccDetails1[] |any;
   getdb_signinresp : getSignin_responseDBforSuper[]|any;
 
