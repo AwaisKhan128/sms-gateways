@@ -7,6 +7,7 @@ import * as $ from 'jquery';
 import { getAccDetails, getAccDetails1, getAccCurrency, getsubAcc, getSignin_responseDBforSuper } from 'src/app/Classes/signin';
 import { ActivatedRoute, Router } from '@angular/router';
 import { empty } from 'rxjs';
+import { forget_password, forget_username, forget_username_resp } from 'src/app/Classes/forgets';
 
 
 
@@ -24,6 +25,7 @@ export class SignInComponent implements OnInit {
   getAccDetails: any;
   getAccDetails1: any;
   array: any;
+  i:number|any;
 
 
   getAccDetails11: getAccDetails1[] | any;
@@ -34,12 +36,14 @@ export class SignInComponent implements OnInit {
 
 
   window: any["$"] = $;
+  forget_username_resp: forget_username_resp|any;
 
 
   constructor(private freeapi: API_Services, private ActivatedRoute: ActivatedRoute
     , private router: Router, private shared_services: SharedService) { }
 
   ngOnInit(): void {
+    this.i=0;
   }
 
   public LogIn() {
@@ -273,6 +277,100 @@ export class SignInComponent implements OnInit {
     }
   
     return os;
+  }
+
+
+  public forget_chk(id:string )
+  {
+
+    // console.log(id);
+    {
+
+      switch (id){
+        case 'forget_user':
+          if (this.i>0 )
+          {
+            let val =  $('#uname').val();
+            if(val!='')
+            {
+     
+             var users = new forget_username();
+       
+           {
+             users.email = val;
+             users.phone_number = '';
+             this.freeapi.Send_forget_notify(users)
+               .subscribe(
+                 res => {
+                   console.log(res);
+                   this.forget_username_resp = res;
+                   alert(this.forget_username_resp.response_msg );
+                   $('#uname').val('');
+                   $('#uname').attr("placeholder","Username");
+                   this.i=0;
+   
+   
+                 },
+                 err => {
+                   alert("Error found");
+                   $('#uname').val('');
+                   // $('#uname').attr("placeholder","Username");
+                   // this.i = 0;
+                 }
+               )
+       
+           }
+            }
+            this.i=0;
+          }
+          else{
+            $('#uname').attr("placeholder","Type your Email!");
+            this.i++;
+          }
+         break;
+        
+        case 'forget_pass':
+          var sd = $('#uname').attr('placeholder')
+          if( sd='Username' )
+          {
+            if($("#uname").val()!='')
+            {
+              var a = $("#uname").val()
+              var forgets = new forget_password();
+              forgets.user_name = a;
+              // console.log(a);
+
+              this.freeapi.Send_forget_passcode(forgets)
+              .subscribe(
+                res=>
+                {
+                  this.forget_username_resp = res;
+                  $("#uname").val('');
+                  alert(this.forget_username_resp.response_msg);
+                },
+                err=>
+                {
+                  alert("Error: "+err);
+                }
+              )
+            }
+            else{
+              $('#uname').attr('placeholder','Username');
+              alert('Type your Username')
+
+            }
+          }
+          else{
+            $('#uname').attr('placeholder','Username');
+            alert("Type your Username!")
+          }
+          break;
+      }
+    }
+
+
+
+
   }
 
 }

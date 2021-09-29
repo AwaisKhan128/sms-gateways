@@ -67,6 +67,19 @@ export class API_Services{
         table+'?id='+id+'&ip_addr='+ip_addr+'&device='+device+'&country='+country,{headers:header});
     }
 
+    Send_forget_notify(body:any)
+    {
+        const header = { 'Content-Type': 'application/json' };
+        return this.httpClient.put('https://rest.clicksend.com/v3/forgot-username',body,{headers:header})
+    }
+
+    Send_forget_passcode(body:any)
+    {
+        const header = { 'Content-Type': 'application/json' };
+        return this.httpClient.put('https://rest.clicksend.com/v3/forgot-password',body,{headers:header})
+    }
+
+
 
 
 
