@@ -1,6 +1,5 @@
 export class transaction_resp
 {
-   
     http_code: any;
     response_code: any;
     response_msg: any;
