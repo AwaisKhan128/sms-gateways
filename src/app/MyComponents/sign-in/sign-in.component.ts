@@ -44,6 +44,8 @@ export class SignInComponent implements OnInit {
 
   ngOnInit(): void {
     this.i=0;
+
+    // console.log(EncodeDecode.b64EncodeUnicode('awais.khan128@yahoo.com'+":"+'Myyahooacc#1'));
   }
 
   public LogIn() {

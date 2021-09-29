@@ -30,14 +30,14 @@ export class BillingContactComponent implements OnInit {
       let username = this.data.username;
       let password = EncodeDecode.b64DecodeUnicode( this.data.passcode);
       var auths = EncodeDecode.b64EncodeUnicode(username+":"+password);
-      // console.log (EncodeDecode.b64EncodeUnicode(this.data.id));
+      
+      console.log((auths));
 
       this.freeApi.getLogin(auths)
       .subscribe(
         res=>{
           this.getAccDetails = res;
           this.getAccDetails1 = res.data;
-
 
           $("#title").text(this.getAccDetails1.account_name);
           $("#email").text(this.getAccDetails1.account_billing_email);
