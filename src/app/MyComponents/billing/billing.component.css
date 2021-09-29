@@ -19,7 +19,7 @@
   
   /* Active/current link */
   .sidebar a.active {
-    background-color: #04AA6D;
+    background-color: #00a8db;
     color: white;
   }
   
@@ -40,7 +40,7 @@
   @media screen and (max-width: 700px) {
     .sidebar {
       width: 100%;
-      height: auto;
+      height: 50%;
       position: relative;
     }
     .sidebar a {float: left;}
