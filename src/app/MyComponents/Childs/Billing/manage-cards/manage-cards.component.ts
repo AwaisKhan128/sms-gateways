@@ -7,9 +7,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ManageCardsComponent implements OnInit {
 
+  number:any;
+  cvc:any;
+  name:any;
+  date:any;
+  b_name:any;
+  
+
   constructor() { }
 
   ngOnInit(): void {
+  }
+  public receive_card_details()
+  {
+
   }
 
 }

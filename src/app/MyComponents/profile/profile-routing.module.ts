@@ -41,32 +41,7 @@ const routes: Routes = [
   // { path : 'profile/topup', component : TopupsComponent},
   { path : 'profile/billing/topup', redirectTo:'profile/topup' },
 
-  // { path : 'profile/billing', component : BillingComponent,
-  // children: [
-  //   {
-  //     path: 'billingcontact', // child route path
-  //     component: BillingContactComponent, // child route component that the router renders
-  //   },
-        
-  //   {
-  //     path: 'transaction',
-  //     component: TransactionsComponent, // another child route component that the router renders
-  //   },
-
-  //   {
-  //     path: 'manage_cards',
-  //     component: ManageCardsComponent, // another child route component that the router renders
-  //   },
-
-  //   {
-  //     path: 'usage',
-  //     component: UsageComponent, // another child route component that the router renders
-  //   }
-
-  // ]
-  // },
   
-  // { path : 'profile/Reseller', component : ResellersComponent},
   { path : 'profile/billing/Reseller', redirectTo:'profile/Reseller' },
 
   // { path : 'profile/admin', component : AdminComponent},
