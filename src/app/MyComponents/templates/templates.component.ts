@@ -59,7 +59,7 @@ export class TemplatesComponent implements OnInit {
             });
 
             // console.log(this.template_list.length);
-            if (this.template_list.length==0) {
+            if (this.template_list.length==0 ) {
               $('#delete_it').prop('disabled', true);
             }
             else {
