@@ -20,3 +20,17 @@ export class transaction_resp_data1
     currency:any
     date:any;
 }
+
+// ------------Manage Card details----------------
+
+export class get_card_details{
+    http_code: any;
+    response_code: any;
+    response_msg: any;
+}
+export class get_card_details1{
+    display_number: any;
+    expiry_month: any;
+    expiry_year: any;
+    name: any;
+}
