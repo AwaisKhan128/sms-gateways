@@ -17,7 +17,7 @@ export class MessagesComponent implements OnInit {
   constructor(private apiService: API_Services) { }
 
   ngOnInit(): void {
-    this.actionFetchHistory()
+    this.actionFetchHistory(0)
   }
 
   actionFetchHistory(history_type : CLICKSEND_STATISTICS_TYPE = 2) {
