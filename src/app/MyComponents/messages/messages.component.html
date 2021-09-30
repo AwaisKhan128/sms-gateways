@@ -116,11 +116,60 @@
 </div>
 
 
-  
-
 
   </div>
 
-  <div class="card mt-2 w-auto h-auto" >
-  
+  <div class="card mt-2 w-auto h-auto" *ngIf="sms_history_array.length">
+    <table>
+      <tr>
+        <th>
+          From
+        </th>
+        <th>
+          To
+        </th>
+        <th>
+          Date
+        </th>
+        <th>
+          Type
+        </th>
+        <th>
+          Body
+        </th>
+        <th>
+          Status
+        </th>
+        <th>
+          Action
+        </th>
+      </tr>
+      <tr *ngFor="let sms of sms_history_array">
+        <td>
+          {{sms.from}}
+        </td>
+        <td>
+         {{sms.to}}
+        </td>
+        <td>
+          {{sms.date}}
+        </td>
+        <td>
+          {{sms.message_type}}
+        </td>
+        <td>
+          {{sms.body}}
+        </td>
+        <td>
+          {{sms.status}}
+        </td>
+        <td>
+          <a >View Details</a>
+        </td>
+      </tr>
+    </table>
   </div>
+  <div *ngIf = "sms_history_array.length==0">
+    <p>No Records Found</p>
+  </div>
+  
