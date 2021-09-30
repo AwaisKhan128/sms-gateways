@@ -1,0 +1,171 @@
+
+<div class="container h-auto w-auto p-2">
+    <div class="row align-items-center h-100 p-2">
+        <div class="col-12 mx-auto ">
+          <div class="card h-auto  shadow-sm p-3 mb-5 bg-white rounded border-primary justify-content-center">
+            <h1 >
+              Add Card
+
+              <form (ngSubmit) = "receive_card_details()">
+                <div class="container-fluid mt-2">
+                  <div class="row">
+                    <div class="col-5">
+                      <div class="container d-flex-inline">
+                        <label for="number" class="form-label">Enter Card Number.</label>
+                        <input type="number" [(ngModel)]=number id="number" placeholder="Card Number"  name="number" class="form-control">
+                      </div>
+                    </div>
+  
+                    <div class="col-5">
+                      <div class="container d-flex-inline">
+                        <label for="cvc" class="form-label">Enter Card CVC.</label>
+                        <input type="number" id="cvc" [(ngModel)]=cvc placeholder="Card CVC"  name="cvc" class="form-control">
+                      </div>
+                    </div>
+  
+                  </div>
+  
+                  <div class="row mt-2">
+                    <div class="col-5">
+                      <div class="container d-flex-inline">
+                        <label for="name" class="form-label">Enter Full Name on Card.</label>
+                        <input type="text" id="name" [(ngModel)]=name placeholder="Full Name"  name="name" class="form-control">
+                      </div>
+                    </div>
+  
+                    <div class="col-5">
+                      <div class="container d-flex-inline">
+                        <label for="date" class="form-label">Expiration date</label>
+                        <input  id="date" placeholder="Expiration date" [(ngModel)]=date  name="date" class="form-control">
+                      </div>
+                    </div>
+  
+                  </div>
+  
+                  <div class="row mt-2">
+                    <div class="col-8">
+                      <div class="container d-flex-inline">
+                        <label for="bank" class="form-label">Bank Name</label>
+                        <input type="text" id="bank" [(ngModel)]=b_name placeholder="Bank Name"  name="bank" class="form-control">
+                      </div>
+                    </div>
+  
+                  </div>
+  
+                  <div class="row mt-2">
+                    <div class="col-8">
+                      <div class="container d-flex-inline">
+                        <button type="submit" class="btn btn-primary">
+                          Add Card
+                        </button>
+                      </div>
+                    </div>
+  
+                  </div>
+  
+                </div>
+              </form>
+
+            </h1>
+
+            </div>
+
+            <div class="card h-auto shadow-sm p-3 mb-5 bg-white rounded border-primary justify-content-center">
+
+              <div class="d-flex">
+
+                <div class="d-flex">
+                  <h3 class="ms-1 mt-2">
+                    Show
+                  </h3>
+                  <select class="form-select form-select-sm mb-1 ms-1 me-1" aria-label=".form-select-sm example">
+                    <option selected>15</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                  </select>
+            
+                  <h4 class="me-2 mt-2 ">
+                    entries 
+                  </h4>
+            
+            
+            
+                </div>
+            
+                <div class="ms-auto">
+            
+                  <div class="d-flex ms-auto"> 
+                    <label for="exampleDataList" class="form-label mt-2">Search</label>
+                    <input class="form-control" list="datalistOptions" id="exampleDataList" placeholder="Type to search...">
+                    <datalist id="datalistOptions">
+                      <option value="San Francisco">
+                      <option value="New York">
+                      <option value="Seattle">
+                      <option value="Los Angeles">
+                      <option value="Chicago">
+                    </datalist>
+                  </div>
+            
+                </div>
+            
+              </div>
+
+            <div class="card mt-1 w-auto h-auto">
+                <table>
+                  <tr>
+                    <th>
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" >
+                        <label class="form-check-label" for="flexCheckDefault">
+                        </label>
+                      </div>
+                    </th>
+              
+                    <th>
+                     Name
+                    </th>
+              
+                    <th>
+                      Card Number
+                    </th>
+
+                    <th>
+                      Card CVC
+                    </th>
+
+                    <th>
+                      Card Bank
+                    </th>
+
+                    <th>
+                      Expires on
+                    </th>
+
+                  </tr>
+              
+                  <tr>
+                    <td>
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" checked>
+                        <label class="form-check-label" for="flexCheckDefault">
+                        </label>
+                      </div>
+                    </td>
+              
+                    <td>
+                      Awais
+                    </td>
+              
+                    <td>
+                      Hi! there. There are two onces
+                    </td>
+              
+              
+                  </tr>
+                </table>
+              </div>
+            </div>
+        </div>
+    </div>
+  </div>

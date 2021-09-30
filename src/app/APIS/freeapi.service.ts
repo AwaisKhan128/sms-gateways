@@ -53,19 +53,32 @@ export class API_Services{
         return this.httpClient.get('http://localhost:8000/select/'+id+'/'+table,{headers:header});
     }
 
-    setUserDetailsDB(id:number,username:string,ip_addr:string,device:string,table:string)
+    setUserDetailsDB(id:number,username:string,ip_addr:string,device:any,country:string,table:string)
     {
         const header = {'Access-Control-Allow-Origin':'*'};
-        return this.httpClient.get('http://localhost:8000/insert/'+
-        table+'?id='+id+'&username='+username+'&ip_addr='+ip_addr+'&device='+device,{headers:header});
+        return this.httpClient.post('http://localhost:8000/insert/'+
+        table+'?id='+id+'&username='+username+'&ip_addr='+ip_addr+'&device='+device+'&country='+country,{headers:header});
     }
 
-    modifyUserDetailsDB(id:number,ip_addr:string,device:string,table:string)
+    modifyUserDetailsDB(id:number,ip_addr:string,device:any,country:string,table:string)
     {
         const header = {'Access-Control-Allow-Origin':'*'};
-        return this.httpClient.get('http://localhost:8000/modify/'+
-        table+'?id='+id+'&ip_addr='+ip_addr+'&device='+device,{headers:header});
+        return this.httpClient.put('http://localhost:8000/modify/'+
+        table+'?id='+id+'&ip_addr='+ip_addr+'&device='+device+'&country='+country,{headers:header});
     }
+
+    Send_forget_notify(body:any)
+    {
+        const header = { 'Content-Type': 'application/json' };
+        return this.httpClient.put('https://rest.clicksend.com/v3/forgot-username',body,{headers:header})
+    }
+
+    Send_forget_passcode(body:any)
+    {
+        const header = { 'Content-Type': 'application/json' };
+        return this.httpClient.put('https://rest.clicksend.com/v3/forgot-password',body,{headers:header})
+    }
+
 
 
 

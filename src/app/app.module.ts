@@ -26,6 +26,10 @@ import { BillingComponent } from './MyComponents/billing/billing.component';
 import { AdminComponent } from './MyComponents/admin/admin.component';
 import { ResellersComponent } from './MyComponents/resellers/resellers.component';
 import { SharedService } from './Classes/shared_services';
+import { BillingContactComponent } from './MyComponents/Childs/Billing/billing-contact/billing-contact.component';
+import { TransactionsComponent } from './MyComponents/Childs/Billing/transactions/transactions.component';
+import { ManageCardsComponent } from './MyComponents/Childs/Billing/manage-cards/manage-cards.component';
+import { UsageComponent } from './MyComponents/Childs/Billing/usage/usage.component';
 
 
 
@@ -48,7 +52,11 @@ import { SharedService } from './Classes/shared_services';
     TopupsComponent,
     BillingComponent,
     AdminComponent,
-    ResellersComponent
+    ResellersComponent,
+    BillingContactComponent,
+    TransactionsComponent,
+    ManageCardsComponent,
+    UsageComponent
   ],
   imports: [
     BrowserModule,
