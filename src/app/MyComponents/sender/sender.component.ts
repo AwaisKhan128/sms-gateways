@@ -32,9 +32,7 @@ export class SenderComponent implements OnInit {
 
      }
 
-
-     
-
+// My 
   ngOnInit(): void {
     $('#schedule_input').prop('disabled', true);
 
