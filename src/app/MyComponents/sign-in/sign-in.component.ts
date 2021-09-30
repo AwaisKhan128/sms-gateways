@@ -341,6 +341,8 @@ export class SignInComponent implements OnInit {
           }
          break;
         
+      
+         
         case 'forget_pass':
           var sd = $('#uname').attr('placeholder')
           if( sd='Username' )
