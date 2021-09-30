@@ -30,7 +30,6 @@ export class SenderComponent implements OnInit {
   constructor(private apiService: API_Services,
     private http: HttpClient) {
 
-
      }
 
   ngOnInit(): void {
