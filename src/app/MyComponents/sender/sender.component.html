@@ -21,7 +21,7 @@
             </div>
     
             <div class="mb-3">
-              <label for="exampleInputEmail1" class="form-label">From Devices</label>
+              <label for="exampleInputEmail1" class="form-label">From </label>
               <input type="string" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
               
             </div>
@@ -35,23 +35,21 @@
             <div class=" d-flex">
               <div class="check">
                 <div class="form-check">
-                  <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                  <input class="form-check-input" type="checkbox" value="" id="scheduler_sms" (click)="onScheduler_sms()">
                   <label class="form-check-label" for="flexCheckDefault">
                   </label>
                 </div>
               </div>
-              <label for="exampleInputPassword1" class="form-label">Schedule</label>
+              <label for="schedule_input_sms" class="form-label" id="schedule_input_sms1">Schedule</label>
             </div>
             
             <div class="">
 
-              <input type="string" class="form-control" id="exampleInputPassword1">
+              <input type="string" class="form-control" id="schedule_input_sms">
             </div>
             <div class="mt-1 mb-2">
               <label for="exampleInputPassword1" class="form-label">Message</label>
 
-
-              <input type="string" class="form-control" id="message" placeholder="Type your message" [(ngModel)]="messageBody" name="messageBody">
 
               <textarea type="string" class="form-control" id="message" placeholder="Type your message"></textarea>
 
@@ -104,17 +102,17 @@
             <div class=" d-flex">
               <div class="check">
                 <div class="form-check">
-                  <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                  <input class="form-check-input" type="checkbox" value="" id="scheduler" (click)='onScheduler()'>
                   <label class="form-check-label" for="flexCheckDefault">
                   </label>
                 </div>
               </div>
-              <label for="exampleInputPassword1" class="form-label">Schedule</label>
+              <label for="schedule_input" class="form-label">Schedule</label>
             </div>
             
             <div class="">
 
-              <input type="string" class="form-control" id="exampleInputPassword1">
+              <input type="string" class="form-control" id="schedule_input">
             </div>
 
             <div class="mt-1 mb-4">
@@ -130,7 +128,7 @@
 
                 <input type="file" class="form-control" id="inputGroupFile01" (change)="onFileSelected($event)">
 
-                <input type="file" accept="image/png, image/jpeg, image/bmp" class="form-control" id="inputGroupFile01">
+                
 
               </div>
             </div>

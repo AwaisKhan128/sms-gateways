@@ -30,6 +30,29 @@ import { BillingContactComponent } from './MyComponents/Childs/Billing/billing-c
 import { TransactionsComponent } from './MyComponents/Childs/Billing/transactions/transactions.component';
 import { ManageCardsComponent } from './MyComponents/Childs/Billing/manage-cards/manage-cards.component';
 import { UsageComponent } from './MyComponents/Childs/Billing/usage/usage.component';
+import { OverlayModule } from "@angular/cdk/overlay";
+import {MatDialogModule} from '@angular/material/dialog';
+
+
+
+
+
+// Import from library
+import {
+  NgxAwesomePopupModule,
+  DialogConfigModule,
+  ConfirmBoxConfigModule,
+  ToastNotificationConfigModule,
+  DialogLayoutDisplay,
+  ButtonLayoutDisplay,
+  ButtonMaker,
+} from '@costlydeveloper/ngx-awesome-popup';
+
+import{
+  MatDialog,MatDialogConfig
+
+}from '@angular/material/dialog';
+import { SampleComponent } from './MyComponents/sample/sample.component'
 
 
 
@@ -56,7 +79,8 @@ import { UsageComponent } from './MyComponents/Childs/Billing/usage/usage.compon
     BillingContactComponent,
     TransactionsComponent,
     ManageCardsComponent,
-    UsageComponent
+    UsageComponent,
+    SampleComponent
   ],
   imports: [
     BrowserModule,
@@ -65,14 +89,45 @@ import { UsageComponent } from './MyComponents/Childs/Billing/usage/usage.compon
     FormsModule,
     ProfileRouting,
     HttpClientModule,
+    OverlayModule,
+    MatDialogModule,
+    NgxAwesomePopupModule.forRoot(), // Essential, mandatory main module.
+    DialogConfigModule.forRoot(), // Needed for instantiating dynamic components.
+    // ConfirmBoxConfigModule.forRoot(), // Needed for instantiating confirm boxes.
+    ToastNotificationConfigModule.forRoot(), // Needed for instantiating toast notifications.
+    ConfirmBoxConfigModule.forRoot({
+      ConfirmBoxCoreConfig: {
+         Width: '50%', // string value with '%' or 'px' as the suffix
+         Height: '50%', // string value with '%' or 'px' as the suffix
+         ButtonPosition: 'right', // check API documentation VerticalPosition
+         LayoutType: DialogLayoutDisplay.WARNING, // check API documentation DialogLayoutDisplay
+         Dispatch: {
+           Title: 'Global default title.',
+           Message: 'Global default message.',
+         },
+         
+         ConfirmLabel: 'Confirm', // default confirmation button label
+         DeclineLabel: 'Decline', // default declination button label
+         DisableIcon: true, // Disable icon by default
+         AllowHTMLMessage: true, // Allow HTML content in message by default
+      },
+      // custom buttons overrides the buttons set with ConfirmLabel & DeclineLabel
+      Buttons: [
+        new ButtonMaker('Ok', 'ok', ButtonLayoutDisplay.PRIMARY), // check API documentation ButtonLayoutDisplay
+        new ButtonMaker('Cancel', 'cancel', ButtonLayoutDisplay.SECONDARY)
+     ]
+   })
+   
     
     
     
   ],
   providers: [
   API_Services,
-  SharedService
+  SharedService,
+  MatDialog,OverlayModule,MatDialogConfig
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  
 })
 export class AppModule { }

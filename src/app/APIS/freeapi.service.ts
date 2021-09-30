@@ -83,7 +83,35 @@ export class API_Services{
         return this.httpClient.put('https://rest.clicksend.com/v3/forgot-password',body,{headers:header})
     }
 
+    getbilling_transaction(auth:string)
+    {
+        const headers = { 'Authorization': 'Basic '+auth};
+        return  this.httpClient.get('https://rest.clicksend.com/v3/recharge/transactions',{headers:headers})
+    }
 
+    get_card_details(auth:string|any)
+    {
+        const headers = { 'Authorization': 'Basic '+auth};
+        return this.httpClient.get('https://rest.clicksend.com/v3/recharge/credit-card',{headers:headers})
+    }
+
+    create_sms_template(auth:string|any,body:any)
+    {
+        const headers = { 'Authorization': 'Basic '+auth};
+        return this.httpClient.post('https://rest.clicksend.com/v3/sms/templates',body,{headers:headers})
+    }
+
+    get_sms_templates(auth:string|any)
+    {
+        const headers = { 'Authorization': 'Basic '+auth};
+        return this.httpClient.get('https://rest.clicksend.com/v3/sms/templates',{headers:headers})
+    }
+
+    remove_sms_templates(auth:string|any,template_id:any)
+    {
+        const headers = { 'Authorization': 'Basic '+auth};
+        return this.httpClient.delete('https://rest.clicksend.com/v3/sms/templates/'+template_id,{headers:headers})
+    }
 
 
 
