@@ -31,6 +31,7 @@ export class SenderComponent implements OnInit {
     private http: HttpClient) {
 
      }
+     
 
   ngOnInit(): void {
     $('#schedule_input').prop('disabled', true);
