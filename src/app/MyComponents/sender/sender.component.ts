@@ -33,9 +33,24 @@ export class SenderComponent implements OnInit {
   templates: Array<SMSTemplate> = [];
   selectedTemplateBody: string = "";
 
-  pickedDate: string = "";
+  pickedDate: string = "" //new Date().toDateString();
   pickedTime: string = "";
-  
+  convertTime12to24 = time12h => {
+    const [time, modifier] = time12h.split(" ");
+   
+    let [hours, minutes] = time.split(":");
+   
+    if (hours === "12") {
+      hours = "00";
+    }
+   
+    if (modifier === "PM") {
+      hours = parseInt(hours, 10) + 12;
+    }
+   
+    return `${hours}:${minutes}`;
+  };
+
   constructor(private apiService: API_Services,
     private http: HttpClient, private datePipe:DatePipe) {
 
@@ -48,7 +63,7 @@ export class SenderComponent implements OnInit {
     $('#schedule_input_sms').prop('disabled', true);
 
     this.fetchSMSTemplates()
- 
+
 
   }
 
@@ -145,30 +160,28 @@ export class SenderComponent implements OnInit {
   }
 
   convertToUnixTimestamp() {
-    // if (isCurrentDateTime == 1) {
-    //   const unixTime = Math.round(new Date().getTime() / 1000)
-    //   console.log(unixTime)
+    // if (this.pickedDate !== null || this.pickedDate !== undefined && this.pickedTime == null || this.pickedTime == undefined) {
+    //   this.pickedTime = "12:00 am"
+    // }
+    // else if (this.pickedDate == null || this.pickedDate == undefined && this.pickedTime == null || this.pickedTime == undefined) {
+    //   this.pickedDate = new Date().toDateString()
     // }
     // else {
-      // const unixTime =  new Date('2021.06.06 20:45').getTime() / 1000
-      // console.log(unixTime)
+    //   this.pickedTime = "12:00 am"
+    //   this.pickedDate = new Date().toDateString()
     // }
-      // var dateObjc = new Date("2021-10-01T19:00:00.000Z")
-      console.log(this.pickedDate)
-      var newDate = this.datePipe.transform(this.pickedDate, "yyyy-MM-dd'T'hh:mm");
-      console.log(newDate)
-      //var datePipeString = this.datePipe.transform(dateObjc,'yyyy-MM-dd');
-      //console.log(datePipeString)
-      const unixTime =  new Date(newDate!).getTime() / 1000
-      console.log(unixTime)
-      if (this.pickedDate !== null || this.pickedDate !== undefined && this.pickedTime !== null || this.pickedTime !== undefined) {
-        //console.log(this.pickedDate)
-        // var date = this.pickedDate?.replace("/",".")
-        // const dateTimeStr = date+" "+this.pickedTime?.concat(":00")
-        // console.log(dateTimeStr)
-        // const unixTime =  new Date(dateTimeStr).getTime() / 1000
+    var convertedTime = this.convertTime12to24(this.pickedTime);
+    var convertedDate = this.datePipe.transform(this.pickedDate, "yyyy-MM-dd");
+    var newDate = new Date(convertedDate + " " + this.pickedTime)
+    const unixTime =  new Date(newDate).getTime() / 1000
+    console.log(unixTime)
+    //   if (this.pickedDate !== null || this.pickedDate !== undefined && this.pickedTime !== null || this.pickedTime !== undefined) {
+        // var convertedTime = this.convertTime12to24(this.pickedTime);
+        // var convertedDate = this.datePipe.transform(this.pickedDate, "yyyy-MM-dd");
+        // var newDate = new Date(convertedDate + " " + this.pickedTime)
+        // const unixTime =  new Date(newDate).getTime() / 1000
         // console.log(unixTime)
-    }
+    // }
   }
 
   onScheduler()
@@ -203,6 +216,10 @@ export class SenderComponent implements OnInit {
 }
 
 
+
+function moment(arg0: string, arg1: string) {
+  throw new Error('Function not implemented.');
+}
 // export class ScheduledDateTime {
 //   pickedDate?:       string;
 //   pickedTime?:       string;

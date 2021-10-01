@@ -47,9 +47,9 @@
             </div>
             
             <div class="">
-              <input class="form-control" id="schedule_input_sms" matInput [matDatepicker]="picker" (click)="picker.open()" [(ngModel)] = "this.pickedDate" [ngModelOptions]="{standalone: true}" >
+              <input class="form-control" id="schedule_input_sms_date"  matInput [matDatepicker]="picker" (click)="picker.open()" [(ngModel)] = "this.pickedDate" [ngModelOptions]="{standalone: true}" >
               <mat-datepicker #picker></mat-datepicker>
-              <input class="form-control" id="schedule_input_sms" aria-label="default time" [ngxTimepicker]="defaultValue" [value]="'12:15 pm'" [(ngModel)] = "this.pickedTime" [ngModelOptions]="{standalone: true}" readonly>
+              <input class="form-control" id="schedule_input_sms_time" aria-label="default time" [ngxTimepicker]="defaultValue" [value]="'23:15'" [(ngModel)] = "this.pickedTime" [ngModelOptions]="{standalone: true}" readonly>
               <ngx-material-timepicker #defaultValue></ngx-material-timepicker>
             </div>
             <div class="mt-1 mb-2">
