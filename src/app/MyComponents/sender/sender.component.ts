@@ -33,6 +33,7 @@ export class SenderComponent implements OnInit {
   templates: Array<SMSTemplate> = [];
   selectedTemplateBody: string = "";
 
+  shouldScheduleMessage: number = 0
   pickedDate: string = "" //new Date().toDateString();
   pickedTime: string = "";
   convertTime12to24 = time12h => {
@@ -50,6 +51,8 @@ export class SenderComponent implements OnInit {
    
     return `${hours}:${minutes}`;
   };
+
+
 
   constructor(private apiService: API_Services,
     private http: HttpClient, private datePipe:DatePipe) {
@@ -89,24 +92,34 @@ export class SenderComponent implements OnInit {
   }
 
   actionSendSMS() {
-    this.convertToUnixTimestamp()
-    // var messagesList : MyMessage[] = [] ;
-    // var splitted = this.messageTo.split(","); 
-    // if (splitted.length > 0) {
-    //     splitted.forEach((element) => { 
-    //       const m : MyMessage = {
-    //         body : this.messageBody,
-    //         to : element,
-    //         from : "+61411111111",
-    //         //schedule: 1632731133,
-    //       };
-    //       messagesList.push(m)
-    //     });
-    //     console.log(messagesList)
-    //     const param : SendSMSParam = {messages: messagesList};
-    //     this.apiService.sendSMS(param)
-    //       .subscribe(response => {this.response = response});
-    // }
+    var unixTimestamp = this.convertToUnixTimestamp()
+    var messagesList : MyMessage[] = [] ;
+    var splitted = this.messageTo.split(","); 
+    if (splitted.length > 0) {
+        splitted.forEach((element) => { 
+          if (this.shouldScheduleMessage == 0)  {
+            const m : MyMessage = {
+              body : this.messageBody,
+              to : element,
+              from : "+61411111111",
+            };
+            messagesList.push(m)
+          }
+          else {
+            const m : MyMessage = {
+              body : this.messageBody,
+              to : element,
+              from : "+61411111111",
+              schedule: unixTimestamp,
+            };
+            messagesList.push(m)
+          }
+        });
+        console.log(messagesList)
+        const param : SendSMSParam = {messages: messagesList};
+        this.apiService.sendSMS(param)
+          .subscribe(response => {this.response = response});
+    }
   }
 
   actionSendMMS() {
@@ -159,7 +172,7 @@ export class SenderComponent implements OnInit {
       })
   }
 
-  convertToUnixTimestamp() {
+  convertToUnixTimestamp(): number {
     // if (this.pickedDate !== null || this.pickedDate !== undefined && this.pickedTime == null || this.pickedTime == undefined) {
     //   this.pickedTime = "12:00 am"
     // }
@@ -175,6 +188,7 @@ export class SenderComponent implements OnInit {
     var newDate = new Date(convertedDate + " " + this.pickedTime)
     const unixTime =  new Date(newDate).getTime() / 1000
     console.log(unixTime)
+    return unixTime
   }
 
   onScheduler()
@@ -196,14 +210,15 @@ export class SenderComponent implements OnInit {
   {
     if ($('#scheduler_sms').prop('checked')) {
       //blah blah
-      $('#schedule_input_sms').prop('disabled', false);
-      
-
+      $('#schedule_input_sms_date').prop('disabled', false);
+      $('#schedule_input_sms_time').prop('disabled', false);
+      this.shouldScheduleMessage = 1
     }
     else
     {
-      $('#schedule_input_sms').prop('disabled', true);
-
+      $('#schedule_input_sms_date').prop('disabled', true);
+      $('#schedule_input_sms_time').prop('disabled', true);
+      this.shouldScheduleMessage = 0
     }
   }
 }
