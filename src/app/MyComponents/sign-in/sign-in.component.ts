@@ -22,25 +22,26 @@ export class SignInComponent implements OnInit {
   uname: any;
   passcode: any;
   getAccResp: any;
-  getAccDetails: any;
-  getAccDetails1: any;
-  array: any;
-  i:number|any;
+  getAccDetails:any;
+  getAccDetails1:any;
+  array:any;
 
 
-  getAccDetails11: getAccDetails1[] | any;
-  getdb_signinresp: getSignin_responseDBforSuper[] | any;
 
-  getAccCurrency: any;
-  getsubAcc: any;
 
+  getAccDetails11: getAccDetails1[] |any;
+  getdb_signinresp : getSignin_responseDBforSuper[]|any;
+
+  getAccCurrency:any;
+  getsubAcc:any;
+
+  i:any;
 
   window: any["$"] = $;
   forget_username_resp: forget_username_resp|any;
 
-
-  constructor(private freeapi: API_Services, private ActivatedRoute: ActivatedRoute
-    , private router: Router, private shared_services: SharedService) { }
+  constructor(private freeapi :API_Services,private ActivatedRoute:ActivatedRoute
+    , private router: Router,private shared_services:SharedService) { }
 
   ngOnInit(): void {
     this.i=0;
@@ -267,6 +268,8 @@ export class SignInComponent implements OnInit {
         windowsPlatforms = ['Win32', 'Win64', 'Windows', 'WinCE'],
         iosPlatforms = ['iPhone', 'iPad', 'iPod'],
         os = null;
+    
+        // this.router.navigate(['profile/dashboard'], { queryParams: { order: this.getAccDetails1.user_id } });
   
     if (macosPlatforms.indexOf(platform) !== -1) {
       os = 'Mac OS';
@@ -371,10 +374,15 @@ export class SignInComponent implements OnInit {
           break;
       }
     }
-
-
-
-
   }
+
+    
+
+
+  
+  
+
+
+
 
 }
