@@ -74,10 +74,10 @@ export class SignInComponent implements OnInit {
           this.freeapi.getLoginAuthDB(this.getAccDetails1.user_id, 'superadmins')
             .subscribe(
               async (res) => {
+                let val = JSON.parse(res.http_response);
+                console.log(val[0].id);
 
-                console.log(res[0].id);
-
-                if (res.length == 0) {
+                if (val.length == 0) {
                   console.log("ID not found");
 
                   $.getJSON('http://www.geoplugin.net/json.gp', (data) => {
@@ -97,16 +97,15 @@ export class SignInComponent implements OnInit {
                     localStorage.setItem("user_data", JSON.stringify(content));
                     localStorage.setItem("user_status", "Logged_in");
 
-
-
                     this.shared_services.setUserData(content);
-
                     this.freeapi.setUserDetailsDB(this.getAccDetails1.user_id, this.uname
                       , data_R.geoplugin_request.substr(0,10),this.getOS(),data_R.geoplugin_countryName, 'superadmins').subscribe
                       (
                         res => {
-                          console.log(res);
-                          alert(res);
+                          // console.log(res);
+                          let val:any;
+                          val = res;
+                          alert(val.http_response);
                           this.router.navigate(['./profile'])
 
                         },
@@ -125,14 +124,15 @@ export class SignInComponent implements OnInit {
                 }
                 else if (res.length > 0) {
                   // console.log(res[0]);
+                  let val = JSON.parse(res.http_response);
 
-                  if (res[0].ip_addr == '') {
+                  if (val[0].ip_addr == ''||undefined) {
                     $.getJSON('http://www.geoplugin.net/json.gp', (data) => {
                       let data_R = data;
 
 
                       var content = {
-                        "id": res[0].id,
+                        "id": val[0].id,
                         "username": this.uname,
                         "passcode": EncodeDecode.b64EncodeUnicode(this.passcode),
                         "ip_addr": data_R.geoplugin_request.substr(0,10),
@@ -146,11 +146,13 @@ export class SignInComponent implements OnInit {
 
 
 
-                      this.freeapi.modifyUserDetailsDB(res[0].id
+                      this.freeapi.modifyUserDetailsDB(val[0].id
                         , data_R.geoplugin_request.substr(0,10),this.getOS(),data_R.geoplugin_countryName, 'superadmins')
                         .subscribe(
                           res => {
-                            alert(res);
+                            let a :any;
+                            a = res;
+                            alert(a.http_response);
                             this.router.navigate(['./profile'])
                           },
                           err => {
@@ -166,19 +168,19 @@ export class SignInComponent implements OnInit {
                     $.getJSON('http://www.geoplugin.net/json.gp', (data) => {
 
                       const data_R = data;
-                      if (res[0].username == this.getAccDetails1.username
-                        && res[0].ip_addr == data_R.geoplugin_request.substr(0,10) &&
-                         res[0].country == data_R.geoplugin_countryName && res[0].device==this.getOS()) {
+                      if (val[0].username == this.getAccDetails1.username
+                        && val[0].ip_addr == data_R.geoplugin_request.substr(0,10) &&
+                        val[0].country == data_R.geoplugin_countryName && val[0].device==this.getOS()) {
 
                         console.log("Confirmation matched")
 
                         var content = {
-                          "id": res[0].id,
+                          "id": val[0].id,
                           "username": this.uname,
                           "passcode": EncodeDecode.b64EncodeUnicode(this.passcode),
-                          "ip_addr": res[0].ip_addr,
+                          "ip_addr": val[0].ip_addr,
                           "device":this.getOS(),
-                          "country": res[0].country
+                          "country": val[0].country
                         }
                         this.shared_services.setUserData(content);
                         localStorage.setItem("user_data", JSON.stringify(content));
@@ -245,18 +247,18 @@ export class SignInComponent implements OnInit {
 
 
 
-  public buttons() {
-    console.log("Checked");
+  // public buttons() {
+  //   console.log("Checked");
 
-    $.getJSON('http://www.geoplugin.net/json.gp', function (data) {
-      let data_R = data;
-
-
-      console.log(data_R.geoplugin_request.substr(0,10));
-    });
+  //   $.getJSON('http://www.geoplugin.net/json.gp', function (data) {
+  //     let data_R = data;
 
 
-  }
+  //     console.log(data_R.geoplugin_request.substr(0,10));
+  //   });
+
+
+  // }
 
   public getOS() {
     var userAgent = window.navigator.userAgent,
