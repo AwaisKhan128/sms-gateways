@@ -31,6 +31,8 @@ import{
 export class ManageCardsComponent implements OnInit {
 
   number: any;
+  number1: any;
+
   cvc: any;
   name: any;
   date: any;
