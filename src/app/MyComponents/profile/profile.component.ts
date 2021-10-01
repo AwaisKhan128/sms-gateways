@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+=======
+import { data } from 'jquery';
+>>>>>>> development
 import { SharedService } from './../../Classes/shared_services';
 import { Component, OnInit } from '@angular/core';
 import { EncodeDecode } from 'src/app/Classes/EncodeDec64';
@@ -41,6 +45,9 @@ export class ProfileComponent implements OnInit {
         this.router.navigate(['./'])
       }
     }
+    // else{
+    //   this.router.navigate(['./'])
+    // }
 
     console.log((this.data));
     // console.log(this.data1);

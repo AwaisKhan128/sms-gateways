@@ -63,23 +63,21 @@
                      </th>
                   </tr>
               
-                  <tr>
-
-              
+                  <tr *ngFor="let trans of transaction_resp_data1">
                     <td>
-                      Awais
+                      {{trans?.invoice_number}}
                     </td>
               
                     <td>
-                      Hi! there. There are two onces
+                      {{trans?.amount}}
                     </td>
 
                     <td>
-                      Currency
+                      {{trans?.currency}
                     </td>
               
                     <td>
-                      Date
+                      {{trans?.date}}
                     </td>
               
               
