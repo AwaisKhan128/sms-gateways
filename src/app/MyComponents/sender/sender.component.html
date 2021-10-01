@@ -46,7 +46,7 @@
               <label for="schedule_input_sms" class="form-label" id="schedule_input_sms1">Schedule</label>
             </div>
             
-            <div class="">
+            <div class=""  *ngIf="shouldScheduleMessage == 1">
               <input class="form-control" id="schedule_input_sms_date"  matInput [matDatepicker]="picker" (click)="picker.open()" [(ngModel)] = "this.pickedDate" [ngModelOptions]="{standalone: true}" >
               <mat-datepicker #picker></mat-datepicker>
               <input class="form-control" id="schedule_input_sms_time" aria-label="default time" [ngxTimepicker]="defaultValue" [value]="'23:15'" [(ngModel)] = "this.pickedTime" [ngModelOptions]="{standalone: true}" readonly>
