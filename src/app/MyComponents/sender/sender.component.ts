@@ -61,9 +61,9 @@ export class SenderComponent implements OnInit {
      }
 
   ngOnInit(): void {
-    $('#schedule_input').prop('disabled', true);
+    $('#schedule_input_sms_date').prop('disabled', true);
 
-    $('#schedule_input_sms').prop('disabled', true);
+    $('#schedule_input_sms_time').prop('disabled', true);
 
     this.fetchSMSTemplates()
 
