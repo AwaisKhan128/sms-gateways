@@ -44,6 +44,7 @@ export class SenderComponent implements OnInit {
     $('#schedule_input_sms').prop('disabled', true);
 
     this.fetchSMSTemplates()
+    this.convertToUnixTimestamp()
 
   }
 
@@ -136,6 +137,17 @@ export class SenderComponent implements OnInit {
         console.log(this.templates)
         console.log("FETCHED TEMPLATESS")
       })
+  }
+
+  convertToUnixTimestamp(isCurrentDateTime: number = 0) {
+    if (isCurrentDateTime == 1) {
+      const unixTime = Math.round(new Date().getTime() / 1000)
+      console.log(unixTime)
+    }
+    else {
+      const unixTime =  new Date('2021.06.06 20:45').getTime() / 1000
+      console.log(unixTime)
+    }
   }
 
   onScheduler()
