@@ -37,6 +37,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
 
 // Import from library
 import {
@@ -97,6 +98,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
     MatNativeDateModule,
     MatFormFieldModule,
     MatInputModule,
+    NgxMaterialTimepickerModule,
     NgxAwesomePopupModule.forRoot(), // Essential, mandatory main module.
     DialogConfigModule.forRoot(), // Needed for instantiating dynamic components.
     // ConfirmBoxConfigModule.forRoot(), // Needed for instantiating confirm boxes.

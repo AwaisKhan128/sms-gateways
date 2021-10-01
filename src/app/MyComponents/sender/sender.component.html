@@ -49,6 +49,8 @@
             <div class="">
               <input class="form-control" id="schedule_input_sms" matInput [matDatepicker]="picker" (click)="picker.open()">
               <mat-datepicker #picker></mat-datepicker>
+              <input class="form-control" id="schedule_input_sms" aria-label="default time" [ngxTimepicker]="defaultValue" [value]="'12:15 pm'"  readonly>
+              <ngx-material-timepicker #defaultValue></ngx-material-timepicker>
             </div>
             <div class="mt-1 mb-2">
               <label for="exampleInputPassword1" class="form-label">Message</label>
