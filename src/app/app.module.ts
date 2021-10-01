@@ -32,6 +32,10 @@ import { ManageCardsComponent } from './MyComponents/Childs/Billing/manage-cards
 import { UsageComponent } from './MyComponents/Childs/Billing/usage/usage.component';
 import { OverlayModule } from "@angular/cdk/overlay";
 import {MatDialogModule} from '@angular/material/dialog';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import {MatInputModule} from '@angular/material/input';
+
+
 
 
 
@@ -46,6 +50,7 @@ import {
   DialogLayoutDisplay,
   ButtonLayoutDisplay,
   ButtonMaker,
+  
 } from '@costlydeveloper/ngx-awesome-popup';
 
 import{
@@ -53,6 +58,10 @@ import{
 
 }from '@angular/material/dialog';
 import { SampleComponent } from './MyComponents/sample/sample.component'
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatNativeDateModule } from '@angular/material/core';
+import { DatepickerComponent } from './MyComponents/others/datepicker/datepicker.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
 
@@ -80,7 +89,8 @@ import { SampleComponent } from './MyComponents/sample/sample.component'
     TransactionsComponent,
     ManageCardsComponent,
     UsageComponent,
-    SampleComponent
+    SampleComponent,
+    DatepickerComponent
   ],
   imports: [
     BrowserModule,
@@ -91,6 +101,10 @@ import { SampleComponent } from './MyComponents/sample/sample.component'
     HttpClientModule,
     OverlayModule,
     MatDialogModule,
+    MatDatepickerModule,
+    MatFormFieldModule,
+    MatNativeDateModule,
+    MatInputModule,
     NgxAwesomePopupModule.forRoot(), // Essential, mandatory main module.
     DialogConfigModule.forRoot(), // Needed for instantiating dynamic components.
     // ConfirmBoxConfigModule.forRoot(), // Needed for instantiating confirm boxes.
@@ -116,7 +130,7 @@ import { SampleComponent } from './MyComponents/sample/sample.component'
         new ButtonMaker('Ok', 'ok', ButtonLayoutDisplay.PRIMARY), // check API documentation ButtonLayoutDisplay
         new ButtonMaker('Cancel', 'cancel', ButtonLayoutDisplay.SECONDARY)
      ]
-   })
+   }), BrowserAnimationsModule
    
     
     
@@ -125,7 +139,7 @@ import { SampleComponent } from './MyComponents/sample/sample.component'
   providers: [
   API_Services,
   SharedService,
-  MatDialog,OverlayModule,MatDialogConfig
+  MatDialog,OverlayModule,MatDialogConfig,MatDatepickerModule,MatFormFieldModule,MatNativeDateModule
   ],
   bootstrap: [AppComponent],
   

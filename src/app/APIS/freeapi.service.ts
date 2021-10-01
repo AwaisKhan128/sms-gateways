@@ -1,3 +1,4 @@
+import { Body } from './../Classes/SMS/sms_history_response';
 import { Observable, of } from 'rxjs';
 import { HttpClient,HttpHeaderResponse,HttpHeaders,HttpParams } from "@angular/common/http";
 import { Injectable } from "@angular/core";
@@ -111,6 +112,12 @@ export class API_Services{
     {
         const headers = { 'Authorization': 'Basic '+auth};
         return this.httpClient.delete('https://rest.clicksend.com/v3/sms/templates/'+template_id,{headers:headers})
+    }
+
+    update_payment_info(auth:string|any, body:any )
+    {
+        const headers = { 'Authorization': 'Basic '+auth , 'Content-Type':'application/json'};
+        return this.httpClient.put('https://rest.clicksend.com/v3/recharge/credit-card',body,{headers:headers})
     }
 
 

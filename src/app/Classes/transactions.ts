@@ -34,3 +34,13 @@ export class get_card_details1{
     expiry_year: any;
     name: any;
 }
+
+export class card_info
+{
+    number:any;
+    expiry_month:any;
+    cvc:any;
+    name:any;
+    bank_name:any;
+    expiry_year:any;
+}

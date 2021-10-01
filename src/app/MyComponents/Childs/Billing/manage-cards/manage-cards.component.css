@@ -1,0 +1,12 @@
+.cdk-overlay-connected-position-bounding-box {
+    position: relative ;
+}
+
+.date_container {        
+    float: left;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  @import "~@angular/material/prebuilt-themes/indigo-pink.css";
