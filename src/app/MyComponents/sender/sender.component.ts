@@ -6,6 +6,7 @@ import { MyMessage, SendSMSParam } from 'src/app/Classes/SMS/send_sms_param';
 import { SendResponse } from 'src/app/Classes/SMS/send_sms_response';
 import { HttpClient } from '@angular/common/http';
 import * as $ from 'jquery';
+import { SMSTemplate } from 'src/app/Classes/SMS/view_sms_templates_response';
 
 
 
@@ -27,6 +28,10 @@ export class SenderComponent implements OnInit {
 
   selectedFile! : File ;
 
+  templates: Array<SMSTemplate> = [];
+  selectedTemplateBody: string = "";
+
+
   constructor(private apiService: API_Services,
     private http: HttpClient) {
 
@@ -37,6 +42,19 @@ export class SenderComponent implements OnInit {
     $('#schedule_input').prop('disabled', true);
 
     $('#schedule_input_sms').prop('disabled', true);
+
+    this.fetchSMSTemplates()
+
+  }
+
+  templatedSelectionChangeHandler (event: any) {
+    (document.getElementById('message') as HTMLInputElement).value = ''
+    const templateID = <number>event.target.value;
+    var selectedTemplate = this.templates.find(t=> t.template_id == templateID);
+    if(selectedTemplate !== null) {
+      this.selectedTemplateBody = selectedTemplate!.body;
+      (document.getElementById('message') as HTMLInputElement).value = this.selectedTemplateBody
+    }
   }
 
   onFileSelected(event) {
@@ -103,6 +121,23 @@ export class SenderComponent implements OnInit {
       //       .subscribe(response =>{this.response = response})
       // }
   }
+
+  fetchSMSTemplates() {
+    this.apiService.getSMSTemplates().
+      subscribe(response =>{
+        let intialTemplate: SMSTemplate = {template_id:-1, template_name: "NONE", body:""} as SMSTemplate;    
+        let intialTemplate2: SMSTemplate = {template_id:-2, template_name: "Helloww", body:"I AM Arrwr2323423UTOFILLINGGG"} as SMSTemplate;    
+        let intialTemplate3: SMSTemplate = {template_id:-3, template_name: "ewrwfdsv444", body:"234I234 AM Arrw323r2323423UTOFILLINGGG"} as SMSTemplate;    
+        var smsTemplates = response.data?.data as SMSTemplate[];
+        smsTemplates.push(intialTemplate);
+        smsTemplates.push(intialTemplate2);
+        smsTemplates.push(intialTemplate3);
+        smsTemplates.forEach(t => this.templates.push(t))
+        console.log(this.templates)
+        console.log("FETCHED TEMPLATESS")
+      })
+  }
+
   onScheduler()
   {
     if ($('#scheduler').prop('checked')) {
