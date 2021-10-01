@@ -7,6 +7,8 @@ import { SendResponse } from 'src/app/Classes/SMS/send_sms_response';
 import { HttpClient } from '@angular/common/http';
 import * as $ from 'jquery';
 import { SMSTemplate } from 'src/app/Classes/SMS/view_sms_templates_response';
+import { DatePipe } from '@angular/common';
+
 
 
 
@@ -31,9 +33,11 @@ export class SenderComponent implements OnInit {
   templates: Array<SMSTemplate> = [];
   selectedTemplateBody: string = "";
 
-
+  pickedDate: string = "";
+  pickedTime: string = "";
+  
   constructor(private apiService: API_Services,
-    private http: HttpClient) {
+    private http: HttpClient, private datePipe:DatePipe) {
 
 
      }
@@ -44,7 +48,7 @@ export class SenderComponent implements OnInit {
     $('#schedule_input_sms').prop('disabled', true);
 
     this.fetchSMSTemplates()
-    this.convertToUnixTimestamp()
+ 
 
   }
 
@@ -70,23 +74,24 @@ export class SenderComponent implements OnInit {
   }
 
   actionSendSMS() {
-    var messagesList : MyMessage[] = [] ;
-    var splitted = this.messageTo.split(","); 
-    if (splitted.length > 0) {
-        splitted.forEach((element) => { 
-          const m : MyMessage = {
-            body : this.messageBody,
-            to : element,
-            from : "+61411111111",
-            //schedule: 1632731133,
-          };
-          messagesList.push(m)
-        });
-        console.log(messagesList)
-        const param : SendSMSParam = {messages: messagesList};
-        this.apiService.sendSMS(param)
-          .subscribe(response => {this.response = response});
-    }
+    this.convertToUnixTimestamp()
+    // var messagesList : MyMessage[] = [] ;
+    // var splitted = this.messageTo.split(","); 
+    // if (splitted.length > 0) {
+    //     splitted.forEach((element) => { 
+    //       const m : MyMessage = {
+    //         body : this.messageBody,
+    //         to : element,
+    //         from : "+61411111111",
+    //         //schedule: 1632731133,
+    //       };
+    //       messagesList.push(m)
+    //     });
+    //     console.log(messagesList)
+    //     const param : SendSMSParam = {messages: messagesList};
+    //     this.apiService.sendSMS(param)
+    //       .subscribe(response => {this.response = response});
+    // }
   }
 
   actionSendMMS() {
@@ -139,14 +144,30 @@ export class SenderComponent implements OnInit {
       })
   }
 
-  convertToUnixTimestamp(isCurrentDateTime: number = 0) {
-    if (isCurrentDateTime == 1) {
-      const unixTime = Math.round(new Date().getTime() / 1000)
+  convertToUnixTimestamp() {
+    // if (isCurrentDateTime == 1) {
+    //   const unixTime = Math.round(new Date().getTime() / 1000)
+    //   console.log(unixTime)
+    // }
+    // else {
+      // const unixTime =  new Date('2021.06.06 20:45').getTime() / 1000
+      // console.log(unixTime)
+    // }
+      // var dateObjc = new Date("2021-10-01T19:00:00.000Z")
+      console.log(this.pickedDate)
+      var newDate = this.datePipe.transform(this.pickedDate, "yyyy-MM-dd'T'hh:mm");
+      console.log(newDate)
+      //var datePipeString = this.datePipe.transform(dateObjc,'yyyy-MM-dd');
+      //console.log(datePipeString)
+      const unixTime =  new Date(newDate!).getTime() / 1000
       console.log(unixTime)
-    }
-    else {
-      const unixTime =  new Date('2021.06.06 20:45').getTime() / 1000
-      console.log(unixTime)
+      if (this.pickedDate !== null || this.pickedDate !== undefined && this.pickedTime !== null || this.pickedTime !== undefined) {
+        //console.log(this.pickedDate)
+        // var date = this.pickedDate?.replace("/",".")
+        // const dateTimeStr = date+" "+this.pickedTime?.concat(":00")
+        // console.log(dateTimeStr)
+        // const unixTime =  new Date(dateTimeStr).getTime() / 1000
+        // console.log(unixTime)
     }
   }
 
@@ -179,5 +200,22 @@ export class SenderComponent implements OnInit {
 
     }
   }
-
 }
+
+
+// export class ScheduledDateTime {
+//   pickedDate?:       string;
+//   pickedTime?:       string;
+
+//   public function convertToDateTimeStr(): string{
+      // if (this.pickedDate !== null || this.pickedDate !== undefined && this.pickedTime !== null || this.pickedTime !== undefined) {
+      //     var date = this.pickedDate?.replace("/",".")
+      //     const dateTimeStr = date+" "+this.pickedTime?.concat(":00")
+      //     console.log(dateTimeStr)
+      //     return dateTimeStr
+      // }
+//       return ""
+//   }
+
+// }
+

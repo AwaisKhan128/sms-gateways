@@ -39,6 +39,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
 
+import { DatePipe } from '@angular/common';
+
 // Import from library
 import {
   NgxAwesomePopupModule,
@@ -133,7 +135,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
   providers: [
   API_Services,
   SharedService,
-  MatDialog,OverlayModule,MatDialogConfig
+  MatDialog,OverlayModule,MatDialogConfig,DatePipe
   ],
   bootstrap: [AppComponent],
   
