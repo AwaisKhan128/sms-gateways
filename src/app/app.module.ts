@@ -33,7 +33,8 @@ import { UsageComponent } from './MyComponents/Childs/Billing/usage/usage.compon
 import { OverlayModule } from "@angular/cdk/overlay";
 import {MatDialogModule} from '@angular/material/dialog';
 
-
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
 
 
 
@@ -52,7 +53,8 @@ import{
   MatDialog,MatDialogConfig
 
 }from '@angular/material/dialog';
-import { SampleComponent } from './MyComponents/sample/sample.component'
+import { SampleComponent } from './MyComponents/sample/sample.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 
 
 
@@ -91,6 +93,9 @@ import { SampleComponent } from './MyComponents/sample/sample.component'
     HttpClientModule,
     OverlayModule,
     MatDialogModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    
     NgxAwesomePopupModule.forRoot(), // Essential, mandatory main module.
     DialogConfigModule.forRoot(), // Needed for instantiating dynamic components.
     // ConfirmBoxConfigModule.forRoot(), // Needed for instantiating confirm boxes.
@@ -116,7 +121,7 @@ import { SampleComponent } from './MyComponents/sample/sample.component'
         new ButtonMaker('Ok', 'ok', ButtonLayoutDisplay.PRIMARY), // check API documentation ButtonLayoutDisplay
         new ButtonMaker('Cancel', 'cancel', ButtonLayoutDisplay.SECONDARY)
      ]
-   })
+   }), BrowserAnimationsModule
    
     
     
