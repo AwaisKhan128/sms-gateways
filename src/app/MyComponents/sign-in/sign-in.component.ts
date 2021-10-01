@@ -22,20 +22,6 @@ export class SignInComponent implements OnInit {
   uname: any;
   passcode: any;
   getAccResp: any;
-<<<<<<< HEAD
-  getAccDetails:any;
-  getAccDetails1:any;
-  array:any;
-
-
-
-
-  getAccDetails11: getAccDetails1[] |any;
-  getdb_signinresp : getSignin_responseDBforSuper[]|any;
-
-  getAccCurrency:any;
-  getsubAcc:any;
-=======
   getAccDetails: any;
   getAccDetails1: any;
   array: any;
@@ -47,21 +33,14 @@ export class SignInComponent implements OnInit {
 
   getAccCurrency: any;
   getsubAcc: any;
->>>>>>> development
 
-  i:any;
 
   window: any["$"] = $;
   forget_username_resp: forget_username_resp|any;
 
-<<<<<<< HEAD
-  constructor(private freeapi :API_Services,private ActivatedRoute:ActivatedRoute
-    , private router: Router,private shared_services:SharedService) { }
-=======
 
   constructor(private freeapi: API_Services, private ActivatedRoute: ActivatedRoute
     , private router: Router, private shared_services: SharedService) { }
->>>>>>> development
 
   ngOnInit(): void {
     this.i=0;
@@ -287,13 +266,7 @@ export class SignInComponent implements OnInit {
         macosPlatforms = ['Macintosh', 'MacIntel', 'MacPPC', 'Mac68K'],
         windowsPlatforms = ['Win32', 'Win64', 'Windows', 'WinCE'],
         iosPlatforms = ['iPhone', 'iPad', 'iPod'],
-<<<<<<< HEAD
-        os = null;
-    
-        // this.router.navigate(['profile/dashboard'], { queryParams: { order: this.getAccDetails1.user_id } });
-=======
         os = '';
->>>>>>> development
   
     if (macosPlatforms.indexOf(platform) !== -1) {
       os = 'Mac OS';
@@ -310,8 +283,6 @@ export class SignInComponent implements OnInit {
     return os;
   }
 
-<<<<<<< HEAD
-=======
 
 
  
@@ -322,7 +293,6 @@ export class SignInComponent implements OnInit {
   
 
 
->>>>>>> development
 
   public forget_chk(id:string )
   {
@@ -418,12 +388,6 @@ export class SignInComponent implements OnInit {
     
 
 
-<<<<<<< HEAD
-  
-  
-
-=======
->>>>>>> development
 
 
 
