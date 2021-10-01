@@ -175,13 +175,6 @@ export class SenderComponent implements OnInit {
     var newDate = new Date(convertedDate + " " + this.pickedTime)
     const unixTime =  new Date(newDate).getTime() / 1000
     console.log(unixTime)
-    //   if (this.pickedDate !== null || this.pickedDate !== undefined && this.pickedTime !== null || this.pickedTime !== undefined) {
-        // var convertedTime = this.convertTime12to24(this.pickedTime);
-        // var convertedDate = this.datePipe.transform(this.pickedDate, "yyyy-MM-dd");
-        // var newDate = new Date(convertedDate + " " + this.pickedTime)
-        // const unixTime =  new Date(newDate).getTime() / 1000
-        // console.log(unixTime)
-    // }
   }
 
   onScheduler()
