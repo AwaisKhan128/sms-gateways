@@ -8,6 +8,7 @@ import { HttpClient } from '@angular/common/http';
 import * as $ from 'jquery';
 import { SMSTemplate } from 'src/app/Classes/SMS/view_sms_templates_response';
 import { DatePipe } from '@angular/common';
+import { Toaster } from 'src/app/helper';
 
 
 
@@ -93,6 +94,14 @@ export class SenderComponent implements OnInit {
   }
 
   actionSendSMS() {
+    if (this.messageFrom == null || this.messageFrom == undefined || this.messageFrom == "") {
+      Toaster.failureToast("FAILURE","From cannot be empty")
+      return
+    }
+    if (this.messageTo == null || this.messageTo == undefined || this.messageTo == "") {
+      Toaster.failureToast("FAILURE","To cannot be empty")
+      return
+    } 
     var unixTimestamp = this.convertToUnixTimestamp()
     var messagesList : MyMessage[] = [] ;
     var splitted = this.messageTo.split(","); 
@@ -119,7 +128,15 @@ export class SenderComponent implements OnInit {
         console.log(messagesList)
         const param : SendSMSParam = {messages: messagesList};
         this.apiService.sendSMS(param)
-          .subscribe(response => {this.response = response});
+          .subscribe(response => {
+            this.response = response
+            if (this.response.response_code == "SUCCESS") {
+              Toaster.sucessToast(this.response.response_msg!)
+            }
+            else {
+              Toaster.failureToast(this.response.response_code!, this.response.response_msg!)
+            }
+          });
     }
   }
 

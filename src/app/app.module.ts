@@ -101,7 +101,14 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
     MatFormFieldModule,
     MatInputModule,
     NgxMaterialTimepickerModule,
-    NgxAwesomePopupModule.forRoot(), // Essential, mandatory main module.
+    NgxAwesomePopupModule.forRoot({
+      ColorList: {
+        Success: '#3caea3', // optional
+        Info: '#2f8ee5', // optional
+        Warning: '#ffc107', // optional
+        Danger: '#e46464', // optional
+      },
+    }), // Essential, mandatory main module.
     DialogConfigModule.forRoot(), // Needed for instantiating dynamic components.
     // ConfirmBoxConfigModule.forRoot(), // Needed for instantiating confirm boxes.
     ToastNotificationConfigModule.forRoot(), // Needed for instantiating toast notifications.
