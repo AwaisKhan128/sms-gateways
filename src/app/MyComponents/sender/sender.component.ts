@@ -77,7 +77,7 @@ export class SenderComponent implements OnInit {
     var selectedTemplate = this.templates.find(t=> t.template_id == templateID);
     if(selectedTemplate !== null) {
       this.selectedTemplateBody = selectedTemplate!.body;
-      (document.getElementById('message') as HTMLInputElement).value = this.selectedTemplateBody
+      this.messageBody = this.selectedTemplateBody
     }
   }
 
