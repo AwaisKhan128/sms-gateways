@@ -19,7 +19,7 @@ export class Toaster {
         // Choose layout color type
         newToastNotification.setConfig({
             AutoCloseDelay: 5000, // optional
-            TextPosition: 'right', // optional
+            TextPosition: 'left', // optional
             LayoutType: DialogLayoutDisplay.SUCCESS, // SUCCESS | INFO | NONE | DANGER | WARNING
             ProgressBar: ToastProgressBarEnum.NONE, // INCREASE | DECREASE | NONE
             ToastUserViewType: ToastUserViewTypeEnum.SIMPLE, // STANDARD | SIMPLE
@@ -41,7 +41,7 @@ export class Toaster {
         // Choose layout color type
         newToastNotification.setConfig({
         AutoCloseDelay: 5000, // optional
-        TextPosition: 'right', // optional
+        TextPosition: 'left', // optional
         LayoutType: DialogLayoutDisplay.DANGER, // SUCCESS | INFO | NONE | DANGER | WARNING
         ProgressBar: ToastProgressBarEnum.NONE, // INCREASE | DECREASE | NONE
         ToastUserViewType: ToastUserViewTypeEnum.SIMPLE, // STANDARD | SIMPLE
