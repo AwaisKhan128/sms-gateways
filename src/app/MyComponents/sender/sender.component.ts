@@ -36,11 +36,12 @@ export class SenderComponent implements OnInit {
   mms_messageFrom: string =  ""
   mms_message_subject: string = "this is a test";
   mms_message = "Image Attached"
-  media_file_url: string = "https://www.pikpng.com/pngl/m/56-561816_free-png-whatsapp-png-png-whatsapp-logo-small.png";
+  media_file_url: string = "http://www.pikpng.com/pngl/m/56-561816_free-png-whatsapp-png-png-whatsapp-logo-small.png";
   selectedFile! : File ;
   shouldScheduleMMSMessage: number = 0
   mmsPickedDate: string = "" //new Date().toDateString();
   mmsPickedTime: string = "";
+
 
   window: any["$"] = $;
 
@@ -100,6 +101,7 @@ export class SenderComponent implements OnInit {
   onFileSelected(event) {
     console.log(event)
     this.selectedFile = <File>event.target.files[0]
+    console.log(this.selectedFile)
   }
 
   onUpload() {
@@ -156,18 +158,7 @@ export class SenderComponent implements OnInit {
   }
 
   actionSendMMS() {
-    // const mms_message : MMsMessage = {
-    //   source : "node.js",
-    //   to: this.mms_messageTo,
-    //   from : this.mms_messageFrom,
-    //   subject : this.mms_message_subject,
-    //   body : "Image attached",
-     //"schedule": 1512538536
-    // }
-    // const param: SendMMSParam = {media_file: this.media_file_url, messages: [mms_message]}
-    // this.apiService.sendMMS(param)
-    //   .subscribe(response =>{this.response = response})
-    if (this.messageFrom == null || this.messageFrom == undefined || this.messageFrom == "") {
+    if (this.mms_messageFrom == null || this.mms_messageFrom == undefined || this.mms_messageFrom == "") {
       Toaster.failureToast("FAILURE","From field is required for sending MMS")
       return
     }
@@ -188,7 +179,6 @@ export class SenderComponent implements OnInit {
               from : this.mms_messageFrom,
               subject : this.mms_message_subject,
               body : mmsMessageBody,
-              //"schedule": 1512538536
             }
             messagesList.push(mms_message)
           }
@@ -208,7 +198,19 @@ export class SenderComponent implements OnInit {
         console.log(messagesList)
         const param: SendMMSParam = {media_file: this.media_file_url, messages: messagesList}
         this.apiService.sendMMS(param)
-          .subscribe(response =>{this.response = response})
+          .subscribe(response =>{
+            this.response = response
+            console.log("Before")
+            if (this.response.response_code == "SUCCESS") {
+              console.log("Sucess")
+              Toaster.sucessToast(this.response.response_msg!)
+            }
+            else {
+              console.log("Failure")
+              Toaster.failureToast(this.response.response_code!, this.response.response_msg!)
+            }
+            console.log("After")
+          })
     }
   }
 
