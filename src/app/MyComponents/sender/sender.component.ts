@@ -43,33 +43,20 @@ export class SenderComponent implements OnInit {
   mmsPickedDate: string = "" //new Date().toDateString();
   mmsPickedTime: string = "";
 
-
   window: any["$"] = $;
-
   response: SendResponse | undefined;
 
 
 
-
-  constructor(private apiService: API_Services,
-    private http: HttpClient) {
-
-
-     }
+  constructor(private apiService: API_Services, private http: HttpClient) {
+  }
 
   ngOnInit(): void {
     $('#schedule_input_sms_date').prop('disabled', true);
-
     $('#schedule_input_sms_time').prop('disabled', true);
-
     $('#schedule_input_mms_date').prop('disabled', true);
-
     $('#schedule_input_mms_time').prop('disabled', true);
-
-
     this.fetchSMSTemplates()
-
-
   }
 
   templatedSelectionChangeHandler (event: any) {
