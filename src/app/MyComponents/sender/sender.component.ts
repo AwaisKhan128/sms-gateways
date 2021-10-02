@@ -22,6 +22,7 @@ export class SenderComponent implements OnInit {
   source: string = "node.js";
   messageBody: string | undefined;//= "Hello there";
   messageTo: string =  ""; //"+61411111111,+61422222222";
+  messageFrom: string =  ""
   custom_string: string = "this is a test";
   media_file_url: string = "https://www.pikpng.com/pngl/m/56-561816_free-png-whatsapp-png-png-whatsapp-logo-small.png";
   window: any["$"] = $;
@@ -101,7 +102,7 @@ export class SenderComponent implements OnInit {
             const m : MyMessage = {
               body : this.messageBody,
               to : element,
-              from : "+61411111111",
+              from : this.messageFrom,
             };
             messagesList.push(m)
           }
@@ -109,7 +110,7 @@ export class SenderComponent implements OnInit {
             const m : MyMessage = {
               body : this.messageBody,
               to : element,
-              from : "+61411111111",
+              from : this.messageFrom,
               schedule: unixTimestamp,
             };
             messagesList.push(m)

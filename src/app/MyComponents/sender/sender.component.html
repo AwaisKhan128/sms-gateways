@@ -25,7 +25,7 @@
     
             <div class="mb-3">
               <label for="exampleInputEmail1" class="form-label">From </label>
-              <input type="string" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+              <input type="string" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" [(ngModel)]="messageFrom" name="messageFrom">
               
             </div>
 
@@ -56,7 +56,7 @@
               <label for="exampleInputPassword1" class="form-label">Message</label>
 
 
-              <textarea type="string" class="form-control" id="message" placeholder="Type your message">{{this.selectedTemplateBody}}</textarea>
+              <textarea type="string" class="form-control" id="message" placeholder="Type your message" [(ngModel)]="messageBody" name="messageBody">{{this.selectedTemplateBody}}</textarea>
 
 
             </div>
