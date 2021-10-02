@@ -9,6 +9,7 @@ import * as $ from 'jquery';
 import { SMSTemplate } from 'src/app/Classes/SMS/view_sms_templates_response';
 import { DatePipe } from '@angular/common';
 import { Toaster } from 'src/app/Helper/toaster';
+import { DateHandler } from 'src/app/Helper/datehandler';
 
 
 
@@ -49,26 +50,9 @@ export class SenderComponent implements OnInit {
 
 
 
-  convertTime12to24 = time12h => {
-    const [time, modifier] = time12h.split(" ");
-   
-    let [hours, minutes] = time.split(":");
-   
-    if (hours === "12") {
-      hours = "00";
-    }
-   
-    if (modifier === "PM") {
-      hours = parseInt(hours, 10) + 12;
-    }
-   
-    return `${hours}:${minutes}`;
-  };
-
-
 
   constructor(private apiService: API_Services,
-    private http: HttpClient, private datePipe:DatePipe) {
+    private http: HttpClient) {
 
 
      }
@@ -119,7 +103,8 @@ export class SenderComponent implements OnInit {
       Toaster.failureToast("FAILURE","To cannot be empty")
       return
     } 
-    var unixTimestamp = this.convertToUnixTimestamp()
+    var unixTimestamp = DateHandler.convertToUnixTimestamp(this.pickedDate, this.pickedTime)
+    console.log(unixTimestamp)
     var messagesList : MyMessage[] = [] ;
     var splitted = this.messageTo.split(","); 
     if (splitted.length > 0) {
@@ -153,7 +138,7 @@ export class SenderComponent implements OnInit {
             else {
               Toaster.failureToast(this.response.response_code!, this.response.response_msg!)
             }
-          });
+        });
     }
   }
 
@@ -166,7 +151,7 @@ export class SenderComponent implements OnInit {
       Toaster.failureToast("FAILURE","To field is required for sending MMS")
       return
     } 
-    var mm_unixTimestamp = this.convertToUnixTimestamp()
+    var mm_unixTimestamp = DateHandler.convertToUnixTimestamp(this.pickedDate, this.pickedTime)
     var mmsMessageBody = this.mms_message !== "" ? this.mms_message : "Image Attached"
     var messagesList : MMsMessage[] = [] ;
     var splitted = this.messageTo.split(","); 
@@ -228,15 +213,6 @@ export class SenderComponent implements OnInit {
         console.log(this.templates)
         console.log("FETCHED TEMPLATESS")
       })
-  }
-
-  convertToUnixTimestamp(): number {
-    var convertedTime = this.convertTime12to24(this.pickedTime);
-    var convertedDate = this.datePipe.transform(this.pickedDate, "yyyy-MM-dd");
-    var newDate = new Date(convertedDate + " " + this.pickedTime)
-    const unixTime =  new Date(newDate).getTime() / 1000
-    console.log(unixTime)
-    return unixTime
   }
 
   onScheduler_mms()
