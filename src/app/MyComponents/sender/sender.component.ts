@@ -191,16 +191,6 @@ export class SenderComponent implements OnInit {
   }
 
   convertToUnixTimestamp(): number {
-    // if (this.pickedDate !== null || this.pickedDate !== undefined && this.pickedTime == null || this.pickedTime == undefined) {
-    //   this.pickedTime = "12:00 am"
-    // }
-    // else if (this.pickedDate == null || this.pickedDate == undefined && this.pickedTime == null || this.pickedTime == undefined) {
-    //   this.pickedDate = new Date().toDateString()
-    // }
-    // else {
-    //   this.pickedTime = "12:00 am"
-    //   this.pickedDate = new Date().toDateString()
-    // }
     var convertedTime = this.convertTime12to24(this.pickedTime);
     var convertedDate = this.datePipe.transform(this.pickedDate, "yyyy-MM-dd");
     var newDate = new Date(convertedDate + " " + this.pickedTime)
@@ -240,25 +230,4 @@ export class SenderComponent implements OnInit {
     }
   }
 }
-
-
-
-function moment(arg0: string, arg1: string) {
-  throw new Error('Function not implemented.');
-}
-// export class ScheduledDateTime {
-//   pickedDate?:       string;
-//   pickedTime?:       string;
-
-//   public function convertToDateTimeStr(): string{
-      // if (this.pickedDate !== null || this.pickedDate !== undefined && this.pickedTime !== null || this.pickedTime !== undefined) {
-      //     var date = this.pickedDate?.replace("/",".")
-      //     const dateTimeStr = date+" "+this.pickedTime?.concat(":00")
-      //     console.log(dateTimeStr)
-      //     return dateTimeStr
-      // }
-//       return ""
-//   }
-
-// }
 
