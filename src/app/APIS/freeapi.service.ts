@@ -154,6 +154,19 @@ export class API_Services{
         return this.httpClient.post(API_BASE_URLS.CLICKSEND_BASE_URL+'lists',body,{headers:headers})
     }
 
+    get_contact_list(auth:string|any)
+    {
+        const headers = { 'Authorization': 'Basic '+auth};
+        return this.httpClient.get(API_BASE_URLS.CLICKSEND_BASE_URL+'lists',{headers:headers})
+
+    }
+
+    update_contact_list(auth:string|any, body:any,list_id:any)
+    {
+        const headers = { 'Authorization': 'Basic '+auth};
+        return this.httpClient.put(API_BASE_URLS.CLICKSEND_BASE_URL+'lists/'+list_id,body,{headers:headers})
+    }
+
 
 
 

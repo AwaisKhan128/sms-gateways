@@ -6,7 +6,7 @@
   <div class="d-flex">
     <h1 class="ms-2">
       <b>
-        Manage Contacts
+        Manage Contact Lists
 
       </b>
     </h1>
@@ -14,11 +14,12 @@
     <div class="row ms-auto">
 
       <div class="col ms-auto">
-        <button class="btn btn-outline-success ms-auto me-2" id="create_it" (click)="C_Contact(contact)"  type="button">Create Contact</button>
         
-        <button class="btn btn-outline-success ms-auto" id="delete_it" (click)="C_Contact(C_List)"   type="button">Create List</button>
+        <button class="btn btn-outline-success ms-auto me-2" id="delete_it" (click)="C_Contact(C_List)"   type="button">Create List</button>
+        <button class="btn btn-outline-success ms-auto me-2" id="delete_it" (click)="C_Contact(C_List_u)"   type="button">Update List</button>
 
-        <button class="btn btn-outline-success ms-auto" id="delete_it" (click)="C_Contact(delete)"   type="button">Delete Contact</button>
+
+        <button class="btn btn-outline-success ms-auto" id="delete_it" (click)="C_Contact(delete)"   type="button">Delete List</button>
         
       </div>
 
@@ -76,32 +77,34 @@
 </div>
 
 
-<div class="card mt-1 w-auto h-auto" ng-app="">
+<div class="card mt-1 w-auto h-auto" >
   <table>
     <tr>
       <th>
-        <div class="form-check">
-          <input class="form-check-input" type="checkbox" value="" id="selectall"   >
-          <label class="form-check-label" for="flexCheckDefault" >
-          </label>
-        </div>
+
       </th>
 
       <th>
-       Name
+       List ID
       </th>
 
       <th>
-        Message
+        List Name
       </th>
+
+      <th>
+        List Email ID
+       </th>
+ 
+       <th>
+         Contacts 
+       </th>
     </tr>
 
-    <tr >
+    <tr *ngFor="let packet of get_contact_list2">
       <td>
         <div class="form-check">
-          <input class="form-check-input" type="checkbox" 
-           id="form_checked" 
-            >
+          <input class="form-check-input"  type="checkbox" id="form_checked" >
 
           <label class="form-check-label" for="flexCheckDefault">
           </label>
@@ -109,11 +112,19 @@
       </td>
 
       <td>
-        {{"out?.template_name"}}
+        {{packet?.list_id}}
       </td>
 
       <td>
-        {{"out?.body"}}
+        {{packet?.list_name}}
+      </td>
+
+      <td>
+        {{packet?.list_email_id}}
+      </td>
+
+      <td>
+        {{packet?._contacts_count}}
       </td>
 
 
@@ -228,7 +239,7 @@
     </button>
   </div>
   <div class="modal-body">
-    <form >
+    <form (ngSubmit)="Create_List()">
       <div class="container-fluid mt-2">
 
         <div class="row-4">
@@ -236,7 +247,7 @@
             
             <label for="name" class="form-label ms-2 me-4 mt-2 container-fluid">Enter Name</label>
             <div class="container input-group">
-              <input type="text"  id="name"  placeholder="List Name"  name="name" class="form-control">
+              <input type="text"  id="name" [(ngModel)]="List_name"  placeholder="List Name"  name="name" class="form-control">
             </div>
           </div>
         </div>
@@ -246,14 +257,10 @@
             Cancel
           </a>
 
-          <a type="button" class="btn btn-primary">
+          <button type="submit" class="btn btn-primary">
             OK
-          </a>
+          </button>
         </div>
-
-
-
-       
 
       </div>
     </form>
@@ -263,3 +270,188 @@
     <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Save</button>
   </div> -->
 </ng-template>
+
+<ng-template #C_List_u let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Update List</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form (ngSubmit)="Update_List()">
+      <div class="container-fluid mt-2">
+
+        <div class="row-4">
+
+          <!-- <div class="col-12">
+            <div class="d-flex">
+
+              <div class="d-flex">
+                <h3 class="ms-3 mt-2">
+                  Show
+                </h3>
+                <select id="selected_list" class="form-select form-select-sm mb-1 ms-1 me-1" aria-label=".form-select-sm example">
+                  <option selected>Open this select menu</option>
+                  <option *ngFor="let packet of get_contact_list2" value="{{packet?.list_id}}">{{packet?.list_name}}</option>
+                  
+                </select>
+          
+                <h4 class="me-2 mt-2 ">
+                  List
+                </h4>
+              </div>
+            </div>
+            
+          </div> -->
+
+
+          <div class="col-12">
+            
+            <label for="name" class="form-label ms-2 me-4 mt-2 container-fluid">Enter Name</label>
+            <div class="container input-group">
+              <input type="text"  id="name" [(ngModel)]="List_name_u"  placeholder="List Name"  name="name" class="form-control">
+            </div>
+          </div>
+        </div>
+
+        <div class="d-flex p-1 m-2">
+          <a type="button" class="btn btn-primary me-2">
+            Cancel
+          </a>
+
+          <button type="submit" class="btn btn-primary">
+            OK
+          </button>
+        </div>
+
+      </div>
+    </form>
+    
+  </div>
+  <!-- <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Save</button>
+  </div> -->
+</ng-template>
+
+
+<div class="card mt-5 w-auto h-auto">
+
+
+  <div class="d-flex">
+    <h1 class="ms-2">
+      <b>
+        Manage Contacts
+
+      </b>
+    </h1>
+
+    <div class="row ms-auto">
+
+      <div class="col ms-auto">
+        <button class="btn btn-outline-success ms-auto me-2" id="create_it" (click)="C_Contact(contact)"  type="button">Create Contact</button>
+        <button class="btn btn-outline-success ms-auto me-2" id="delete_it" (click)="C_Contact(C_List)"   type="button">Update Contact</button>
+
+
+        <button class="btn btn-outline-success ms-auto" id="delete_it" (click)="C_Contact(delete)"   type="button">Delete Contact</button>
+        
+      </div>
+
+    </div>
+
+  </div>
+
+
+
+
+</div>
+
+<div class="card mt-1 w-auto h-auto">
+
+
+  <div class="d-flex">
+
+    <div class="d-flex">
+      <h3 class="ms-3 mt-2">
+        Show
+      </h3>
+      <select class="form-select form-select-sm mb-1 ms-1 me-1" aria-label=".form-select-sm example">
+        <option selected>Open this select menu</option>
+        <option value="1">One</option>
+        <option value="2">Two</option>
+        <option value="3">Three</option>
+      </select>
+
+      <h4 class="me-2 mt-2 ">
+        entries
+      </h4>
+
+
+
+    </div>
+
+    <div class="ms-auto">
+
+      <div class="d-flex ms-auto"> 
+        <label for="exampleDataList" class="form-label mt-2">Search</label>
+        <input class="form-control" list="datalistOptions" id="exampleDataList" placeholder="Type to search...">
+        <datalist id="datalistOptions">
+          <option value="San Francisco">
+          <option value="New York">
+          <option value="Seattle">
+          <option value="Los Angeles">
+          <option value="Chicago">
+        </datalist>
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<div class="card mt-1 w-auto h-auto" ng-app="">
+  <table>
+    <tr>
+      <th>
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" value="" id="selectall"   >
+          <label class="form-check-label" for="flexCheckDefault" >
+          </label>
+        </div>
+      </th>
+
+      <th>
+       Name
+      </th>
+
+      <th>
+        Message
+      </th>
+    </tr>
+
+    <tr >
+      <td>
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" 
+           id="form_checked" 
+            >
+
+          <label class="form-check-label" for="flexCheckDefault">
+          </label>
+        </div>
+      </td>
+
+      <td>
+        {{"out?.template_name"}}
+      </td>
+
+      <td>
+        {{"out?.body"}}
+      </td>
+
+
+    </tr>
+  </table>
+</div>
