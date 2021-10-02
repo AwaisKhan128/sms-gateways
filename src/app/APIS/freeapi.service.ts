@@ -22,7 +22,7 @@ export class API_Services{
 
     getCountriess():Observable<any>
     {
-        return this.httpClient.get('https://rest.clicksend.com/v3/countries')
+        return this.httpClient.get(API_BASE_URLS.CLICKSEND_BASE_URL+'countries')
     }
     
 
@@ -30,25 +30,25 @@ export class API_Services{
     createAcc_post(header:any,body:CreateAcc):Observable<any>
     {
         const headers = { 'Content-Type': header };
-        return this.httpClient.post('https://rest.clicksend.com/v3/account',body, { headers:headers })
+        return this.httpClient.post(API_BASE_URLS.CLICKSEND_BASE_URL+'account',body, { headers:headers })
     }
 
     getVerify(auth:string,code:any):Observable<any>
     {
         const headers = { 'Authorization': 'Basic '+auth };
-        return this.httpClient.put('https://rest.clicksend.com/v3/account-verify/verify/'+code,{headers:headers})
+        return this.httpClient.put(API_BASE_URLS.CLICKSEND_BASE_URL+'account-verify/verify/'+code,{headers:headers})
     }
 
     send_Code(auth:string,body:send_Code):Observable<any>
     {
         const headers = {'Authorization':'Basic '+auth,'Content-Type':'application/json'};
-        return this.httpClient.put('https://rest.clicksend.com/v3/account-verify/send',body,{headers:headers})
+        return this.httpClient.put(API_BASE_URLS.CLICKSEND_BASE_URL+'account-verify/send',body,{headers:headers})
     }
 
     getLogin(auth:string):Observable<any>
     {
         const headers = { 'Authorization': 'Basic '+auth };
-        return this.httpClient.get('https://rest.clicksend.com/v3/account',{headers:headers})
+        return this.httpClient.get(API_BASE_URLS.CLICKSEND_BASE_URL+'account',{headers:headers})
 
     }
 
@@ -75,49 +75,83 @@ export class API_Services{
     Send_forget_notify(body:any)
     {
         const header = { 'Content-Type': 'application/json' };
-        return this.httpClient.put('https://rest.clicksend.com/v3/forgot-username',body,{headers:header})
+        return this.httpClient.put(API_BASE_URLS.CLICKSEND_BASE_URL+'forgot-username',body,{headers:header})
     }
 
     Send_forget_passcode(body:any)
     {
         const header = { 'Content-Type': 'application/json' };
-        return this.httpClient.put('https://rest.clicksend.com/v3/forgot-password',body,{headers:header})
+        return this.httpClient.put(API_BASE_URLS.CLICKSEND_BASE_URL+'forgot-password',body,{headers:header})
     }
 
     getbilling_transaction(auth:string)
     {
         const headers = { 'Authorization': 'Basic '+auth};
-        return  this.httpClient.get('https://rest.clicksend.com/v3/recharge/transactions',{headers:headers})
+        return  this.httpClient.get(API_BASE_URLS.CLICKSEND_BASE_URL+'recharge/transactions',{headers:headers})
     }
 
     get_card_details(auth:string|any)
     {
         const headers = { 'Authorization': 'Basic '+auth};
-        return this.httpClient.get('https://rest.clicksend.com/v3/recharge/credit-card',{headers:headers})
+        return this.httpClient.get(API_BASE_URLS.CLICKSEND_BASE_URL+'recharge/credit-card',{headers:headers})
     }
 
     create_sms_template(auth:string|any,body:any)
     {
         const headers = { 'Authorization': 'Basic '+auth};
-        return this.httpClient.post('https://rest.clicksend.com/v3/sms/templates',body,{headers:headers})
+        return this.httpClient.post(API_BASE_URLS.CLICKSEND_BASE_URL+'sms/templates',body,{headers:headers})
     }
 
     get_sms_templates(auth:string|any)
     {
         const headers = { 'Authorization': 'Basic '+auth};
-        return this.httpClient.get('https://rest.clicksend.com/v3/sms/templates',{headers:headers})
+        return this.httpClient.get(API_BASE_URLS.CLICKSEND_BASE_URL+'sms/templates',{headers:headers})
     }
 
     remove_sms_templates(auth:string|any,template_id:any)
     {
         const headers = { 'Authorization': 'Basic '+auth};
-        return this.httpClient.delete('https://rest.clicksend.com/v3/sms/templates/'+template_id,{headers:headers})
+        return this.httpClient.delete(API_BASE_URLS.CLICKSEND_BASE_URL+'sms/templates/'+template_id,{headers:headers})
     }
 
     update_payment_info(auth:string|any, body:any )
     {
         const headers = { 'Authorization': 'Basic '+auth , 'Content-Type':'application/json'};
-        return this.httpClient.put('https://rest.clicksend.com/v3/recharge/credit-card',body,{headers:headers})
+        return this.httpClient.put(API_BASE_URLS.CLICKSEND_BASE_URL+'recharge/credit-card',body,{headers:headers})
+    }
+
+    get_packages_list(auth:string|any, country:any)
+    {
+        const headers = { 'Authorization': 'Basic '+auth};
+        return this.httpClient.get(API_BASE_URLS.CLICKSEND_BASE_URL+'recharge/packages?country='+country,{headers:headers})
+    }
+
+    recharge_package(auth:string,id:any)
+    {
+        const headers = { 'Authorization': 'Basic '+auth};
+        return this.httpClient.put(API_BASE_URLS.CLICKSEND_BASE_URL+'recharge/purchase/'+id,{headers:headers})
+    }
+    get_recharged_history(auth:string,page:any=undefined)
+    {
+
+        if(page!=null||undefined||'')
+        {
+            const headers = { 'Authorization': 'Basic '+auth};
+            return this.httpClient.get(API_BASE_URLS.CLICKSEND_BASE_URL+'recharge/transactions?page='+page,{headers:headers})
+
+        }
+        else{
+
+            const headers = { 'Authorization': 'Basic '+auth};
+            return this.httpClient.get(API_BASE_URLS.CLICKSEND_BASE_URL+'recharge/transactions',{headers:headers})
+        }
+
+    }
+
+    create_contact_list(auth:string|any,body:any)
+    {
+        const headers = { 'Authorization': 'Basic '+auth};
+        return this.httpClient.post(API_BASE_URLS.CLICKSEND_BASE_URL+'lists',body,{headers:headers})
     }
 
 

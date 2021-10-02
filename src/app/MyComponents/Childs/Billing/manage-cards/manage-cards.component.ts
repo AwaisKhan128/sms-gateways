@@ -88,16 +88,16 @@ export class ManageCardsComponent implements OnInit {
           err => {
             let a = JSON.parse(JSON.stringify( err))
             console.log(a.error.response_code);
-            alert(a.error.response_code);
-            if(a.error.data == null)
-            {
-              $('#update_card').prop('disabled', true);
+            // alert(a.error.response_code);
+            // if(a.error.data == null)
+            // {
+            //   $('#update_card').prop('disabled', true);
 
-            }
-            else{
-              $('#update_card').prop('disabled', false);
+            // }
+            // else{
+            //   $('#update_card').prop('disabled', false);
 
-            }
+            // }
 
             // console.log(err);
 

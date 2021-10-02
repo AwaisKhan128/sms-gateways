@@ -90,13 +90,13 @@
 
                 
             
-                <div class="ms-auto">
+                <!-- <div class="ms-auto">
             
                   <button id="update_card" mat-button class="btn btn-primary" (click)="open(content)">
                     Update info
                   </button>
             
-                </div>
+                </div> -->
             
               </div>
 
@@ -150,98 +150,9 @@
     </div>
   </div>
 
-  <ng-template #content let-modal>
-    <div class="modal-header">
-      <h4 class="modal-title" id="modal-basic-title">Card update</h4>
-      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-        <span aria-hidden="true">&times;</span>
-      </button>
-    </div>
-    <div class="modal-body">
-      <form (ngSubmit) = "receive_card_details()">
-        <div class="container-fluid mt-2">
-          <div class="row">
-            <div class="col-6">
-              <div class="container d-flex-inline input-group">
-                <label for="number_u" class="form-label">Enter Card Number.</label>
-                <input type="number" [(ngModel)]=number_u id="number_u" placeholder="Card Number"  name="number_u" class="form-control">
-              </div>
-            </div>
-
-            <div class="col-5">
-              <div class="container d-flex-inline input-group">
-                <label for="cvc_u" class="form-label">Enter Card CVC.</label>
-                <input type="number" id="cvc_u" [(ngModel)]=cvc_u placeholder="Card CVC"  name="cvc_u" class="form-control">
-              </div>
-            </div>
-
-          </div>
-
-          <div class="row mt-2">
-            <div class="col-6">
-              <div class="container d-flex-inline input-group">
-                <label for="name_u" class="form-label">Enter Full Name on Card.</label>
-                <input type="text" id="name_u" [(ngModel)]=name_u placeholder="Full Name"  name="name_u" class="form-control">
-              </div>
-            </div>
-
-            <div class="col-5">
-              <div class="container d-flex-inline input-group">
-                <label for="date_u" class="form-label">Expiration date</label>
-
-                <div class="mt-4">
-
-                  <input  id="date_u" placeholder="Expiration date" [(ngModel)]=date_u  name="date_u" class="form-control">
-                </div>
-
-              </div>
-            </div>
-
-          </div>
-
-          <div class="row mt-3">
-            <div class="col-10">
-              <div class="container d-flex-inline input-group">
-                <label for="b_name_u" class="form-label mt-2 me-2">Bank Name</label>
-                <input type="text" id="b_name_u" [(ngModel)]=b_name_u placeholder="Bank Name"  name="b_name_u" class="form-control">
-              </div>
-            </div>
-
-          </div>
-
-          <div class="row mt-2">
-            <div class="col-8">
-              <div class="container d-flex-inline input-group">
-                <button type="submit" class="btn btn-primary modal-footer ms-auto">
-                  Update Card
-                </button>
-              </div>
-            </div>
-
-          </div>
-
-        </div>
-      </form>
-      
-    </div>
-    <!-- <div class="modal-footer">
-      <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Save</button>
-    </div> -->
-  </ng-template>
+ 
   
-  <ng-template #content let-modal>
-    <div class="modal-header">
-      <h4 class="modal-title" id="modal-basic-title">Card update</h4>
 
-    </div>
-    <div class="modal-body">
-     
-      
-    </div>
-    <!-- <div class="modal-footer">
-      <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Save</button>
-    </div> -->
-  </ng-template>
 
 
   <!-- <ng-template #date let-modal>

@@ -6,6 +6,8 @@ import { BillingContactComponent } from './MyComponents/Childs/Billing/billing-c
 import { ManageCardsComponent } from './MyComponents/Childs/Billing/manage-cards/manage-cards.component';
 import { TransactionsComponent } from './MyComponents/Childs/Billing/transactions/transactions.component';
 import { UsageComponent } from './MyComponents/Childs/Billing/usage/usage.component';
+import { MobTopComponent } from './MyComponents/Childs/Topups/mob-top/mob-top.component';
+import { WebTopComponent } from './MyComponents/Childs/Topups/web-top/web-top.component';
 import { ContactsComponent } from './MyComponents/contacts/contacts.component';
 
 import { CreateAccComponent } from './MyComponents/create-acc/create-acc.component';
@@ -62,6 +64,18 @@ const routes: Routes = [
     {
       path: 'topup',
       component: TopupsComponent, // another child route component that the router renders
+      children: [
+        {
+          path: 'topup_web', // child route path
+          component: WebTopComponent, // child route component that the router renders
+        },
+            
+        {
+          path: 'topup_mobile',
+          component: MobTopComponent, // another child route component that the router renders
+        }
+    
+      ]
     },
 
     {

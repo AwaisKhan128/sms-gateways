@@ -34,6 +34,7 @@ import { OverlayModule } from "@angular/cdk/overlay";
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatInputModule} from '@angular/material/input';
+import {MatSidenavModule} from '@angular/material/sidenav';
 
 
 
@@ -62,6 +63,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatNativeDateModule } from '@angular/material/core';
 import { DatepickerComponent } from './MyComponents/others/datepicker/datepicker.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { WebTopComponent } from './MyComponents/Childs/Topups/web-top/web-top.component';
+import { MobTopComponent } from './MyComponents/Childs/Topups/mob-top/mob-top.component';
 
 
 
@@ -90,7 +93,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     ManageCardsComponent,
     UsageComponent,
     SampleComponent,
-    DatepickerComponent
+    DatepickerComponent,
+    WebTopComponent,
+    MobTopComponent
   ],
   imports: [
     BrowserModule,
@@ -105,6 +110,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     MatFormFieldModule,
     MatNativeDateModule,
     MatInputModule,
+    MatSidenavModule,
     NgxAwesomePopupModule.forRoot(), // Essential, mandatory main module.
     DialogConfigModule.forRoot(), // Needed for instantiating dynamic components.
     // ConfirmBoxConfigModule.forRoot(), // Needed for instantiating confirm boxes.
@@ -139,7 +145,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
   providers: [
   API_Services,
   SharedService,
-  MatDialog,OverlayModule,MatDialogConfig,MatDatepickerModule,MatFormFieldModule,MatNativeDateModule
+  MatDialog,OverlayModule,MatDialogConfig
+  ,MatDatepickerModule,MatFormFieldModule
+  ,MatNativeDateModule,MatSidenavModule
   ],
   bootstrap: [AppComponent],
   
