@@ -5,6 +5,7 @@ import { forkJoin } from 'rxjs';
 import { CLICKSEND_STATISTICS_TYPE, MESSAGE_STATUS_TYPE } from 'src/app/APIS/APIConfig';
 import { Message } from 'src/app/Classes/SMS/send_sms_response';
 import { DateHandler } from 'src/app/Helper/datehandler';
+import { isNull } from '@angular/compiler/src/output/output_ast';
 
 
 @Component({
@@ -16,8 +17,8 @@ export class MessagesComponent implements OnInit {
 
   sms_history_array: HistoryDatum[] =  [];
   filtered_history_array: HistoryDatum[] = [];
-  messageTo: string =  ""; //"+61411111111,+61422222222";
-  messageFrom: string =  ""
+  messageTo: string =  "0"; //"+61411111111,+61422222222";
+  messageFrom: string =  "0"
 
   search_param_messageType: string = "ALL"
   search_param_messageStatus: string = "ALL"
@@ -41,15 +42,21 @@ export class MessagesComponent implements OnInit {
   }
 
   actionFetchHistory(history_type : string = "ALL") {
-    var messageFromUnixTimestamp = (this.messageFrom !== "" || this.messageFrom !== undefined) ? this.messageFrom : 0
-    messageFromUnixTimestamp = DateHandler.convertDateToUnixTimestamp(this.messageFrom)
-    //messageToUnixTimestamp = DateHandler.convertDateToUnixTimestamp(this.messageTo)
+    this.messageFrom = (this.messageFrom !== "" || this.messageFrom !== undefined || this.messageFrom !== null) ? this.messageFrom : "0"
+    var messageFromUnixTimestamp = DateHandler.convertDateToUnixTimestamp(this.messageFrom)
+
+    this.messageTo = (this.messageTo !== "" || this.messageTo !== undefined || this.messageTo !== null || isNaN(this.messageTo) == false) ? this.messageTo : "0"
+    if (this.messageTo == null) {
+      this.messageTo = "0"
+    }
     if(history_type == "SMS") {
-      this.apiService.getSMSHisory(messageFromUnixTimestamp).subscribe(
+      var messageToUnixTimestamp = DateHandler.convertDateToUnixTimestamp(this.messageTo)
+      this.apiService.getSMSHisory(messageFromUnixTimestamp, messageToUnixTimestamp).subscribe(
         response => {
           const smsArray =  response.data?.data
           this.sms_history_array = smsArray as HistoryDatum[]
           this.sms_history_array.map(e=> e.message_type = "SMS")
+          this.applyfilteringOnThisData()
         }
       );
     }
@@ -59,6 +66,7 @@ export class MessagesComponent implements OnInit {
           const mmsArray =  response.data?.data//?.map(i => i.message_type = "mms")
           this.sms_history_array = mmsArray as HistoryDatum[]
           this.sms_history_array.map(e=> e.message_type = "MMS")
+          this.applyfilteringOnThisData()
         }
       )
     }
@@ -78,7 +86,6 @@ export class MessagesComponent implements OnInit {
         })
       })
     }
-    this.applyfilteringOnThisData()
   }
 
   applyfilteringOnThisData() {

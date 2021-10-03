@@ -49,6 +49,7 @@
             <option value="3">Three</option>
           </select>
         </div>
+        
 
         <div class="col-sm-3">
           <label for="selects1"> Messages</label>
@@ -61,11 +62,16 @@
         </div>
      
 
-      <div class="ol-sm-3">
-        <label for="selects1"> Start Date</label>
-        <input class="form-control" id="start_date" placeholder="Choose a Date" matInput [matDatepicker]="picker" (click)="picker.open()" [(ngModel)] = "this.messageFrom" [ngModelOptions]="{standalone: true}" readonly>
-        <mat-datepicker #picker></mat-datepicker>
-        <ngx-material-timepicker #defaultValue></ngx-material-timepicker>
+      <div class="ol-sm-3" (click)="picker.open()">
+        <mat-form-field appearance="fill">
+          <mat-label>Enter a date range</mat-label>
+          <mat-date-range-input [rangePicker]="picker">
+            <input class="form-control" id="start_date" matStartDate placeholder="Start date"  [(ngModel)] = "this.messageFrom" [ngModelOptions]="{standalone: true}" readonly>
+            <input class="form-control" id="end_date" matEndDate placeholder="End date"  [(ngModel)] = "this.messageTo" [ngModelOptions]="{standalone: true}" readonly>
+          </mat-date-range-input>
+          <mat-date-range-picker #picker></mat-date-range-picker>
+        </mat-form-field>
+
       </div>
 
     </div>

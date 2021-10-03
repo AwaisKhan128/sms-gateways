@@ -24,7 +24,6 @@ export class DateHandler {
         var convertedDate = datePipe.transform(pickedDate, "yyyy-MM-dd");
         var newDate = new Date(convertedDate + " " + pickedTime)
         const unixTime =  new Date(newDate).getTime() / 1000
-        console.log(unixTime)
         return unixTime
     }
 
@@ -33,7 +32,6 @@ export class DateHandler {
       var convertedDate = datePipe.transform(pickedDate, "yyyy-MM-dd");
       var newDate = new Date(convertedDate + "")
       const unixTime =  new Date(newDate).getTime() / 1000
-      console.log(unixTime)
       return unixTime
   }
 }
