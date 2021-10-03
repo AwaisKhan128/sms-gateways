@@ -34,3 +34,9 @@ export enum CLICKSEND_STATISTICS_TYPE {
     mms = 1,
     all = 2
 }
+
+export enum MESSAGE_STATUS_TYPE {
+    sent ="sent",
+    completed = "completed",
+    all = "all"
+}
