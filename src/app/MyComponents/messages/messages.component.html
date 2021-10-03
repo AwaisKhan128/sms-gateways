@@ -29,9 +29,9 @@
       <div class="col-4">
         <label for="selects1"> Type</label>
         <select class="form-select form-select-sm me-auto" id="selects1" aria-label=".form-select-sm example" (change)="onMessageTypeChange($event)">
-          <option selected value="2">All</option>
-          <option value="0">SMS</option>
-          <option value="1">MMS</option>
+          <option selected value="ALL">All</option>
+          <option value="SMS">SMS</option>
+          <option value="MMS">MMS</option>
           
         </select>
       </div>
@@ -70,6 +70,12 @@
           <option value="3">Three</option>
         </select>
       </div>
+      <div class="ol-sm-3">
+        <label for="selects1"> Start Date</label>
+        <input class="form-control" id="schedule_input_sms_date" placeholder="Choose a Date" matInput [matDatepicker]="picker" (click)="picker.open()" [(ngModel)] = "this.messageFrom" [ngModelOptions]="{standalone: true}" readonly>
+        <mat-datepicker #picker></mat-datepicker>
+        <ngx-material-timepicker #defaultValue></ngx-material-timepicker>
+      </div>
 
       <div class="col-sm-3">
         <label for="selects1"> End Date</label>
@@ -86,7 +92,7 @@
 
 <div class="d-flex">
 
-  <button class="btn btn-primary ms-1 mt-1 mb-1 me-1">
+  <button class="btn btn-primary ms-1 mt-1 mb-1 me-1" (click)="actionSearch()">
     Search
   </button>
 

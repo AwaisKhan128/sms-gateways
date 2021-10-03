@@ -26,5 +26,14 @@ export class DateHandler {
         const unixTime =  new Date(newDate).getTime() / 1000
         console.log(unixTime)
         return unixTime
-      }
+    }
+
+    public static convertDateToUnixTimestamp(pickedDate: string): number {
+      var datePipe = new DatePipe("en-US");
+      var convertedDate = datePipe.transform(pickedDate, "yyyy-MM-dd");
+      var newDate = new Date(convertedDate + "")
+      const unixTime =  new Date(newDate).getTime() / 1000
+      console.log(unixTime)
+      return unixTime
+  }
 }
