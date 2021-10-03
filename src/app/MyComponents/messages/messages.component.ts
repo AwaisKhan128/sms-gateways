@@ -32,18 +32,6 @@ export class MessagesComponent implements OnInit {
     const messageType = <string>event.target.value;
     this.search_param_messageType = messageType
     console.log(this.search_param_messageType)
-    // if (messageType == "0") {
-    //   console.log("SMS")
-    //     this.actionFetchHistory(0)
-    // }
-    // else if (messageType == "1") {
-    //   console.log("MMS")
-    //   this.actionFetchHistory(1)
-    // }
-    // else {
-    //   console.log("ALL")
-    //   this.actionFetchHistory()
-    // }
   }
   
   onMessageStatusTypeChange(event: any) {
@@ -53,18 +41,11 @@ export class MessagesComponent implements OnInit {
   }
 
   actionFetchHistory(history_type : string = "ALL") {
-    var messageFromUnixTimestamp = 0
-    var messageToUnixTimestamp = 0
-    if (this.messageFrom !== "" || this.messageFrom !== undefined || this.messageFrom !== null) {
-      messageFromUnixTimestamp = DateHandler.convertDateToUnixTimestamp(this.messageFrom)
-      messageToUnixTimestamp = DateHandler.convertDateToUnixTimestamp(this.messageTo)
-  }
+    var messageFromUnixTimestamp = (this.messageFrom !== "" || this.messageFrom !== undefined) ? this.messageFrom : 0
+    messageFromUnixTimestamp = DateHandler.convertDateToUnixTimestamp(this.messageFrom)
+    //messageToUnixTimestamp = DateHandler.convertDateToUnixTimestamp(this.messageTo)
     if(history_type == "SMS") {
-      console.log("from"+this.messageFrom)
-      console.log("fromUNIX"+messageFromUnixTimestamp)
-
-      
-      this.apiService.getSMSHisory().subscribe(
+      this.apiService.getSMSHisory(messageFromUnixTimestamp).subscribe(
         response => {
           const smsArray =  response.data?.data
           this.sms_history_array = smsArray as HistoryDatum[]
@@ -97,13 +78,12 @@ export class MessagesComponent implements OnInit {
         })
       })
     }
-    this.actionRetrieveByMessageStatus()
+    this.applyfilteringOnThisData()
   }
 
-  actionRetrieveByMessageStatus() {
-    if (this.sms_history_array.length > 0 && this.search_param_messageStatus !== "all") {
-      console.log(1)
-      this.filtered_history_array = this.sms_history_array.filter((m:HistoryDatum) => m.status!.toLowerCase() === this.search_param_messageStatus)
+  applyfilteringOnThisData() {
+    if (this.sms_history_array.length > 0 && this.search_param_messageStatus.toLowerCase() !== "all") {
+      this.filtered_history_array = this.sms_history_array.filter((m:HistoryDatum) => m.status!.toLowerCase() === this.search_param_messageStatus.toLowerCase())
     }
     else {
       this.filtered_history_array = this.sms_history_array
