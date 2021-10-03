@@ -1,4 +1,5 @@
 // imports (as you know goes to the beginning of the file).
+import { Component } from '@angular/core';
 import {
     ToastNotificationInitializer,
     DialogLayoutDisplay,
@@ -52,4 +53,5 @@ export class Toaster {
         // Simply open the popup
         newToastNotification.openToastNotification$();
     }
+
 }

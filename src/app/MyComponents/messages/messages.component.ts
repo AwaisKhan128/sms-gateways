@@ -7,6 +7,9 @@ import { Message } from 'src/app/Classes/SMS/send_sms_response';
 import { DateHandler } from 'src/app/Helper/datehandler';
 import { isNull } from '@angular/compiler/src/output/output_ast';
 import { PageEvent } from '@angular/material/paginator';
+import { Toaster } from 'src/app/Helper/toaster';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { SimpledialogComponent } from '../simpledialog/simpledialog.component';
 
 
 @Component({
@@ -30,7 +33,7 @@ export class MessagesComponent implements OnInit {
   pageSize: number = 15;
 
 
-  constructor(private apiService: API_Services) { }
+  constructor(private apiService: API_Services, private modalService: NgbModal) { }
 
   ngOnInit(): void {
     this.actionSearch()
@@ -85,20 +88,20 @@ export class MessagesComponent implements OnInit {
     //   )
     // }
     // else {
-    //   const call_sms_api = this.apiService.getSMSHisory(1632817220, 1632903620)
-    //   const call_mms_api = this.apiService.getMMSHistory()
-    //   forkJoin([call_sms_api,call_mms_api]).subscribe( responses =>{
-    //     var smsArray =  responses[0].data?.data  as HistoryDatum[]
-    //     var mmsArray =  responses[1].data?.data  as HistoryDatum[]
-    //     smsArray.map(sms => {
-    //       sms.message_type = "SMS"
-    //       this.sms_history_array.push(sms)
-    //     })
-    //     mmsArray.map(mms => {
-    //       mms.message_type = "MMS"
-    //       this.sms_history_array.push(mms)
-    //     })
-    //   })
+      // const call_sms_api = this.apiService.getSMSHisory(1632817220, 1632903620)
+      // const call_mms_api = this.apiService.getMMSHistory()
+      // forkJoin([call_sms_api,call_mms_api]).subscribe( responses =>{
+      //   var smsArray =  responses[0].data?.data  as HistoryDatum[]
+      //   var mmsArray =  responses[1].data?.data  as HistoryDatum[]
+      //   smsArray.map(sms => {
+      //     sms.message_type = "SMS"
+      //     this.sms_history_array.push(sms)
+      //   })
+      //   mmsArray.map(mms => {
+      //     mms.message_type = "MMS"
+      //     this.sms_history_array.push(mms)
+      //   })
+      // })
     // }
 
   }
@@ -112,16 +115,29 @@ export class MessagesComponent implements OnInit {
     }
   }
 
-  actionSMSHistoryExport() {
-    this.apiService.getExportSMSHistory()
+  actionSMSHistoryExport(toExport: string) {
+    if (toExport.toLowerCase() == "sms") {
+      this.apiService.getExportSMSHistory("sms_history")
       .subscribe(response => {
           var url = response.data?.url!
           if (url != null || url != undefined || url != ""){
-            this.apiService.getFileSMSHistory(url).subscribe( t => 
+            this.apiService.getFileMessageHistory(url).subscribe( t => 
               this.downLoadFile(t, "text/csv")
             )
           }
       })
+    }
+    else if (toExport.toLowerCase() == "mms") {
+      this.apiService.getExportMMSHistory()
+      .subscribe(response => {
+          var url = response.data?.url!
+          if (url != null || url != undefined || url != ""){
+            this.apiService.getFileMessageHistory(url).subscribe( t => 
+              this.downLoadFile(t, "text/csv")
+            )
+          }
+      }) 
+    }
   }
 
   actionSearch() {
@@ -141,19 +157,28 @@ export class MessagesComponent implements OnInit {
     return event;
   }
 
-      /**
-     * Method is use to download file.
-     * @param data - Array Buffer data
-     * @param type - type of the document.
-     */
-       downLoadFile(data: any, type: string) {
-        let blob = new Blob([data], { type: type});
-        let url = window.URL.createObjectURL(blob);
-        let pwa = window.open(url);
-        if (!pwa || pwa.closed || typeof pwa.closed == 'undefined') {
-            alert( 'Please disable your Pop-up blocker and try again.');
-        }
-    }
+  openExportDialog() {
+    this.modalService.open(SimpledialogComponent, { ariaLabelledBy: 'modal-basic-title', centered:true, size:'l' }).result.then((result) => {
+      console.log($(result));
+    }, (reason) => {
+      console.log("reason is "+reason)
+        this.actionSMSHistoryExport(reason)
+    });
+  }
+
+    /**
+   * Method is use to download file.
+   * @param data - Array Buffer data
+   * @param type - type of the document.
+   */
+      downLoadFile(data: any, type: string) {
+      let blob = new Blob([data], { type: type});
+      let url = window.URL.createObjectURL(blob);
+      let pwa = window.open(url);
+      if (!pwa || pwa.closed || typeof pwa.closed == 'undefined') {
+          alert( 'Please disable your Pop-up blocker and try again.');
+      }
+  }
 }
 
 

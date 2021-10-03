@@ -59,7 +59,8 @@ import{
 
 }from '@angular/material/dialog';
 import { SampleComponent } from './MyComponents/sample/sample.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { SimpledialogComponent } from './MyComponents/simpledialog/simpledialog.component'
 
 
 
@@ -87,7 +88,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
     TransactionsComponent,
     ManageCardsComponent,
     UsageComponent,
-    SampleComponent
+    SampleComponent,
+    SimpledialogComponent
   ],
   imports: [
     BrowserModule,

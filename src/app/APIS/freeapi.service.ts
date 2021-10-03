@@ -159,12 +159,18 @@ export class API_Services{
         return this.httpClient.get(url,{headers: HTTP_HEADER_OPTIONS.CLICKSEND_HEADER})
     }
 
-    getExportSMSHistory(): Observable<SMSHistoryExportResponse> {
-        const url= API_BASE_URLS.CLICKSEND_BASE_URL + CLICKSEND_API_ENDPOINTS.SMS_History_Export
+    getExportSMSHistory(filename: string = ""): Observable<SMSHistoryExportResponse> {
+        var url= API_BASE_URLS.CLICKSEND_BASE_URL + CLICKSEND_API_ENDPOINTS.SMS_History_Export
+        url+="?filename="+filename
         return this.httpClient.get(url,{headers: HTTP_HEADER_OPTIONS.CLICKSEND_HEADER})
     }
 
-    getFileSMSHistory(url:string): Observable<string> {
+    getExportMMSHistory(): Observable<SMSHistoryExportResponse> {
+        const url= API_BASE_URLS.CLICKSEND_BASE_URL + CLICKSEND_API_ENDPOINTS.MMS_History_Export
+        return this.httpClient.get(url,{headers: HTTP_HEADER_OPTIONS.CLICKSEND_HEADER})
+    }
+
+    getFileMessageHistory(url:string): Observable<string> {
         return this.httpClient.get(url,{responseType: 'text'})
     }
 

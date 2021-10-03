@@ -27,7 +27,8 @@ export enum CLICKSEND_API_ENDPOINTS {
     SMS_HISTORY = "sms/history",
     MMS_HISTORY = "mms/history",
     SMS_Template = "sms/templates",
-    SMS_History_Export = "sms/history/export"
+    SMS_History_Export = "sms/history/export",
+    MMS_History_Export = "mms/history/export"
 }
 
 export enum CLICKSEND_STATISTICS_TYPE {

@@ -1,0 +1,15 @@
+<div>
+    <h2>What would you like to export?</h2>
+    <p>you can only export a specific message type at a time</p>
+    <div class="d-flex">
+        <button class="btn btn-primary ms-1 mt-1 mb-1 me-1" (click)="onSMSExportTapped()">
+          SMS
+        </button>
+        <button class="btn btn-warning ms-1 mt-1 mb-1 me-1" (click)="onMMSExportTapped()">
+          MMS
+        </button>
+        <button class="btn btn-info ms-1 mt-1 mb-1 me-1" ngbAutofocus class="btn btn-danger" (click)="onCancelTapped()">
+          Cancel
+        </button>      
+      </div>      
+</div>
