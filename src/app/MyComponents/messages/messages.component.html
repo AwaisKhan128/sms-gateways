@@ -96,7 +96,7 @@
     Export 
   </button>
 
-  <button class="btn btn-info ms-1 mt-1 mb-1 me-1">
+  <button class="btn btn-info ms-1 mt-1 mb-1 me-1" (click)="actionResendMessages()">
     Resend
   </button>
 
@@ -148,7 +148,7 @@
           <div class=" d-flex">
             <div class="check">
               <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="{{sms.message_id}}" id="checkresend}" (click)="onScheduler_resend($event)">
+                <input class="form-check-input" type="checkbox" value="{{sms.message_id}}" id="checkresend" (click)="onScheduler_resend($event)">
               </div>
             </div>
           </div>

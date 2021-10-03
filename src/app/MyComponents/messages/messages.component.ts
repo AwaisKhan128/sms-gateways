@@ -12,6 +12,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { SimpledialogComponent } from '../simpledialog/simpledialog.component';
 import { MyMessage, SendSMSParam } from 'src/app/Classes/SMS/send_sms_param';
 import { MMsMessage } from 'src/app/Classes/MMS/send_mms_param';
+import * as $ from 'jquery';
 
 
 @Component({
@@ -40,7 +41,7 @@ export class MessagesComponent implements OnInit {
   constructor(private apiService: API_Services, private modalService: NgbModal) { }
 
   ngOnInit(): void {
-    this.actionFetchHistory()
+    this.actionSearch()
   }
 
   onMessageTypeChange(event: any) {
@@ -54,7 +55,14 @@ export class MessagesComponent implements OnInit {
     this.search_param_messageStatus = messageStatusType
     console.log(this.search_param_messageStatus)
   }
-
+  
+  actionSearch() {
+    // console.log("search param "+this.search_param_messageType)
+    // console.log("search param index "+this.pageIndex)
+    // console.log("search param size "+this.pageSize)
+    this.actionFetchHistory(this.search_param_messageType)
+  }
+  
   actionFetchHistory(history_type : string = "ALL") {
     this.messageFrom = (this.messageFrom !== "" || this.messageFrom !== undefined || this.messageFrom !== null) ? this.messageFrom : "0"
     var messageFromUnixTimestamp = DateHandler.convertDateToUnixTimestamp(this.messageFrom)
@@ -143,18 +151,24 @@ export class MessagesComponent implements OnInit {
 
   onScheduler_resend(event: any) {
     const messageID = <string>event.target.value;
-    if ($('#checkresend$}').prop('checked')) {
-      var tempArr = this.sms_history_array.filter(e=>{e.message_id! == messageID})
-      tempArr.forEach(e=>{
-        this.resendMessages.push(e)
-        console.log("adddedd"+this.resendMessages)
+    if ($('#checkresend').prop('checked')) {
+      this.sms_history_array.forEach(t=> { 
+        if (t.message_id! == messageID) {
+          this.resendMessages.push(t)
+        }
       })
+      console.log("temp array length"+this.resendMessages.length)
     }
     else
     {
-      var tempArr = this.resendMessages.filter(e=>{e.message_id! !== messageID})
-      this.resendMessages = tempArr
-      console.log("removed"+this.resendMessages)
+      var tempArr = this.resendMessages
+      this.resendMessages = []
+      tempArr.forEach(t=> { 
+        if (t.message_id! !== messageID) {
+          this.resendMessages.push(t)
+        }
+      })
+      console.log("removed"+this.resendMessages.length)
     }
   }
   
