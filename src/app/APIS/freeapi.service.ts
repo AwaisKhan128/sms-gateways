@@ -9,6 +9,7 @@ import { SendResponse } from '../Classes/SMS/send_sms_response';
 import { SendMMSParam } from '../Classes/MMS/send_mms_param';
 import { HistoryResponse } from '../Classes/SMS/sms_history_response';
 import { ViewSMSTemplatesResponse } from '../Classes/SMS/view_sms_templates_response';
+import { SMSHistoryExportResponse } from '../Classes/SMS/sms_history_export_response';
 
 
 
@@ -131,18 +132,20 @@ export class API_Services{
         return this.httpClient.post(url, param, {headers:HTTP_HEADER_OPTIONS.CLICKSEND_HEADER});  
     }
 
-    getSMSHisory(date_from?: number | undefined, date_to?: number | undefined):Observable<HistoryResponse>
+    getSMSHisory(date_from?: number | undefined, date_to?: number | undefined, current_page_index?: number | undefined, page_limit?: number | undefined):Observable<HistoryResponse>
     {
         var url= API_BASE_URLS.CLICKSEND_BASE_URL + CLICKSEND_API_ENDPOINTS.SMS_HISTORY
-        if (date_from !== undefined && date_to !== undefined) {
-            url += "?date_from="+date_from+"&date_to="+date_to
-        }
-        else if (date_from !== undefined) {
-            url += "?date_from="+date_from
-        }
-        else if (date_to !== undefined) {
-            url += "?date_to="+date_to
-        }
+        // if (date_from !== undefined && date_to !== undefined) {
+        //     url += "?date_from="+date_from+"&date_to="+date_to
+        // }
+        // else if (date_from !== undefined) {
+        //     url += "?date_from="+date_from
+        // }
+        // else if (date_to !== undefined) {
+        //     url += "?date_to="+date_to
+        // }
+        //var pIndex = (current_page_index! as number).toString()
+        //url += "?page="+pIndex//+"&limit="+page_limit
         return this.httpClient.get(url, {headers: HTTP_HEADER_OPTIONS.CLICKSEND_HEADER})
     }
 
@@ -156,7 +159,14 @@ export class API_Services{
         return this.httpClient.get(url,{headers: HTTP_HEADER_OPTIONS.CLICKSEND_HEADER})
     }
 
+    getExportSMSHistory(): Observable<SMSHistoryExportResponse> {
+        const url= API_BASE_URLS.CLICKSEND_BASE_URL + CLICKSEND_API_ENDPOINTS.SMS_History_Export
+        return this.httpClient.get(url,{headers: HTTP_HEADER_OPTIONS.CLICKSEND_HEADER})
+    }
 
+    getFileSMSHistory(url:string): Observable<string> {
+        return this.httpClient.get(url,{responseType: 'text'})
+    }
 
     /**
    * Handle Http operation that failed.

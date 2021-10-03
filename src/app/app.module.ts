@@ -40,6 +40,8 @@ import { MatInputModule } from '@angular/material/input';
 import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
 
 import { DatePipe } from '@angular/common';
+import {MatPaginatorModule} from '@angular/material/paginator';
+
 
 // Import from library
 import {
@@ -100,6 +102,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
     MatNativeDateModule,
     MatFormFieldModule,
     MatInputModule,
+    MatPaginatorModule,
     NgxMaterialTimepickerModule,
     NgxAwesomePopupModule.forRoot({
       ColorList: {

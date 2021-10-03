@@ -73,7 +73,16 @@
         </mat-form-field>
 
       </div>
-
+      <div>
+        <mat-paginator 
+        [length]="this.pageLength" 
+        [pageIndex]="this.pageIndex" 
+        [pageSize]="this.pageSize"
+        [pageSizeOptions]="[15, 30, 60]"
+        (page)="getPaginatorData($event)"
+        aria-label="Select page">
+        </mat-paginator>
+      </div>
     </div>
 
 
@@ -83,7 +92,7 @@
     Search
   </button>
 
-  <button class="btn btn-warning ms-1 mt-1 mb-1 me-1">
+  <button class="btn btn-warning ms-1 mt-1 mb-1 me-1" (click)="actionSMSHistoryExport()">
     Export 
   </button>
 
@@ -174,4 +183,3 @@
   <div *ngIf = "filtered_history_array.length==0">
     <p>No Records Found</p>
   </div>
-  
