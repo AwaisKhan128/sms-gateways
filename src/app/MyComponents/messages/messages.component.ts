@@ -10,6 +10,8 @@ import { PageEvent } from '@angular/material/paginator';
 import { Toaster } from 'src/app/Helper/toaster';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { SimpledialogComponent } from '../simpledialog/simpledialog.component';
+import { MyMessage, SendSMSParam } from 'src/app/Classes/SMS/send_sms_param';
+import { MMsMessage } from 'src/app/Classes/MMS/send_mms_param';
 
 
 @Component({
@@ -21,6 +23,8 @@ export class MessagesComponent implements OnInit {
 
   sms_history_array: HistoryDatum[] =  [];
   filtered_history_array: HistoryDatum[] = [];
+  resendMessages: HistoryDatum[] = [];
+
   messageTo: string =  "0"; //"+61411111111,+61422222222";
   messageFrom: string =  "0"
 
@@ -36,7 +40,7 @@ export class MessagesComponent implements OnInit {
   constructor(private apiService: API_Services, private modalService: NgbModal) { }
 
   ngOnInit(): void {
-    this.actionSearch()
+    this.actionFetchHistory()
   }
 
   onMessageTypeChange(event: any) {
@@ -52,57 +56,54 @@ export class MessagesComponent implements OnInit {
   }
 
   actionFetchHistory(history_type : string = "ALL") {
-    // this.messageFrom = (this.messageFrom !== "" || this.messageFrom !== undefined || this.messageFrom !== null) ? this.messageFrom : "0"
-    // var messageFromUnixTimestamp = DateHandler.convertDateToUnixTimestamp(this.messageFrom)
+    this.messageFrom = (this.messageFrom !== "" || this.messageFrom !== undefined || this.messageFrom !== null) ? this.messageFrom : "0"
+    var messageFromUnixTimestamp = DateHandler.convertDateToUnixTimestamp(this.messageFrom)
 
-    // this.messageTo = (this.messageTo !== "" || this.messageTo !== undefined || this.messageTo !== null || isNaN(this.messageTo) == false) ? this.messageTo : "0"
-    // if (this.messageTo == null) {
-    //   this.messageTo = "0"
-    // }
-    // if(history_type == "SMS") {
+    this.messageTo = (this.messageTo !== "" || this.messageTo !== undefined || this.messageTo !== null || isNaN(this.messageTo) == false) ? this.messageTo : "0"
+    if (this.messageTo == null) {
+      this.messageTo = "0"
+    }
+    var messageToUnixTimestamp = DateHandler.convertDateToUnixTimestamp(this.messageTo)
+    if(history_type == "SMS") {
       
-      //var messageToUnixTimestamp = DateHandler.convertDateToUnixTimestamp(this.messageTo)
       this.pageIndex += 1
-      console.log("search param index insideee "+this.pageIndex)
-      console.log("search param size insideee"+this.pageSize)
-      this.apiService.getSMSHisory(this.pageIndex,this.pageSize).subscribe(
+      this.apiService.getSMSHisory(messageFromUnixTimestamp, messageToUnixTimestamp).subscribe(
         response => {
           const smsArray =  response.data?.data
           this.sms_history_array = smsArray as HistoryDatum[]
           this.sms_history_array.map(e=> e.message_type = "SMS")
           this.applyfilteringOnThisData()
-          // this.pageIndex = response.data?.current_page!
-          // this.pageSize = response.data?.per_page!
-          this.pageLength = response.data!.total!
         }
       );
-    // }
-    // else if(history_type == "MMS"){
-    //   this.apiService.getMMSHistory().subscribe(
-    //     response => {
-    //       const mmsArray =  response.data?.data//?.map(i => i.message_type = "mms")
-    //       this.sms_history_array = mmsArray as HistoryDatum[]
-    //       this.sms_history_array.map(e=> e.message_type = "MMS")
-    //       this.applyfilteringOnThisData()
-    //     }
-    //   )
-    // }
-    // else {
-      // const call_sms_api = this.apiService.getSMSHisory(1632817220, 1632903620)
-      // const call_mms_api = this.apiService.getMMSHistory()
-      // forkJoin([call_sms_api,call_mms_api]).subscribe( responses =>{
-      //   var smsArray =  responses[0].data?.data  as HistoryDatum[]
-      //   var mmsArray =  responses[1].data?.data  as HistoryDatum[]
-      //   smsArray.map(sms => {
-      //     sms.message_type = "SMS"
-      //     this.sms_history_array.push(sms)
-      //   })
-      //   mmsArray.map(mms => {
-      //     mms.message_type = "MMS"
-      //     this.sms_history_array.push(mms)
-      //   })
-      // })
-    // }
+    }
+    else if(history_type == "MMS"){
+      this.apiService.getMMSHistory(messageFromUnixTimestamp, messageToUnixTimestamp).subscribe(
+        response => {
+          const mmsArray =  response.data?.data//?.map(i => i.message_type = "mms")
+          this.sms_history_array = mmsArray as HistoryDatum[]
+          this.sms_history_array.map(e=> e.message_type = "MMS")
+          this.applyfilteringOnThisData()
+        }
+      )
+    }
+    else {
+      const call_sms_api = this.apiService.getSMSHisory(messageFromUnixTimestamp, messageToUnixTimestamp)
+      const call_mms_api = this.apiService.getMMSHistory(messageFromUnixTimestamp, messageToUnixTimestamp)
+      forkJoin([call_sms_api,call_mms_api]).subscribe( responses =>{
+        var smsArray =  responses[0].data?.data  as HistoryDatum[]
+        var mmsArray =  responses[1].data?.data  as HistoryDatum[]
+        this.sms_history_array = []
+        smsArray.map(sms => {
+          sms.message_type = "SMS"
+          this.sms_history_array.push(sms)
+        })
+        mmsArray.map(mms => {
+          mms.message_type = "MMS"
+          this.sms_history_array.push(mms)
+        })
+        this.applyfilteringOnThisData()
+      })
+    }
 
   }
 
@@ -140,21 +141,70 @@ export class MessagesComponent implements OnInit {
     }
   }
 
-  actionSearch() {
-    // console.log("search param "+this.search_param_messageType)
-    // console.log("search param index "+this.pageIndex)
-    // console.log("search param size "+this.pageSize)
-    //this.actionFetchHistory(this.search_param_messageType)
+  onScheduler_resend(event: any) {
+    const messageID = <string>event.target.value;
+    if ($('#checkresend$}').prop('checked')) {
+      var tempArr = this.sms_history_array.filter(e=>{e.message_id! == messageID})
+      tempArr.forEach(e=>{
+        this.resendMessages.push(e)
+        console.log("adddedd"+this.resendMessages)
+      })
+    }
+    else
+    {
+      var tempArr = this.resendMessages.filter(e=>{e.message_id! !== messageID})
+      this.resendMessages = tempArr
+      console.log("removed"+this.resendMessages)
+    }
   }
-
   
-  public getPaginatorData(event: PageEvent): PageEvent {
-    this.pageIndex = event.pageIndex
-    this.pageSize = event.pageSize == 0 ? 15 : event.pageSize
-    // console.log("search param index "+this.pageIndex)
-    // console.log("search param size "+this.pageSize)
-    this.actionSearch()
-    return event;
+  actionResendMessages() {
+    var filtered_smsMessages = this.resendMessages.filter(e=>{e.message_type!.toLowerCase() == "sms"})
+    var filtered_mmsMessages = this.resendMessages.filter(e=>{e.message_type!.toLowerCase() == "mms"})
+    var resend_sms : MyMessage[] = []
+    var resend_mms : MyMessage[] = []
+
+    if(filtered_smsMessages.length > 0) {
+      filtered_smsMessages.forEach( e=> {
+        const m : MyMessage = {
+          body : e.body!,
+          to : e.to!,
+          from : e.from!,
+        };
+        const param : SendSMSParam = {messages: [m]};
+          this.apiService.sendSMS(param)
+            .subscribe(response => {
+              if (response.response_code == "SUCCESS") {
+                Toaster.sucessToast(response.response_msg!)
+              }
+              else {
+                Toaster.failureToast(response.response_code!, response.response_msg!)
+              }
+        });
+      })
+    }
+    
+    if (filtered_mmsMessages.length > 0) {
+      filtered_mmsMessages.forEach( e=> {
+        const mms_message : MMsMessage = {
+          source : "node.js",
+          to: e.to!,
+          from : e.from!,
+          subject : e.subject!,
+          body : e.body!,
+        }
+        const param : SendSMSParam = {messages: [mms_message]};
+          this.apiService.sendMMS(param)
+            .subscribe(response => {
+              if (response.response_code == "SUCCESS") {
+                Toaster.sucessToast(response.response_msg!)
+              }
+              else {
+                Toaster.failureToast(response.response_code!, response.response_msg!)
+              }
+        });
+      })
+    }
   }
 
   openExportDialog() {

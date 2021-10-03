@@ -73,7 +73,7 @@
         </mat-form-field>
 
       </div>
-      <div>
+      <!-- <div>
         <mat-paginator 
         [length]="this.pageLength" 
         [pageIndex]="this.pageIndex" 
@@ -82,7 +82,7 @@
         (page)="getPaginatorData($event)"
         aria-label="Select page">
         </mat-paginator>
-      </div>
+      </div> -->
     </div>
 
 
@@ -148,7 +148,7 @@
           <div class=" d-flex">
             <div class="check">
               <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="" id="check">
+                <input class="form-check-input" type="checkbox" value="{{sms.message_id}}" id="checkresend}" (click)="onScheduler_resend($event)">
               </div>
             </div>
           </div>

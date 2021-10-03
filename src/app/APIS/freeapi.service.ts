@@ -135,22 +135,13 @@ export class API_Services{
     getSMSHisory(date_from?: number | undefined, date_to?: number | undefined, current_page_index?: number | undefined, page_limit?: number | undefined):Observable<HistoryResponse>
     {
         var url= API_BASE_URLS.CLICKSEND_BASE_URL + CLICKSEND_API_ENDPOINTS.SMS_HISTORY
-        // if (date_from !== undefined && date_to !== undefined) {
-        //     url += "?date_from="+date_from+"&date_to="+date_to
-        // }
-        // else if (date_from !== undefined) {
-        //     url += "?date_from="+date_from
-        // }
-        // else if (date_to !== undefined) {
-        //     url += "?date_to="+date_to
-        // }
-        //var pIndex = (current_page_index! as number).toString()
-        //url += "?page="+pIndex//+"&limit="+page_limit
+        url+="?date_from="+date_from+"&date_to="+date_to
         return this.httpClient.get(url, {headers: HTTP_HEADER_OPTIONS.CLICKSEND_HEADER})
     }
 
-    getMMSHistory():Observable<HistoryResponse> {
-        const url= API_BASE_URLS.CLICKSEND_BASE_URL + CLICKSEND_API_ENDPOINTS.MMS_HISTORY
+    getMMSHistory(date_from?: number | undefined, date_to?: number | undefined):Observable<HistoryResponse> {
+        var url= API_BASE_URLS.CLICKSEND_BASE_URL + CLICKSEND_API_ENDPOINTS.MMS_HISTORY
+        url +="?date_from="+date_from+"&date_to="+date_to
         return this.httpClient.get(url,{headers: HTTP_HEADER_OPTIONS.CLICKSEND_HEADER})
     }
 
