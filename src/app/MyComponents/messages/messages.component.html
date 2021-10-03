@@ -108,6 +108,8 @@
     <table>
       <tr>
         <th>
+        </th>
+        <th>
           Message ID
         </th>
         <th>
@@ -133,6 +135,15 @@
         </th>
       </tr>
       <tr *ngFor="let sms of this.filtered_history_array">
+        <td>
+          <div class=" d-flex">
+            <div class="check">
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="check">
+              </div>
+            </div>
+          </div>
+        </td>
         <td>
           {{sms.message_id}}
         </td>
