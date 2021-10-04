@@ -151,13 +151,14 @@ export class MessagesComponent implements OnInit {
 
   onScheduler_resend(event: any) {
     const messageID = <string>event.target.value;
-    if ($('#checkresend').prop('checked')) {
+    if ($('#'+messageID).prop('checked')) {
       this.sms_history_array.forEach(t=> { 
         if (t.message_id! == messageID) {
           this.resendMessages.push(t)
         }
       })
-      console.log("temp array length"+this.resendMessages.length)
+      console.log("add in resend arrar message with ID =>"+messageID)
+      //console.log("add length "+  this.resendMessages.length)
     }
     else
     {
@@ -168,16 +169,23 @@ export class MessagesComponent implements OnInit {
           this.resendMessages.push(t)
         }
       })
-      console.log("removed"+this.resendMessages.length)
+      console.log("removed  in resend arrar message with ID =>"+messageID)
+      //console.log("removed length "+this.resendMessages.length)
     }
   }
   
   actionResendMessages() {
-    var filtered_smsMessages = this.resendMessages.filter(e=>{e.message_type!.toLowerCase() == "sms"})
-    var filtered_mmsMessages = this.resendMessages.filter(e=>{e.message_type!.toLowerCase() == "mms"})
-    var resend_sms : MyMessage[] = []
-    var resend_mms : MyMessage[] = []
-
+    var filtered_smsMessages: HistoryDatum[] = [];
+    var filtered_mmsMessages : HistoryDatum[] = []
+    this.resendMessages.forEach(e=>{
+      var mType = e.message_type!.toLowerCase() as string
+      if (mType == "sms") {
+        filtered_smsMessages.push(e)
+      }
+      else {
+        filtered_mmsMessages.push(e)
+      }
+    })
     if(filtered_smsMessages.length > 0) {
       filtered_smsMessages.forEach( e=> {
         const m : MyMessage = {
@@ -197,7 +205,6 @@ export class MessagesComponent implements OnInit {
         });
       })
     }
-    
     if (filtered_mmsMessages.length > 0) {
       filtered_mmsMessages.forEach( e=> {
         const mms_message : MMsMessage = {
@@ -218,6 +225,9 @@ export class MessagesComponent implements OnInit {
               }
         });
       })
+    }
+    if (this.resendMessages.length <= 0) {
+        Toaster.failureToast("Failed","Please select a message to resend")
     }
   }
 
