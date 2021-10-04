@@ -9,6 +9,7 @@ import { SendSMSParam } from '../Classes/SMS/send_sms_param';
 import { SendResponse } from '../Classes/SMS/send_sms_response';
 import { SendMMSParam } from '../Classes/MMS/send_mms_param';
 import { HistoryResponse } from '../Classes/SMS/sms_history_response';
+import { ICreate_Contact } from '../Classes/manage_contacts';
 
 
 
@@ -148,6 +149,8 @@ export class API_Services{
 
     }
 
+    //Receive contact list
+
     create_contact_list(auth:string|any,body:any)
     {
         const headers = { 'Authorization': 'Basic '+auth};
@@ -160,6 +163,12 @@ export class API_Services{
         return this.httpClient.get(API_BASE_URLS.CLICKSEND_BASE_URL+'lists',{headers:headers})
 
     }
+    get_spec_contact_list(auth:string|any,list_id:any)
+    {
+        const headers = { 'Authorization': 'Basic '+auth};
+        return this.httpClient.get(API_BASE_URLS.CLICKSEND_BASE_URL+'lists/'+list_id,{headers:headers})
+
+    }
 
     update_contact_list(auth:string|any, body:any,list_id:any)
     {
@@ -167,7 +176,43 @@ export class API_Services{
         return this.httpClient.put(API_BASE_URLS.CLICKSEND_BASE_URL+'lists/'+list_id,body,{headers:headers})
     }
 
+    delete_contact_list(auth:string, id:any)
+    {
+        const headers = { 'Authorization': 'Basic '+auth};
+        return this.httpClient.delete(API_BASE_URLS.CLICKSEND_BASE_URL+'lists/'+id,{headers:headers})
+    }
 
+
+    // ----------Receive Contacts----------------
+
+    get_Contacts(auth:string, id:any)
+    {
+        const headers = { 'Authorization': 'Basic '+auth};
+        return this.httpClient.get(API_BASE_URLS.CLICKSEND_BASE_URL+'lists/'+id+'/contacts',{headers:headers})
+    }
+
+    create_contact(auth:string,body:any,list_id:any)
+    {
+        const headers = { 'Authorization': 'Basic '+auth,
+         'Content-Type': 'application/json'};
+        return this.httpClient.post(API_BASE_URLS.CLICKSEND_BASE_URL+'lists/'+list_id+'/contacts',body,{headers:headers});
+    }
+
+
+    update_contact(auth:string,body:any,list_id:any,contact_id:any)
+    {
+        const headers = { 'Authorization': 'Basic '+auth,
+         'Content-Type': 'application/json'};
+        return this.httpClient.put(API_BASE_URLS.CLICKSEND_BASE_URL+'lists/'+list_id+'/contacts/'+contact_id,body,{headers:headers});
+    }
+
+    delete_contact(auth:string,list_id:any, contact_id:any)
+    {
+        const headers = { 'Authorization': 'Basic '+auth,
+         'Content-Type': 'application/json'};
+        return this.httpClient.delete(API_BASE_URLS.CLICKSEND_BASE_URL+'lists/'
+        +list_id+'/contacts/'+contact_id,{headers:headers});
+    }
 
 
 
@@ -231,5 +276,8 @@ export class API_Services{
   private log(message: string) {
    
   }
+
+
+  
 
 }

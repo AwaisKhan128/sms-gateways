@@ -1,3 +1,4 @@
+import { Create_Contact, Update_Contact } from './Classes/manage_contacts';
 import { RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
@@ -42,6 +43,7 @@ import {MatSidenavModule} from '@angular/material/sidenav';
 
 
 
+
 // Import from library
 import {
   NgxAwesomePopupModule,
@@ -65,6 +67,9 @@ import { DatepickerComponent } from './MyComponents/others/datepicker/datepicker
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { WebTopComponent } from './MyComponents/Childs/Topups/web-top/web-top.component';
 import { MobTopComponent } from './MyComponents/Childs/Topups/mob-top/mob-top.component';
+import { JitCompilerFactory } from '@angular/platform-browser-dynamic';
+
+
 
 
 
@@ -148,6 +153,7 @@ import { MobTopComponent } from './MyComponents/Childs/Topups/mob-top/mob-top.co
   MatDialog,OverlayModule,MatDialogConfig
   ,MatDatepickerModule,MatFormFieldModule
   ,MatNativeDateModule,MatSidenavModule
+  ,Create_Contact,Update_Contact
   ],
   bootstrap: [AppComponent],
   

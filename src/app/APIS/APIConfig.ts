@@ -34,3 +34,15 @@ export enum CLICKSEND_STATISTICS_TYPE {
     mms = 1,
     all = 2
 }
+
+export interface isChecked
+{
+    ischeck:boolean;
+}
+
+
+export enum myCredentials
+{
+    username = "awais.khan128@yahoo.com",
+    password = "Myyahooacc#1"
+}
