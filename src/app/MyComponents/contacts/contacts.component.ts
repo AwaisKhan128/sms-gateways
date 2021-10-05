@@ -804,4 +804,119 @@ this.freeAPI.get_contact_list(auths)
   {
     console.log($('#list_typeOptions').val())
   }
+
+  ContactByPageno(event:any)
+  {
+    console.log(event);
+
+    let json = localStorage.getItem("user_data");
+
+    // if(json!=null)
+{
+// this.data = JSON.parse(json);
+// let username = this.data.username;
+// let password = EncodeDecode.b64DecodeUnicode( this.data.passcode);
+// var auths = EncodeDecode.b64EncodeUnicode(username+":"+password);
+
+var auths = EncodeDecode.b64EncodeUnicode(myCredentials.username + ":" + myCredentials.password);
+
+
+this.freeAPI.get_contact_list_byNum(auths,event.pageIndex,event.pageSize)
+.subscribe(
+  res=>{
+    let data = JSON.parse(JSON.stringify(res));
+    this.get_contact_list = data;
+    this.get_contact_list1 = data.data;
+    this.get_contact_list2 = data.data.data;
+    this.get_contact_list2_top = data.data.data;
+
+    
+    this.get_contact_list_templates = data.data.data;    
+    this.get_contact_list_templates?.forEach((_element: any) => {
+      _element.active = false;
+
+    });
+
+
+    // this.modalService.dismissAll();
+    // Toaster_Service.toastNotification_S(data.response_msg);
+
+    // console.log(res);
+  },
+  err=>
+  {
+    // alert(err);
+    console.log(err.response_msg);
+    Toaster_Service.toastNotification_D(err.response_msg);
+
+  }
+)
+}
+
+
+
+
+
+
+}
+
+
+ContactsByPageno(event:any)
+{
+  
+  let json = localStorage.getItem("user_data");
+
+  // if(json!=null)
+  {
+  // this.data = JSON.parse(json);
+  // let username = this.data.username;
+  // let password = EncodeDecode.b64DecodeUnicode( this.data.passcode);
+  // var auths = EncodeDecode.b64EncodeUnicode(username+":"+password);
+  let id = $('.selected_lists').val();
+
+  var auths = EncodeDecode.b64EncodeUnicode(myCredentials.username + ":" + myCredentials.password);
+
+  this.Update_Contact_sample = [];
+  this.freeAPI.get_Contacts_by_Num(auths,id,event.pageIndex,event.pageSize)
+  .subscribe(
+    res=>{
+      let data = JSON.parse(JSON.stringify(res));
+      this.get_contacts1 = data;
+      this.get_contacts2 = data.data;
+      this.get_contacts3_data = data.data.data;
+
+
+      this.get_contacts3_data.forEach(element => {
+
+        let json:any = [];
+        json.contact_id = element.contact_id;
+        json.active = false;
+
+        this.Update_Contact_sample.push(json);
+        // this.Update_Contact_sample.active = false;
+        // console.log(element.contact_id);
+
+      });
+      console.log(this.Update_Contact_sample);
+
+      // this.Update_Contact_sample.array.forEach(element => {
+      //   element.active = false;
+      // });
+
+      // this.modalService.dismissAll();
+      // Toaster_Service.toastNotification_S(data.response_msg);
+      // console.log(res);
+    },
+    err=>
+    {
+      // alert(err);
+      console.log(err.response_msg);
+      Toaster_Service.toastNotification_D(err);
+
+    }
+  )
+  }
+
+
+}
 }

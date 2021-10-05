@@ -120,6 +120,12 @@ export class API_Services{
         return this.httpClient.get(API_BASE_URLS.CLICKSEND_BASE_URL+'sms/templates',{headers:headers})
     }
 
+    get_sms_templates_by_Num(auth:string|any,page:any,limit:any)
+    {
+        const headers = { 'Authorization': 'Basic '+auth};
+        return this.httpClient.get(API_BASE_URLS.CLICKSEND_BASE_URL+'sms/templates?page='+page+'&limit='+limit,{headers:headers})
+    }
+
     remove_sms_templates(auth:string|any,template_id:any)
     {
         const headers = { 'Authorization': 'Basic '+auth};
@@ -176,6 +182,14 @@ export class API_Services{
         return this.httpClient.get(API_BASE_URLS.CLICKSEND_BASE_URL+'lists',{headers:headers})
 
     }
+
+    get_contact_list_byNum(auth:string|any,page:any,limit:any)
+    {
+        const headers = { 'Authorization': 'Basic '+auth};
+        return this.httpClient.get(API_BASE_URLS.CLICKSEND_BASE_URL+'lists?page='+page+'&limit='+limit,{headers:headers})
+    }
+
+
     get_spec_contact_list(auth:string|any,list_id:any)
     {
         const headers = { 'Authorization': 'Basic '+auth};
@@ -202,6 +216,12 @@ export class API_Services{
     {
         const headers = { 'Authorization': 'Basic '+auth};
         return this.httpClient.get(API_BASE_URLS.CLICKSEND_BASE_URL+'lists/'+id+'/contacts',{headers:headers})
+    }
+
+    get_Contacts_by_Num(auth:string, id:any,page:any,limit:any)
+    {
+        const headers = { 'Authorization': 'Basic '+auth};
+        return this.httpClient.get(API_BASE_URLS.CLICKSEND_BASE_URL+'lists/'+id+'/contacts?page='+page+'&limit='+limit,{headers:headers})
     }
 
     create_contact(auth:string,body:any,list_id:any)

@@ -321,4 +321,56 @@ export class TemplatesComponent implements OnInit {
 
   }
 
+  TemplatesByPageno(event:any)
+  {
+    let json = localStorage.getItem("user_data");
+    // if(json!=null)
+    {
+      // this.data = JSON.parse(json);
+      // let username = this.data.username;
+      // let password = EncodeDecode.b64DecodeUnicode( this.data.passcode);
+      // var auths = EncodeDecode.b64EncodeUnicode(username+":"+password);
+      console.log(event.pageIndex,event.pageSize)
+
+      var auths = EncodeDecode.b64EncodeUnicode(myCredentials.username + ":" + myCredentials.password);
+
+      this.freeAPI.get_sms_templates_by_Num(auths,event.pageIndex,event.pageSize)
+        .subscribe
+        (
+          res => {
+            var data = JSON.parse(JSON.stringify(res));
+            this.View_sms_template = data;
+            this.View_sms_template1 = data.data;
+            this.View_sms_template_data = data.data.data;
+            this.template_list = data.data.data;
+            this.template_list_spec = data.data.data;
+
+
+            this.template_list?.forEach((_element: any) => {
+              _element.active = false;
+
+            });
+
+            // console.log(this.template_list.length);
+            if (this.template_list.length==0 ) {
+              $('#delete_it').prop('disabled', true);
+            }
+            else {
+              $('#delete_it').prop('disabled', false);
+
+            }
+
+
+
+            // alert(a.response_msg);
+          },
+          err => {
+            var a = JSON.parse(JSON.stringify(err));
+            // alert(a.response_msg);
+          }
+        )
+    }
+
+  }
+
 }

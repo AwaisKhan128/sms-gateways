@@ -31,7 +31,11 @@
 </div>
 
 <div class="card mt-1 w-auto h-auto">
+  <div class="ms-auto d-flex">
+    <mat-paginator (page)="TemplatesByPageno($event)" [length]="100" [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page">
+    </mat-paginator>
 
+  </div>
 
 
 

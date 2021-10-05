@@ -68,6 +68,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { WebTopComponent } from './MyComponents/Childs/Topups/web-top/web-top.component';
 import { MobTopComponent } from './MyComponents/Childs/Topups/mob-top/mob-top.component';
 import { JitCompilerFactory } from '@angular/platform-browser-dynamic';
+import {MatPaginatorModule} from '@angular/material/paginator';
 
 
 
@@ -116,6 +117,7 @@ import { JitCompilerFactory } from '@angular/platform-browser-dynamic';
     MatNativeDateModule,
     MatInputModule,
     MatSidenavModule,
+    MatPaginatorModule,
     NgxAwesomePopupModule.forRoot(), // Essential, mandatory main module.
     DialogConfigModule.forRoot(), // Needed for instantiating dynamic components.
     // ConfirmBoxConfigModule.forRoot(), // Needed for instantiating confirm boxes.
