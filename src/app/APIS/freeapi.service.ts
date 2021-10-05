@@ -91,16 +91,27 @@ export class API_Services{
         return  this.httpClient.get(API_BASE_URLS.CLICKSEND_BASE_URL+'recharge/transactions',{headers:headers})
     }
 
+
+
     get_card_details(auth:string|any)
     {
         const headers = { 'Authorization': 'Basic '+auth};
         return this.httpClient.get(API_BASE_URLS.CLICKSEND_BASE_URL+'recharge/credit-card',{headers:headers})
     }
 
+
+
+
     create_sms_template(auth:string|any,body:any)
     {
         const headers = { 'Authorization': 'Basic '+auth};
         return this.httpClient.post(API_BASE_URLS.CLICKSEND_BASE_URL+'sms/templates',body,{headers:headers})
+    }
+
+    update_sms_tempalte(auth:string , body:any ,template_id:any)
+    {
+        const headers = { 'Authorization': 'Basic '+auth , 'Content-Type':'application/json'};
+        return this.httpClient.put(API_BASE_URLS.CLICKSEND_BASE_URL+'sms/templates/'+template_id,body,{headers:headers})
     }
 
     get_sms_templates(auth:string|any)
@@ -114,6 +125,8 @@ export class API_Services{
         const headers = { 'Authorization': 'Basic '+auth};
         return this.httpClient.delete(API_BASE_URLS.CLICKSEND_BASE_URL+'sms/templates/'+template_id,{headers:headers})
     }
+
+
 
     update_payment_info(auth:string|any, body:any )
     {

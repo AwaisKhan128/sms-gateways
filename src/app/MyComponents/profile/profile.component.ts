@@ -47,6 +47,153 @@ export class ProfileComponent implements OnInit {
     // console.log(this.data1);
 
   }
+
+  OnTop_Change(val:any)
+  {
+
+    if (val==0)
+    {
+      $('#dashboard').addClass('active')
+      $('#personal').removeClass('active')
+      $('#templates').removeClass('active')
+      $('#contacts').removeClass('active')
+      $('#messages').removeClass('active')
+      $('#sender').removeClass('active')
+      $('#billing').removeClass('active')
+      $('#topup').removeClass('active')
+      $('#admin').removeClass('active')
+      $('#reseller').removeClass('active')
+
+    }
+    else if (val==1)
+    {
+      $('#dashboard').removeClass('active')
+      $('#personal').addClass('active')
+      $('#templates').removeClass('active')
+      $('#contacts').removeClass('active')
+      $('#messages').removeClass('active')
+      $('#sender').removeClass('active')
+      $('#billing').removeClass('active')
+      $('#topup').removeClass('active')
+      $('#admin').removeClass('active')
+      $('#reseller').removeClass('active')
+
+    }
+    else if (val==2)
+    {
+      $('#dashboard').removeClass('active')
+      $('#personal').removeClass('active')
+      $('#templates').addClass('active')
+      $('#contacts').removeClass('active')
+      $('#messages').removeClass('active')
+      $('#sender').removeClass('active')
+      $('#billing').removeClass('active')
+      $('#topup').removeClass('active')
+      $('#admin').removeClass('active')
+      $('#reseller').removeClass('active')
+
+    }
+    else if (val==3)
+    {
+      $('#dashboard').removeClass('active')
+      $('#personal').removeClass('active')
+      $('#templates').removeClass('active')
+      $('#contacts').addClass('active')
+      $('#messages').removeClass('active')
+      $('#sender').removeClass('active')
+      $('#billing').removeClass('active')
+      $('#topup').removeClass('active')
+      $('#admin').removeClass('active')
+      $('#reseller').removeClass('active')
+
+    }
+
+    else if (val==4)
+    {
+      $('#dashboard').removeClass('active')
+      $('#personal').removeClass('active')
+      $('#templates').removeClass('active')
+      $('#contacts').removeClass('active')
+      $('#messages').addClass('active')
+      $('#sender').removeClass('active')
+      $('#billing').removeClass('active')
+      $('#topup').removeClass('active')
+      $('#admin').removeClass('active')
+      $('#reseller').removeClass('active')
+
+    }
+    else if (val==5)
+    {
+      $('#dashboard').removeClass('active')
+      $('#personal').removeClass('active')
+      $('#templates').removeClass('active')
+      $('#contacts').removeClass('active')
+      $('#messages').removeClass('active')
+      $('#sender').addClass('active')
+      $('#billing').removeClass('active')
+      $('#topup').removeClass('active')
+      $('#admin').removeClass('active')
+      $('#reseller').removeClass('active')
+
+    }
+    else if (val==7)
+    {
+      $('#dashboard').removeClass('active')
+      $('#personal').removeClass('active')
+      $('#templates').removeClass('active')
+      $('#contacts').removeClass('active')
+      $('#messages').removeClass('active')
+      $('#sender').removeClass('active')
+      $('#billing').addClass('active')
+      $('#topup').removeClass('active')
+      $('#admin').removeClass('active')
+      $('#reseller').removeClass('active')
+
+    }
+    else if (val==8)
+    {
+      $('#dashboard').removeClass('active')
+      $('#personal').removeClass('active')
+      $('#templates').removeClass('active')
+      $('#contacts').removeClass('active')
+      $('#messages').removeClass('active')
+      $('#sender').removeClass('active')
+      $('#billing').removeClass('active')
+      $('#topup').addClass('active')
+      $('#admin').removeClass('active')
+      $('#reseller').removeClass('active')
+
+    }
+    else if (val==9)
+    {
+      $('#dashboard').removeClass('active')
+      $('#personal').removeClass('active')
+      $('#templates').removeClass('active')
+      $('#contacts').removeClass('active')
+      $('#messages').removeClass('active')
+      $('#sender').removeClass('active')
+      $('#billing').removeClass('active')
+      $('#topup').removeClass('active')
+      $('#admin').addClass('active')
+      $('#reseller').removeClass('active')
+
+    }
+    else if (val==10)
+    {
+      $('#dashboard').removeClass('active')
+      $('#personal').removeClass('active')
+      $('#templates').removeClass('active')
+      $('#contacts').removeClass('active')
+      $('#messages').removeClass('active')
+      $('#sender').removeClass('active')
+      $('#billing').removeClass('active')
+      $('#topup').removeClass('active')
+      $('#admin').removeClass('active')
+      $('#reseller').addClass('active')
+
+    }
+  }
+
   /* Set the width of the side navigation to 250px */
 
 

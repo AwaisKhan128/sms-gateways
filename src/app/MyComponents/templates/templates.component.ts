@@ -1,3 +1,4 @@
+import { Toaster_Service } from './../../Classes/ToasterNg';
 import { empty } from 'rxjs';
 import { View_sms_list, View_sms_template_data } from './../../Classes/sms_templates';
 import { Component, OnInit } from '@angular/core';
@@ -7,6 +8,7 @@ import { EncodeDecode } from 'src/app/Classes/EncodeDec64';
 import { create_sms_template, View_sms_template, View_sms_template1 } from 'src/app/Classes/sms_templates';
 import * as $ from 'jquery';
 import { ToastNotificationInitializer, DialogLayoutDisplay } from '@costlydeveloper/ngx-awesome-popup';
+import { myCredentials } from 'src/app/APIS/APIConfig';
 
 
 @Component({
@@ -19,6 +21,9 @@ export class TemplatesComponent implements OnInit {
   number: any;
   title: any;
   message: any;
+
+  u_title: any;
+  u_message: any;
   View_sms_template: View_sms_template | any;
   View_sms_template1: View_sms_template1 | any;
   View_sms_template_data: View_sms_template_data[] | any;
@@ -26,6 +31,8 @@ export class TemplatesComponent implements OnInit {
 
 
   template_list: View_sms_list[] | any;
+  template_list_spec: View_sms_list[] | any;
+
 
   data: any;
 
@@ -42,7 +49,7 @@ export class TemplatesComponent implements OnInit {
       // let password = EncodeDecode.b64DecodeUnicode( this.data.passcode);
       // var auths = EncodeDecode.b64EncodeUnicode(username+":"+password);
 
-      var auths = EncodeDecode.b64EncodeUnicode('awais.khan128@yahoo.com' + ":" + 'Myyahooacc#1');
+      var auths = EncodeDecode.b64EncodeUnicode(myCredentials.username + ":" + myCredentials.password);
 
       this.freeAPI.get_sms_templates(auths)
         .subscribe
@@ -53,6 +60,9 @@ export class TemplatesComponent implements OnInit {
             this.View_sms_template1 = data.data;
             this.View_sms_template_data = data.data.data;
             this.template_list = data.data.data;
+            this.template_list_spec = data.data.data;
+
+
             this.template_list?.forEach((_element: any) => {
               _element.active = false;
 
@@ -226,6 +236,89 @@ export class TemplatesComponent implements OnInit {
     } else {
       return `with: ${reason}`;
     }
+  }
+
+
+
+  update_templates(content:any)
+  {
+    this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then((result) => {
+      this.closeResult = `Closed with: ${result}`;
+      console.log($(result));
+    }, (reason) => {
+      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+    });
+  }
+
+
+  update_Template()
+  {
+
+    let title = this.u_title;
+    let message = this.u_message;
+
+    let count = 0;
+
+    this.template_list.forEach((_element: any) => {
+      if(_element.active)
+      {
+        count++;
+      }
+
+    });
+
+
+
+    if (count<1)
+    {
+      Toaster_Service.toastNotification_I('Need to select one!')
+    }
+    else if (count > 1)
+    {
+      Toaster_Service.toastNotification_I('Update could only apply to one!');
+
+    }
+    else if (count ==1 ){
+      let json = localStorage.getItem("user_data");
+      let template_id = 0;
+
+      this.template_list.forEach((_element: any) => {
+        if(_element.active)
+        {
+          template_id = _element.template_id;
+        }
+  
+      });
+      // if(json!=null)
+      {
+        // this.data = JSON.parse(json);
+        // let username = this.data.username;
+        // let password = EncodeDecode.b64DecodeUnicode( this.data.passcode);
+        // var auths = EncodeDecode.b64EncodeUnicode(username+":"+password);
+        let json_data = {template_name:title, body:message};
+  
+        var auths = EncodeDecode.b64EncodeUnicode(myCredentials.username + ":" + myCredentials.password);
+  
+        this.freeAPI.update_sms_tempalte(auths,json_data,template_id)
+          .subscribe
+          (
+            res => {
+              var data = JSON.parse(JSON.stringify(res));
+              Toaster_Service.toastNotification_S(data.response_msg);
+  
+              // alert(a.response_msg);
+            },
+            err => {
+              var a = JSON.parse(JSON.stringify(err));
+              Toaster_Service.toastNotification_D(a.response_msg);
+              // alert(a.response_msg);
+            }
+          )
+      }
+    }
+
+
+
   }
 
 }
