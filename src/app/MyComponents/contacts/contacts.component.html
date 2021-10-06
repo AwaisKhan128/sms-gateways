@@ -58,7 +58,8 @@
     </div>
 
     <div class="ms-auto d-flex">
-      <mat-paginator (page)="ContactByPageno($event)" [length]="100" [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page">
+      <mat-paginator (page)="ContactByPageno($event)" [length]="100" [pageSize]="10"
+        [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page">
       </mat-paginator>
 
     </div>
@@ -166,7 +167,7 @@
           <div class="col-8">
             <div class="container d-flex-inline input-group">
               <button type="submit" class="btn btn-primary modal-footer ms-auto">
-                Create Template
+                Create Contact
               </button>
             </div>
           </div>
@@ -933,7 +934,8 @@
 
 
     <div class="ms-auto d-flex">
-      <mat-paginator (page)="ContactsByPageno($event)" [length]="100" [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page">
+      <mat-paginator (page)="ContactsByPageno($event)" [length]="100" [pageSize]="10"
+        [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page">
       </mat-paginator>
 
     </div>

@@ -692,6 +692,7 @@ this.freeAPI.get_contact_list(auths)
     {
       Toaster_Service.toastNotification_I('Must select one!');
     }
+    
   }
 
 
@@ -812,53 +813,48 @@ this.freeAPI.get_contact_list(auths)
     let json = localStorage.getItem("user_data");
 
     // if(json!=null)
-{
-// this.data = JSON.parse(json);
-// let username = this.data.username;
-// let password = EncodeDecode.b64DecodeUnicode( this.data.passcode);
-// var auths = EncodeDecode.b64EncodeUnicode(username+":"+password);
+    {
+    // this.data = JSON.parse(json);
+    // let username = this.data.username;
+    // let password = EncodeDecode.b64DecodeUnicode( this.data.passcode);
+    // var auths = EncodeDecode.b64EncodeUnicode(username+":"+password);
 
-var auths = EncodeDecode.b64EncodeUnicode(myCredentials.username + ":" + myCredentials.password);
-
-
-this.freeAPI.get_contact_list_byNum(auths,event.pageIndex,event.pageSize)
-.subscribe(
-  res=>{
-    let data = JSON.parse(JSON.stringify(res));
-    this.get_contact_list = data;
-    this.get_contact_list1 = data.data;
-    this.get_contact_list2 = data.data.data;
-    this.get_contact_list2_top = data.data.data;
-
-    
-    this.get_contact_list_templates = data.data.data;    
-    this.get_contact_list_templates?.forEach((_element: any) => {
-      _element.active = false;
-
-    });
+    var auths = EncodeDecode.b64EncodeUnicode(myCredentials.username + ":" + myCredentials.password);
 
 
-    // this.modalService.dismissAll();
-    // Toaster_Service.toastNotification_S(data.response_msg);
+    this.freeAPI.get_contact_list_byNum(auths,event.pageIndex,event.pageSize)
+    .subscribe(
+      res=>{
+        let data = JSON.parse(JSON.stringify(res));
+        this.get_contact_list = data;
+        this.get_contact_list1 = data.data;
+        this.get_contact_list2 = data.data.data;
+        this.get_contact_list2_top = data.data.data;
 
-    // console.log(res);
-  },
-  err=>
-  {
-    // alert(err);
-    console.log(err.response_msg);
-    Toaster_Service.toastNotification_D(err.response_msg);
+        
+        this.get_contact_list_templates = data.data.data;    
+        this.get_contact_list_templates?.forEach((_element: any) => {
+          _element.active = false;
+
+        });
+
+
+        // this.modalService.dismissAll();
+        // Toaster_Service.toastNotification_S(data.response_msg);
+
+        // console.log(res);
+      },
+      err=>
+      {
+        // alert(err);
+        console.log(err.response_msg);
+        Toaster_Service.toastNotification_D(err.response_msg);
+
+      }
+    )
+    }
 
   }
-)
-}
-
-
-
-
-
-
-}
 
 
 ContactsByPageno(event:any)

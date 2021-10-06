@@ -61,6 +61,9 @@ export class CreateAccComponent implements OnInit {
 
     )
 
+
+    
+
   }
   
 
@@ -68,9 +71,7 @@ export class CreateAccComponent implements OnInit {
   {
 
 
-    // ---------Sign up here -------------
-  await this.SignUp(this.uname,this.number,this.fname
-    ,this.lname,this.business_name, this.email,this.email1);
+
 
     // $("#fname").val('')
     // $("#email").val('')
@@ -80,52 +81,5 @@ export class CreateAccComponent implements OnInit {
 
 
 
-  public async SignUp(username:string,user_phone:number,first_name:string
-    ,last_name:string,acc_name:string,email:string,password:string)
-  {
-
-    // var val = $("#selects1").val();
-    // alert(val);
-    
-    var lstPost = new CreateAcc();
-    lstPost.username = username;
-    lstPost.user_email = email;
-    lstPost.user_phone = user_phone;
-    lstPost.user_first_name = first_name;
-    lstPost.user_last_name = last_name;
-    lstPost.country = $("#selects1").val();
-    lstPost.password = password;
-    lstPost.account_name = acc_name;
-
-
-    this.freeapi.createAcc_post('application/json', lstPost)
-      .subscribe(
-        
-        data => 
-            {
-              this.getAccResp = data;
-              alert(this.getAccResp.response_code + " " + this.getAccResp.response_msg);
-
-              var send = new send_Code();
-              send.country = $("#selects1").val();
-              send.type = "sms";
-              send.user_phone = user_phone;
-
-              var encoded = EncodeDecode.b64EncodeUnicode(username+':'+password);
-
-              this.freeapi.send_Code(encoded,send)
-              .subscribe(
-                data=>
-                {
-                  alert(data.response_msg);
-                }
-              )
-
-
-            }
-      )
-
-
-  }
 
 }

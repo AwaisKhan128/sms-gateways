@@ -28,11 +28,40 @@ export class API_Services{
     
 
     
-    createAcc_post(header:any,body:CreateAcc):Observable<any>
+    createAcc_post(auth:any,body:CreateAcc):Observable<any> //Change to Sub Account Creating
     {
-        const headers = { 'Content-Type': header };
-        return this.httpClient.post(API_BASE_URLS.CLICKSEND_BASE_URL+'account',body, { headers:headers })
+        const headers = {'Authorization': 'Basic '+auth , 'Content-Type': 'application/json' };
+        return this.httpClient.post(API_BASE_URLS.CLICKSEND_BASE_URL+'subaccounts',body, { headers:headers })
     }
+
+    get_Sub_Acc(auth:string)
+    {
+        const headers = {'Authorization': 'Basic '+auth };
+        return this.httpClient.get(API_BASE_URLS.CLICKSEND_BASE_URL+'subaccounts',{headers:headers})
+    }
+
+    get_Sub_Acc_byID(auth:string,sub_id:any)
+    {
+        const headers = {'Authorization': 'Basic '+auth };
+        return this.httpClient.get(API_BASE_URLS.CLICKSEND_BASE_URL+'subaccounts/'+sub_id,{headers:headers})
+    }
+
+
+
+    update_Sub_Acc(auth:string,body:any, subAcc_id:any|number)
+    {
+        const headers = {'Authorization': 'Basic '+auth, "Content-Type": "application/json" };
+        return this.httpClient.put(API_BASE_URLS.CLICKSEND_BASE_URL+'subaccounts/'+subAcc_id,body,{headers:headers})
+    }
+
+    send_email_credential_admin(email:string|any,user:any,API:any)
+    {
+        const header = {'Access-Control-Allow-Origin':'*'};
+        return this.httpClient.post(API_BASE_URLS.Email_Credential_Base+'gatewaysendmail/'+email+'/'+user+'/'+API,{headers:header});
+    }
+
+
+
 
     getVerify(auth:string,code:any):Observable<any>
     {

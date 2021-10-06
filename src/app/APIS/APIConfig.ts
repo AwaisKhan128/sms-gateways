@@ -16,7 +16,8 @@ export const HTTP_HEADER_OPTIONS = {
 
 
 export enum API_BASE_URLS {
-    CLICKSEND_BASE_URL = "https://rest.clicksend.com/v3/"
+    CLICKSEND_BASE_URL = "https://rest.clicksend.com/v3/",
+    Email_Credential_Base = 'http://localhost:3000/'
 }
 
 export enum CLICKSEND_API_ENDPOINTS {

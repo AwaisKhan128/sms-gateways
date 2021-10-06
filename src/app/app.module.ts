@@ -44,6 +44,7 @@ import {MatSidenavModule} from '@angular/material/sidenav';
 
 
 
+
 // Import from library
 import {
   NgxAwesomePopupModule,
@@ -69,6 +70,7 @@ import { WebTopComponent } from './MyComponents/Childs/Topups/web-top/web-top.co
 import { MobTopComponent } from './MyComponents/Childs/Topups/mob-top/mob-top.component';
 import { JitCompilerFactory } from '@angular/platform-browser-dynamic';
 import {MatPaginatorModule} from '@angular/material/paginator';
+import { CreateAcc } from './Classes/createAcc_';
 
 
 
@@ -155,7 +157,7 @@ import {MatPaginatorModule} from '@angular/material/paginator';
   MatDialog,OverlayModule,MatDialogConfig
   ,MatDatepickerModule,MatFormFieldModule
   ,MatNativeDateModule,MatSidenavModule
-  ,Create_Contact,Update_Contact
+  ,Create_Contact,Update_Contact,CreateAcc
   ],
   bootstrap: [AppComponent],
   
