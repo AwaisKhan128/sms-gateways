@@ -73,16 +73,17 @@
         </mat-form-field>
 
       </div>
-      <!-- <div>
+      <div>
         <mat-paginator 
-        [length]="this.pageLength" 
-        [pageIndex]="this.pageIndex" 
-        [pageSize]="this.pageSize"
+        [length]="this.search_param_page_length" 
+        [pageSize]="this.search_param_page_size"
         [pageSizeOptions]="[15, 30, 60]"
         (page)="getPaginatorData($event)"
+        (pageIndex)="this.search_param_page_index"
+        showFirstLastButtons="false"
         aria-label="Select page">
         </mat-paginator>
-      </div> -->
+      </div>
     </div>
 
 
@@ -143,7 +144,7 @@
           Action
         </th>
       </tr>
-      <tr *ngFor="let sms of this.filtered_history_array">
+      <tr *ngFor="let sms of (this.filtered_history_array)">
         <td>
           <div class=" d-flex">
             <div class="check">

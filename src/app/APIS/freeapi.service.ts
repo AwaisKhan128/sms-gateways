@@ -10,6 +10,7 @@ import { SendMMSParam } from '../Classes/MMS/send_mms_param';
 import { HistoryResponse } from '../Classes/SMS/sms_history_response';
 import { ViewSMSTemplatesResponse } from '../Classes/SMS/view_sms_templates_response';
 import { SMSHistoryExportResponse } from '../Classes/SMS/sms_history_export_response';
+import { StatisticsSMSData } from '../Classes/Statistics/statistics_sms';
 
 
 
@@ -135,7 +136,7 @@ export class API_Services{
     getSMSHisory(date_from?: number | undefined, date_to?: number | undefined, current_page_index?: number | undefined, page_limit?: number | undefined):Observable<HistoryResponse>
     {
         var url= API_BASE_URLS.CLICKSEND_BASE_URL + CLICKSEND_API_ENDPOINTS.SMS_HISTORY
-        url+="?date_from="+date_from+"&date_to="+date_to
+        url+="?date_from="+date_from+"&date_to="+date_to+"&page="+current_page_index+"&limit="+page_limit
         return this.httpClient.get(url, {headers: HTTP_HEADER_OPTIONS.CLICKSEND_HEADER})
     }
 
@@ -164,6 +165,12 @@ export class API_Services{
     getFileMessageHistory(url:string): Observable<string> {
         return this.httpClient.get(url,{responseType: 'text'})
     }
+
+    getStatisticsSMS(): Observable<StatisticsSMSData> {
+        const url= API_BASE_URLS.CLICKSEND_BASE_URL + CLICKSEND_API_ENDPOINTS.STATISTICS_SMS
+        return this.httpClient.get(url,{headers: HTTP_HEADER_OPTIONS.CLICKSEND_HEADER})
+    }
+
 
     /**
    * Handle Http operation that failed.

@@ -32,10 +32,17 @@ export class MessagesComponent implements OnInit {
   search_param_messageType: string = "ALL"
   search_param_messageStatus: string = "ALL"
   
-  pageEvent!: PageEvent;
-  pageLength = 0;
-  pageIndex: number = 0;
-  pageSize: number = 15;
+  // pageEvent!: PageEvent;
+  // pageLength = 0;
+  // pageIndex: number = 0;
+  // pageSize: number = 15;
+
+  // lowValue: number = 0;
+  // highValue: number = 15;
+
+  search_param_page_length : number = 0
+  search_param_page_index: number = 0;
+  search_param_page_size: number = 15;
 
 
   constructor(private apiService: API_Services, private modalService: NgbModal) { }
@@ -73,10 +80,10 @@ export class MessagesComponent implements OnInit {
     }
     var messageToUnixTimestamp = DateHandler.convertDateToUnixTimestamp(this.messageTo)
     if(history_type == "SMS") {
-      
-      this.pageIndex += 1
       this.apiService.getSMSHisory(messageFromUnixTimestamp, messageToUnixTimestamp).subscribe(
         response => {
+          var total = response.data?.total! as number
+          this.search_param_page_length = total
           const smsArray =  response.data?.data
           this.sms_history_array = smsArray as HistoryDatum[]
           this.sms_history_array.map(e=> e.message_type = "SMS")
@@ -252,6 +259,15 @@ export class MessagesComponent implements OnInit {
       if (!pwa || pwa.closed || typeof pwa.closed == 'undefined') {
           alert( 'Please disable your Pop-up blocker and try again.');
       }
+  }
+
+
+   // used to build a slice of papers relevant at any given time
+   public getPaginatorData(event: PageEvent): PageEvent {
+    // this.lowValue = event.pageIndex * event.pageSize;
+    // this.highValue = this.lowValue + event.pageSize;
+    var search_param_page_index = event.pageIndex
+    return event;
   }
 }
 
