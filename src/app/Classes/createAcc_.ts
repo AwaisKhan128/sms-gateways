@@ -6,6 +6,20 @@ export class CreateAcc
     email:any='';
     phone_number:any='';
     password:any='';
+    access_users: any=1;
+    access_billing: any=1;
+    access_reporting: any=1;
+    access_contacts: any=1;
+    access_settings: any=1;
+    access_sms: any=1;
+    access_email: any=1;
+    access_voice: any=1;
+    access_fax: any=1;
+    access_post: any=1;
+    access_reseller: any=1;
+    access_mms: any=1;
+    share_campaigns:any=1;
+    
 
 }
 

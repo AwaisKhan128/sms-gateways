@@ -11,6 +11,7 @@ import { send_Code } from 'src/app/Classes/Verify_acc';
 import { Toaster_Service } from 'src/app/Classes/ToasterNg';
 import { myCredentials } from 'src/app/APIS/APIConfig';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { Permission } from 'src/app/Classes/Permissions';
 
 
 @Component({
@@ -48,14 +49,13 @@ export class AdminComponent implements OnInit {
 
 
 
-  constructor(private freeapi:API_Services, public Create_subAcc:CreateAcc,private modalService: NgbModal) { }
+  constructor(private freeapi:API_Services, public Create_subAcc:CreateAcc
+    ,private modalService: NgbModal, public permission:Permission) { }
 
   ngOnInit(): void {
 
 
     let json = localStorage.getItem("user_data");
-
-
         // if(json!=null)
         {
           // this.data = JSON.parse(json);
@@ -79,7 +79,7 @@ export class AdminComponent implements OnInit {
               this.Update_Admin_Sample_for_Selection = data_resp.data.data;
 
 
-              this.Update_Admin_Sample.forEach(element => {
+              this.Update_Admin_Sample.forEach((element: { active: boolean; }) => {
                 element.active = false;
               });
 
@@ -146,6 +146,9 @@ export class AdminComponent implements OnInit {
               data => 
                   {
                     let data_resp = JSON.parse( JSON.stringify (data) );
+                    this.permission.id = data_resp.data.subaccount_id
+                    this.permission.username = data_resp.data.api_username
+                    this.managing_permissions();
 
                     this.freeapi.send_email_credential_admin(data_resp.data.email
                       ,data_resp.data.api_username,data_resp.data.api_key)
@@ -154,7 +157,32 @@ export class AdminComponent implements OnInit {
                       data=>
                       {
                         let resp_data= JSON.parse(JSON.stringify(data));
+                        // --------Permissions--------------
+                        this.freeapi.push_Acc_permissions("admin",this.permission)
+                        .subscribe
+                        (
+                          res=>
+                          {
+                            let final_resp = JSON.parse(JSON.stringify(res));
+                            console.log(final_resp);
+                            Toaster_Service.toastNotification_S("Success"+final_resp.http_response);
+                          },
+                          err=>
+                          {
+                            let final_resp = JSON.parse(JSON.stringify(err));
+                            console.log(final_resp);
+                            console.log(this.permission);
+                            Toaster_Service.toastNotification_S("Failed to Update Permissions");
+
+                          }
+                        )
+
+                      
+
+                        // <--------------------------------->
                         Toaster_Service.toastNotification_S(resp_data.response_msg);
+                        console.log(this.permission);
+
                         this.modalService.dismissAll();
                       },
           
@@ -166,7 +194,7 @@ export class AdminComponent implements OnInit {
                     )
 
 
-
+                    console.log(this.permission);
                     Toaster_Service.toastNotification_S(data_resp.response_msg);
                     console.log(data);
                     $('#api_username').val('');
@@ -284,7 +312,7 @@ export class AdminComponent implements OnInit {
 
     if(this.Update_Admin_Sample!=null||undefined)
     {
-    this.Update_Admin_Sample.forEach(element => {
+    this.Update_Admin_Sample.forEach((element: { active: any; }) => {
       if(element.active)
       {
         count_active++;
@@ -306,7 +334,7 @@ export class AdminComponent implements OnInit {
 
       let sub_Acc_id = 0
 
-      this.Update_Admin_Sample.forEach(element => {
+      this.Update_Admin_Sample.forEach((element: { active: any; subaccount_id: number; }) => {
         if(element.active)
         {
           sub_Acc_id =  element.subaccount_id;
@@ -336,6 +364,32 @@ export class AdminComponent implements OnInit {
           .subscribe(
             res=>{
               let data = JSON.parse(JSON.stringify(res));
+              // --------------------------------------->>>>
+              this.permission.id = data.data.subaccount_id
+              this.permission.username = data.data.api_username
+              this.managing_permissions();
+
+              // ------------------>
+              // --------Permissions--------------
+              this.freeapi.inject_Acc_permissions(data.data.subaccount_id,this.permission)
+              .subscribe
+              (
+                res=>
+                {
+                  let final_resp = JSON.parse(JSON.stringify(res));
+                  console.log(final_resp);
+                  Toaster_Service.toastNotification_S("Success"+final_resp.http_response);
+                },
+                err=>
+                {
+                  let final_resp = JSON.parse(JSON.stringify(err));
+                  console.log(final_resp);
+                  console.log(this.permission);
+                  Toaster_Service.toastNotification_S("Failed to Update Permissions");
+
+                }
+              )
+
       
               // this.modalService.dismissAll();
               Toaster_Service.toastNotification_S(data.response_msg);
@@ -371,7 +425,7 @@ export class AdminComponent implements OnInit {
 
     if(this.Update_Admin_Sample!=null||undefined)
     {
-    this.Update_Admin_Sample.forEach(element => {
+    this.Update_Admin_Sample.forEach((element: { active: any; }) => {
       if(element.active)
       {
         count_active++;
@@ -396,7 +450,7 @@ export class AdminComponent implements OnInit {
       let api = '';
 
 
-      this.Update_Admin_Sample.forEach(element => {
+      this.Update_Admin_Sample.forEach((element: { active: any; email: string; api_username: string; api_key: string; }) => {
         if(element.active)
         {
           email =  element.email;
@@ -484,7 +538,7 @@ export class AdminComponent implements OnInit {
               // this.get_SubAcc_details1 = data_resp.data;
               this.get_SubAcc_details2.push( data_resp.data);
               this.Update_Admin_Sample.push(data_resp.data) ;
-              this.Update_Admin_Sample.forEach(element => {
+              this.Update_Admin_Sample.forEach((element: { active: boolean; }) => {
                 element.active = false;
               });
       
@@ -534,13 +588,12 @@ export class AdminComponent implements OnInit {
                     this.Update_Admin_Sample_for_Selection = data_resp.data.data;
       
       
-                    this.Update_Admin_Sample.forEach(element => {
+                    this.Update_Admin_Sample.forEach((element: { active: boolean; }) => {
                       element.active = false;
                     });
                     console.log(this.Update_Admin_Sample );
       
                     
-      
                   },
                   res=>
                   {
@@ -554,8 +607,151 @@ export class AdminComponent implements OnInit {
     }
     }
 
-    
-
   }
 
+
+  Delete_Admin()
+  {
+    let subaccount_id = 0;
+    let count = 0;
+
+    this.Update_Admin_Sample.forEach((element: { active: any; subaccount_id: number; }) => {
+      if (element.active)
+      {
+        count++;
+      subaccount_id = element.subaccount_id;
+      let json = localStorage.getItem("user_data");
+      // if(json!=null)
+      {
+        // this.data = JSON.parse(json);
+        // let username = this.data.username;
+        // let password = EncodeDecode.b64DecodeUnicode( this.data.passcode);
+        // var auths = EncodeDecode.b64EncodeUnicode(username+":"+password);
+    
+        var auths = EncodeDecode.b64EncodeUnicode(myCredentials.username + ":" + myCredentials.password);
+        
+        this.freeapi.delete_subAcc(auths,subaccount_id)
+        .subscribe
+        (
+          data=>
+          {
+            let data_resp = JSON.parse(JSON.stringify(data));
+            Toaster_Service.toastNotification_S(data_resp.response_msg);
+
+            
+          },
+          res=>
+          {
+            console.log(res);
+            Toaster_Service.toastNotification_D("Failed to delete");
+
+          }
+
+        )
+    
+      }
+
+      }
+      
+    });
+
+    if (count===0)
+    {
+      Toaster_Service.toastNotification_I('Need to Select at least one!');
+      count=0;
+    }
+  }
+
+
+  managing_permissions()
+  {
+    if ($('#Access_SMS'+':checkbox').prop('checked')) {
+                          
+      this.permission.access_sms = 1;
+    }
+    else if ($('#Access_SMS'+':checkbox').prop('checked')==false) {
+                          
+      this.permission.access_sms = 0;
+    }
+
+    if ($('#Access_MMS'+':checkbox').prop('checked')) {
+      
+      this.permission.access_mms = 1;
+    }
+    else if ($('#Access_MMS'+':checkbox').prop('checked')==false) {
+                          
+      this.permission.access_mms = 0;
+    }
+
+    if ($('#Access_Contact'+':checkbox').prop('checked')) {
+      
+      this.permission.access_contacts = 1;
+    }
+    else if ($('#Access_Contact'+':checkbox').prop('checked')==false) {
+      this.permission.access_contacts = 0;
+    }
+
+    if ($('#access_templates'+':checkbox').prop('checked')) {
+      this.permission.access_templates = 1;
+    }
+    else if ($('#access_templates'+':checkbox').prop('checked')==false) {                   
+      this.permission.access_templates = 0;
+    }
+
+    if ($('#access_billing'+':checkbox').prop('checked')) {
+      this.permission.access_billing = 1;
+    }else if ($('#access_billing'+':checkbox').prop('checked')==false) {          
+      this.permission.access_billing = 0;
+    }
+
+    if ($('#access_resellers'+':checkbox').prop('checked')) {
+      this.permission.access_resellers = 1;
+    }else if ($('#access_resellers'+':checkbox').prop('checked')==false) {                     
+      this.permission.access_resellers = 0;
+    }
+
+    if ($('#mobile_topup'+':checkbox').prop('checked')) {
+      this.permission.mobile_topup = 1;
+    }else if ($('#mobile_topup'+':checkbox').prop('checked')==false) {               
+      this.permission.mobile_topup = 0;
+    }
+
+    if ($('#sms_campaign'+':checkbox').prop('checked')) {     
+      this.permission.sms_campaign = 1;
+    }else if ($('#sms_campaign'+':checkbox').prop('checked')==false) {               
+      this.permission.sms_campaign = 0;
+    }
+
+    if ($('#banned'+':checkbox').prop('checked')) {  
+      this.permission.banned = 1;
+    }else if ($('#banned'+':checkbox').prop('checked')==false) {               
+      this.permission.banned = 0;
+    }
+  }
+
+
+  // Send_Permissions()
+  // {
+  //   // --------Permissions--------------
+  //   this.permission.id = 124
+  //   this.permission.username = "resp_data_api_username"
+  //   this.managing_permissions();
+  //   this.freeapi.push_Acc_permissions("admin",this.permission)
+  //   .subscribe
+  //   (
+  //     res=>
+  //     {
+  //       let final_resp = JSON.parse(JSON.stringify(res));
+  //       console.log(final_resp);
+  //       Toaster_Service.toastNotification_S("Success"+final_resp.http_response);
+  //     },
+  //     err=>
+  //     {
+  //       let final_resp = JSON.parse(JSON.stringify(err));
+  //       console.log(final_resp);
+  //       Toaster_Service.toastNotification_D("Failed to Update Permissions");
+
+  //     }
+  //   )
+  // }
 }

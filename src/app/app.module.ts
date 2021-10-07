@@ -45,6 +45,7 @@ import {MatSidenavModule} from '@angular/material/sidenav';
 
 
 
+
 // Import from library
 import {
   NgxAwesomePopupModule,
@@ -71,6 +72,8 @@ import { MobTopComponent } from './MyComponents/Childs/Topups/mob-top/mob-top.co
 import { JitCompilerFactory } from '@angular/platform-browser-dynamic';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import { CreateAcc } from './Classes/createAcc_';
+import { Create_Reseller } from './Classes/Resellers';
+import { Permission } from './Classes/Permissions';
 
 
 
@@ -156,8 +159,8 @@ import { CreateAcc } from './Classes/createAcc_';
   SharedService,
   MatDialog,OverlayModule,MatDialogConfig
   ,MatDatepickerModule,MatFormFieldModule
-  ,MatNativeDateModule,MatSidenavModule
-  ,Create_Contact,Update_Contact,CreateAcc
+  ,MatNativeDateModule,MatSidenavModule,Permission
+  ,Create_Contact,Update_Contact,CreateAcc,Create_Reseller
   ],
   bootstrap: [AppComponent],
   

@@ -27,6 +27,7 @@ export class API_Services{
     }
     
 
+    // Creating SubAccounts
     
     createAcc_post(auth:any,body:CreateAcc):Observable<any> //Change to Sub Account Creating
     {
@@ -46,8 +47,6 @@ export class API_Services{
         return this.httpClient.get(API_BASE_URLS.CLICKSEND_BASE_URL+'subaccounts/'+sub_id,{headers:headers})
     }
 
-
-
     update_Sub_Acc(auth:string,body:any, subAcc_id:any|number)
     {
         const headers = {'Authorization': 'Basic '+auth, "Content-Type": "application/json" };
@@ -57,9 +56,49 @@ export class API_Services{
     send_email_credential_admin(email:string|any,user:any,API:any)
     {
         const header = {'Access-Control-Allow-Origin':'*'};
-        return this.httpClient.post(API_BASE_URLS.Email_Credential_Base+'gatewaysendmail/'+email+'/'+user+'/'+API,{headers:header});
+        return this.httpClient.post(API_BASE_URLS._Credential_Base+'gatewaysendmail/'+email+'/'+user+'/'+API,{headers:header});
     }
 
+    delete_subAcc(auth:string, subAcc_Id:number|any)
+    {
+        const headers = {'Authorization': 'Basic '+auth };
+        return this.httpClient.delete(API_BASE_URLS.CLICKSEND_BASE_URL+'subaccounts/'+subAcc_Id,{headers:headers});
+    }
+
+    push_Acc_permissions(user_type:any,body:any)
+    {
+        const headers = {'Access-Control-Allow-Origin':'*', "Content-Type": "application/json" };
+        return this.httpClient.post(API_BASE_URLS._Credential_Base+'insert/permissions/'+user_type,body,{headers:headers});
+    }
+
+    inject_Acc_permissions(subAcc_id:any,body:any)
+    {
+        const headers = {'Access-Control-Allow-Origin':'*', "Content-Type": "application/json" };
+        return this.httpClient.put(API_BASE_URLS._Credential_Base+'modify/permissions?id='+subAcc_id,body,{headers:headers});
+    }
+
+    retrieve_Acc_permissions(id:any|number)
+    {
+        const headers = {'Access-Control-Allow-Origin':'*'};
+        return this.httpClient.get(API_BASE_URLS._Credential_Base+'select/permissions?id='+id,{headers:headers})
+    }
+
+    retrieve_Acc_permissionsALL(status:any|number)
+    {
+        const headers = {'Access-Control-Allow-Origin':'*'};
+        return this.httpClient.get(API_BASE_URLS._Credential_Base+'select/permissions?status='+status,{headers:headers})
+    }
+
+
+
+
+// ---------------->Resellers-------------->
+
+    create_reseller(body:any)
+    {
+        const headers = {"Content-Type": "application/json" };
+        return this.httpClient.post(API_BASE_URLS.CLICKSEND_BASE_URL+'account',body,{headers:headers});
+    }
 
 
 
