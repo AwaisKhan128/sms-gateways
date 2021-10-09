@@ -46,6 +46,7 @@ import {MatSidenavModule} from '@angular/material/sidenav';
 
 
 
+
 // Import from library
 import {
   NgxAwesomePopupModule,
@@ -74,6 +75,7 @@ import {MatPaginatorModule} from '@angular/material/paginator';
 import { CreateAcc } from './Classes/createAcc_';
 import { Create_Reseller } from './Classes/Resellers';
 import { Permission } from './Classes/Permissions';
+import { TimepickerDirective } from 'ngx-material-timepicker';
 
 
 
@@ -123,6 +125,7 @@ import { Permission } from './Classes/Permissions';
     MatInputModule,
     MatSidenavModule,
     MatPaginatorModule,
+    TimepickerDirective,
     NgxAwesomePopupModule.forRoot(), // Essential, mandatory main module.
     DialogConfigModule.forRoot(), // Needed for instantiating dynamic components.
     // ConfirmBoxConfigModule.forRoot(), // Needed for instantiating confirm boxes.
