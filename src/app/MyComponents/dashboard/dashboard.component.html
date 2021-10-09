@@ -10,7 +10,7 @@
           <div class="card   text-dark shadow  bg-body rounded" style="width: 18rem;color:pink">
             
             <div class="card-body  text-dark" style="color: pink;">
-              <p class="card-text text-center">0</p>
+              <p class="card-text text-center">{{this.outbound_messages_total}}</p>
               <h5 class="card-title text-center">Sent</h5>
               <a href="#" class="btn btn-primary d-flex justify-content-center">More Info</a>
             </div>
@@ -25,7 +25,7 @@
           <div class="card  bg-info text-dark shadow  bg-body rounded" style="width: 18rem;">
             
             <div class="card-body  bg-info text-dark ">
-              <p class="card-text text-center">0</p>
+              <p class="card-text text-center">{{this.inbound_messages_total}}</p>
               <h5 class="card-title text-center">Received</h5>
               <a href="#" class="btn btn-primary d-flex justify-content-center">More Info</a>
             </div>
@@ -39,7 +39,7 @@
           <div class="card  bg-light text-dark shadow  bg-body rounded" style="width: 18rem;">
             
             <div class="card-body  bg-light text-dark ">
-              <p class="card-text text-center">0</p>
+              <p class="card-text text-center">{{this.bounced_messages_total}}</p>
               <h5 class="card-title text-center">Failed</h5>
               <a href="#" class="btn btn-primary d-flex justify-content-center">More Info</a>
             </div>
