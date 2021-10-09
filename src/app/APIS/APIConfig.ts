@@ -16,7 +16,8 @@ export const HTTP_HEADER_OPTIONS = {
 
 
 export enum API_BASE_URLS {
-    CLICKSEND_BASE_URL = "https://rest.clicksend.com/v3/"
+    CLICKSEND_BASE_URL = "https://rest.clicksend.com/v3/",
+    _Credential_Base = 'https://nodebacksql.herokuapp.com/'
 }
 
 export enum CLICKSEND_API_ENDPOINTS {
@@ -36,6 +37,17 @@ export enum CLICKSEND_STATISTICS_TYPE {
     all = 2
 }
 
+export interface isChecked
+{
+    ischeck:boolean;
+}
+
+
+export enum myCredentials
+{
+    username = "awais.khan128@yahoo.com",
+    password = "Myyahooacc#1"
+}
 export enum MESSAGE_STATUS_TYPE {
     sent ="sent",
     completed = "completed",

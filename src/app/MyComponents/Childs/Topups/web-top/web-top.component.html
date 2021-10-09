@@ -1,0 +1,161 @@
+<div class="container h-auto p-2">
+    <div class="row align-items-center h-100 p-2">
+        <div class="col-12 mx-auto ">
+            <div class="card h-auto shadow-sm p-3 mb-3 bg-white rounded border-primary justify-content-center">
+                <div class="mb-10 p-2">
+                    <div class=" container-fluid d-flex mb-10">
+
+                        <div class="col-sm-3">
+                            <label for="select_type"> Select type</label>
+                            <select class="form-select form-select-sm me-auto" id="select_type" aria-label=".form-select-sm example">
+                              <option selected  >All</option>
+                              <option value="SMS">SMS</option>
+                              <option value="MMS">MMS</option>
+                              <option value="Email">Email</option>
+                            </select>
+                        </div>
+
+                        
+
+                        <div class="col-sm-3 ms-3">
+                            <label for="select_country"> Select Country</label>
+                            <select class="form-select form-select-sm me-auto" id="select_country" aria-label=".form-select-sm example">
+                                <option *ngFor="let country of contries_data"  id="selected_count" [value]="country.code">
+                                    {{country.value}}
+                                  </option>
+                            </select>
+                        </div>
+
+                        <div class="col-sm-3 ms-3 mt-4">
+                            <button (click)='get_Packages()' class="btn btn-primary">
+                                Search
+                            </button>
+                        </div>
+                        
+                    </div>
+
+                    <h1 class="container-fluid display-4 justify-content-center">
+
+                        <div class="row" >
+                            <div class="col-sm-3" *ngFor='let pack of packages'>
+                                <div class="card h-auto shadow-sm mb-2 bg-white rounded border-primary justify-content-center">
+                                    <div class="card-body text-dark">
+                                        <div *ngIf="type=='SMS'; else thenBlock">
+                                            <h3 class="card-title text-center"c>SMS Price {{pack?.sms_price}}</h3>
+                                            <h3 class="card-title text-center"c>SMS Quantity {{pack?.sms_quantity}}</h3>
+                                            <p class="card-text text-center">Approx per each</p>
+                                            <h1 class="card-title text-center">${{pack?.package_price}}</h1>
+                                            <a (click)="rechargeIt($event)"  class="btn btn-primary d-flex justify-content-center" id="{{pack?.package_id}}">Recharge</a>
+
+                                        </div>
+
+                                        <ng-template #thenBlock>
+                                        <div *ngIf="type=='MMS'; else elseBlock">
+                                            <h3 class="card-title text-center"c>MMS Price {{pack?.mms_price}}</h3>
+                                            <h3 class="card-title text-center"c>MMS Quantity {{pack?.mms_quantity}}</h3>
+                                            <p class="card-text text-center">Approx per each</p>
+                                            <h1 class="card-title text-center">${{pack?.package_price}}</h1>
+                                            <a  (click)="rechargeIt($event)"  class="btn btn-primary d-flex justify-content-center" id="{{pack?.package_id}}">Recharge</a>
+                                            
+                                        </div>
+                                        </ng-template>
+
+                                        <ng-template #elseBlock>
+                                            <div *ngIf="type=='Email'; else finalBlock">
+                                                <h3 class="card-title text-center"c>Email Price {{pack?.email_price}}</h3>
+                                                <h3 class="card-title text-center"c>Email Quantity {{pack?.email_quantity}}</h3>
+                                                <p class="card-text text-center">Approx per each</p>
+                                                <h1 class="card-title text-center">${{pack?.package_price}}</h1>
+                                                <a (click)="rechargeIt($event)"  class="btn btn-primary d-flex justify-content-center" id="{{pack?.package_id}}">Recharge</a>
+                                            </div>
+                                        </ng-template>
+
+                                        <ng-template #finalBlock>
+                                                
+                                                <h1 class="card-title text-center">${{pack?.package_price}}</h1>
+                                                <a (click)="rechargeIt($event)"  class="btn btn-primary d-flex justify-content-center" id="{{pack?.package_id}}">Recharge</a>
+                                            
+                                        </ng-template>
+
+
+     
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </h1>
+                    <div class="login-block d-flex justify-content-center">
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container h-auto p-2">
+    <div class="row align-items-center h-100 p-2">
+        <div class="col-12 mx-auto ">
+          <div class="card h-auto shadow-sm p-3 mb-5 bg-white rounded border-primary justify-content-center">
+                <div class="mb-10 p-2">
+                  
+                  <h1 class="display-4 justify-content-center">
+
+                    <p>
+                        Recharge History
+                    </p>
+                  </h1>
+
+                  <div class="card mt-1 w-auto h-auto" >
+                    <table>
+                      <tr>
+                        
+                        <th class="table-head">
+                         Invoice
+                        </th>
+                  
+                        <th class="table-head">
+                          Amount
+                        </th>
+                
+                        <th class="table-head">
+                            Currency
+                        </th>
+                
+                          <th class="table-head">
+                            Date
+                          </th>
+                
+                      </tr>
+                  
+                      <tr *ngFor="let data of Packages_History1">
+                                      
+                        <td class="table-drop">
+                          {{"data?.invoice_number"}}
+                        </td>
+                  
+                        <td class="table-drop">
+                          {{"data?.amount"}}
+                
+                        </td>
+                
+                        <td class="table-drop">
+                          {{"data?.currency"}}
+                        </td>
+                  
+                        <td class="table-drop">
+                          {{"data?.date"}}
+                        </td>
+                  
+                  
+                      </tr>
+                    </table>
+                  </div>
+  
+                </div>
+            </div>
+        </div>
+    </div>
+  </div>

@@ -4,7 +4,7 @@
     padding: 0;
     width: 200px;
     background-color: #f1f1f1;
-    position: fixed;
+    position:absolute;
     height: 100%;
     overflow: auto;
   }
@@ -33,7 +33,7 @@
   div.content {
     margin-left: 200px;
     padding: 1px 16px;
-    height: 1000px;
+    height: auto;
   }
   
   /* On screens that are less than 700px wide, make the sidebar into a topbar */

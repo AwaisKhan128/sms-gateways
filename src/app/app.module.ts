@@ -1,3 +1,4 @@
+import { Create_Contact, Update_Contact } from './Classes/manage_contacts';
 import { RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
@@ -32,6 +33,12 @@ import { ManageCardsComponent } from './MyComponents/Childs/Billing/manage-cards
 import { UsageComponent } from './MyComponents/Childs/Billing/usage/usage.component';
 import { OverlayModule } from "@angular/cdk/overlay";
 import {MatDialogModule} from '@angular/material/dialog';
+import {MatSidenavModule} from '@angular/material/sidenav';
+
+
+
+
+
 
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
@@ -52,15 +59,26 @@ import {
   DialogLayoutDisplay,
   ButtonLayoutDisplay,
   ButtonMaker,
+  
 } from '@costlydeveloper/ngx-awesome-popup';
 
 import{
   MatDialog,MatDialogConfig
 
 }from '@angular/material/dialog';
-import { SampleComponent } from './MyComponents/sample/sample.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SimpledialogComponent } from './MyComponents/simpledialog/simpledialog.component'
+import { SampleComponent } from './MyComponents/sample/sample.component'
+
+import { DatepickerComponent } from './MyComponents/others/datepicker/datepicker.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { WebTopComponent } from './MyComponents/Childs/Topups/web-top/web-top.component';
+import { MobTopComponent } from './MyComponents/Childs/Topups/mob-top/mob-top.component';
+import { JitCompilerFactory } from '@angular/platform-browser-dynamic';
+import { CreateAcc } from './Classes/createAcc_';
+import { Create_Reseller } from './Classes/Resellers';
+import { Permission } from './Classes/Permissions';
+
+
 
 
 
@@ -89,7 +107,10 @@ import { SimpledialogComponent } from './MyComponents/simpledialog/simpledialog.
     ManageCardsComponent,
     UsageComponent,
     SampleComponent,
-    SimpledialogComponent
+    SimpledialogComponent,
+    DatepickerComponent,
+    WebTopComponent,
+    MobTopComponent
   ],
   imports: [
     BrowserModule,
@@ -114,6 +135,12 @@ import { SimpledialogComponent } from './MyComponents/simpledialog/simpledialog.
         Danger: '#e46464', // optional
       },
     }), // Essential, mandatory main module.
+    MatFormFieldModule,
+    MatNativeDateModule,
+    MatInputModule,
+    MatSidenavModule,
+    MatPaginatorModule,
+    NgxAwesomePopupModule.forRoot(), // Essential, mandatory main module.
     DialogConfigModule.forRoot(), // Needed for instantiating dynamic components.
     // ConfirmBoxConfigModule.forRoot(), // Needed for instantiating confirm boxes.
     ToastNotificationConfigModule.forRoot(), // Needed for instantiating toast notifications.
@@ -148,6 +175,10 @@ import { SimpledialogComponent } from './MyComponents/simpledialog/simpledialog.
   API_Services,
   SharedService,
   MatDialog,OverlayModule,MatDialogConfig,DatePipe
+  
+  ,MatDatepickerModule,MatFormFieldModule
+  ,MatNativeDateModule,MatSidenavModule,Permission
+  ,Create_Contact,Update_Contact,CreateAcc,Create_Reseller
   ],
   bootstrap: [AppComponent],
   

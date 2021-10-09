@@ -46,44 +46,44 @@
                 <table>
                   <tr>
               
-                    <th>
+                    <th class="table-head">
                      Invoice no.
                     </th>
               
-                    <th>
+                    <th class="table-head">
                       Amount
                     </th>
 
-                    <th>
+                    <th class="table-head">
                       Currency
                      </th>
                
-                     <th>
+                     <th class="table-head">
                        Date
                      </th>
                   </tr>
               
                   <tr *ngFor="let trans of transaction_resp_data1">
-                    <td>
+                    <td class="table-drop">
                       {{trans?.invoice_number}}
                     </td>
               
-                    <td>
+                    <td class="table-drop">
                       {{trans?.amount}}
                     </td>
 
-                    <td>
+                    <td class="table-drop">
                       {{trans?.currency}
                     </td>
               
-                    <td>
+                    <td class="table-drop">
                       {{trans?.date}}
                     </td>
               
               
                   </tr>
                 </table>
-              </div>
+            </div>
 
             </div>
         </div>

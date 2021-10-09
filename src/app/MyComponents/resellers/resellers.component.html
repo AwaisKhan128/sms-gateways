@@ -1,1 +1,528 @@
-<p>Reseller</p>
+<div class="card mt-1 w-auto h-auto">
+
+    <div class="d-flex  ">
+        
+        
+        <div class="ms-auto">
+            <button class=" btn btn-outline-success m-1"  >
+                Email Credentials
+            </button>
+
+            <button class=" btn btn-outline-success m-1" (click)="C_Admin(C_resell)" >
+                Create Reseller
+            </button>
+        
+            <button class=" btn btn-outline-success m-1" (click)="C_Admin(U_resell)" >
+                Update Reseller
+            </button>
+        
+
+        </div>
+
+
+
+    </div>
+
+
+    
+
+    <ng-template #C_resell let-modal>
+        <div class="modal-header">
+            <h4 class="modal-title container-fluid display-4" id="modal-basic-title">Create Reseller</h4>
+            <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+
+          <div class="modal-body">
+              
+              <div class="mb-10 p-2">
+                            
+             
+                <div class="ms-auto">
+                  
+                
+                  <div class="container-fluid p-auto">
+                    <form (ngSubmit)="Create_Reseller_Now()">
+                
+                      <div class="mb-3">
+                        <label for="username" class="form-label">Username</label>
+                        <input class="form-control" placeholder="Required" [(ngModel)] = "create_Reseller.username"  name="create_Reseller.username"
+                         id="username">
+                      </div>
+
+                      <div class="mb-3">
+                        <label for="account_name" class="form-label">Business Name</label>
+                        <input class="form-control" placeholder="Required" [(ngModel)]="create_Reseller.account_name"  name="create_Reseller.account_name"
+                         id="account_name">
+                      </div>
+                
+                
+                      <div class="mb-3">
+                        <label for="first_name" class="form-label">First Name</label>
+                        <input class="form-control" placeholder="Required" [(ngModel)]="create_Reseller.user_first_name"
+                        name="create_Reseller.first_name" id="first_name">
+                      </div>
+                
+                      <div class="mb-3">
+                        <label for="last_name" class="form-label">Last Name</label>
+                        <input class="form-control" placeholder="Required" [(ngModel)]="create_Reseller.user_last_name"
+                        name="create_Reseller.user_last_name" id="last_name">
+                      </div>
+                
+                
+                      <div class="row ">
+                        <div class="col-2 mt-4">
+                
+                          <div class="ms-auto mt-2 ">
+                            <select  name="create_Reseller.country" class="form-select form-select-sm me-auto" id="selects_country" aria-label=".form-select-sm example">
+                              <!-- <option  id="options"  selected>Select Country</option> -->
+                              <option *ngFor="let country of contries_data"   id="option_value" 
+                              [value]="country.code">
+                                {{country.value}}
+                              </option>
+                
+                            </select>
+                          </div>
+                          
+                        </div>
+            
+                        <div class="col">
+                
+                          <div class="mb-2">
+                            <label for="user_phone" class="form-label">Phone</label>
+                            <input type="number" placeholder="Required"  class="form-control" [(ngModel)]="create_Reseller.user_phone"
+                            placeholder="Without Country Code"  name="create_Reseller.user_phone" id="user_phone">
+                          </div>
+                
+                        </div>
+                      </div>
+                
+                
+                
+                      <div class="mb-3">
+                        <label for="user_email" class="form-label">Email</label>
+
+                        <input type="email" placeholder="Required" class="form-control" 
+                        name="create_Reseller.user_email" id="user_email" [(ngModel)]="create_Reseller.user_email"
+                          aria-describedby="emailHelp">
+                          
+                        <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+                      </div>
+
+                      <div class="mb-3">
+                        <label for="password" class="form-label">Password</label>
+
+                        <input type="password" placeholder="Required" class="form-control" 
+                        [(ngModel)]="create_Reseller.password"
+                        name="create_Reseller.password" id="password"
+                          aria-describedby="emailHelp">
+                
+                      </div>
+                      <div class="mb-3 ">
+                        <h4>
+                          Manage Permissions
+                        </h4>
+    
+                        <div class="d-flex">
+                          <div class="row d-flex">
+    
+                            <div class="col-6">
+                              <div class="form-check">
+                                <input class="form-check-input subAcc_select"  type="checkbox" value="" id="Access_SMS">
+                                <label class="form-check-label" for="Access_SMS">
+                                  Access SMS
+                                </label>
+                              </div>
+                            </div>
+    
+                            <div class="col-6">
+                              <div class="form-check">
+                                <input class="form-check-input subAcc_select"  type="checkbox" value="" id="Access_MMS">
+                                <label class="form-check-label" for="Access_MMS">
+                                  Access MMS
+                                </label>
+                              </div>
+                            </div>
+    
+                            <div class="col-6">
+                              <div class="form-check">
+                                <input class="form-check-input subAcc_select"  type="checkbox" value="" id="Access_Contact">
+                                <label class="form-check-label" for="Access_Contact">
+                                  Access Contacts
+                                </label>
+                              </div>
+                            </div>
+    
+                            
+    
+                            <div class="col-6">
+                              <div class="form-check">
+                                <input class="form-check-input subAcc_select"  type="checkbox" value="" id="access_templates">
+                                <label class="form-check-label" for="access_templates">
+                                  Access Templates
+                                </label>
+                              </div>
+                            </div>
+    
+                            <div class="col-6">
+                              <div class="form-check">
+                                <input class="form-check-input subAcc_select"  type="checkbox" value="" id="access_billing">
+                                <label class="form-check-label" for="access_billing">
+                                  Access Billing
+                                </label>
+                              </div>
+                            </div>
+    
+    
+                            <div class="col-6">
+                              <div class="form-check">
+                                <input class="form-check-input subAcc_select"  type="checkbox" value="" id="mobile_topup">
+                                <label class="form-check-label" for="mobile_topup">
+                                  Mobile Topup
+                                </label>
+                              </div>
+                            </div>
+    
+                            <div class="col-6">
+                              <div class="form-check">
+                                <input class="form-check-input subAcc_select"  type="checkbox" value="" id="sms_campaign">
+                                <label class="form-check-label" for="sms_campaign">
+                                  SMS Campaign
+                                </label>
+                              </div>
+                            </div>
+    
+                            <div class="col-6">
+                              <div class="form-check">
+                                <input class="form-check-input subAcc_select"  type="checkbox" value="" id="banned">
+                                <label class="form-check-label" for="banned">
+                                  Banned
+                                </label>
+                              </div>
+                            </div>
+    
+    
+                          </div>
+    
+                        </div>
+                      </div>
+                      <button type="submit" class="btn btn-primary">Create Account</button>
+                    </form>
+                  </div>
+                
+                </div>
+            
+              </div>
+
+          </div>
+  </ng-template>
+
+  <ng-template #U_resell let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title container-fluid display-4" id="modal-basic-title">Update Admin</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+      <div class="modal-body">
+          
+          <div class="mb-10 p-2">
+                        
+         
+            <div class="ms-auto">
+              
+            
+              <div class="container-fluid p-auto">
+                <form (ngSubmit)= "Update_reseller()">
+
+                    <div class="mb-3 ">
+                        <h4>
+                          Manage Permissions
+                        </h4>
+    
+                        <div class="d-flex">
+                          <div class="row d-flex">
+    
+                            <div class="col-6">
+                              <div class="form-check">
+                                <input class="form-check-input subAcc_select"  type="checkbox" value="" id="Access_SMS">
+                                <label class="form-check-label" for="Access_SMS">
+                                  Access SMS
+                                </label>
+                              </div>
+                            </div>
+    
+                            <div class="col-6">
+                              <div class="form-check">
+                                <input class="form-check-input subAcc_select"  type="checkbox" value="" id="Access_MMS">
+                                <label class="form-check-label" for="Access_MMS">
+                                  Access MMS
+                                </label>
+                              </div>
+                            </div>
+    
+                            <div class="col-6">
+                              <div class="form-check">
+                                <input class="form-check-input subAcc_select"  type="checkbox" value="" id="Access_Contact">
+                                <label class="form-check-label" for="Access_Contact">
+                                  Access Contacts
+                                </label>
+                              </div>
+                            </div>
+    
+                            
+    
+                            <div class="col-6">
+                              <div class="form-check">
+                                <input class="form-check-input subAcc_select"  type="checkbox" value="" id="access_templates">
+                                <label class="form-check-label" for="access_templates">
+                                  Access Templates
+                                </label>
+                              </div>
+                            </div>
+    
+                            <div class="col-6">
+                              <div class="form-check">
+                                <input class="form-check-input subAcc_select"  type="checkbox" value="" id="access_billing">
+                                <label class="form-check-label" for="access_billing">
+                                  Access Billing
+                                </label>
+                              </div>
+                            </div>
+    
+    
+                            <div class="col-6">
+                              <div class="form-check">
+                                <input class="form-check-input subAcc_select"  type="checkbox" value="" id="mobile_topup">
+                                <label class="form-check-label" for="mobile_topup">
+                                  Mobile Topup
+                                </label>
+                              </div>
+                            </div>
+    
+                            <div class="col-6">
+                              <div class="form-check">
+                                <input class="form-check-input subAcc_select"  type="checkbox" value="" id="sms_campaign">
+                                <label class="form-check-label" for="sms_campaign">
+                                  SMS Campaign
+                                </label>
+                              </div>
+                            </div>
+    
+                            <div class="col-6">
+                              <div class="form-check">
+                                <input class="form-check-input subAcc_select"  type="checkbox" value="" id="banned">
+                                <label class="form-check-label" for="banned">
+                                  Banned
+                                </label>
+                              </div>
+                            </div>
+    
+    
+                          </div>
+    
+                        </div>
+                      </div>
+                  <button type="submit" class="btn btn-primary">Update Account</button>
+                </form>
+              </div>
+            
+            </div>
+        
+          </div>
+
+      </div>
+  </ng-template>
+
+  <ng-template #D_admin let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title container-fluid display-4" id="modal-basic-title">Delete Admin</h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+
+    <div class="modal-body">
+        
+        <div class=" d-flex ms-auto p-2">
+
+          <button class="btn btn btn-light me-2" (click)="modal.dismiss('Cross click')">
+              Cancel
+          </button>
+
+          <button class="btn btn btn-danger">
+              Delete
+          </button>
+      
+        </div>
+
+    </div>
+  </ng-template>
+
+  <ng-template #E_admin let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title container-fluid display-4" id="modal-basic-title">Resend Email</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+      <div class="modal-body">
+          
+          <div class=" d-flex ms-auto p-2">
+
+            <button class="btn btn btn-light me-2" (click)="modal.dismiss('Cross click')">
+                Cancel
+            </button>
+
+            <button  class="btn btn btn-success">
+                Send
+            </button>
+        
+          </div>
+
+      </div>
+  </ng-template>
+
+
+
+
+</div>
+
+<div class="card mt-1 w-auto h-auto">
+
+    <h1 class="m-2">
+        Manage Resellers
+    </h1>
+
+    <div class="card mt-1 w-auto h-auto" ng-app="">
+        <table>
+          <tr>
+            <th>
+
+              <div class="form-check">
+                <input class="form-check-input subAcc_select"  type="checkbox"  value="" id="form_checked_contact">
+                <label class="form-check-label" for="flexCheckDefault">
+                </label>
+              </div>
+
+            </th>
+
+            
+            <th>
+              Account ID
+            </th>
+
+            <th>
+              Username 
+            </th>
+      
+            <th>
+              Access SMS
+            </th>
+    
+            <th>
+              Access MMS
+            </th>
+
+            <th>
+              Access Contacts
+            </th>
+
+            <th>
+              Access Templates
+            </th>
+
+            <th>
+              Access Billing
+            </th>
+
+            <th>
+              Access Resellers
+            </th>
+
+            <th>
+              SMS Campaign
+            </th>
+
+            <th>
+              Mobile Topup
+            </th>
+
+            <th>
+              Banned
+            </th>
+      
+    
+          </tr>
+          
+          <tr *ngFor="let data of get_permissions">
+              <td>
+                  <div class="form-check">
+                      <input class="form-check-input subAcc_select" 
+                      type="checkbox" id="form_checked_contact" value="{{data?.id}}" 
+                      (change)="Update_reseller_byOne(data?.id)" >
+
+                <label class="form-check-label" for="flexCheckDefault">
+                </label>
+              </div>
+            </td>
+
+            <td>
+                {{data?.id}}
+            </td>
+
+                  
+            <td>
+                {{data?.username}}
+            </td>
+      
+            <td>
+              {{data?.access_sms}}
+            </td>
+      
+            <td>
+              {{data?.access_mms}}
+            </td>
+      
+            <td>
+              {{data?.access_contacts}}
+            </td>
+      
+            <td>
+              {{data?.access_templates}}
+            </td>
+
+            <td>
+              {{data?.access_billing}}
+            </td>
+
+            <td>
+              {{data?.access_resellers}}
+            </td>
+
+            <td>
+               {{data?.sms_campaign}}
+            </td>
+
+            <td>
+               {{data?.mobile_topup}}
+            </td>
+
+            <td>
+                {{data?.banned}}
+             </td>
+
+      
+      
+      
+      
+          </tr>
+        </table>
+      </div>
+
+
+
+</div>

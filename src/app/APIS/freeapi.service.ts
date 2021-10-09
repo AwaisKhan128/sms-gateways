@@ -1,3 +1,4 @@
+import { Body } from './../Classes/SMS/sms_history_response';
 import { Observable, of } from 'rxjs';
 import { HttpClient,HttpHeaderResponse,HttpHeaders,HttpParams } from "@angular/common/http";
 import { Injectable } from "@angular/core";
@@ -9,6 +10,8 @@ import { SendResponse } from '../Classes/SMS/send_sms_response';
 import { SendMMSParam } from '../Classes/MMS/send_mms_param';
 import { HistoryResponse } from '../Classes/SMS/sms_history_response';
 import { ViewSMSTemplatesResponse } from '../Classes/SMS/view_sms_templates_response';
+
+import { ICreate_Contact } from '../Classes/manage_contacts';
 import { SMSHistoryExportResponse } from '../Classes/SMS/sms_history_export_response';
 import { StatisticsSMSData } from '../Classes/Statistics/statistics_sms';
 
@@ -24,99 +27,297 @@ export class API_Services{
 
     getCountriess():Observable<any>
     {
-        return this.httpClient.get('https://rest.clicksend.com/v3/countries')
+        return this.httpClient.get(API_BASE_URLS.CLICKSEND_BASE_URL+'countries')
     }
     
 
+    // Creating SubAccounts
     
-    createAcc_post(header:any,body:CreateAcc):Observable<any>
+    createAcc_post(auth:any,body:CreateAcc):Observable<any> //Change to Sub Account Creating
     {
-        const headers = { 'Content-Type': header };
-        return this.httpClient.post('https://rest.clicksend.com/v3/account',body, { headers:headers })
+        const headers = {'Authorization': 'Basic '+auth , 'Content-Type': 'application/json' };
+        return this.httpClient.post(API_BASE_URLS.CLICKSEND_BASE_URL+'subaccounts',body, { headers:headers })
     }
+
+    get_Sub_Acc(auth:string)
+    {
+        const headers = {'Authorization': 'Basic '+auth };
+        return this.httpClient.get(API_BASE_URLS.CLICKSEND_BASE_URL+'subaccounts',{headers:headers})
+    }
+
+    get_Sub_Acc_byID(auth:string,sub_id:any)
+    {
+        const headers = {'Authorization': 'Basic '+auth };
+        return this.httpClient.get(API_BASE_URLS.CLICKSEND_BASE_URL+'subaccounts/'+sub_id,{headers:headers})
+    }
+
+    update_Sub_Acc(auth:string,body:any, subAcc_id:any|number)
+    {
+        const headers = {'Authorization': 'Basic '+auth, "Content-Type": "application/json" };
+        return this.httpClient.put(API_BASE_URLS.CLICKSEND_BASE_URL+'subaccounts/'+subAcc_id,body,{headers:headers})
+    }
+
+    send_email_credential_admin(email:string|any,user:any,API:any)
+    {
+        const header = {'Access-Control-Allow-Origin':'*'};
+        return this.httpClient.post(API_BASE_URLS._Credential_Base+'gatewaysendmail/'+email+'/'+user+'/'+API,{headers:header});
+    }
+
+    delete_subAcc(auth:string, subAcc_Id:number|any)
+    {
+        const headers = {'Authorization': 'Basic '+auth };
+        return this.httpClient.delete(API_BASE_URLS.CLICKSEND_BASE_URL+'subaccounts/'+subAcc_Id,{headers:headers});
+    }
+
+    push_Acc_permissions(user_type:any,body:any)
+    {
+        const headers = {'Access-Control-Allow-Origin':'*', "Content-Type": "application/json" };
+        return this.httpClient.post(API_BASE_URLS._Credential_Base+'insert/permissions/'+user_type,body,{headers:headers});
+    }
+
+    inject_Acc_permissions(subAcc_id:any,body:any)
+    {
+        const headers = {'Access-Control-Allow-Origin':'*', "Content-Type": "application/json" };
+        return this.httpClient.put(API_BASE_URLS._Credential_Base+'modify/permissions?id='+subAcc_id,body,{headers:headers});
+    }
+
+    retrieve_Acc_permissions(id:any|number)
+    {
+        const headers = {'Access-Control-Allow-Origin':'*'};
+        return this.httpClient.get(API_BASE_URLS._Credential_Base+'select/permissions?id='+id,{headers:headers})
+    }
+
+    retrieve_Acc_permissionsALL(status:any|number)
+    {
+        const headers = {'Access-Control-Allow-Origin':'*'};
+        return this.httpClient.get(API_BASE_URLS._Credential_Base+'select/permissions?status='+status,{headers:headers})
+    }
+
+
+
+
+// ---------------->Resellers-------------->
+
+    create_reseller(body:any)
+    {
+        const headers = {"Content-Type": "application/json" };
+        return this.httpClient.post(API_BASE_URLS.CLICKSEND_BASE_URL+'account',body,{headers:headers});
+    }
+
+
 
     getVerify(auth:string,code:any):Observable<any>
     {
         const headers = { 'Authorization': 'Basic '+auth };
-        return this.httpClient.put('https://rest.clicksend.com/v3/account-verify/verify/'+code,{headers:headers})
+        return this.httpClient.put(API_BASE_URLS.CLICKSEND_BASE_URL+'account-verify/verify/'+code,{headers:headers})
     }
 
     send_Code(auth:string,body:send_Code):Observable<any>
     {
         const headers = {'Authorization':'Basic '+auth,'Content-Type':'application/json'};
-        return this.httpClient.put('https://rest.clicksend.com/v3/account-verify/send',body,{headers:headers})
+        return this.httpClient.put(API_BASE_URLS.CLICKSEND_BASE_URL+'account-verify/send',body,{headers:headers})
     }
 
     getLogin(auth:string):Observable<any>
     {
         const headers = { 'Authorization': 'Basic '+auth };
-        return this.httpClient.get('https://rest.clicksend.com/v3/account',{headers:headers})
+        return this.httpClient.get(API_BASE_URLS.CLICKSEND_BASE_URL+'account',{headers:headers})
 
     }
 
     getLoginAuthDB(id:number,table:string):Observable<any>
     {
         const header = {'Access-Control-Allow-Origin':'*'};
-        return this.httpClient.get('http://localhost:8000/select/'+id+'/'+table,{headers:header});
+        return this.httpClient.get(API_BASE_URLS._Credential_Base+'select/'+id+'/'+table,{headers:header});
     }
 
     setUserDetailsDB(id:number,username:string,ip_addr:string,device:any,country:string,table:string)
     {
         const header = {'Access-Control-Allow-Origin':'*'};
-        return this.httpClient.post('http://localhost:8000/insert/'+
+        return this.httpClient.post(API_BASE_URLS._Credential_Base+'insert/'+
         table+'?id='+id+'&username='+username+'&ip_addr='+ip_addr+'&device='+device+'&country='+country,{headers:header});
     }
 
     modifyUserDetailsDB(id:number,ip_addr:string,device:any,country:string,table:string)
     {
         const header = {'Access-Control-Allow-Origin':'*'};
-        return this.httpClient.put('http://localhost:8000/modify/'+
+        return this.httpClient.put(API_BASE_URLS._Credential_Base+'modify/'+
         table+'?id='+id+'&ip_addr='+ip_addr+'&device='+device+'&country='+country,{headers:header});
     }
 
     Send_forget_notify(body:any)
     {
         const header = { 'Content-Type': 'application/json' };
-        return this.httpClient.put('https://rest.clicksend.com/v3/forgot-username',body,{headers:header})
+        return this.httpClient.put(API_BASE_URLS.CLICKSEND_BASE_URL+'forgot-username',body,{headers:header})
     }
 
     Send_forget_passcode(body:any)
     {
         const header = { 'Content-Type': 'application/json' };
-        return this.httpClient.put('https://rest.clicksend.com/v3/forgot-password',body,{headers:header})
+        return this.httpClient.put(API_BASE_URLS.CLICKSEND_BASE_URL+'forgot-password',body,{headers:header})
     }
 
     getbilling_transaction(auth:string)
     {
         const headers = { 'Authorization': 'Basic '+auth};
-        return  this.httpClient.get('https://rest.clicksend.com/v3/recharge/transactions',{headers:headers})
+        return  this.httpClient.get(API_BASE_URLS.CLICKSEND_BASE_URL+'recharge/transactions',{headers:headers})
     }
+
+
 
     get_card_details(auth:string|any)
     {
         const headers = { 'Authorization': 'Basic '+auth};
-        return this.httpClient.get('https://rest.clicksend.com/v3/recharge/credit-card',{headers:headers})
+        return this.httpClient.get(API_BASE_URLS.CLICKSEND_BASE_URL+'recharge/credit-card',{headers:headers})
     }
+
+
+
 
     create_sms_template(auth:string|any,body:any)
     {
         const headers = { 'Authorization': 'Basic '+auth};
-        return this.httpClient.post('https://rest.clicksend.com/v3/sms/templates',body,{headers:headers})
+        return this.httpClient.post(API_BASE_URLS.CLICKSEND_BASE_URL+'sms/templates',body,{headers:headers})
+    }
+
+    update_sms_tempalte(auth:string , body:any ,template_id:any)
+    {
+        const headers = { 'Authorization': 'Basic '+auth , 'Content-Type':'application/json'};
+        return this.httpClient.put(API_BASE_URLS.CLICKSEND_BASE_URL+'sms/templates/'+template_id,body,{headers:headers})
     }
 
     get_sms_templates(auth:string|any)
     {
         const headers = { 'Authorization': 'Basic '+auth};
-        return this.httpClient.get('https://rest.clicksend.com/v3/sms/templates',{headers:headers})
+        return this.httpClient.get(API_BASE_URLS.CLICKSEND_BASE_URL+'sms/templates',{headers:headers})
+    }
+
+    get_sms_templates_by_Num(auth:string|any,page:any,limit:any)
+    {
+        const headers = { 'Authorization': 'Basic '+auth};
+        return this.httpClient.get(API_BASE_URLS.CLICKSEND_BASE_URL+'sms/templates?page='+page+'&limit='+limit,{headers:headers})
     }
 
     remove_sms_templates(auth:string|any,template_id:any)
     {
         const headers = { 'Authorization': 'Basic '+auth};
-        return this.httpClient.delete('https://rest.clicksend.com/v3/sms/templates/'+template_id,{headers:headers})
+        return this.httpClient.delete(API_BASE_URLS.CLICKSEND_BASE_URL+'sms/templates/'+template_id,{headers:headers})
     }
 
 
+
+    update_payment_info(auth:string|any, body:any )
+    {
+        const headers = { 'Authorization': 'Basic '+auth , 'Content-Type':'application/json'};
+        return this.httpClient.put(API_BASE_URLS.CLICKSEND_BASE_URL+'recharge/credit-card',body,{headers:headers})
+    }
+
+    get_packages_list(auth:string|any, country:any)
+    {
+        const headers = { 'Authorization': 'Basic '+auth};
+        return this.httpClient.get(API_BASE_URLS.CLICKSEND_BASE_URL+'recharge/packages?country='+country,{headers:headers})
+    }
+
+    recharge_package(auth:string,id:any)
+    {
+        const headers = { 'Authorization': 'Basic '+auth};
+        return this.httpClient.put(API_BASE_URLS.CLICKSEND_BASE_URL+'recharge/purchase/'+id,{headers:headers})
+    }
+    get_recharged_history(auth:string,page:any=undefined)
+    {
+
+        if(page!=null||undefined||'')
+        {
+            const headers = { 'Authorization': 'Basic '+auth};
+            return this.httpClient.get(API_BASE_URLS.CLICKSEND_BASE_URL+'recharge/transactions?page='+page,{headers:headers})
+
+        }
+        else{
+
+            const headers = { 'Authorization': 'Basic '+auth};
+            return this.httpClient.get(API_BASE_URLS.CLICKSEND_BASE_URL+'recharge/transactions',{headers:headers})
+        }
+
+    }
+
+    //Receive contact list
+
+    create_contact_list(auth:string|any,body:any)
+    {
+        const headers = { 'Authorization': 'Basic '+auth};
+        return this.httpClient.post(API_BASE_URLS.CLICKSEND_BASE_URL+'lists',body,{headers:headers})
+    }
+
+    get_contact_list(auth:string|any)
+    {
+        const headers = { 'Authorization': 'Basic '+auth};
+        return this.httpClient.get(API_BASE_URLS.CLICKSEND_BASE_URL+'lists',{headers:headers})
+
+    }
+
+    get_contact_list_byNum(auth:string|any,page:any,limit:any)
+    {
+        const headers = { 'Authorization': 'Basic '+auth};
+        return this.httpClient.get(API_BASE_URLS.CLICKSEND_BASE_URL+'lists?page='+page+'&limit='+limit,{headers:headers})
+    }
+
+
+    get_spec_contact_list(auth:string|any,list_id:any)
+    {
+        const headers = { 'Authorization': 'Basic '+auth};
+        return this.httpClient.get(API_BASE_URLS.CLICKSEND_BASE_URL+'lists/'+list_id,{headers:headers})
+
+    }
+
+    update_contact_list(auth:string|any, body:any,list_id:any)
+    {
+        const headers = { 'Authorization': 'Basic '+auth};
+        return this.httpClient.put(API_BASE_URLS.CLICKSEND_BASE_URL+'lists/'+list_id,body,{headers:headers})
+    }
+
+    delete_contact_list(auth:string, id:any)
+    {
+        const headers = { 'Authorization': 'Basic '+auth};
+        return this.httpClient.delete(API_BASE_URLS.CLICKSEND_BASE_URL+'lists/'+id,{headers:headers})
+    }
+
+
+    // ----------Receive Contacts----------------
+
+    get_Contacts(auth:string, id:any)
+    {
+        const headers = { 'Authorization': 'Basic '+auth};
+        return this.httpClient.get(API_BASE_URLS.CLICKSEND_BASE_URL+'lists/'+id+'/contacts',{headers:headers})
+    }
+
+    get_Contacts_by_Num(auth:string, id:any,page:any,limit:any)
+    {
+        const headers = { 'Authorization': 'Basic '+auth};
+        return this.httpClient.get(API_BASE_URLS.CLICKSEND_BASE_URL+'lists/'+id+'/contacts?page='+page+'&limit='+limit,{headers:headers})
+    }
+
+    create_contact(auth:string,body:any,list_id:any)
+    {
+        const headers = { 'Authorization': 'Basic '+auth,
+         'Content-Type': 'application/json'};
+        return this.httpClient.post(API_BASE_URLS.CLICKSEND_BASE_URL+'lists/'+list_id+'/contacts',body,{headers:headers});
+    }
+
+
+    update_contact(auth:string,body:any,list_id:any,contact_id:any)
+    {
+        const headers = { 'Authorization': 'Basic '+auth,
+         'Content-Type': 'application/json'};
+        return this.httpClient.put(API_BASE_URLS.CLICKSEND_BASE_URL+'lists/'+list_id+'/contacts/'+contact_id,body,{headers:headers});
+    }
+
+    delete_contact(auth:string,list_id:any, contact_id:any)
+    {
+        const headers = { 'Authorization': 'Basic '+auth,
+         'Content-Type': 'application/json'};
+        return this.httpClient.delete(API_BASE_URLS.CLICKSEND_BASE_URL+'lists/'
+        +list_id+'/contacts/'+contact_id,{headers:headers});
+    }
 
 
 
@@ -157,6 +358,12 @@ export class API_Services{
         return this.httpClient.get(url,{headers: HTTP_HEADER_OPTIONS.CLICKSEND_HEADER})
     }
 
+
+
+
+
+
+
     getExportMMSHistory(): Observable<SMSHistoryExportResponse> {
         const url= API_BASE_URLS.CLICKSEND_BASE_URL + CLICKSEND_API_ENDPOINTS.MMS_History_Export
         return this.httpClient.get(url,{headers: HTTP_HEADER_OPTIONS.CLICKSEND_HEADER})
@@ -196,5 +403,8 @@ export class API_Services{
   private log(message: string) {
    
   }
+
+
+  
 
 }
