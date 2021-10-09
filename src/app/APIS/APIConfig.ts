@@ -21,16 +21,23 @@ export enum API_BASE_URLS {
 
 export enum CLICKSEND_API_ENDPOINTS {
     STATISTICS_SMS = "statistics/sms",
-    STATISTICS_MMS = "statistics/mms",
     SMS_SEND = "sms/send",
     MMS_SEND = "mms/send",
     SMS_HISTORY = "sms/history",
-    MMS_HISTORY = "mms/history"
-
+    MMS_HISTORY = "mms/history",
+    SMS_Template = "sms/templates",
+    SMS_History_Export = "sms/history/export",
+    MMS_History_Export = "mms/history/export",
 }
 
 export enum CLICKSEND_STATISTICS_TYPE {
     sms = 0,
     mms = 1,
     all = 2
+}
+
+export enum MESSAGE_STATUS_TYPE {
+    sent ="sent",
+    completed = "completed",
+    all = "all"
 }

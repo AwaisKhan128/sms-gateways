@@ -7,6 +7,8 @@ import { getAccDetails, getAccDetails1, getAccCurrency, getsubAcc, getSignin_res
 import { Router } from '@angular/router';
 
 
+
+
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -23,27 +25,23 @@ export class DashboardComponent implements OnInit {
 
   data:any;
 
+  inbound_messages_total : number = 0
+  outbound_messages_total : number = 0
+  bounced_messages_total : number = 0
+
   window: any["$"] = $; 
   constructor(private freeapi: API_Services, private router: Router) { }
 
   ngOnInit(): void {
-    // $("#billing").hide();
     let json = localStorage.getItem("user_data");
     if(json!=null)
     {
-
       this.data = JSON.parse(json);
       let username = this.data.username;
       let password = EncodeDecode.b64DecodeUnicode(this.data.passcode);
-
       this.get_Info(username,password);
-
     }
-
-
-
-
-
+    this.fetchStatistcs()
   }
 
   public get_Info(uname:string,password:string) {
@@ -61,17 +59,26 @@ export class DashboardComponent implements OnInit {
           this.getsubAcc = res._subaccount;
 
           // ---------------------Populating items-------------------
-
-
       },
       err=>
       {
-
       }
     )
+  }
 
-
-
+  fetchStatistcs() {
+    console.log("11")
+    this.freeapi.getStatisticsSMS().subscribe(
+      response=> {
+        console.log("22")
+        this.bounced_messages_total = response.total?.bounced?.count ?? 0 as number
+        this.outbound_messages_total = response.total?.outbound?.count ?? 0 as number
+        this.bounced_messages_total = response.total?.inbound?.count ?? 0 as number
+        console.log("inbound"+this.inbound_messages_total)
+        console.log("outbound"+this.outbound_messages_total)
+        console.log("bounced"+this.bounced_messages_total)
+      }
+    )
   }
 
 }

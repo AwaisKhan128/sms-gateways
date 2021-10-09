@@ -33,8 +33,14 @@ import { UsageComponent } from './MyComponents/Childs/Billing/usage/usage.compon
 import { OverlayModule } from "@angular/cdk/overlay";
 import {MatDialogModule} from '@angular/material/dialog';
 
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
 
-
+import { DatePipe } from '@angular/common';
+import {MatPaginatorModule} from '@angular/material/paginator';
 
 
 // Import from library
@@ -52,7 +58,9 @@ import{
   MatDialog,MatDialogConfig
 
 }from '@angular/material/dialog';
-import { SampleComponent } from './MyComponents/sample/sample.component'
+import { SampleComponent } from './MyComponents/sample/sample.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { SimpledialogComponent } from './MyComponents/simpledialog/simpledialog.component'
 
 
 
@@ -80,7 +88,8 @@ import { SampleComponent } from './MyComponents/sample/sample.component'
     TransactionsComponent,
     ManageCardsComponent,
     UsageComponent,
-    SampleComponent
+    SampleComponent,
+    SimpledialogComponent
   ],
   imports: [
     BrowserModule,
@@ -91,7 +100,20 @@ import { SampleComponent } from './MyComponents/sample/sample.component'
     HttpClientModule,
     OverlayModule,
     MatDialogModule,
-    NgxAwesomePopupModule.forRoot(), // Essential, mandatory main module.
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatPaginatorModule,
+    NgxMaterialTimepickerModule,
+    NgxAwesomePopupModule.forRoot({
+      ColorList: {
+        Success: '#3caea3', // optional
+        Info: '#2f8ee5', // optional
+        Warning: '#ffc107', // optional
+        Danger: '#e46464', // optional
+      },
+    }), // Essential, mandatory main module.
     DialogConfigModule.forRoot(), // Needed for instantiating dynamic components.
     // ConfirmBoxConfigModule.forRoot(), // Needed for instantiating confirm boxes.
     ToastNotificationConfigModule.forRoot(), // Needed for instantiating toast notifications.
@@ -116,7 +138,7 @@ import { SampleComponent } from './MyComponents/sample/sample.component'
         new ButtonMaker('Ok', 'ok', ButtonLayoutDisplay.PRIMARY), // check API documentation ButtonLayoutDisplay
         new ButtonMaker('Cancel', 'cancel', ButtonLayoutDisplay.SECONDARY)
      ]
-   })
+   }), BrowserAnimationsModule
    
     
     
@@ -125,7 +147,7 @@ import { SampleComponent } from './MyComponents/sample/sample.component'
   providers: [
   API_Services,
   SharedService,
-  MatDialog,OverlayModule,MatDialogConfig
+  MatDialog,OverlayModule,MatDialogConfig,DatePipe
   ],
   bootstrap: [AppComponent],
   
