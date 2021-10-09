@@ -12,17 +12,20 @@
 
             <div class="col-4 mb-3">
               <label for="selects"> Select templates</label>
-              <select class="form-select form-select-sm me-auto" id="selects" aria-label=".form-select-sm example">
-                <option selected>Default</option>
-                <option value="1">One</option>
-                <option value="2">Two</option>
-                <option value="3">Three</option>
+              <select class="form-select form-select-sm me-auto" id="selects" aria-label=".form-select-sm example"
+               (change)="templatedSelectionChangeHandler($event)" >
+                <option selected *ngFor="let template of this.templates" 
+                [value]="template.template_id"
+                [ngValue]="template.template_id"
+                [selected]="template.template_name == 'NONE'">
+                  {{template.template_name}}
+              </option>
               </select>
             </div>
     
             <div class="mb-3">
               <label for="exampleInputEmail1" class="form-label">From </label>
-              <input type="string" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+              <input type="string" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" [(ngModel)]="messageFrom" name="messageFrom">
               
             </div>
 
@@ -43,15 +46,17 @@
               <label for="schedule_input_sms" class="form-label" id="schedule_input_sms1">Schedule</label>
             </div>
             
-            <div class="">
-
-              <input type="string" class="form-control" id="schedule_input_sms">
+            <div class=""  *ngIf="shouldScheduleMessage == 1">
+              <input class="form-control" id="schedule_input_sms_date" placeholder="Choose a Date" matInput [matDatepicker]="picker" (click)="picker.open()" [(ngModel)] = "this.pickedDate" [ngModelOptions]="{standalone: true}" readonly>
+              <mat-datepicker #picker></mat-datepicker>
+              <input class="form-control" id="schedule_input_sms_time" placeholder="Choose a Time" aria-label="default time" [ngxTimepicker]="defaultValue" [value]="'23:15'" [(ngModel)] = "this.pickedTime" [ngModelOptions]="{standalone: true}" readonly>
+              <ngx-material-timepicker #defaultValue></ngx-material-timepicker>
             </div>
             <div class="mt-1 mb-2">
               <label for="exampleInputPassword1" class="form-label">Message</label>
 
 
-              <textarea type="string" class="form-control" id="message" placeholder="Type your message"></textarea>
+              <textarea type="string" class="form-control" id="message" placeholder="Type your message" [(ngModel)]="messageBody" name="messageBody">{{this.selectedTemplateBody}}</textarea>
 
 
             </div>
@@ -88,7 +93,7 @@
     
             <div class="mb-3">
               <label for="exampleInputEmail1" class="form-label">From</label>
-              <input type="string" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+              <input type="string" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" [(ngModel)]="mms_messageFrom" name="mms_messageFrom">
               
             </div>
 
@@ -96,29 +101,31 @@
             <div class="mb-3">
               <label for="exampleInputPassword1" class="form-label">To</label>
               <input type="string" class="form-control" id="exampleInputPassword1" 
-              placeholder="+923002933101,+93220113331">
+              placeholder="+923002933101,+93220113331" [(ngModel)]="mms_messageTo" name="mms_messageTo">
             </div>
 
             <div class=" d-flex">
               <div class="check">
                 <div class="form-check">
-                  <input class="form-check-input" type="checkbox" value="" id="scheduler" (click)='onScheduler()'>
+                  <input class="form-check-input" type="checkbox" value="" id="scheduler_mms" (click)="onScheduler_mms()">
                   <label class="form-check-label" for="flexCheckDefault">
                   </label>
                 </div>
               </div>
-              <label for="schedule_input" class="form-label">Schedule</label>
+              <label for="schedule_input_mms" class="form-label" id="schedule_input_mms1">Schedule</label>
             </div>
-            
-            <div class="">
 
-              <input type="string" class="form-control" id="schedule_input">
+            <div class=""  *ngIf="shouldScheduleMMSMessage == 1">
+              <input class="form-control" id="schedule_input_mms_date" placeholder="Choose a Date" matInput [matDatepicker]="picker" (click)="picker.open()" [(ngModel)] = "this.mmsPickedDate" [ngModelOptions]="{standalone: true}" readonly>
+              <mat-datepicker #picker></mat-datepicker>
+              <input class="form-control" id="schedule_input_mms_time" placeholder="Choose a Time" aria-label="default time" [ngxTimepicker]="defaultValue" [value]="'23:15'" [(ngModel)] = "this.mmsPickedTime" [ngModelOptions]="{standalone: true}" readonly>
+              <ngx-material-timepicker #defaultValue></ngx-material-timepicker>
             </div>
 
             <div class="mt-1 mb-4">
               <label for="subject" class="form-label">Subject</label>
 
-              <input type="string" class="form-control" id="message" placeholder="Type your subject">
+              <input type="string" class="form-control" id="message" placeholder="Type your subject" [(ngModel)]="this.mms_message_subject" name="mms_message_subject">
 
             </div>
 
@@ -136,7 +143,7 @@
             <div class="mt-1 mb-2">
               <label for="exampleInputPassword1" class="form-label">Message</label>
 
-              <textarea type="string" class="form-control" id="message" placeholder="Type your message">
+              <textarea type="string" class="form-control" id="message" placeholder="Type your message" [(ngModel)]="this.mms_message" name="mms_message">
 
               </textarea>
 

@@ -43,7 +43,7 @@ export class ProfileComponent implements OnInit {
     //   this.router.navigate(['./'])
     // }
 
-    console.log((this.data));
+    //console.log((this.data));
     // console.log(this.data1);
 
   }

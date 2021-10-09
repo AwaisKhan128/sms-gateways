@@ -16,6 +16,7 @@ export interface MMsMessage {
     source?:        string;
     body?:          string;
     custom_string?: string;
+    schedule?:      number;
 }
 
 // Converts JSON strings to/from your types
