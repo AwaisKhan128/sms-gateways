@@ -5,7 +5,8 @@ import { EncodeDecode } from 'src/app/Classes/EncodeDec64';
 import * as $ from 'jquery';
 import { getAccDetails, getAccDetails1, getAccCurrency, getsubAcc, getSignin_responseDBforSuper } from 'src/app/Classes/signin';
 import { Router } from '@angular/router';
-import { StatisticsSMSData } from 'src/app/Classes/Statistics/statistics_sms';
+
+
 
 
 @Component({
@@ -24,7 +25,6 @@ export class DashboardComponent implements OnInit {
 
   data:any;
 
-  stats : StatisticsSMSData | undefined
   inbound_messages_total : number = 0
   outbound_messages_total : number = 0
   bounced_messages_total : number = 0
@@ -33,24 +33,15 @@ export class DashboardComponent implements OnInit {
   constructor(private freeapi: API_Services, private router: Router) { }
 
   ngOnInit(): void {
-    // $("#billing").hide();
     let json = localStorage.getItem("user_data");
     if(json!=null)
     {
-
       this.data = JSON.parse(json);
       let username = this.data.username;
       let password = EncodeDecode.b64DecodeUnicode(this.data.passcode);
-
       this.get_Info(username,password);
-      this.fetchStatistcs()
-
     }
-
-
-
-
-
+    this.fetchStatistcs()
   }
 
   public get_Info(uname:string,password:string) {
@@ -80,10 +71,9 @@ export class DashboardComponent implements OnInit {
     this.freeapi.getStatisticsSMS().subscribe(
       response=> {
         console.log("22")
-        this.bounced_messages_total = response.total!.bounced?.count! as number
-        this.inbound_messages_total = response.total!.inbound!.count! as number
-        this.outbound_messages_total = response.total!.outbound!.count! as number
-
+        this.bounced_messages_total = response.total?.bounced?.count ?? 0 as number
+        this.outbound_messages_total = response.total?.outbound?.count ?? 0 as number
+        this.bounced_messages_total = response.total?.inbound?.count ?? 0 as number
         console.log("inbound"+this.inbound_messages_total)
         console.log("outbound"+this.outbound_messages_total)
         console.log("bounced"+this.bounced_messages_total)
