@@ -47,13 +47,9 @@ export class SenderComponent implements OnInit {
   response: SendResponse | undefined;
 
 
-<<<<<<< HEAD
-     }
-=======
 
   constructor(private apiService: API_Services, private http: HttpClient) {
   }
->>>>>>> 35719ed9439142d694432f77f128c4a35c4e90af
 
 // My 
   ngOnInit(): void {
