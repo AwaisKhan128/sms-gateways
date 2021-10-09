@@ -124,20 +124,20 @@ export class API_Services{
     getLoginAuthDB(id:number,table:string):Observable<any>
     {
         const header = {'Access-Control-Allow-Origin':'*'};
-        return this.httpClient.get('http://localhost:8000/select/'+id+'/'+table,{headers:header});
+        return this.httpClient.get(API_BASE_URLS._Credential_Base+'select/'+id+'/'+table,{headers:header});
     }
 
     setUserDetailsDB(id:number,username:string,ip_addr:string,device:any,country:string,table:string)
     {
         const header = {'Access-Control-Allow-Origin':'*'};
-        return this.httpClient.post('http://localhost:8000/insert/'+
+        return this.httpClient.post(API_BASE_URLS._Credential_Base+'insert/'+
         table+'?id='+id+'&username='+username+'&ip_addr='+ip_addr+'&device='+device+'&country='+country,{headers:header});
     }
 
     modifyUserDetailsDB(id:number,ip_addr:string,device:any,country:string,table:string)
     {
         const header = {'Access-Control-Allow-Origin':'*'};
-        return this.httpClient.put('http://localhost:8000/modify/'+
+        return this.httpClient.put(API_BASE_URLS._Credential_Base+'modify/'+
         table+'?id='+id+'&ip_addr='+ip_addr+'&device='+device+'&country='+country,{headers:header});
     }
 
