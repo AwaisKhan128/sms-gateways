@@ -50,6 +50,7 @@ import { DatePipe } from '@angular/common';
 import {MatPaginatorModule} from '@angular/material/paginator';
 
 
+
 // Import from library
 import {
   NgxAwesomePopupModule,
@@ -77,6 +78,7 @@ import { JitCompilerFactory } from '@angular/platform-browser-dynamic';
 import { CreateAcc } from './Classes/createAcc_';
 import { Create_Reseller } from './Classes/Resellers';
 import { Permission } from './Classes/Permissions';
+import { TimepickerDirective } from 'ngx-material-timepicker';
 
 
 
@@ -140,6 +142,7 @@ import { Permission } from './Classes/Permissions';
     MatInputModule,
     MatSidenavModule,
     MatPaginatorModule,
+    TimepickerDirective,
     NgxAwesomePopupModule.forRoot(), // Essential, mandatory main module.
     DialogConfigModule.forRoot(), // Needed for instantiating dynamic components.
     // ConfirmBoxConfigModule.forRoot(), // Needed for instantiating confirm boxes.
