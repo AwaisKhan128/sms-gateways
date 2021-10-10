@@ -33,8 +33,6 @@ import { ManageCardsComponent } from './MyComponents/Childs/Billing/manage-cards
 import { UsageComponent } from './MyComponents/Childs/Billing/usage/usage.component';
 import { OverlayModule } from "@angular/cdk/overlay";
 import {MatDialogModule} from '@angular/material/dialog';
-import {MatDatepickerModule} from '@angular/material/datepicker';
-import {MatInputModule} from '@angular/material/input';
 import {MatSidenavModule} from '@angular/material/sidenav';
 
 
@@ -42,8 +40,14 @@ import {MatSidenavModule} from '@angular/material/sidenav';
 
 
 
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
 
-
+import { DatePipe } from '@angular/common';
+import {MatPaginatorModule} from '@angular/material/paginator';
 
 
 // Import from library
@@ -62,15 +66,14 @@ import{
   MatDialog,MatDialogConfig
 
 }from '@angular/material/dialog';
+import { SimpledialogComponent } from './MyComponents/simpledialog/simpledialog.component'
 import { SampleComponent } from './MyComponents/sample/sample.component'
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatNativeDateModule } from '@angular/material/core';
+
 import { DatepickerComponent } from './MyComponents/others/datepicker/datepicker.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { WebTopComponent } from './MyComponents/Childs/Topups/web-top/web-top.component';
 import { MobTopComponent } from './MyComponents/Childs/Topups/mob-top/mob-top.component';
 import { JitCompilerFactory } from '@angular/platform-browser-dynamic';
-import {MatPaginatorModule} from '@angular/material/paginator';
 import { CreateAcc } from './Classes/createAcc_';
 import { Create_Reseller } from './Classes/Resellers';
 import { Permission } from './Classes/Permissions';
@@ -104,6 +107,7 @@ import { Permission } from './Classes/Permissions';
     ManageCardsComponent,
     UsageComponent,
     SampleComponent,
+    SimpledialogComponent,
     DatepickerComponent,
     WebTopComponent,
     MobTopComponent
@@ -118,6 +122,19 @@ import { Permission } from './Classes/Permissions';
     OverlayModule,
     MatDialogModule,
     MatDatepickerModule,
+    MatNativeDateModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatPaginatorModule,
+    NgxMaterialTimepickerModule,
+    NgxAwesomePopupModule.forRoot({
+      ColorList: {
+        Success: '#3caea3', // optional
+        Info: '#2f8ee5', // optional
+        Warning: '#ffc107', // optional
+        Danger: '#e46464', // optional
+      },
+    }), // Essential, mandatory main module.
     MatFormFieldModule,
     MatNativeDateModule,
     MatInputModule,
@@ -157,7 +174,8 @@ import { Permission } from './Classes/Permissions';
   providers: [
   API_Services,
   SharedService,
-  MatDialog,OverlayModule,MatDialogConfig
+  MatDialog,OverlayModule,MatDialogConfig,DatePipe
+  
   ,MatDatepickerModule,MatFormFieldModule
   ,MatNativeDateModule,MatSidenavModule,Permission
   ,Create_Contact,Update_Contact,CreateAcc,Create_Reseller

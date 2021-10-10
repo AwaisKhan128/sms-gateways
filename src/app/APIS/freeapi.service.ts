@@ -9,10 +9,11 @@ import { SendSMSParam } from '../Classes/SMS/send_sms_param';
 import { SendResponse } from '../Classes/SMS/send_sms_response';
 import { SendMMSParam } from '../Classes/MMS/send_mms_param';
 import { HistoryResponse } from '../Classes/SMS/sms_history_response';
+import { ViewSMSTemplatesResponse } from '../Classes/SMS/view_sms_templates_response';
+
 import { ICreate_Contact } from '../Classes/manage_contacts';
 import { SMSHistoryExportResponse } from '../Classes/SMS/sms_history_export_response';
 import { StatisticsSMSData } from '../Classes/Statistics/statistics_sms';
-import { ViewSMSTemplatesResponse } from '../Classes/SMS/view_sms_templates_response';
 
 
 
@@ -356,6 +357,12 @@ export class API_Services{
         url+="?filename="+filename
         return this.httpClient.get(url,{headers: HTTP_HEADER_OPTIONS.CLICKSEND_HEADER})
     }
+
+
+
+
+
+
 
     getExportMMSHistory(): Observable<SMSHistoryExportResponse> {
         const url= API_BASE_URLS.CLICKSEND_BASE_URL + CLICKSEND_API_ENDPOINTS.MMS_History_Export
