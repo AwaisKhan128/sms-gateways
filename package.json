@@ -1,6 +1,9 @@
 {
   "name": "sms-gateway",
   "version": "0.0.0",
+  "engines": {
+    "node": "14.16.1"
+  },
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
