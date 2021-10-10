@@ -42,8 +42,7 @@
               "./node_modules/bootstrap/dist/js/bootstrap.js",
               "./node_modules/jquery/dist/jquery.js",
               "./node_modules/jquery/dist/jquery.min.js",
-              "./node_modules/firebase/firebase-auth.js",
-              "./node_modules/firebase/firebase-app.js",
+              
               "./node_modules/tailwindcss/scripts/build.js"
             ]
           },
@@ -70,8 +69,8 @@
               "outputHashing": "all"
             },
             "development": {
-              "buildOptimizer": false,
-              "optimization": false,
+              "buildOptimizer": true,
+              "optimization": true,
               "vendorChunk": true,
               "extractLicenses": false,
               "sourceMap": true,
