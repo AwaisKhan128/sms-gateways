@@ -9,7 +9,7 @@ app.use(express.static('dist/SMS-GATEWAY'));
 
 app.get('/*', function(req,res) {
     
-res.sendFile(path.join('dist/SMS-GATEWAY/index.html'));
+res.sendFile(path.join('dist/SMS-GATEWAY/index.html',{ root: '.' }));
 });
 
 // Start the app by listening on the default Heroku port
