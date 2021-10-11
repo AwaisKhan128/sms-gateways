@@ -1,6 +1,9 @@
 {
   "name": "sms-gateway",
   "version": "0.0.0",
+  "engines": {
+    "node": "14.16.1"
+  },
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -34,6 +37,7 @@
     "rxjs": "^6.6.7",
     "rxjs-compat": "^6.6.7",
     "tailwindcss": "^2.2.15",
+    "terser": "^5.9.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.11.4"
   },
