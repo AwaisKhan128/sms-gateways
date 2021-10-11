@@ -41,7 +41,7 @@
             "scripts": [
               "./node_modules/bootstrap/dist/js/bootstrap.js",
               "./node_modules/jquery/dist/jquery.js",
-              "./node_modules/jquery/dist/jquery.min.js",s
+              "./node_modules/jquery/dist/jquery.min.js",
               "./node_modules/tailwindcss/scripts/build.js"
             ]
           },
