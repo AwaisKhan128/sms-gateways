@@ -39,6 +39,7 @@ import {MatSidenavModule} from '@angular/material/sidenav';
 
 
 
+
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -47,7 +48,6 @@ import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
 
 import { DatePipe } from '@angular/common';
 import {MatPaginatorModule} from '@angular/material/paginator';
-
 
 
 // Import from library
@@ -77,7 +77,6 @@ import { JitCompilerFactory } from '@angular/platform-browser-dynamic';
 import { CreateAcc } from './Classes/createAcc_';
 import { Create_Reseller } from './Classes/Resellers';
 import { Permission } from './Classes/Permissions';
-import { TimepickerDirective } from 'ngx-material-timepicker';
 
 
 
@@ -141,7 +140,6 @@ import { TimepickerDirective } from 'ngx-material-timepicker';
     MatInputModule,
     MatSidenavModule,
     MatPaginatorModule,
-    TimepickerDirective,
     NgxAwesomePopupModule.forRoot(), // Essential, mandatory main module.
     DialogConfigModule.forRoot(), // Needed for instantiating dynamic components.
     // ConfirmBoxConfigModule.forRoot(), // Needed for instantiating confirm boxes.
