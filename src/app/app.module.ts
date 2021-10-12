@@ -35,7 +35,9 @@ import { OverlayModule } from "@angular/cdk/overlay";
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatSidenavModule} from '@angular/material/sidenav';
 
-
+import {MatToolbarModule} from '@angular/material/toolbar'; 
+import {MatIconModule} from '@angular/material/icon'
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 
 
@@ -120,12 +122,15 @@ import { Permission } from './Classes/Permissions';
     ProfileRouting,
     HttpClientModule,
     OverlayModule,
-    MatDialogModule,
+    MatDialogModule,    
     MatDatepickerModule,
     MatNativeDateModule,
     MatFormFieldModule,
     MatInputModule,
     MatPaginatorModule,
+    FlexLayoutModule,
+    MatToolbarModule,
+    MatIconModule,
     NgxMaterialTimepickerModule,
     NgxAwesomePopupModule.forRoot({
       ColorList: {
