@@ -91,6 +91,7 @@ import { Permission } from './Classes/Permissions';
   declarations: [
     AppComponent,
     SignInComponent,
+    BillingComponent,
     CreateAccComponent,
     ProfileComponent,
     DashboardComponent,
@@ -101,7 +102,6 @@ import { Permission } from './Classes/Permissions';
     SenderComponent,
     VerifyComponent,
     TopupsComponent,
-    BillingComponent,
     AdminComponent,
     ResellersComponent,
     BillingContactComponent,
