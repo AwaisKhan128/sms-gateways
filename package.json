@@ -71,6 +71,7 @@
     "@types/jasmine": "~3.8.0",
     "@types/jquery": "^3.5.6",
     "@types/node": "^12.11.1",
+    "bl": "^5.0.0",
     "enhanced-resolve": "^3.3.0",
     "jasmine-core": "~3.8.0",
     "karma": "~6.3.0",
