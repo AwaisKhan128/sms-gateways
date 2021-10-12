@@ -31,6 +31,7 @@
     "@ng-bootstrap/ng-bootstrap": "^10.0.0",
     "ajv": "^8.6.3",
     "ansi-colors": "^4.1.1",
+    "assign-symbols": "^2.0.2",
     "async-each": "^1.0.3",
     "bootstrap": "^5.1.3",
     "bootstrap-icons": "^1.5.0",
