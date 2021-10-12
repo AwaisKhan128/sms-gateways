@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { EncodeDecode } from 'src/app/Classes/EncodeDec64';
 import { Router } from '@angular/router';
 import * as $ from 'jquery';
+import {MatSidenavModule} from '@angular/material/sidenav';
 
 
 @Component({
@@ -19,6 +20,15 @@ export class ProfileComponent implements OnInit {
   dropdown_Clicked()
   {
     console.log("its drop down navbar");
+  }
+
+
+  showFiller = false;
+
+  dropDown()
+  {
+    console.log("Nav bar dropped");
+    // $('#navbarSupportedContent').animate({height: 'show', opacity: '0', filter: 'alpha(opacity=0)'}, {duration: 0}).animate({opacity: '.5', filter: 'alpha(opacity=50)', top: 58}, {duration: 300, easing: 'easeInBack'}).animate({opacity: '1', filter: 'alpha(opacity=100)', top: 24}, {duration: 200, easing: 'easeOutBack'});
   }
 
 

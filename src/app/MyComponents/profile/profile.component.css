@@ -1,6 +1,6 @@
 /* The side navigation menu */
 /* The sidenav */
-.sidenav {
+/* .sidenav {
     height: 100%;
     width: 200px;
     position: fixed;
@@ -11,7 +11,7 @@
     overflow-x: hidden;
     padding-top: 20px;
     
-  }
+  } */
   
   /* Page content */
   .main {
@@ -49,3 +49,16 @@
     .sidenav {padding-top: 15px;}
     .sidenav a {font-size: 18px;}
   }
+
+
+
+  
+  /* 
+  This one
+   */
+
+
+/* .mat-toolbar{
+  height: 7vh;
+} */
+

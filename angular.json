@@ -42,8 +42,9 @@
               "./node_modules/bootstrap/dist/js/bootstrap.js",
               "./node_modules/jquery/dist/jquery.js",
               "./node_modules/jquery/dist/jquery.min.js",
+              "./node_modules/tailwindcss/scripts/build.js",
+              "./node_modules/popper.js/dist/umd/popper.min.js"
               
-              "./node_modules/tailwindcss/scripts/build.js"
             ]
           },
           "configurations": {
@@ -51,8 +52,8 @@
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "4mb",
-                  "maximumError": "5mb"
+                  "maximumWarning": "10mb",
+                  "maximumError": "12mb"
                 },
                 {
                   "type": "anyComponentStyle",
@@ -121,3 +122,4 @@
   },
   "defaultProject": "SMS-Gateway"
 }
+
