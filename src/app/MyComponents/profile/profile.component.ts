@@ -16,6 +16,11 @@ export class ProfileComponent implements OnInit {
   data1:string|any;
   window: any["$"] = $;
 
+  dropdown_Clicked()
+  {
+    console.log("its drop down navbar");
+  }
+
 
   constructor(private sharedService:SharedService,private router: Router) { }
 
