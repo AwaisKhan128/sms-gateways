@@ -9,6 +9,8 @@ import { AppComponent } from './app.component';
 import { FormsModule } from '@angular/forms';
 import { SignInComponent } from './MyComponents/sign-in/sign-in.component';
 import { CreateAccComponent } from './MyComponents/create-acc/create-acc.component';
+
+
 import * as $ from "jquery";
 import { environment } from "src/environments/environment";
 import { ProfileComponent } from './MyComponents/profile/profile.component';
