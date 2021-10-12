@@ -7,9 +7,7 @@
   },
   "scripts": {
     "ng": "ng",
-    "start": "node server.js"
-    ,
-
+    "start": "node server.js",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "heroku-postbuild": "ng build --prod"
@@ -34,6 +32,7 @@
     "ajv": "^8.6.3",
     "ajv-errors": "^3.0.0",
     "ansi-colors": "^4.1.1",
+    "ansi-escapes": "^5.0.0",
     "arr-diff": "^4.0.0",
     "arr-flatten": "^1.1.0",
     "array-unique": "^0.3.2",
@@ -49,6 +48,7 @@
     "express": "^4.17.1",
     "firebase": "^9.0.2",
     "hdr-histogram-js": "^2.0.1",
+    "inquirer": "^8.2.0",
     "jquery": "^3.6.0",
     "mdb-ui-kit": "^3.9.0",
     "ngx-cool-dialogs": "^0.1.3",
