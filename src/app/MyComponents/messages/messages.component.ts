@@ -13,6 +13,8 @@ import { SimpledialogComponent } from '../simpledialog/simpledialog.component';
 import { MyMessage, SendSMSParam } from 'src/app/Classes/SMS/send_sms_param';
 import { MMsMessage } from 'src/app/Classes/MMS/send_mms_param';
 import * as $ from 'jquery';
+import { MatFormFieldModule } from '@angular/material/form-field';
+
 
 
 @Component({

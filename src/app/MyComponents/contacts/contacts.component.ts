@@ -11,6 +11,7 @@ import * as $ from 'jquery';
 import { isChecked, myCredentials } from 'src/app/APIS/APIConfig';
 import { identity, empty } from 'rxjs';
 import { inject } from '@angular/core/testing';
+import { Snake_Waiting } from 'src/app/Classes/Waiting_bar';
 
 
 
@@ -229,9 +230,11 @@ export class ContactsComponent implements OnInit {
 
 
   constructor(private modalService: NgbModal
-    , private freeAPI: API_Services, public create_Contact: Create_Contact,public Update_Contact: Update_Contact) { }
+    , private freeAPI: API_Services, public create_Contact: Create_Contact
+    ,public Update_Contact: Update_Contact,private Snake_Wait:Snake_Waiting) { }
 
   ngOnInit(): void {
+    this.Snake_Wait.start_bar("Please Wait");
 let json = localStorage.getItem("user_data");
 
     // if(json!=null)
@@ -263,6 +266,8 @@ this.freeAPI.get_contact_list(auths)
 
     // this.modalService.dismissAll();
     Toaster_Service.toastNotification_S(data.response_msg);
+    this.Snake_Wait.close_bar();
+
 
     // console.log(res);
   },
@@ -271,6 +276,8 @@ this.freeAPI.get_contact_list(auths)
     // alert(err);
     console.log(err.response_msg);
     Toaster_Service.toastNotification_D(err.response_msg);
+    this.Snake_Wait.close_bar();
+
 
   }
 )
@@ -282,6 +289,7 @@ this.freeAPI.get_contact_list(auths)
   delete_list()
   {
     let min = false;
+    this.Snake_Wait.start_bar("Please Wait!");
 
     this.get_contact_list_templates?.forEach((_element: any) => {
       // _element.active = false;
@@ -308,6 +316,7 @@ this.freeAPI.get_contact_list(auths)
             let data = JSON.parse(JSON.stringify(res));
             // this.modalService.dismissAll();
             Toaster_Service.toastNotification_S(data.response_msg);
+            this.Snake_Wait.close_bar();
 
             // console.log(res);
           },
@@ -316,6 +325,7 @@ this.freeAPI.get_contact_list(auths)
             // alert(err);
             console.log(err.response_msg);
             Toaster_Service.toastNotification_D(err.response_msg);
+            this.Snake_Wait.close_bar();
 
           }
         )
@@ -324,13 +334,14 @@ this.freeAPI.get_contact_list(auths)
       }
       else
       {
-        
+        this.Snake_Wait.close_bar();
       }
 
     });
     if(!min)
     {
       Toaster_Service.toastNotification_I('Please select atleast one!')
+      
     }
 
     this.modalService.dismissAll();
@@ -344,7 +355,7 @@ this.freeAPI.get_contact_list(auths)
   {
     // console.log(event,evt.target);
     console.log($('.selected_lists').val());
-
+    this.Snake_Wait.start_bar("Please Wait!");
     let json = localStorage.getItem("user_data");
 
     // if(json!=null)
@@ -386,6 +397,7 @@ this.freeAPI.get_contact_list(auths)
 
         // this.modalService.dismissAll();
         Toaster_Service.toastNotification_S(data.response_msg);
+        this.Snake_Wait.close_bar();
         // console.log(res);
       },
       err=>
@@ -393,6 +405,7 @@ this.freeAPI.get_contact_list(auths)
         // alert(err);
         console.log(err.response_msg);
         Toaster_Service.toastNotification_D(err);
+        this.Snake_Wait.close_bar();
 
       }
     )

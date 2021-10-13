@@ -1,8 +1,11 @@
+import { myCredentials } from './../../APIS/APIConfig';
 import { SharedService } from './../../Classes/shared_services';
 import { Component, OnInit } from '@angular/core';
 import { EncodeDecode } from 'src/app/Classes/EncodeDec64';
 import { Router } from '@angular/router';
 import * as $ from 'jquery';
+import {MatSidenavModule} from '@angular/material/sidenav';
+import { API_Services } from 'src/app/APIS/freeapi.service';
 
 
 @Component({
@@ -17,7 +20,16 @@ export class ProfileComponent implements OnInit {
   window: any["$"] = $;
 
 
-  constructor(private sharedService:SharedService,private router: Router) { }
+  showFiller = false;
+
+  dropDown()
+  {
+    console.log("Nav bar dropped");
+    // $('#navbarSupportedContent').animate({height: 'show', opacity: '0', filter: 'alpha(opacity=0)'}, {duration: 0}).animate({opacity: '.5', filter: 'alpha(opacity=50)', top: 58}, {duration: 300, easing: 'easeInBack'}).animate({opacity: '1', filter: 'alpha(opacity=100)', top: 24}, {duration: 200, easing: 'easeOutBack'});
+  }
+
+
+  constructor(private sharedService:SharedService,private router: Router,private freeapi: API_Services) { }
 
   ngOnInit(): void {
 
@@ -25,10 +37,45 @@ export class ProfileComponent implements OnInit {
     let json1 = localStorage.getItem("user_status");
 
 
-    if(json!=null)
+    // if(json!=null)
     {
 
-      this.data = JSON.parse(json);
+      // this.data = JSON.parse(json);
+
+      // let username = this.data.username;
+      // let password = EncodeDecode.b64DecodeUnicode( this.data.passcode);
+
+      let username = myCredentials.username;
+      let password = ( myCredentials.password);
+      let auth = EncodeDecode.b64EncodeUnicode(username+':'+password)
+      this.freeapi.getLogin(auth)
+      .subscribe
+      (
+        res=>
+        {
+            let data = JSON.parse(JSON.stringify(res));
+            let balance = data.data.balance;
+            // var button_text = document.getElementById('your_button_id').innerHTML;
+            console.log(balance);
+
+
+            console.log($('#web_balance').text());
+            console.log($('#web_balance').val());
+            console.log($('#web_balance').html());
+
+
+
+            // $('#web_balance').attr('text', 'balance');
+            // $('#web_balance').text(balance);
+        },
+        err=>
+        {
+          console.log(err);
+        }
+      )
+
+      
+
     }
     if(json1!=null)
     {
@@ -46,6 +93,11 @@ export class ProfileComponent implements OnInit {
     //console.log((this.data));
     // console.log(this.data1);
 
+  }
+
+  update_val(event:any)
+  {
+    console.log(event.target.id)
   }
 
   OnTop_Change(val:any)
