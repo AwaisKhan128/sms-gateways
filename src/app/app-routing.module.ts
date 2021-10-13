@@ -12,6 +12,7 @@ import { ContactsComponent } from './MyComponents/contacts/contacts.component';
 
 import { CreateAccComponent } from './MyComponents/create-acc/create-acc.component';
 import { DashboardComponent } from './MyComponents/dashboard/dashboard.component';
+import { DeviceSettingsComponent } from './MyComponents/device-settings/device-settings.component';
 import { MessagesComponent } from './MyComponents/messages/messages.component';
 import { PersonalComponent } from './MyComponents/personal/personal.component';
 import { ProfileComponent } from './MyComponents/profile/profile.component';
@@ -113,6 +114,11 @@ const routes: Routes = [
     {
       path: 'admin',
       component: AdminComponent, // another child route component that the router renders
+    },
+
+    {
+      path: 'device',
+      component: DeviceSettingsComponent, // another child route component that the router renders
     }
 
   ]},

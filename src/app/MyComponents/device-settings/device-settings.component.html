@@ -1,0 +1,115 @@
+<div class="container h-auto p-2">
+    <div class="row align-items-center h-100 p-2">
+        <div class="col-12 mx-auto ">
+          <div class="card h-auto shadow-sm p-3 mb-5 bg-white rounded border-primary justify-content-center">
+                <div class="mb-10 p-2">
+                  
+                  <h1 class="display-4 justify-content-center">
+                    Devices
+                  </h1>
+                  <div class="login-block d-flex justify-content-center" >
+
+                    <div class="container-fluid mt-5">
+
+                        <div class="row d-flex">
+                            <div class="col-8">
+                                <select  id="list_selected" class="form-select form-select-sm mb-1 ms-1 me-1"
+                                aria-label=".form-select-sm example">
+                                <option selected>Default</option>
+                                <option *ngFor = "let data of this.devices_list"  value="data?.id">{{data?.device}}</option>
+                              </select>
+                            </div>
+
+                            <div class="col-2">
+                                <select  id="list_selected" class="form-select form-select-sm mb-1 ms-1 me-1"
+                                aria-label=".form-select-sm example">
+                                <option selected>Auto</option>
+                                <option  value="packed?.list_id">{{"manual"}}</option>
+                        
+                              </select>
+                            </div>
+                        </div>
+
+
+                    </div>
+                  </div>
+  
+                </div>
+            </div>
+        </div>
+    </div>
+  </div>
+
+  <div class="container h-auto p-2 ">
+    <div class="row align-items-center h-100 p-2">
+        <div class="col-12 mx-auto ">
+          <div class="card h-auto shadow-sm p-3 mb-5 bg-white rounded border-primary justify-content-center">
+                <div >
+                  
+                  <h1 class="display-4 justify-content-center">
+                    Devices Management
+                  </h1>
+                  <div class=" card d-flex justify-content-center table-responsive" >
+                    <table>
+                        <tr>
+
+                          <th>
+                            SIM
+                          </th>
+                          <th>
+                            Number
+                          </th>
+                          <th>
+                            Balance
+                          </th>
+                          <th>
+                            Model
+                          </th>
+                          <th>
+                            Android Version
+                          </th>
+                          <th>
+                            IMEI
+                          </th>
+                          <th>
+                            IMSI
+                          </th>
+
+                        </tr>
+
+                        <tr *ngFor= "let sim_data of device_list_details" value = "sim_data?.id">
+
+                            <td >
+                                {{sim_data?.sim}}
+                            </td>
+                            <td >
+                                {{sim_data?.number}}
+                            </td>
+                            <td >
+                                {{sim_data?.balance}}
+                            </td>
+                            <td>
+                                {{sim_data?.model}}
+                            </td>
+                            <td >
+                                {{sim_data?.android_ver}}
+                            </td>
+                            <td >
+                                {{sim_data?.imei}}
+                            </td>
+                            <td >
+                                {{sim_data?.imsi}}
+                            </td>
+
+
+                        </tr>
+
+                      </table>
+                    
+                  </div>
+  
+                </div>
+            </div>
+        </div>
+    </div>
+  </div>
