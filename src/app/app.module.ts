@@ -2,7 +2,6 @@ import { Create_Contact, Update_Contact } from './Classes/manage_contacts';
 import { RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { AppRoutingModule } from './app-routing.module';
 import { ProfileRouting} from './MyComponents/profile/profile-routing.module'
 import { AppComponent } from './app.component';
