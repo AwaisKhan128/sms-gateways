@@ -37,6 +37,8 @@ import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatToolbarModule} from '@angular/material/toolbar'; 
 import {MatIconModule} from '@angular/material/icon'
 import { FlexLayoutModule } from '@angular/flex-layout';
+import {MatMenuModule} from '@angular/material/menu';
+
 
 
 
@@ -130,6 +132,7 @@ import { Permission } from './Classes/Permissions';
     FlexLayoutModule,
     MatToolbarModule,
     MatIconModule,
+    MatMenuModule,
     NgxMaterialTimepickerModule,
     NgxAwesomePopupModule.forRoot({
       ColorList: {
