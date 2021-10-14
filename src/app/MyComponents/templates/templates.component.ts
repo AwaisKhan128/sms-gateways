@@ -9,6 +9,9 @@ import { create_sms_template, View_sms_template, View_sms_template1 } from 'src/
 import * as $ from 'jquery';
 import { ToastNotificationInitializer, DialogLayoutDisplay } from '@costlydeveloper/ngx-awesome-popup';
 import { myCredentials } from 'src/app/APIS/APIConfig';
+import { ProgressComponentComponent } from '../progress-component/progress-component.component';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { Snake_Waiting } from 'src/app/Classes/Waiting_bar';
 
 
 @Component({
@@ -36,11 +39,13 @@ export class TemplatesComponent implements OnInit {
 
   data: any;
 
-  constructor(private modalService: NgbModal, private freeAPI: API_Services) {
+  constructor(private modalService: NgbModal, private freeAPI: API_Services,private Snake_Wait:Snake_Waiting) {
 
   }
 
   ngOnInit(): void {
+    this.Snake_Wait.start_bar("Please Wait");
+    // snackBarRef._open();
     let json = localStorage.getItem("user_data");
     // if(json!=null)
     {
@@ -76,6 +81,7 @@ export class TemplatesComponent implements OnInit {
               $('#delete_it').prop('disabled', false);
 
             }
+            this.Snake_Wait.close_bar();
 
 
 
@@ -83,6 +89,7 @@ export class TemplatesComponent implements OnInit {
           },
           err => {
             var a = JSON.parse(JSON.stringify(err));
+            this.Snake_Wait.close_bar();
             // alert(a.response_msg);
           }
         )
@@ -130,6 +137,7 @@ export class TemplatesComponent implements OnInit {
     let JSON_Body = new create_sms_template();
     JSON_Body.template_name = head;
     JSON_Body.body = body;
+    this.Snake_Wait.start_bar('Please Wait');
 
     let json = localStorage.getItem("user_data");
     // if(json!=null)
@@ -146,11 +154,19 @@ export class TemplatesComponent implements OnInit {
         (
           res => {
             var a = JSON.parse(JSON.stringify(res));
-            alert(a.response_msg);
+            // alert(a.response_msg);
+            Toaster_Service.toastNotification_S(a.response_msg);
+            this.Snake_Wait.close_bar();
+
           },
           err => {
             var a = JSON.parse(JSON.stringify(err));
-            alert(a.response_msg);
+            Toaster_Service.toastNotification_D(a.response_msg);
+            this.Snake_Wait.close_bar();
+
+
+            // alert(a.response_msg);
+
           }
         )
     }
@@ -166,6 +182,7 @@ export class TemplatesComponent implements OnInit {
   }
   Cancel_Auth() {
     this.template_list.forEach((element: any) => {
+      this.Snake_Wait.start_bar("Please Wait!");
 
       let json = localStorage.getItem("user_data");
       // if(json!=null)
@@ -183,10 +200,15 @@ export class TemplatesComponent implements OnInit {
             (
               res => {
                 console.log(res);
+                this.Snake_Wait.close_bar();
+                Toaster_Service.toastNotification_S("Success");
+
 
               },
               err => {
                 console.log(err);
+                this.Snake_Wait.close_bar();
+                Toaster_Service.toastNotification_D("Failed");
 
               }
             )
@@ -279,6 +301,7 @@ export class TemplatesComponent implements OnInit {
 
     }
     else if (count ==1 ){
+      this.Snake_Wait.start_bar("Please wait");
       let json = localStorage.getItem("user_data");
       let template_id = 0;
 
@@ -305,12 +328,15 @@ export class TemplatesComponent implements OnInit {
             res => {
               var data = JSON.parse(JSON.stringify(res));
               Toaster_Service.toastNotification_S(data.response_msg);
+              this.Snake_Wait.close_bar();
   
               // alert(a.response_msg);
             },
             err => {
               var a = JSON.parse(JSON.stringify(err));
               Toaster_Service.toastNotification_D(a.response_msg);
+              this.Snake_Wait.close_bar();
+
               // alert(a.response_msg);
             }
           )

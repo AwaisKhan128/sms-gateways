@@ -1,8 +1,9 @@
 import { HttpHeaders } from "@angular/common/http";
 import { EncodeDecode } from "../Classes/EncodeDec64";
 
-var username = 'gadig54496@tinilalo.com'
-var password = 'D92DCDFF-5B87-4C14-061E-192E51DC5DE2'
+
+var username = "awais.khan128@yahoo.com";
+var password = "Myyahooacc#1";
 var encoded = EncodeDecode.b64EncodeUnicode(username+':'+password);
 
 export const HTTP_HEADER_OPTIONS = {
@@ -18,6 +19,10 @@ export const HTTP_HEADER_OPTIONS = {
 export enum API_BASE_URLS {
     CLICKSEND_BASE_URL = "https://rest.clicksend.com/v3/",
     _Credential_Base = 'https://nodebacksql.herokuapp.com/'
+    // ,
+    // _Credential_Base_test = 'http://localhost:3000/'
+
+
 }
 
 export enum CLICKSEND_API_ENDPOINTS {

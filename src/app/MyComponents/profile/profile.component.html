@@ -71,7 +71,21 @@
         <a class="dropdown-item" >Something else here</a>
       </div>
     
-      <button class="btn btn-outline-success" type="button">Logout</button>
+      <!-- <button class="btn btn-outline-success" type="button">Logout</button> -->
+
+      <button mat-button [matMenuTriggerFor]="menu"><mat-icon>more_vert</mat-icon></button>
+      
+      <mat-menu #menu="matMenu">
+        <button class="drop_button" id="web_balance" (click) = "update_val($event)" mat-menu-item>
+          Web Balance
+        </button>
+        <button [routerLink]='["device"]' mat-menu-item>Device Settings</button>
+        <button mat-menu-item>Log Out</button>
+
+      </mat-menu>
+
+
+
     </div>
   </div>
 

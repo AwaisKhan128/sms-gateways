@@ -1,3 +1,4 @@
+import { myCredentials } from 'src/app/APIS/APIConfig';
 import { Component, OnInit } from '@angular/core';
 import { API_Services } from 'src/app/APIS/freeapi.service';
 import { getAccResp, getAccResp1, _Currency, _subaccount } from 'src/app/Classes/getAccResps';
@@ -34,14 +35,19 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit(): void {
     let json = localStorage.getItem("user_data");
-    if(json!=null)
+    // if(json!=null)
     {
-      this.data = JSON.parse(json);
-      let username = this.data.username;
-      let password = EncodeDecode.b64DecodeUnicode(this.data.passcode);
+      // this.data = JSON.parse(json);
+      // let username = this.data.username;
+      // let password = EncodeDecode.b64DecodeUnicode(this.data.passcode);
+      let username = ( myCredentials.username);
+      let password = (myCredentials.password);
       this.get_Info(username,password);
+      
+      
     }
-    this.fetchStatistcs()
+    
+    
   }
 
   public get_Info(uname:string,password:string) {
@@ -57,6 +63,8 @@ export class DashboardComponent implements OnInit {
           this.getAccDetails1 = res.data;
           this.getAccCurrency = res._currency;
           this.getsubAcc = res._subaccount;
+          var encoded = EncodeDecode.b64EncodeUnicode(uname + ':' + password);
+          this.fetchStatistcs(encoded);
 
           // ---------------------Populating items-------------------
       },
@@ -66,18 +74,21 @@ export class DashboardComponent implements OnInit {
     )
   }
 
-  fetchStatistcs() {
-    console.log("11")
-    this.freeapi.getStatisticsSMS().subscribe(
-      response=> {
-        console.log("22")
-        this.bounced_messages_total = response.total?.bounced?.count ?? 0 as number
-        this.outbound_messages_total = response.total?.outbound?.count ?? 0 as number
-        this.bounced_messages_total = response.total?.inbound?.count ?? 0 as number
-        console.log("inbound"+this.inbound_messages_total)
-        console.log("outbound"+this.outbound_messages_total)
-        console.log("bounced"+this.bounced_messages_total)
+  fetchStatistcs(auth:string) {
+    // console.log("11")
+    this.freeapi.getStatisticsSMS(auth).subscribe(
+      res=> {
+        // console.log(res)
+        let response = JSON.parse(JSON.stringify(res));
+        this.bounced_messages_total = response.data.total?.bounced?.count ?? 0 as number
+        this.outbound_messages_total = response.data.total?.outbound?.count ?? 0 as number
+        this.bounced_messages_total = response.data.total?.inbound?.count ?? 0 as number
+        // console.log("inbound"+this.inbound_messages_total)
+        // console.log("outbound"+this.outbound_messages_total)
+        // console.log("bounced"+this.bounced_messages_total)
       }
+      
+
     )
   }
 

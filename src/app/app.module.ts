@@ -2,7 +2,6 @@ import { Create_Contact, Update_Contact } from './Classes/manage_contacts';
 import { RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { AppRoutingModule } from './app-routing.module';
 import { ProfileRouting} from './MyComponents/profile/profile-routing.module'
 import { AppComponent } from './app.component';
@@ -38,6 +37,12 @@ import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatToolbarModule} from '@angular/material/toolbar'; 
 import {MatIconModule} from '@angular/material/icon'
 import { FlexLayoutModule } from '@angular/flex-layout';
+import {MatMenuModule} from '@angular/material/menu';
+import { MatTableModule } from '@angular/material/table'  
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
+
+
 
 
 
@@ -79,6 +84,9 @@ import { JitCompilerFactory } from '@angular/platform-browser-dynamic';
 import { CreateAcc } from './Classes/createAcc_';
 import { Create_Reseller } from './Classes/Resellers';
 import { Permission } from './Classes/Permissions';
+import { DeviceSettingsComponent } from './MyComponents/device-settings/device-settings.component';
+import { ProgressComponentComponent } from './MyComponents/progress-component/progress-component.component';
+import { Snake_Waiting } from './Classes/Waiting_bar';
 
 
 
@@ -112,7 +120,9 @@ import { Permission } from './Classes/Permissions';
     SimpledialogComponent,
     DatepickerComponent,
     WebTopComponent,
-    MobTopComponent
+    MobTopComponent,
+    DeviceSettingsComponent,
+    ProgressComponentComponent
   ],
   imports: [
     BrowserModule,
@@ -131,7 +141,11 @@ import { Permission } from './Classes/Permissions';
     FlexLayoutModule,
     MatToolbarModule,
     MatIconModule,
+    MatMenuModule,
+    MatTableModule,
     NgxMaterialTimepickerModule,
+    MatProgressSpinnerModule,
+    MatSnackBarModule,
     NgxAwesomePopupModule.forRoot({
       ColorList: {
         Success: '#3caea3', // optional
@@ -183,7 +197,7 @@ import { Permission } from './Classes/Permissions';
   
   ,MatDatepickerModule,MatFormFieldModule
   ,MatNativeDateModule,MatSidenavModule,Permission
-  ,Create_Contact,Update_Contact,CreateAcc,Create_Reseller
+  ,Create_Contact,Update_Contact,CreateAcc,Create_Reseller,Snake_Waiting
   ],
   bootstrap: [AppComponent],
   

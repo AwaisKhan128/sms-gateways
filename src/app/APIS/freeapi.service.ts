@@ -94,6 +94,21 @@ export class API_Services{
     }
 
 
+    // ------------Subscribe devices-----------------
+    get_subscribe_devices(id:any|number)
+    {
+        const headers = {'Access-Control-Allow-Origin':'*'};
+        return this.httpClient.get(API_BASE_URLS._Credential_Base+'subscribe/subscribe_devices?id='+id,{headers:headers})
+    }
+
+    get_subscribe_devices_details(id:any|number)
+    {
+        const headers = {'Access-Control-Allow-Origin':'*'};
+        return this.httpClient.get(API_BASE_URLS._Credential_Base+'subscribe/sim/subscribe_devices_info?id='+id,{headers:headers})
+    }
+
+
+
 
 
 // ---------------->Resellers-------------->
@@ -373,9 +388,10 @@ export class API_Services{
         return this.httpClient.get(url,{responseType: 'text'})
     }
 
-    getStatisticsSMS(): Observable<StatisticsSMSData> {
+    getStatisticsSMS(encoded:string): Observable<StatisticsSMSData> {
         const url= API_BASE_URLS.CLICKSEND_BASE_URL + CLICKSEND_API_ENDPOINTS.STATISTICS_SMS
-        return this.httpClient.get(url,{headers: HTTP_HEADER_OPTIONS.CLICKSEND_HEADER})
+        const headers = {'Authorization':'Basic '+encoded};
+        return this.httpClient.get(url,{headers: headers})
     }
 
 
