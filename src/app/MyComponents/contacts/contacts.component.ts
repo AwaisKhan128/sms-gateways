@@ -174,6 +174,9 @@ export class ContactsComponent implements OnInit {
     console.log(this.get_contact_list_templates,index);
 
 
+
+
+    //New works
   }
 
   Checked_All() {
