@@ -19,6 +19,11 @@ export class ProfileComponent implements OnInit {
   data1:string|any;
   window: any["$"] = $;
 
+  dropdown_Clicked()
+  {
+    console.log("its drop down navbar");
+  }
+
 
   showFiller = false;
 

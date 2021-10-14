@@ -174,6 +174,9 @@ export class ContactsComponent implements OnInit {
     console.log(this.get_contact_list_templates,index);
 
 
+
+
+    //New works
   }
 
   Checked_All() {
@@ -420,6 +423,7 @@ this.freeAPI.get_contact_list(auths)
     let id = $('.selected_lists').val();
     // console.log();
 
+    this.Snake_Wait.start_bar("Please Wait");
     
     if ( (this.create_Contact.phone_number==null||undefined||'' ) || 
     (this.create_Contact.custom_1==null||undefined||'' ) )
@@ -455,6 +459,7 @@ this.freeAPI.get_contact_list(auths)
   
           // this.modalService.dismissAll();
           Toaster_Service.toastNotification_S(data.response_msg);
+          this.Snake_Wait.close_bar();
           // console.log(res);
         },
         err=>
@@ -462,6 +467,7 @@ this.freeAPI.get_contact_list(auths)
           // alert(err);
           console.log(err);
           Toaster_Service.toastNotification_D('Open console to check the error');
+          this.Snake_Wait.close_bar();
   
         }
       )
@@ -470,6 +476,7 @@ this.freeAPI.get_contact_list(auths)
       }
       else{
         Toaster_Service.toastNotification_I('Please select one list!')
+        this.Snake_Wait.close_bar();
       }
 
     }
@@ -480,6 +487,7 @@ this.freeAPI.get_contact_list(auths)
  public Update_Contacts()
   {
     let count_active = 0;
+    this.Snake_Wait.start_bar('Please Wait');
 
     if(this.Update_Contact_sample!=null||undefined)
     {
@@ -495,10 +503,12 @@ this.freeAPI.get_contact_list(auths)
     if(count_active>1)
     {
       Toaster_Service.toastNotification_I('Update could only apply for one!');
+      this.Snake_Wait.close_bar();
     }
     else if (count_active<1)
     {
       Toaster_Service.toastNotification_I('Need to select atleast one!')
+      this.Snake_Wait.close_bar();
     }
 
     else{
@@ -519,6 +529,7 @@ this.freeAPI.get_contact_list(auths)
         (this.Update_Contact.custom_1==null||undefined||'' ) )
         {
           Toaster_Service.toastNotification_D('custom1 && phone number are required!');
+          this.Snake_Wait.close_bar();
         }
     
         else
@@ -551,6 +562,7 @@ this.freeAPI.get_contact_list(auths)
       
               // this.modalService.dismissAll();
               Toaster_Service.toastNotification_S(data.response_msg);
+              this.Snake_Wait.close_bar();
               // console.log(res);
             },
             err=>
@@ -558,6 +570,7 @@ this.freeAPI.get_contact_list(auths)
               // alert(err);
               console.log(err);
               Toaster_Service.toastNotification_D('Open console to check the error');
+              this.Snake_Wait.close_bar();
       
             }
           )
@@ -572,6 +585,7 @@ this.freeAPI.get_contact_list(auths)
     else
     {
       Toaster_Service.toastNotification_I('Must select one!');
+      this.Snake_Wait.close_bar();
     }
 
 
@@ -580,6 +594,7 @@ this.freeAPI.get_contact_list(auths)
 
   Update_contact_byOne(val:any)
   {
+    this.Snake_Wait.start_bar("Please Wait!")
 
     this.Update_Contact_sample.forEach(element => {
       if (element.contact_id==val)
@@ -588,6 +603,7 @@ this.freeAPI.get_contact_list(auths)
       }
       
     });
+    this.Snake_Wait.close_bar();
   }
 
   Update_contact_checkedAll()
@@ -599,7 +615,7 @@ this.freeAPI.get_contact_list(auths)
         _element.active = true;
 
       });
-      console.log(this.Update_Contact_sample);
+      // console.log(this.Update_Contact_sample);
 
     }
     else {
@@ -610,7 +626,7 @@ this.freeAPI.get_contact_list(auths)
         _element.active = false;
 
       });
-      console.log(this.Update_Contact_sample);
+      // console.log(this.Update_Contact_sample);
     }
   }
 
@@ -618,6 +634,7 @@ this.freeAPI.get_contact_list(auths)
   d_Contact()
   {
     let count_active = 0;
+    this.Snake_Wait.start_bar('Please Wait!');
 
     if(this.Update_Contact_sample!=null||undefined)
     {
@@ -633,10 +650,12 @@ this.freeAPI.get_contact_list(auths)
     if(count_active>1)
     {
       Toaster_Service.toastNotification_I('Delete could only apply for one!');
+      this.Snake_Wait.close_bar();
     }
     else if (count_active<1)
     {
       Toaster_Service.toastNotification_I('Need to select atleast one!')
+      this.Snake_Wait.close_bar();
     }
 
     else{
@@ -683,6 +702,7 @@ this.freeAPI.get_contact_list(auths)
       
               // this.modalService.dismissAll();
               Toaster_Service.toastNotification_S(data.response_msg);
+              this.Snake_Wait.close_bar();
               // console.log(res);
             },
             err=>
@@ -690,6 +710,8 @@ this.freeAPI.get_contact_list(auths)
               // alert(err);
               console.log(err);
               Toaster_Service.toastNotification_D('Open console to check the error');
+              this.Snake_Wait.close_bar();
+
       
             }
           )
@@ -704,6 +726,7 @@ this.freeAPI.get_contact_list(auths)
     else
     {
       Toaster_Service.toastNotification_I('Must select one!');
+      this.Snake_Wait.close_bar();
     }
     
   }
@@ -716,6 +739,7 @@ this.freeAPI.get_contact_list(auths)
     let json = localStorage.getItem("user_data");
     this.get_contact_list2 = [];
     this.get_contact_list_templates = [];
+    this.Snake_Wait.start_bar('Please Wait');
 
     
 
@@ -749,6 +773,7 @@ this.freeAPI.get_contact_list(auths)
         
             // this.modalService.dismissAll();
             Toaster_Service.toastNotification_S(data.response_msg);
+            this.Snake_Wait.close_bar();
         
           },
           err=>
@@ -756,6 +781,7 @@ this.freeAPI.get_contact_list(auths)
             // alert(err);
             console.log(err.response_msg);
             Toaster_Service.toastNotification_D(err.response_msg);
+            this.Snake_Wait.close_bar();
         
           }
         )
@@ -795,6 +821,7 @@ this.freeAPI.get_contact_list(auths)
   
       // this.modalService.dismissAll();
       Toaster_Service.toastNotification_S(data.response_msg);
+      this.Snake_Wait.close_bar();
   
       // console.log(res);
     },
@@ -803,6 +830,7 @@ this.freeAPI.get_contact_list(auths)
       // alert(err);
       console.log(err.response_msg);
       Toaster_Service.toastNotification_D(err.response_msg);
+      this.Snake_Wait.close_bar();
   
     }
   )
@@ -822,6 +850,7 @@ this.freeAPI.get_contact_list(auths)
   ContactByPageno(event:any)
   {
     console.log(event);
+    // this.Snake_Wait.start_bar('Please Wait!');
 
     let json = localStorage.getItem("user_data");
 
@@ -906,7 +935,7 @@ ContactsByPageno(event:any)
         // console.log(element.contact_id);
 
       });
-      console.log(this.Update_Contact_sample);
+      // console.log(this.Update_Contact_sample);
 
       // this.Update_Contact_sample.array.forEach(element => {
       //   element.active = false;

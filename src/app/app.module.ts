@@ -99,6 +99,7 @@ import { Snake_Waiting } from './Classes/Waiting_bar';
   declarations: [
     AppComponent,
     SignInComponent,
+    BillingComponent,
     CreateAccComponent,
     ProfileComponent,
     DashboardComponent,
@@ -109,7 +110,6 @@ import { Snake_Waiting } from './Classes/Waiting_bar';
     SenderComponent,
     VerifyComponent,
     TopupsComponent,
-    BillingComponent,
     AdminComponent,
     ResellersComponent,
     BillingContactComponent,

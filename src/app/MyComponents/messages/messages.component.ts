@@ -14,6 +14,7 @@ import { MyMessage, SendSMSParam } from 'src/app/Classes/SMS/send_sms_param';
 import { MMsMessage } from 'src/app/Classes/MMS/send_mms_param';
 import * as $ from 'jquery';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { Snake_Waiting } from 'src/app/Classes/Waiting_bar';
 
 
 
@@ -47,22 +48,30 @@ export class MessagesComponent implements OnInit {
   search_param_page_size: number = 15;
 
 
-  constructor(private apiService: API_Services, private modalService: NgbModal) { }
+  constructor(private apiService: API_Services, private modalService: NgbModal, private snakeBar:Snake_Waiting) { }
 
   ngOnInit(): void {
+    this.snakeBar.start_bar("Please Wait");
     this.actionSearch()
   }
 
   onMessageTypeChange(event: any) {
+    this.snakeBar.start_bar("Please Wait");
     const messageType = <string>event.target.value;
     this.search_param_messageType = messageType
     console.log(this.search_param_messageType)
+    this.snakeBar.close_bar();
+
   }
   
   onMessageStatusTypeChange(event: any) {
+    this.snakeBar.start_bar("Please Wait");
     const messageStatusType = <MESSAGE_STATUS_TYPE>event.target.value;
     this.search_param_messageStatus = messageStatusType
     console.log(this.search_param_messageStatus)
+    this.snakeBar.close_bar();
+
+
   }
   
   actionSearch() {
@@ -90,6 +99,7 @@ export class MessagesComponent implements OnInit {
           this.sms_history_array = smsArray as HistoryDatum[]
           this.sms_history_array.map(e=> e.message_type = "SMS")
           this.applyfilteringOnThisData()
+          this.snakeBar.close_bar();
         }
       );
     }
@@ -100,6 +110,8 @@ export class MessagesComponent implements OnInit {
           this.sms_history_array = mmsArray as HistoryDatum[]
           this.sms_history_array.map(e=> e.message_type = "MMS")
           this.applyfilteringOnThisData()
+          this.snakeBar.close_bar();
+
         }
       )
     }
@@ -118,6 +130,7 @@ export class MessagesComponent implements OnInit {
           mms.message_type = "MMS"
           this.sms_history_array.push(mms)
         })
+        this.snakeBar.close_bar();
         this.applyfilteringOnThisData()
       })
     }
@@ -126,7 +139,8 @@ export class MessagesComponent implements OnInit {
 
   applyfilteringOnThisData() {
     if (this.sms_history_array.length > 0 && this.search_param_messageStatus.toLowerCase() !== "all") {
-      this.filtered_history_array = this.sms_history_array.filter((m:HistoryDatum) => m.status!.toLowerCase() === this.search_param_messageStatus.toLowerCase())
+      this.filtered_history_array = this.sms_history_array.filter((m:HistoryDatum) => m.status!.toLowerCase()
+       === this.search_param_messageStatus.toLowerCase())
     }
     else {
       this.filtered_history_array = this.sms_history_array
@@ -134,6 +148,7 @@ export class MessagesComponent implements OnInit {
   }
 
   actionSMSHistoryExport(toExport: string) {
+    this.snakeBar.start_bar("Please wait!");
     if (toExport.toLowerCase() == "sms") {
       this.apiService.getExportSMSHistory("sms_history")
       .subscribe(response => {
@@ -142,6 +157,8 @@ export class MessagesComponent implements OnInit {
             this.apiService.getFileMessageHistory(url).subscribe( t => 
               this.downLoadFile(t, "text/csv")
             )
+            this.snakeBar.close_bar();
+
           }
       })
     }
@@ -153,17 +170,21 @@ export class MessagesComponent implements OnInit {
             this.apiService.getFileMessageHistory(url).subscribe( t => 
               this.downLoadFile(t, "text/csv")
             )
+            this.snakeBar.close_bar();
+
           }
       }) 
     }
   }
 
   onScheduler_resend(event: any) {
+    this.snakeBar.start_bar("Please Wait");
     const messageID = <string>event.target.value;
     if ($('#'+messageID).prop('checked')) {
       this.sms_history_array.forEach(t=> { 
         if (t.message_id! == messageID) {
           this.resendMessages.push(t)
+          this.snakeBar.close_bar();
         }
       })
       console.log("add in resend arrar message with ID =>"+messageID)
@@ -179,17 +200,20 @@ export class MessagesComponent implements OnInit {
         }
       })
       console.log("removed  in resend arrar message with ID =>"+messageID)
+      this.snakeBar.close_bar();
       //console.log("removed length "+this.resendMessages.length)
     }
   }
   
   actionResendMessages() {
+    this.snakeBar.start_bar("Please Wait");
     var filtered_smsMessages: HistoryDatum[] = [];
     var filtered_mmsMessages : HistoryDatum[] = []
     this.resendMessages.forEach(e=>{
       var mType = e.message_type!.toLowerCase() as string
       if (mType == "sms") {
         filtered_smsMessages.push(e)
+
       }
       else {
         filtered_mmsMessages.push(e)
@@ -207,9 +231,13 @@ export class MessagesComponent implements OnInit {
             .subscribe(response => {
               if (response.response_code == "SUCCESS") {
                 Toaster.sucessToast(response.response_msg!)
+                this.snakeBar.close_bar();
+
               }
               else {
                 Toaster.failureToast(response.response_code!, response.response_msg!)
+                this.snakeBar.close_bar();
+
               }
         });
       })
@@ -228,15 +256,21 @@ export class MessagesComponent implements OnInit {
             .subscribe(response => {
               if (response.response_code == "SUCCESS") {
                 Toaster.sucessToast(response.response_msg!)
+                this.snakeBar.close_bar();
+
               }
               else {
                 Toaster.failureToast(response.response_code!, response.response_msg!)
+                this.snakeBar.close_bar();
+
               }
         });
       })
     }
     if (this.resendMessages.length <= 0) {
         Toaster.failureToast("Failed","Please select a message to resend")
+        this.snakeBar.close_bar();
+
     }
   }
 

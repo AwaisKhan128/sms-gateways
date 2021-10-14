@@ -89,8 +89,8 @@ export class API_Services{
 
     retrieve_Acc_permissionsALL(status:any|number)
     {
-        const headers = {'Access-Control-Allow-Origin':'*'};
-        return this.httpClient.get(API_BASE_URLS._Credential_Base+'select/permissions?status='+status,{headers:headers})
+        // const headers = {'Access-Control-Allow-Origin':'*'};
+        return this.httpClient.get(API_BASE_URLS._Credential_Base+'select/permissions?status='+status)
     }
 
 
