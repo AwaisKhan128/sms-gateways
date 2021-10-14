@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light " id="nav_bar">
-  <div class="container-fluid">
+  <div class="container">
     <a class="navbar-brand" [routerLink]='["dashboard"]'>SMS Gateway</a>
     <button mat-icon-button (click)="sidenav.toggle()">
       <mat-icon>menu</mat-icon>
@@ -36,10 +36,10 @@
         <a class="nav-link" id="sender" (click)="OnTop_Change(5)" [routerLink]='["sender"]'>Sender</a>
       </li>
 
-      <li class="nav-item ">
+      <!-- <li class="nav-item "> -->
           <!-- Routerlink with href -->
-        <a class="nav-link"  >Auto Responder</a>
-      </li>
+        <!-- <a class="nav-link"  >Auto Responder</a> -->
+      <!-- </li> -->
 
       <li class="nav-item ">
         <!-- Routerlink with href -->
@@ -97,58 +97,55 @@
 <div> 
   <mat-sidenav color="primary" #sidenav fxLayout="column" mode="over"  opened="false" fxHide.gt-sm="true">
     <div fxLayout="column">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+      <ul class=" ">
       
 
-        <li class="nav-item">
+        <li >
             <!-- Routerlink with href -->
           <a class="nav-link active" id="dashboard" (click)="OnTop_Change(0)" [routerLink]='["dashboard"]' aria-current="page">Dashboard</a>
         </li>
-        <li class="nav-item ">
+        <li >
             <!-- Routerlink with href -->
           <a class="nav-link" id="personal" (click)="OnTop_Change(1)" [routerLink]='["personal"]'>Profile</a>
         </li>
-        <li class="nav-item ">
+        <li >
           <!-- Routerlink with href -->
         <a class="nav-link" id="template" (click)="OnTop_Change(2)" [routerLink]='["templates"]'>Templates</a>
       </li>
 
-      <li class="nav-item ">
+      <li >
           <!-- Routerlink with href -->
         <a class="nav-link" id="contacts" (click)="OnTop_Change(3)" [routerLink]='["contacts"]'>Contacts</a>
       </li>
         
-      <li class="nav-item ">
+      <li >
           <!-- Routerlink with href -->
         <a class="nav-link" id="messages" (click)="OnTop_Change(4)" [routerLink]='["messages"]'>Messages</a>
       </li>
 
-      <li class="nav-item ">
+      <li >
           <!-- Routerlink with href -->
         <a class="nav-link" id="sender" (click)="OnTop_Change(5)" [routerLink]='["sender"]'>Sender</a>
       </li>
 
-      <li class="nav-item ">
-          <!-- Routerlink with href -->
-        <a class="nav-link"  >Auto Responder</a>
-      </li>
 
-      <li class="nav-item ">
+
+      <li >
         <!-- Routerlink with href -->
       <a class="nav-link" id="billing" (click)="OnTop_Change(7)" [routerLink]='["billing"]'>Billing</a>
     </li>
 
-    <li class="nav-item ">
+    <li >
         <!-- Routerlink with href -->
       <a class="nav-link" id="topup" (click)="OnTop_Change(8)" [routerLink]='["topup"]' >Top Up</a>
     </li>
 
-    <li class="nav-item ">
+    <li >
       <!-- Routerlink with href -->
   <a class="nav-link" id="admin" (click)="OnTop_Change(9)" [routerLink]='["admin"]' >Admin</a>
   </li>
 
-  <li class="nav-item ">
+  <li >
       <!-- Routerlink with href -->
   <a class="nav-link" id="reseller" (click)="OnTop_Change(10)" [routerLink]='["reseller"]' >Reseller</a>
   </li>

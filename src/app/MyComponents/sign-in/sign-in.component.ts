@@ -42,6 +42,12 @@ export class SignInComponent implements OnInit {
   constructor(private freeapi: API_Services, private ActivatedRoute: ActivatedRoute
     , private router: Router, private shared_services: SharedService) { }
 
+    getChoice()
+    {
+      let list_id = $('#list_choice').val();
+      console.log(list_id);
+    }
+
   ngOnInit(): void {
     this.i=0;
 
@@ -53,7 +59,15 @@ export class SignInComponent implements OnInit {
   }
 
 
-  public async Login(username: string, password: string) {
+
+  public Login(uname:string, password:string)
+  {
+
+  }
+
+
+
+  public async Login1(username: string, password: string) {
 
     // var val = $("#selects1").val();
     // alert(val);'
