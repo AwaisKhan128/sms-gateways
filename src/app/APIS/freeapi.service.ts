@@ -4,7 +4,7 @@ import { HttpClient,HttpHeaderResponse,HttpHeaders,HttpParams } from "@angular/c
 import { Injectable } from "@angular/core";
 import { CreateAcc } from '../Classes/createAcc_';
 import { send_Code } from '../Classes/Verify_acc';
-import { API_BASE_URLS, CLICKSEND_API_ENDPOINTS, HTTP_HEADER_OPTIONS } from './APIConfig';
+import { API_BASE_URLS, CLICKSEND_API_ENDPOINTS, HEROKU_API_ENDPOINTS, HTTP_HEADER_OPTIONS } from './APIConfig';
 import { SendSMSParam } from '../Classes/SMS/send_sms_param';
 import { SendResponse } from '../Classes/SMS/send_sms_response';
 import { SendMMSParam } from '../Classes/MMS/send_mms_param';
@@ -14,6 +14,7 @@ import { ViewSMSTemplatesResponse } from '../Classes/SMS/view_sms_templates_resp
 import { ICreate_Contact } from '../Classes/manage_contacts';
 import { SMSHistoryExportResponse } from '../Classes/SMS/sms_history_export_response';
 import { StatisticsSMSData } from '../Classes/Statistics/statistics_sms';
+import { SubscribedDevices } from '../Classes/subscribed_devices';
 
 
 
@@ -374,11 +375,6 @@ export class API_Services{
     }
 
 
-
-
-
-
-
     getExportMMSHistory(): Observable<SMSHistoryExportResponse> {
         const url= API_BASE_URLS.CLICKSEND_BASE_URL + CLICKSEND_API_ENDPOINTS.MMS_History_Export
         return this.httpClient.get(url,{headers: HTTP_HEADER_OPTIONS.CLICKSEND_HEADER})
@@ -394,6 +390,11 @@ export class API_Services{
         return this.httpClient.get(url,{headers: headers})
     }
 
+
+    getSubscribedDevices(userID: string): Observable<SubscribedDevices> {
+        const url = API_BASE_URLS._Credential_Base + HEROKU_API_ENDPOINTS.GET_SUBSCRIBE_DEVICES + "?id=" + userID
+        return this.httpClient.get(url)
+    }
 
     /**
    * Handle Http operation that failed.

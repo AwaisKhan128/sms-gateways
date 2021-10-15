@@ -15,6 +15,7 @@ import { MMsMessage } from 'src/app/Classes/MMS/send_mms_param';
 import * as $ from 'jquery';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { Snake_Waiting } from 'src/app/Classes/Waiting_bar';
+import { HTTPResponseSubscribedDevices } from 'src/app/Classes/subscribed_devices';
 
 
 
@@ -29,6 +30,8 @@ export class MessagesComponent implements OnInit {
   filtered_history_array: HistoryDatum[] = [];
   resendMessages: HistoryDatum[] = [];
 
+  subscribedDevices : HTTPResponseSubscribedDevices[] = [];
+  
   messageTo: string =  "0"; //"+61411111111,+61422222222";
   messageFrom: string =  "0"
 
@@ -53,6 +56,7 @@ export class MessagesComponent implements OnInit {
   ngOnInit(): void {
     this.snakeBar.start_bar("Please Wait");
     this.actionSearch()
+    this.getSubscribedDevices("124")
   }
 
   onMessageTypeChange(event: any) {
@@ -70,8 +74,6 @@ export class MessagesComponent implements OnInit {
     this.search_param_messageStatus = messageStatusType
     console.log(this.search_param_messageStatus)
     this.snakeBar.close_bar();
-
-
   }
   
   actionSearch() {
@@ -274,6 +276,8 @@ export class MessagesComponent implements OnInit {
     }
   }
 
+
+
   openExportDialog() {
     this.modalService.open(SimpledialogComponent, { ariaLabelledBy: 'modal-basic-title', centered:true, size:'l' }).result.then((result) => {
       console.log($(result));
@@ -297,6 +301,16 @@ export class MessagesComponent implements OnInit {
       }
   }
 
+
+  getSubscribedDevices(userID: string) {
+    this.apiService.getSubscribedDevices(userID).subscribe(
+      response => {
+        console.log(response)
+        var devicees = response.http_response as HTTPResponseSubscribedDevices[]
+        this.subscribedDevices = devicees
+      }
+    )
+  }
 
    // used to build a slice of papers relevant at any given time
    public getPaginatorData(event: PageEvent): PageEvent {
