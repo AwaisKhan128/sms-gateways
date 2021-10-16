@@ -16,6 +16,8 @@ import * as $ from 'jquery';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { Snake_Waiting } from 'src/app/Classes/Waiting_bar';
 import { HTTPResponseSubscribedDevices } from 'src/app/Classes/subscribed_devices';
+import { SubscribedDevicesRemoteMessagesResponse, SubscribedDevicesRemoteMessage } from 'src/app/Classes/subscribed_devices_remote_messages';
+
 
 
 
@@ -31,6 +33,8 @@ export class MessagesComponent implements OnInit {
   resendMessages: HistoryDatum[] = [];
 
   subscribedDevices : HTTPResponseSubscribedDevices[] = [];
+  remoteMessages : SubscribedDevicesRemoteMessage[] = []  
+
   
   messageTo: string =  "0"; //"+61411111111,+61422222222";
   messageFrom: string =  "0"
@@ -57,7 +61,7 @@ export class MessagesComponent implements OnInit {
   ngOnInit(): void {
     this.snakeBar.start_bar("Please Wait");
     this.actionSearch()
-    this.getSubscribedDevices("124")
+    this.getSubscribedDevices("23911")
   }
 
   onMessageTypeChange(event: any) {
@@ -152,7 +156,8 @@ export class MessagesComponent implements OnInit {
   actionFetchSubscribedDeviceRemoteMessages() {
     this.apiService.getSubscribedDevicesRemoteMessages(this.search_param_selected_subscribed_ID).subscribe(
       e => {
-        console.log(e.http_response)
+        const msgs = e.SubscribedDevicesRemoteMessage as SubscribedDevicesRemoteMessage[]
+        this.remoteMessages = msgs
         this.sms_history_array = []
         this.filtered_history_array = []
         this.snakeBar.close_bar();
