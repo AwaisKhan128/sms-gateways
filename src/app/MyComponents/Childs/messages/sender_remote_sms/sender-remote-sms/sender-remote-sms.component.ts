@@ -1,12 +1,12 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { API_Services } from 'src/app/APIS/freeapi.service';
-import { MMsMessage, SendMMSParam } from 'src/app/Classes/MMS/send_mms_param';
 import { MyMessage, SendSMSParam } from 'src/app/Classes/SMS/send_sms_param';
 import { SendResponse } from 'src/app/Classes/SMS/send_sms_response';
 import { SMSTemplate } from 'src/app/Classes/SMS/view_sms_templates_response';
 import { DateHandler } from 'src/app/Helper/datehandler';
 import { Toaster } from 'src/app/Helper/toaster';
+import * as $ from 'jquery';
 
 @Component({
   selector: 'app-sender-remote-sms',
@@ -25,19 +25,8 @@ export class SenderRemoteSmsComponent implements OnInit {
   pickedDate: string = "" //new Date().toDateString();
   pickedTime: string = "";
   defaultValue:any;
-  // //MMS
-  source: string = "node.js";
-  mms_messageTo: string =  ""; //"+61411111111,+61422222222";
-  mms_messageFrom: string =  ""
-  mms_message_subject: string = "this is a test";
-  mms_message = "Image Attached"
-  media_file_url: string = "http://www.pikpng.com/pngl/m/56-561816_free-png-whatsapp-png-png-whatsapp-logo-small.png";
-  selectedFile! : File ;
-  shouldScheduleMMSMessage: number = 0
-  mmsPickedDate: string = "" //new Date().toDateString();
-  mmsPickedTime: string = "";
 
-  // window: any["$"] = $;
+  window: any["$"] = $;
   response: SendResponse | undefined;
 
 
@@ -46,9 +35,8 @@ export class SenderRemoteSmsComponent implements OnInit {
   ngOnInit(): void {
     $('#schedule_input_sms_date').prop('disabled', true);
     $('#schedule_input_sms_time').prop('disabled', true);
-    $('#schedule_input_mms_date').prop('disabled', true);
-    $('#schedule_input_mms_time').prop('disabled', true);
     this.fetchSMSTemplates()
+    console.log("REMOTE MESSAGESSS")
   }
 
   templatedSelectionChangeHandler (event: any) {
@@ -59,18 +47,6 @@ export class SenderRemoteSmsComponent implements OnInit {
       this.selectedTemplateBody = selectedTemplate!.body;
       this.messageBody = this.selectedTemplateBody
     }
-  }
-
-  onFileSelected(event) {
-    console.log(event)
-    this.selectedFile = <File>event.target.files[0]
-    console.log(this.selectedFile)
-  }
-
-  onUpload() {
-    const fd = new FormData();
-    fd.append('image', this.selectedFile, this.selectedFile.name)
-    this.http.post('base url',fd)
   }
 
   actionSendSMS() {
@@ -121,92 +97,16 @@ export class SenderRemoteSmsComponent implements OnInit {
     }
   }
 
-  actionSendMMS() {
-    if (this.mms_messageFrom == null || this.mms_messageFrom == undefined || this.mms_messageFrom == "") {
-      Toaster.failureToast("FAILURE","From field is required for sending MMS")
-      return
-    }
-    if (this.mms_messageTo == null || this.mms_messageTo == undefined || this.mms_messageTo == "") {
-      Toaster.failureToast("FAILURE","To field is required for sending MMS")
-      return
-    } 
-    var mm_unixTimestamp = DateHandler.convertToUnixTimestamp(this.pickedDate, this.pickedTime)
-    var mmsMessageBody = this.mms_message !== "" ? this.mms_message : "Image Attached"
-    var messagesList : MMsMessage[] = [] ;
-    var splitted = this.messageTo.split(","); 
-    if (splitted.length > 0) {
-        splitted.forEach((element) => { 
-          if (this.shouldScheduleMMSMessage == 0)  {
-            const mms_message : MMsMessage = {
-              source : "node.js",
-              to: this.mms_messageTo,
-              from : this.mms_messageFrom,
-              subject : this.mms_message_subject,
-              body : mmsMessageBody,
-            }
-            messagesList.push(mms_message)
-          }
-          else {
-            const mms_message : MMsMessage = {
-              source : "node.js",
-              to: this.mms_messageTo,
-              from : this.mms_messageFrom,
-              subject : this.mms_message_subject,
-              body : mmsMessageBody,
-              schedule: mm_unixTimestamp
-            }
-            messagesList.push(mms_message)
-          }
-
-        });
-        console.log(messagesList)
-        const param: SendMMSParam = {media_file: this.media_file_url, messages: messagesList}
-        this.apiService.sendMMS(param)
-          .subscribe(response =>{
-            this.response = response
-            console.log("Before")
-            if (this.response.response_code == "SUCCESS") {
-              console.log("Sucess")
-              Toaster.sucessToast(this.response.response_msg!)
-            }
-            else {
-              console.log("Failure")
-              Toaster.failureToast(this.response.response_code!, this.response.response_msg!)
-            }
-            console.log("After")
-          })
-    }
-  }
-
   fetchSMSTemplates() {
     this.apiService.getSMSTemplates().
       subscribe(response =>{
-        let intialTemplate: SMSTemplate = {template_id:-1, template_name: "NONE", body:""} as SMSTemplate;    
-        let intialTemplate2: SMSTemplate = {template_id:-2, template_name: "Helloww", body:"I AM Arrwr2323423UTOFILLINGGG"} as SMSTemplate;    
-        let intialTemplate3: SMSTemplate = {template_id:-3, template_name: "ewrwfdsv444", body:"234I234 AM Arrw323r2323423UTOFILLINGGG"} as SMSTemplate;    
+        let intialTemplate: SMSTemplate = {template_id:-1, template_name: "NONE", body:""} as SMSTemplate;      
         var smsTemplates = response.data?.data as SMSTemplate[];
         smsTemplates.push(intialTemplate);
-        smsTemplates.push(intialTemplate2);
-        smsTemplates.push(intialTemplate3);
         smsTemplates.forEach(t => this.templates.push(t))
         console.log(this.templates)
         console.log("FETCHED TEMPLATESS")
       })
-  }
-
-  onScheduler_mms()
-  {
-    if ($('#scheduler_mms').prop('checked')) {
-      $('#schedule_input_mms_date').prop('disabled', false);
-      $('#schedule_input_mms_time').prop('disabled', false);
-      this.shouldScheduleMMSMessage = 1
-    }
-    else
-    {
-      $('#schedule_input_mms_date').prop('disabled', true);
-      $('#schedule_input_mms_time').prop('disabled', true);
-      this.shouldScheduleMMSMessage = 0
-    }
   }
 
   onScheduler_sms()
