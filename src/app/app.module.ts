@@ -87,6 +87,10 @@ import { Permission } from './Classes/Permissions';
 import { DeviceSettingsComponent } from './MyComponents/device-settings/device-settings.component';
 import { ProgressComponentComponent } from './MyComponents/progress-component/progress-component.component';
 import { Snake_Waiting } from './Classes/Waiting_bar';
+import { SendersmsmessagesComponent } from './MyComponents/Childs/Messages/sendersmsmessages/sendersmsmessages.component';
+import { SenderSmsComponent } from './MyComponents/Childs/Messages/sender_sms/sender-sms/sender-sms.component';
+import { SenderMmsComponent } from './MyComponents/Childs/messages/sender_mms/sender-mms/sender-mms.component';
+import { SenderRemoteSmsComponent } from './MyComponents/Childs/messages/sender_remote_sms/sender-remote-sms/sender-remote-sms.component';
 
 
 
@@ -122,7 +126,11 @@ import { Snake_Waiting } from './Classes/Waiting_bar';
     WebTopComponent,
     MobTopComponent,
     DeviceSettingsComponent,
-    ProgressComponentComponent
+    ProgressComponentComponent,
+    SendersmsmessagesComponent,
+    SenderSmsComponent,
+    SenderMmsComponent,
+    SenderRemoteSmsComponent
   ],
   imports: [
     BrowserModule,
