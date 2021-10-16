@@ -7,6 +7,8 @@ import { SendResponse } from 'src/app/Classes/SMS/send_sms_response';
 import { SMSTemplate } from 'src/app/Classes/SMS/view_sms_templates_response';
 import { DateHandler } from 'src/app/Helper/datehandler';
 import { Toaster } from 'src/app/Helper/toaster';
+import * as $ from 'jquery';
+
 
 @Component({
   selector: 'app-sender-mms',
@@ -15,16 +17,10 @@ import { Toaster } from 'src/app/Helper/toaster';
 })
 export class SenderMmsComponent implements OnInit {
 
-  // //SMS
-  messageBody: string | undefined;//= "Hello there";
   messageTo: string =  ""; //"+61411111111,+61422222222";
-  messageFrom: string =  ""
-  templates: Array<SMSTemplate> = [];
-  selectedTemplateBody: string = "";
-  shouldScheduleMessage: number = 0
   pickedDate: string = "" //new Date().toDateString();
   pickedTime: string = "";
-  defaultValue:any;
+
   // //MMS
   source: string = "node.js";
   mms_messageTo: string =  ""; //"+61411111111,+61422222222";
@@ -48,18 +44,8 @@ export class SenderMmsComponent implements OnInit {
     $('#schedule_input_sms_time').prop('disabled', true);
     $('#schedule_input_mms_date').prop('disabled', true);
     $('#schedule_input_mms_time').prop('disabled', true);
-    this.fetchSMSTemplates()
   }
 
-  templatedSelectionChangeHandler (event: any) {
-    (document.getElementById('message') as HTMLInputElement).value = ''
-    const templateID = <number>event.target.value;
-    var selectedTemplate = this.templates.find(t=> t.template_id == templateID);
-    if(selectedTemplate !== null) {
-      this.selectedTemplateBody = selectedTemplate!.body;
-      this.messageBody = this.selectedTemplateBody
-    }
-  }
 
   onFileSelected(event) {
     console.log(event)
@@ -71,54 +57,6 @@ export class SenderMmsComponent implements OnInit {
     const fd = new FormData();
     fd.append('image', this.selectedFile, this.selectedFile.name)
     this.http.post('base url',fd)
-  }
-
-  actionSendSMS() {
-    if (this.messageFrom == null || this.messageFrom == undefined || this.messageFrom == "") {
-      Toaster.failureToast("FAILURE","From cannot be empty")
-      return
-    }
-    if (this.messageTo == null || this.messageTo == undefined || this.messageTo == "") {
-      Toaster.failureToast("FAILURE","To cannot be empty")
-      return
-    } 
-    var unixTimestamp = DateHandler.convertToUnixTimestamp(this.pickedDate, this.pickedTime)
-    console.log(unixTimestamp)
-    var messagesList : MyMessage[] = [] ;
-    var splitted = this.messageTo.split(","); 
-    if (splitted.length > 0) {
-        splitted.forEach((element) => { 
-          if (this.shouldScheduleMessage == 0)  {
-            const m : MyMessage = {
-              body : this.messageBody,
-              to : element,
-              from : this.messageFrom,
-            };
-            messagesList.push(m)
-          }
-          else {
-            const m : MyMessage = {
-              body : this.messageBody,
-              to : element,
-              from : this.messageFrom,
-              schedule: unixTimestamp,
-            };
-            messagesList.push(m)
-          }
-        });
-        console.log(messagesList)
-        const param : SendSMSParam = {messages: messagesList};
-        this.apiService.sendSMS(param)
-          .subscribe(response => {
-            this.response = response
-            if (this.response.response_code == "SUCCESS") {
-              Toaster.sucessToast(this.response.response_msg!)
-            }
-            else {
-              Toaster.failureToast(this.response.response_code!, this.response.response_msg!)
-            }
-        });
-    }
   }
 
   actionSendMMS() {
@@ -178,22 +116,6 @@ export class SenderMmsComponent implements OnInit {
     }
   }
 
-  fetchSMSTemplates() {
-    this.apiService.getSMSTemplates().
-      subscribe(response =>{
-        let intialTemplate: SMSTemplate = {template_id:-1, template_name: "NONE", body:""} as SMSTemplate;    
-        let intialTemplate2: SMSTemplate = {template_id:-2, template_name: "Helloww", body:"I AM Arrwr2323423UTOFILLINGGG"} as SMSTemplate;    
-        let intialTemplate3: SMSTemplate = {template_id:-3, template_name: "ewrwfdsv444", body:"234I234 AM Arrw323r2323423UTOFILLINGGG"} as SMSTemplate;    
-        var smsTemplates = response.data?.data as SMSTemplate[];
-        smsTemplates.push(intialTemplate);
-        smsTemplates.push(intialTemplate2);
-        smsTemplates.push(intialTemplate3);
-        smsTemplates.forEach(t => this.templates.push(t))
-        console.log(this.templates)
-        console.log("FETCHED TEMPLATESS")
-      })
-  }
-
   onScheduler_mms()
   {
     if ($('#scheduler_mms').prop('checked')) {
@@ -208,22 +130,5 @@ export class SenderMmsComponent implements OnInit {
       this.shouldScheduleMMSMessage = 0
     }
   }
-
-  onScheduler_sms()
-  {
-    if ($('#scheduler_sms').prop('checked')) {
-      //blah blah
-      $('#schedule_input_sms_date').prop('disabled', false);
-      $('#schedule_input_sms_time').prop('disabled', false);
-      this.shouldScheduleMessage = 1
-    }
-    else
-    {
-      $('#schedule_input_sms_date').prop('disabled', true);
-      $('#schedule_input_sms_time').prop('disabled', true);
-      this.shouldScheduleMessage = 0
-    }
-  }
-
 
 }

@@ -7,6 +7,8 @@ import { SendResponse } from 'src/app/Classes/SMS/send_sms_response';
 import { SMSTemplate } from 'src/app/Classes/SMS/view_sms_templates_response';
 import { DateHandler } from 'src/app/Helper/datehandler';
 import { Toaster } from 'src/app/Helper/toaster';
+import * as $ from 'jquery';
+
 
 @Component({
   selector: 'app-sender-sms',
