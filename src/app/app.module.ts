@@ -87,6 +87,7 @@ import { Permission } from './Classes/Permissions';
 import { DeviceSettingsComponent } from './MyComponents/device-settings/device-settings.component';
 import { ProgressComponentComponent } from './MyComponents/progress-component/progress-component.component';
 import { Snake_Waiting } from './Classes/Waiting_bar';
+import {MatTreeModule} from '@angular/material/tree';
 
 
 
@@ -146,6 +147,7 @@ import { Snake_Waiting } from './Classes/Waiting_bar';
     NgxMaterialTimepickerModule,
     MatProgressSpinnerModule,
     MatSnackBarModule,
+    MatTreeModule,
     NgxAwesomePopupModule.forRoot({
       ColorList: {
         Success: '#3caea3', // optional

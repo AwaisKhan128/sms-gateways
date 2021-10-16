@@ -30,6 +30,7 @@ import { VerifyComponent } from './MyComponents/verify/verify.component';
 const routes: Routes = [
   { path: '', component: SignInComponent},
   { path : 'createacc', component : CreateAccComponent},
+  { path : 'verify' , component : VerifyComponent},
   { path : 'profile', component : ProfileComponent,
   children: [
     {

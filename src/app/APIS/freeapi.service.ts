@@ -109,8 +109,6 @@ export class API_Services{
 
 
 
-
-
 // ---------------->Resellers-------------->
 
     create_reseller(body:any)
@@ -332,6 +330,25 @@ export class API_Services{
          'Content-Type': 'application/json'};
         return this.httpClient.delete(API_BASE_URLS.CLICKSEND_BASE_URL+'lists/'
         +list_id+'/contacts/'+contact_id,{headers:headers});
+    }
+
+
+    // --------------Check Users Available----------------
+    search_user(type:any,id:any)
+    {
+        return this.httpClient.get(API_BASE_URLS._Credential_Base+'select/'+type+"?id="+id);
+    }
+
+    search_permissions(id:any)
+    {
+        return this.httpClient.get(API_BASE_URLS._Credential_Base+'select/permissions?id='+id);
+    }
+
+    // Verification Code Send..
+    sendVerificationcodebyemail(email:any,code:any)
+    {
+        const headers = {"Content-Type": "application/json" };
+        return this.httpClient.post(API_BASE_URLS._Credential_Base+'sendverification/'+email+'/'+code,{headers:headers})
     }
 
 
