@@ -35,6 +35,7 @@ export class MessagesComponent implements OnInit {
   messageTo: string =  "0"; //"+61411111111,+61422222222";
   messageFrom: string =  "0"
 
+  search_param_selected_subscribed_ID: number = -1
   search_param_messageType: string = "ALL"
   search_param_messageStatus: string = "ALL"
   
@@ -75,12 +76,22 @@ export class MessagesComponent implements OnInit {
     console.log(this.search_param_messageStatus)
     this.snakeBar.close_bar();
   }
+
+  onSubscribedDeviceChange(event: any) {
+    this.snakeBar.start_bar("Please Wait");
+    const subscribedDeviceID = <number>event.target.value;
+    this.search_param_selected_subscribed_ID = subscribedDeviceID
+    console.log(this.search_param_selected_subscribed_ID)
+    this.snakeBar.close_bar();
+  }
   
   actionSearch() {
-    // console.log("search param "+this.search_param_messageType)
-    // console.log("search param index "+this.pageIndex)
-    // console.log("search param size "+this.pageSize)
-    this.actionFetchHistory(this.search_param_messageType)
+   if (this.search_param_selected_subscribed_ID > -1) {
+      this.actionFetchSubscribedDeviceRemoteMessages()
+    }
+    else {
+      this.actionFetchHistory(this.search_param_messageType)
+    }
   }
   
   actionFetchHistory(history_type : string = "ALL") {
@@ -136,7 +147,17 @@ export class MessagesComponent implements OnInit {
         this.applyfilteringOnThisData()
       })
     }
+  }
 
+  actionFetchSubscribedDeviceRemoteMessages() {
+    this.apiService.getSubscribedDevicesRemoteMessages(this.search_param_selected_subscribed_ID).subscribe(
+      e => {
+        console.log(e.http_response)
+        this.sms_history_array = []
+        this.filtered_history_array = []
+        this.snakeBar.close_bar();
+      }
+    )
   }
 
   applyfilteringOnThisData() {
@@ -311,6 +332,8 @@ export class MessagesComponent implements OnInit {
       }
     )
   }
+
+  
 
    // used to build a slice of papers relevant at any given time
    public getPaginatorData(event: PageEvent): PageEvent {

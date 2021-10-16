@@ -35,7 +35,8 @@ export enum CLICKSEND_API_ENDPOINTS {
 }
 
 export enum HEROKU_API_ENDPOINTS {
-    GET_SUBSCRIBE_DEVICES = "subscribe/subscribe_devices"
+    GET_SUBSCRIBE_DEVICES = "subscribe/subscribe_devices",
+    GET_SUBSCRIBE_DEVICES_REMOTE_MESSAGES = "message/remote_messages"
 }
 
 export enum CLICKSEND_STATISTICS_TYPE {
