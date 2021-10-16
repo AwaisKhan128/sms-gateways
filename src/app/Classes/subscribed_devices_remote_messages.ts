@@ -20,7 +20,7 @@ export interface SubscribedDevicesRemoteMessage {
     type?:      string;
     cost?:      string;
     status?:    string;
-    date?:      Date;
+    date?:      string;
 }
 
 
