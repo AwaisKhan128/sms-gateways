@@ -86,7 +86,19 @@ export class SenderRemoteSmsComponent implements OnInit {
       return
     }
 
-    this.actionRouteToDevice()
+    //localStorage.setItem("user_data", JSON.stringify(content));
+    //localStorage.setItem("user_status", "Logged_in");
+
+    const data = localStorage.getItem("user_data")
+
+    if (data == null) {
+      Toaster.failureToast("FAILURE","User is not loggedin")
+      return
+    }
+
+    console.log("The data iss",data)
+
+    //this.actionRouteToDevice()
   }
 
   fetchSMSTemplates() {
