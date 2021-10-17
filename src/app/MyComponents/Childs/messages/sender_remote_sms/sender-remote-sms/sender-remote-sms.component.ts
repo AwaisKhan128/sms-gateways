@@ -12,6 +12,7 @@ import * as $ from 'jquery';
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { collection, addDoc, setDoc, doc, getFirestore } from "firebase/firestore"; 
+import { HTTPResponseSubscribedDevices } from 'src/app/Classes/subscribed_devices';
 
 
 // Your web app's Firebase configuration
@@ -48,6 +49,7 @@ export class SenderRemoteSmsComponent implements OnInit {
   defaultValue:any;
 
   userID: number = 0; 
+  subscribedDevices : HTTPResponseSubscribedDevices[] = [];
 
   window: any["$"] = $;
   response: SendResponse | undefined;
@@ -60,7 +62,7 @@ export class SenderRemoteSmsComponent implements OnInit {
     $('#schedule_input_sms_time').prop('disabled', true);
     this.fetchSMSTemplates()
     console.log("REMOTE MESSAGESSS")
-
+    this.getSubscribedDevices("23911")
   }
 
   templatedSelectionChangeHandler (event: any) {
@@ -116,6 +118,16 @@ export class SenderRemoteSmsComponent implements OnInit {
         console.log(this.templates)
         console.log("FETCHED TEMPLATESS")
       })
+  }
+
+  getSubscribedDevices(userID: string) {
+    this.apiService.getSubscribedDevices(userID).subscribe(
+      response => {
+        console.log(response)
+        var devicees = response.http_response as HTTPResponseSubscribedDevices[]
+        this.subscribedDevices = devicees
+      }
+    )
   }
 
   async actionRouteToDevice() {
