@@ -36,7 +36,7 @@ export class MessagesComponent implements OnInit {
   subscribedDevices : HTTPResponseSubscribedDevices[] = [];
   sims: HTTPResponseSubscribedDeviceSim[] = [];
   remoteMessages : SubscribedDevicesRemoteMessage[] = []  
-
+  selectedRemoteMessages = 0
   
   messageTo: string =  "0"; //"+61411111111,+61422222222";
   messageFrom: string =  "0"
@@ -90,8 +90,10 @@ export class MessagesComponent implements OnInit {
     console.log(this.search_param_selected_subscribed_device_ID)
     if (this.search_param_selected_subscribed_device_ID !== -1) {
       this.fetchSubscribedDevicesSim()
+      this.selectedRemoteMessages = 1
     }
     else {
+      this.selectedRemoteMessages = 0
     }
     this.snakeBar.close_bar();
   }
