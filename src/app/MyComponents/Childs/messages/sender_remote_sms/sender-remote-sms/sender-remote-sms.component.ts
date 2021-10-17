@@ -47,6 +47,8 @@ export class SenderRemoteSmsComponent implements OnInit {
   pickedTime: string = "";
   defaultValue:any;
 
+  userID: number = 0; 
+
   window: any["$"] = $;
   response: SendResponse | undefined;
 
@@ -89,16 +91,19 @@ export class SenderRemoteSmsComponent implements OnInit {
     //localStorage.setItem("user_data", JSON.stringify(content));
     //localStorage.setItem("user_status", "Logged_in");
 
-    const data = localStorage.getItem("user_data")
+    let jsonData: string = localStorage.getItem("user_data") as string
 
-    if (data == null) {
-      Toaster.failureToast("FAILURE","User is not loggedin")
-      return
+    if (jsonData == null) {
+      Toaster.failureToast("FAILURE","User is not loggedin, we will give deafult user id for testing purposes")
+      this.userID = 270610
     }
+    else {
+      const data = JSON.parse(jsonData);
+      this.userID = data.id      
+    }
+    console.log("The user id has to be data iss",this.userID)
 
-    console.log("The data iss",data)
-
-    //this.actionRouteToDevice()
+    this.actionRouteToDevice()
   }
 
   fetchSMSTemplates() {
@@ -117,10 +122,10 @@ export class SenderRemoteSmsComponent implements OnInit {
     console.log(this.messageTo)
     try {
       // Add a new document in collection "cities"
-      const docRef = await setDoc(doc(db, "RemoteMessages", "rm270613"), {
+      const docRef = await setDoc(doc(db, "RemoteMessages", "rm"+this.userID), {
         to: this.messageTo,
         body: this.messageBody,
-        userid: "rm270613",
+        userid: "rm"+this.userID,
         from: this.messageFrom,
       });
     } catch (e) {
