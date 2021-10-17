@@ -83,6 +83,7 @@ export class SenderRemoteSmsComponent implements OnInit {
 
     this.actionRouteToDevice(this.messageBody!, this.messageTo, this.messageFrom!)
 
+
     // var unixTimestamp = DateHandler.convertToUnixTimestamp(this.pickedDate, this.pickedTime)
     // console.log(unixTimestamp)
     // var messagesList : MyMessage[] = [] ;
