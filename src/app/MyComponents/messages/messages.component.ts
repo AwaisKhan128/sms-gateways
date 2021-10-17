@@ -87,14 +87,15 @@ export class MessagesComponent implements OnInit {
     this.snakeBar.start_bar("Please Wait");
     const subscribedDeviceID = <number>event.target.value;
     this.search_param_selected_subscribed_device_ID = subscribedDeviceID
-    console.log(this.search_param_selected_subscribed_device_ID)
-    if (this.search_param_selected_subscribed_device_ID !== -1) {
+    console.log("snakeee", this.search_param_selected_subscribed_device_ID)
+    if (this.search_param_selected_subscribed_device_ID != -1) {
       this.fetchSubscribedDevicesSim()
       this.selectedRemoteMessages = 1
     }
     else {
       this.selectedRemoteMessages = 0
     }
+    console.log("snakeee2", this.selectedRemoteMessages)
     this.snakeBar.close_bar();
   }
   
