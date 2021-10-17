@@ -15,8 +15,8 @@
           <option selected *ngFor="let sd of this.subscribedDevices" 
           [value]="sd.id"
           [ngValue]="sd.id"
-          [selected]="sd.phone == 'NONE'">
-            {{sd.phone}}
+          [selected]="sd.device == 'NONE'">
+            {{sd.device}}
           </option>
         </select>
       </div>
@@ -47,10 +47,12 @@
         <div class="col-sm-3">
           <label for="selects1"> Mobile Number</label>
           <select class="form-select form-select-sm me-auto" id="selects1" aria-label=".form-select-sm example">
-            <option selected>All</option>
-            <option value="1">One</option>
-            <option value="2">Two</option>
-            <option value="3">Three</option>
+            <option selected *ngFor="let s of this.sims" 
+              [value]="s.number"
+              [ngValue]="s.number"
+              [selected]="s.number == 'NONE'">
+                {{s.number}}
+            </option>
           </select>
         </div>
         

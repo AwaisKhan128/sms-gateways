@@ -403,7 +403,7 @@ export class API_Services{
         return this.httpClient.get(url)
     }
 
-    getSubscribedDevicesRemoteMessages(userID: number): Observable<SubscribedDevicesSim> {
+    getSubscribedDevicesRemoteMessages(userID: number): Observable<SubscribedDevicesRemoteMessagesResponse> {
         const url = API_BASE_URLS._Credential_Base + HEROKU_API_ENDPOINTS.GET_SUBSCRIBE_DEVICES_REMOTE_MESSAGES + "?id=" + userID
         return this.httpClient.get(url)
     }

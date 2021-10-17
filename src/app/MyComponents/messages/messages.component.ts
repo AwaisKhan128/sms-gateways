@@ -17,6 +17,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { Snake_Waiting } from 'src/app/Classes/Waiting_bar';
 import { HTTPResponseSubscribedDevices } from 'src/app/Classes/subscribed_devices';
 import { SubscribedDevicesRemoteMessagesResponse, SubscribedDevicesRemoteMessage } from 'src/app/Classes/subscribed_devices_remote_messages';
+import { HTTPResponseSubscribedDeviceSim } from 'src/app/Classes/subscribed_devices_sim';
 
 
 
@@ -33,13 +34,14 @@ export class MessagesComponent implements OnInit {
   resendMessages: HistoryDatum[] = [];
 
   subscribedDevices : HTTPResponseSubscribedDevices[] = [];
+  sims: HTTPResponseSubscribedDeviceSim[] = [];
   remoteMessages : SubscribedDevicesRemoteMessage[] = []  
 
   
   messageTo: string =  "0"; //"+61411111111,+61422222222";
   messageFrom: string =  "0"
 
-  search_param_selected_subscribed_ID: number = -1
+  search_param_selected_subscribed_device_ID: number = -1
   search_param_messageType: string = "ALL"
   search_param_messageStatus: string = "ALL"
   
@@ -84,13 +86,42 @@ export class MessagesComponent implements OnInit {
   onSubscribedDeviceChange(event: any) {
     this.snakeBar.start_bar("Please Wait");
     const subscribedDeviceID = <number>event.target.value;
-    this.search_param_selected_subscribed_ID = subscribedDeviceID
-    console.log(this.search_param_selected_subscribed_ID)
+    this.search_param_selected_subscribed_device_ID = subscribedDeviceID
+    console.log(this.search_param_selected_subscribed_device_ID)
+    if (this.search_param_selected_subscribed_device_ID !== -1) {
+      this.fetchSubscribedDevicesSim()
+    }
+    else {
+    }
     this.snakeBar.close_bar();
   }
   
+  fetchSubscribedDevicesSim() {
+    this.apiService.getSubscribedDevicesSim(this.search_param_selected_subscribed_device_ID.toString()).subscribe(
+      response => {
+        console.log(response)
+        let intialSim : HTTPResponseSubscribedDeviceSim = {
+          number : "NONE"
+        }
+        var fetchedSims = response.http_response as HTTPResponseSubscribedDeviceSim[]
+        fetchedSims.push(intialSim)
+        this.sims = fetchedSims
+      }
+    )
+  }
+
+  simSelectionChangeHandler (event: any) {
+    console.log("selected device SIM/PHONE is is 1")
+    const selectedSim = <number>event.target.value;
+    console.log("selected sim  is",selectedSim)
+    // if (selectedSim !== null || selectedSim != undefined) {
+    //   this.messageFrom = selectedSim.toString()
+    //   console.log("selected sim is",this.messageFrom)
+    // }
+  }
+
   actionSearch() {
-   if (this.search_param_selected_subscribed_ID > -1) {
+   if (this.search_param_selected_subscribed_device_ID > -1) {
       this.actionFetchSubscribedDeviceRemoteMessages()
     }
     else {
@@ -154,10 +185,15 @@ export class MessagesComponent implements OnInit {
   }
 
   actionFetchSubscribedDeviceRemoteMessages() {
-    this.search_param_selected_subscribed_ID = 270610
-    this.apiService.getSubscribedDevicesRemoteMessages(this.search_param_selected_subscribed_ID).subscribe(
-      e => {
-        // const msgs = e.SubscribedDevicesRemoteMessage as SubscribedDevicesRemoteMessage[]
+    this.search_param_selected_subscribed_device_ID = 270610
+    this.apiService.getSubscribedDevicesRemoteMessages(this.search_param_selected_subscribed_device_ID).subscribe(
+      e=> {
+
+      }
+    )
+    // this.apiService.getSubscribedDevicesRemoteMessages(this.search_param_selected_subscribed_ID).subscribe(
+    //   e => {
+    //     const msgs = e.SubscribedDevicesRemoteMessage as SubscribedDevicesRemoteMessage[]
         // this.remoteMessages = msgs
         // this.sms_history_array = []
         
@@ -197,11 +233,13 @@ export class MessagesComponent implements OnInit {
         //   }
         //   this.sms_history_array.push(k)
         // })
-        // this.filtered_history_array = this.sms_history_array
-        // console.log("length of the remote message is"+msgs!)
-        // this.snakeBar.close_bar();
-      }
-    )
+        //this.filtered_history_array = this.sms_history_array
+        //console.log("length of the remote message is"+msgs!)
+    //     this.sms_history_array = []
+    //     this.filtered_history_array = []
+    //     this.snakeBar.close_bar();
+    //   }
+    // )
   }
 
   applyfilteringOnThisData() {
