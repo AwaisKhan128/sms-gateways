@@ -17,15 +17,29 @@
             </option>
             </select>
           </div>
-          <div class="mb-3">
-            <label for="exampleInputEmail1" class="form-label">Select Device </label>
-            <input type="string" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" [(ngModel)]="messageFrom" name="messageFrom">
+          <div class="col-4 mb-3">
+            <label for="selects"> Select Device</label>
+            <select class="form-select form-select-sm me-auto" id="selects" aria-label=".form-select-sm example"
+              (change)="templatedSelectionChangeHandler($event)" >
+              <option selected *ngFor="let device of this.subscribedDevices" 
+              [value]="device.id"
+              [ngValue]="device.id"
+              [selected]="device.device == 'NONE'">
+                {{device.device}}
+            </option>
+            </select>
           </div>
-
-
-          <div class="mb-3">
-            <label for="exampleInputEmail1" class="form-label">Select Number </label>
-            <input type="string" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" [(ngModel)]="messageFrom" name="messageFrom">
+          <div class="col-4 mb-3">
+            <label for="selects"> Select Number</label>
+            <select class="form-select form-select-sm me-auto" id="selects" aria-label=".form-select-sm example"
+              (change)="templatedSelectionChangeHandler($event)" >
+              <option selected *ngFor="let template of this.templates" 
+              [value]="template.template_id"
+              [ngValue]="template.template_id"
+              [selected]="template.template_name == 'NONE'">
+                {{template.template_name}}
+            </option>
+            </select>
           </div>
 
 
