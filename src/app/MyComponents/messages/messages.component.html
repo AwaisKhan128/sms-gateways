@@ -11,7 +11,6 @@
         <label for="selects"> Select Devices</label>
         <select class="form-select form-select-sm me-auto" id="selects" aria-label=".form-select-sm example" 
         (change)="onSubscribedDeviceChange($event)">
-          <option selected [value]="-1" [ngValue]="-1">Select a Device</option>
           <option selected *ngFor="let sd of this.subscribedDevices" 
           [value]="sd.id"
           [ngValue]="sd.id"

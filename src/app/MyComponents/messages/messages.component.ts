@@ -411,7 +411,17 @@ export class MessagesComponent implements OnInit {
     this.apiService.getSubscribedDevices(userID).subscribe(
       response => {
         console.log(response)
+        let initialDevice: HTTPResponseSubscribedDevices = {
+          country:"-1",
+          device: "NONE",
+          id: -1,
+          imei: "-1",
+          imsi: "-1",
+          phone: "-1",
+          username: "-1",
+        }
         var devicees = response.http_response as HTTPResponseSubscribedDevices[]
+        devicees.push(initialDevice)
         this.subscribedDevices = devicees
       }
     )
