@@ -5,6 +5,8 @@ import { myCredentials } from 'src/app/APIS/APIConfig';
 import { EncodeDecode } from 'src/app/Classes/EncodeDec64';
 import {FlatTreeControl} from '@angular/cdk/tree';
 import {MatTreeFlatDataSource, MatTreeFlattener} from '@angular/material/tree';
+import * as $ from 'jquery';
+
 
 
 
@@ -16,10 +18,18 @@ import {MatTreeFlatDataSource, MatTreeFlattener} from '@angular/material/tree';
   styleUrls: ['./device-settings.component.css']
 })
 export class DeviceSettingsComponent implements OnInit {
+  name = 'Angular';
+  enableEdit = false;
+  enableEditIndex = null;
+  window: any["$"] = $;
 
 
 
-
+  enableEditMethod(e, i) {
+    this.enableEdit = true;
+    this.enableEditIndex = i;
+    console.log(i, e);
+  }
 
 
 
@@ -118,6 +128,18 @@ export class DeviceSettingsComponent implements OnInit {
       }
     )
 
+  }
+
+
+  showupdate_sim(event:any)
+  {
+    console.log(event);
+
+  }
+
+  sim(event:any)
+  {
+    console.log(event);
   }
 
 }

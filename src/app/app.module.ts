@@ -41,12 +41,6 @@ import {MatMenuModule} from '@angular/material/menu';
 import { MatTableModule } from '@angular/material/table'  
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
-
-
-
-
-
-
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -88,6 +82,8 @@ import { DeviceSettingsComponent } from './MyComponents/device-settings/device-s
 import { ProgressComponentComponent } from './MyComponents/progress-component/progress-component.component';
 import { Snake_Waiting } from './Classes/Waiting_bar';
 import {MatTreeModule} from '@angular/material/tree';
+import { OperatorConfigurationComponent } from './operator-configuration/operator-configuration.component';
+import { EditInputComponent } from './MyComponents/edit-input/edit-input.component';
 
 
 
@@ -123,7 +119,10 @@ import {MatTreeModule} from '@angular/material/tree';
     WebTopComponent,
     MobTopComponent,
     DeviceSettingsComponent,
-    ProgressComponentComponent
+    ProgressComponentComponent,
+    OperatorConfigurationComponent,
+    EditInputComponent
+    
   ],
   imports: [
     BrowserModule,

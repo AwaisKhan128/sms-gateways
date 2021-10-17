@@ -22,6 +22,7 @@ import { SignInComponent } from './MyComponents/sign-in/sign-in.component';
 import { TemplatesComponent } from './MyComponents/templates/templates.component';
 import { TopupsComponent } from './MyComponents/topups/topups.component';
 import { VerifyComponent } from './MyComponents/verify/verify.component';
+import { OperatorConfigurationComponent } from './operator-configuration/operator-configuration.component';
 
 
 
@@ -120,6 +121,10 @@ const routes: Routes = [
     {
       path: 'device',
       component: DeviceSettingsComponent, // another child route component that the router renders
+    },
+    {
+      path: 'operator_config',
+      component: OperatorConfigurationComponent, // another child route component that the router renders
     }
 
   ]},

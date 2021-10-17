@@ -174,6 +174,8 @@ export class SignInComponent implements OnInit {
                       "ip_addr": data_R.geoplugin_request.substr(0,10),
                       "device":this.getOS(),
                       "country": data_R.geoplugin_countryName,
+                      "type":"superadmins",
+
                       "permissions":
                               {
                                 "sms":data.http_response[0].access_sms,
@@ -233,6 +235,7 @@ export class SignInComponent implements OnInit {
                           "ip_addr": data_R.geoplugin_request.substr(0,10),
                           "device":this.getOS(),
                           "country": data_R.geoplugin_countryName,
+                          "type":"superadmins",
                           "permissions":
                               {
                                 "sms":data.access_sms,
@@ -285,6 +288,7 @@ export class SignInComponent implements OnInit {
                                 "ip_addr": data_R.geoplugin_request.substr(0,10),
                                 "device":this.getOS(),
                                 "country": data_R.geoplugin_countryName,
+                                "type":"superadmins",
                                 "permissions":
                                     {
                                       "sms":data.access_sms,
@@ -411,6 +415,7 @@ export class SignInComponent implements OnInit {
                         "ip_addr": data_R.geoplugin_request.substr(0,10),
                         "device":this.getOS(),
                         "country": data_R.geoplugin_countryName,
+                        "type":"subadmins",
                         "permissions":
                                 {
                                   "sms":data.http_response[0].access_sms,
@@ -470,6 +475,7 @@ export class SignInComponent implements OnInit {
                             "ip_addr": data_R.geoplugin_request.substr(0,10),
                             "device":this.getOS(),
                             "country": data_R.geoplugin_countryName,
+                            "type":"subadmins",
                             "permissions":
                                 {
                                   "sms":data.access_sms,
@@ -522,6 +528,7 @@ export class SignInComponent implements OnInit {
                                 "ip_addr": data_R.geoplugin_request.substr(0,10),
                                 "device":this.getOS(),
                                 "country": data_R.geoplugin_countryName,
+                                "type":"subadmins",
                                 "permissions":
                                     {
                                       "sms":data.access_sms,
@@ -645,6 +652,7 @@ export class SignInComponent implements OnInit {
                         "ip_addr": data_R.geoplugin_request.substr(0,10),
                         "device":this.getOS(),
                         "country": data_R.geoplugin_countryName,
+                        "type":"reseller",
                         "permissions":
                                 {
                                   "sms":data.http_response[0].access_sms,
@@ -704,6 +712,7 @@ export class SignInComponent implements OnInit {
                             "ip_addr": data_R.geoplugin_request.substr(0,10),
                             "device":this.getOS(),
                             "country": data_R.geoplugin_countryName,
+                            "type":"reseller",
                             "permissions":
                                 {
                                   "sms":data.access_sms,
@@ -754,6 +763,7 @@ export class SignInComponent implements OnInit {
                                 "ip_addr": data_R.geoplugin_request.substr(0,10),
                                 "device":this.getOS(),
                                 "country": data_R.geoplugin_countryName,
+                                "type":"reseller",
                                 "permissions":
                                     {
                                       "sms":data.access_sms,

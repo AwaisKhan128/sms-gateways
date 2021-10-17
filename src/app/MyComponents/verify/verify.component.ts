@@ -38,9 +38,43 @@ export class VerifyComponent implements OnInit {
 
       if (new_code == data)
       {
+        this.snakeBar.start_bar('Please Wait');
         localStorage.removeItem("temp_code");
         localStorage.setItem("user_status", "Logged_in");
-        this.router.navigate(['./profile']);
+        let update_data = JSON.parse(JSON.stringify(localStorage.getItem("user_data"))) ;
+        
+        if (update_data!=null)
+        {
+          let id = update_data.id;
+          let ip_addr = update_data.ip_addr;
+          let device = update_data.device;
+          let country = update_data.country;
+          let type = update_data.type;
+          this.freeapi.modifyUserDetailsDB(id
+            , ip_addr,device,country, type).subscribe
+            (
+              res => {
+                // console.log(res);
+                this.snakeBar.close_bar();
+                let val:any;
+                val = res;
+                console.log(val.http_response);
+                Toaster_Service.toastNotification_S(val.http_response);
+                this.router.navigate(['./profile'])
+  
+              },
+  
+              err => {
+                this.snakeBar.close_bar();
+                console.log(err);
+                Toaster_Service.toastNotification_D("Error check console ->");
+                }
+  
+            )
+          this.router.navigate(['./profile']);
+
+        }
+
       }
 
       // let data  = JSON.parse(JSON.stringify( localStorage.getItem("user_data")));
