@@ -86,46 +86,7 @@ export class SenderRemoteSmsComponent implements OnInit {
       return
     }
 
-    this.actionRouteToDevice(this.messageBody!, this.messageTo, this.messageFrom!)
-
-
-    // var unixTimestamp = DateHandler.convertToUnixTimestamp(this.pickedDate, this.pickedTime)
-    // console.log(unixTimestamp)
-    // var messagesList : MyMessage[] = [] ;
-    // var splitted = this.messageTo.split(","); 
-    // if (splitted.length > 0) {
-    //     splitted.forEach((element) => { 
-    //       if (this.shouldScheduleMessage == 0)  {
-    //         const m : MyMessage = {
-    //           body : this.messageBody,
-    //           to : element,
-    //           from : this.messageFrom,
-    //         };
-    //         messagesList.push(m)
-    //       }
-    //       else {
-    //         const m : MyMessage = {
-    //           body : this.messageBody,
-    //           to : element,
-    //           from : this.messageFrom,
-    //           schedule: unixTimestamp,
-    //         };
-    //         messagesList.push(m)
-    //       }
-    //     });
-    //     console.log(messagesList)
-    //     const param : SendSMSParam = {messages: messagesList};
-    //     this.apiService.sendSMS(param)
-    //       .subscribe(response => {
-    //         this.response = response
-    //         if (this.response.response_code == "SUCCESS") {
-    //           Toaster.sucessToast(this.response.response_msg!)
-    //         }
-    //         else {
-    //           Toaster.failureToast(this.response.response_code!, this.response.response_msg!)
-    //         }
-    //     });
-    // }
+    this.actionRouteToDevice()
   }
 
   fetchSMSTemplates() {
@@ -141,6 +102,7 @@ export class SenderRemoteSmsComponent implements OnInit {
   }
 
   async actionRouteToDevice() {
+    console.log(this.messageTo)
     try {
       // Add a new document in collection "cities"
       const docRef = await setDoc(doc(db, "RemoteMessages", "rm270613"), {
