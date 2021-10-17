@@ -16,6 +16,7 @@ import { SMSHistoryExportResponse } from '../Classes/SMS/sms_history_export_resp
 import { StatisticsSMSData } from '../Classes/Statistics/statistics_sms';
 import { SubscribedDevices } from '../Classes/subscribed_devices';
 import { SubscribedDevicesRemoteMessagesResponse } from '../Classes/subscribed_devices_remote_messages';
+import { SubscribedDevicesSim } from '../Classes/subscribed_devices_sim';
 
 
 
@@ -397,7 +398,12 @@ export class API_Services{
         return this.httpClient.get(url)
     }
 
-    getSubscribedDevicesRemoteMessages(userID: number): Observable<SubscribedDevicesRemoteMessagesResponse> {
+    getSubscribedDevicesSim(userID: string): Observable<SubscribedDevices> {
+        const url = API_BASE_URLS._Credential_Base + HEROKU_API_ENDPOINTS.GET_SUBSCRIBE_DEVICES_SIM + "?id=" + userID
+        return this.httpClient.get(url)
+    }
+
+    getSubscribedDevicesRemoteMessages(userID: number): Observable<SubscribedDevicesSim> {
         const url = API_BASE_URLS._Credential_Base + HEROKU_API_ENDPOINTS.GET_SUBSCRIBE_DEVICES_REMOTE_MESSAGES + "?id=" + userID
         return this.httpClient.get(url)
     }

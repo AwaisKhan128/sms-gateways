@@ -9,6 +9,7 @@
             <label for="selects"> Select templates</label>
             <select class="form-select form-select-sm me-auto" id="selects" aria-label=".form-select-sm example"
               (change)="templatedSelectionChangeHandler($event)" >
+              <option>Select a</option>
               <option selected *ngFor="let template of this.templates" 
               [value]="template.template_id"
               [ngValue]="template.template_id"
@@ -20,7 +21,7 @@
           <div class="col-4 mb-3">
             <label for="selects"> Select Device</label>
             <select class="form-select form-select-sm me-auto" id="selects" aria-label=".form-select-sm example"
-              (change)="templatedSelectionChangeHandler($event)" >
+              (change)="subscribedDeviceSelectionChangeHandler($event)" >
               <option selected *ngFor="let device of this.subscribedDevices" 
               [value]="device.id"
               [ngValue]="device.id"
@@ -33,11 +34,11 @@
             <label for="selects"> Select Number</label>
             <select class="form-select form-select-sm me-auto" id="selects" aria-label=".form-select-sm example"
               (change)="templatedSelectionChangeHandler($event)" >
-              <option selected *ngFor="let template of this.templates" 
-              [value]="template.template_id"
-              [ngValue]="template.template_id"
-              [selected]="template.template_name == 'NONE'">
-                {{template.template_name}}
+              <option selected *ngFor="let s of this.sims" 
+              [value]="s.id"
+              [ngValue]="s.id"
+              [selected]="s.number == 'NONE'">
+                {{s.number}}
             </option>
             </select>
           </div>

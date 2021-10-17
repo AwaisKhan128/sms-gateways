@@ -157,9 +157,9 @@ export class MessagesComponent implements OnInit {
     this.search_param_selected_subscribed_ID = 270610
     this.apiService.getSubscribedDevicesRemoteMessages(this.search_param_selected_subscribed_ID).subscribe(
       e => {
-        const msgs = e.SubscribedDevicesRemoteMessage as SubscribedDevicesRemoteMessage[]
-        this.remoteMessages = msgs
-        this.sms_history_array = []
+        // const msgs = e.SubscribedDevicesRemoteMessage as SubscribedDevicesRemoteMessage[]
+        // this.remoteMessages = msgs
+        // this.sms_history_array = []
         
         // //HistoryDatum
         // this.remoteMessages.forEach(i =>{
@@ -197,9 +197,9 @@ export class MessagesComponent implements OnInit {
         //   }
         //   this.sms_history_array.push(k)
         // })
-        this.filtered_history_array = this.sms_history_array
-        console.log("length of the remote message is"+msgs!)
-        this.snakeBar.close_bar();
+        // this.filtered_history_array = this.sms_history_array
+        // console.log("length of the remote message is"+msgs!)
+        // this.snakeBar.close_bar();
       }
     )
   }

@@ -13,6 +13,7 @@ import * as $ from 'jquery';
 import { initializeApp } from "firebase/app";
 import { collection, addDoc, setDoc, doc, getFirestore } from "firebase/firestore"; 
 import { HTTPResponseSubscribedDevices } from 'src/app/Classes/subscribed_devices';
+import { HTTPResponseSubscribedDeviceSim } from 'src/app/Classes/subscribed_devices_sim';
 
 
 // Your web app's Firebase configuration
@@ -50,6 +51,8 @@ export class SenderRemoteSmsComponent implements OnInit {
 
   userID: number = 0; 
   subscribedDevices : HTTPResponseSubscribedDevices[] = [];
+  sims: HTTPResponseSubscribedDeviceSim[] = [];
+
 
   window: any["$"] = $;
   response: SendResponse | undefined;
@@ -62,7 +65,7 @@ export class SenderRemoteSmsComponent implements OnInit {
     $('#schedule_input_sms_time').prop('disabled', true);
     this.fetchSMSTemplates()
     console.log("REMOTE MESSAGESSS")
-    this.getSubscribedDevices("23911")
+    this.fetchSubscribedDevices("23911")
   }
 
   templatedSelectionChangeHandler (event: any) {
@@ -74,6 +77,16 @@ export class SenderRemoteSmsComponent implements OnInit {
       this.messageBody = this.selectedTemplateBody
     }
   }
+
+  subscribedDeviceSelectionChangeHandler (event: any) {
+    console.log("selected device is is 1")
+    const selectedSubscribedDeviceID = <number>event.target.value;
+    console.log("selected device is is",selectedSubscribedDeviceID)
+    if (selectedSubscribedDeviceID !== null || selectedSubscribedDeviceID != undefined) {
+      this.fetchSubscribedDevicesSim(selectedSubscribedDeviceID.toString())
+    }
+  }
+
 
   actionSendSMS() {
     if (this.messageFrom == null || this.messageFrom == undefined || this.messageFrom == "") {
@@ -120,15 +133,37 @@ export class SenderRemoteSmsComponent implements OnInit {
       })
   }
 
-  getSubscribedDevices(userID: string) {
+  fetchSubscribedDevices(userID: string) {
     this.apiService.getSubscribedDevices(userID).subscribe(
       response => {
         console.log(response)
+        let intialTemplate: SMSTemplate = {template_id:-1, template_name: "NONE", body:""} as SMSTemplate;      
+        let initialDevice: HTTPResponseSubscribedDevices = {
+          country:"-1",
+          device: "NONE",
+          id: -1,
+          imei: "-1",
+          imsi: "-1",
+          phone: "-1",
+          username: "-1",
+        }
         var devicees = response.http_response as HTTPResponseSubscribedDevices[]
+        devicees.push(initialDevice)
         this.subscribedDevices = devicees
       }
     )
   }
+
+  fetchSubscribedDevicesSim(userID: string) {
+    this.apiService.getSubscribedDevicesSim(userID).subscribe(
+      response => {
+        console.log(response)
+        var fetchedSims = response.http_response as HTTPResponseSubscribedDeviceSim[]
+        this.sims = fetchedSims
+      }
+    )
+  }
+
 
   async actionRouteToDevice() {
     console.log(this.messageTo)
