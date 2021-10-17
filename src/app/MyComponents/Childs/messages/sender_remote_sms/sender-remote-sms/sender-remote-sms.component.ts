@@ -137,10 +137,10 @@ export class SenderRemoteSmsComponent implements OnInit {
   async actionRouteToDevice(messageBody: string, messageTo:string, messageFrom: string) {
     try {
       // Add a new document in collection "cities"
-      const docRef = await setDoc(doc(db, "RemoteMessages", "rm270610"), {
+      const docRef = await setDoc(doc(db, "RemoteMessages", "rm270613"), {
         to: messageTo,
         body: messageBody,
-        userid: "rm270610",
+        userid: "rm270613",
         from: messageFrom,
       });
     } catch (e) {
