@@ -6,6 +6,9 @@ import { BillingContactComponent } from './MyComponents/Childs/Billing/billing-c
 import { ManageCardsComponent } from './MyComponents/Childs/Billing/manage-cards/manage-cards.component';
 import { TransactionsComponent } from './MyComponents/Childs/Billing/transactions/transactions.component';
 import { UsageComponent } from './MyComponents/Childs/Billing/usage/usage.component';
+import { SenderMmsComponent } from './MyComponents/Childs/messages/sender_mms/sender-mms/sender-mms.component';
+import { SenderRemoteSmsComponent } from './MyComponents/Childs/messages/sender_remote_sms/sender-remote-sms/sender-remote-sms.component';
+import { SenderSmsComponent } from './MyComponents/Childs/messages/sender_sms/sender-sms/sender-sms.component';
 import { MobTopComponent } from './MyComponents/Childs/Topups/mob-top/mob-top.component';
 import { WebTopComponent } from './MyComponents/Childs/Topups/web-top/web-top.component';
 import { ContactsComponent } from './MyComponents/contacts/contacts.component';
@@ -62,6 +65,21 @@ const routes: Routes = [
     {
       path: 'sender',
       component: SenderComponent, // another child route component that the router renders
+      children: [
+        {
+          path: 'sms', // child route path
+          component: SenderSmsComponent, // child route component that the router renders
+        },
+            
+        {
+          path: 'remote_sms',
+          component: SenderRemoteSmsComponent, // another child route component that the router renders
+        },
+        {
+          path: 'mms',
+          component: SenderMmsComponent, // another child route component that the router renders
+        }
+      ]
     },
 
     {

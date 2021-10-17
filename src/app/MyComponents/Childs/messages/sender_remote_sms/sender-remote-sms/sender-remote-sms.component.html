@@ -1,0 +1,80 @@
+<p>Send remote SMS</p>
+
+<div class="card mt-5 w-auto h-auto">
+  <div>
+    <div class="container-fluid ">
+      <form>
+        <div class="card-block">
+          <div class="col-4 mb-3">
+            <label for="selects"> Select templates</label>
+            <select class="form-select form-select-sm me-auto" id="selects" aria-label=".form-select-sm example"
+              (change)="templatedSelectionChangeHandler($event)" >
+              <option>Select a</option>
+              <option selected *ngFor="let template of this.templates" 
+              [value]="template.template_id"
+              [ngValue]="template.template_id"
+              [selected]="template.template_name == 'NONE'">
+                {{template.template_name}}
+            </option>
+            </select>
+          </div>
+          <div class="col-4 mb-3">
+            <label for="selects"> Select Device</label>
+            <select class="form-select form-select-sm me-auto" id="selects" aria-label=".form-select-sm example"
+              (change)="subscribedDeviceSelectionChangeHandler($event)" >
+              <option selected *ngFor="let device of this.subscribedDevices" 
+              [value]="device.id"
+              [ngValue]="device.id"
+              [selected]="device.device == 'NONE'">
+                {{device.device}}
+            </option>
+            </select>
+          </div>
+          <div class="col-4 mb-3" *ngIf="userSelectedASubscribedDevice == 1">
+            <label for="selects"> Select Number</label>
+            <select class="form-select form-select-sm me-auto" id="selects" aria-label=".form-select-sm example"
+              (change)="simSelectionChangeHandler($event)" >
+              <option selected *ngFor="let s of this.sims" 
+              [value]="s.number"
+              [ngValue]="s.number"
+              [selected]="s.number == 'NONE'">
+                {{s.number}}
+            </option>
+            </select>
+          </div>
+
+
+          <div class="mb-3">
+            <label for="exampleInputPassword1" class="form-label">To</label>
+            <input type="string" class="form-control" id="exampleInputPassword1" placeholder="+923002933101,+93220113331" maxlength = "13" [(ngModel)]="messageTo" name="messageTo">
+          </div>
+
+
+          <div class="mt-1 mb-2">
+            <label for="exampleInputPassword1" class="form-label">Message</label>
+
+
+            <textarea type="string" class="form-control" id="message" placeholder="Type your message" [(ngModel)]="messageBody" name="messageBody">{{this.selectedTemplateBody}}</textarea>
+
+
+          </div>
+
+          <!-- <button  type="submit" class="btn btn-primary mb-1" (click)="actionSendSMS()" >Send SMS</button> -->
+          <button class="btn btn-primary mb-1" (click)="actionSendSMS()">SEND SMS</button>
+  
+        </div>
+      </form>
+  
+      <!-- Google Sign in -->
+  
+      
+  
+      <!--  -->
+    </div>
+
+
+
+  </div>
+</div>
+
+

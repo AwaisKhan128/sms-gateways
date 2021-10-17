@@ -21,8 +21,6 @@ export enum API_BASE_URLS {
     _Credential_Base = 'https://nodebacksql.herokuapp.com/'
     // ,
     // _Credential_Base_test = 'http://localhost:3000/'
-
-
 }
 
 export enum CLICKSEND_API_ENDPOINTS {
@@ -34,6 +32,12 @@ export enum CLICKSEND_API_ENDPOINTS {
     SMS_Template = "sms/templates",
     SMS_History_Export = "sms/history/export",
     MMS_History_Export = "mms/history/export",
+}
+
+export enum HEROKU_API_ENDPOINTS {
+    GET_SUBSCRIBE_DEVICES = "subscribe/subscribe_devices",
+    GET_SUBSCRIBE_DEVICES_SIM = "subscribe/sim/subscribe_devices_info",
+    GET_SUBSCRIBE_DEVICES_REMOTE_MESSAGES = "message/remote_messages"
 }
 
 export enum CLICKSEND_STATISTICS_TYPE {

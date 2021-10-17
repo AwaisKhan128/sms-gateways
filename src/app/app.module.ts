@@ -85,6 +85,10 @@ import {MatTreeModule} from '@angular/material/tree';
 import { OperatorConfigurationComponent } from './operator-configuration/operator-configuration.component';
 import { EditInputComponent } from './MyComponents/edit-input/edit-input.component';
 
+import { SenderMmsComponent } from './MyComponents/Childs/messages/sender_mms/sender-mms/sender-mms.component';
+import { SenderRemoteSmsComponent } from './MyComponents/Childs/messages/sender_remote_sms/sender-remote-sms/sender-remote-sms.component';
+import { SenderSmsComponent } from './MyComponents/Childs/messages/sender_sms/sender-sms/sender-sms.component';
+
 
 
 
@@ -121,8 +125,11 @@ import { EditInputComponent } from './MyComponents/edit-input/edit-input.compone
     DeviceSettingsComponent,
     ProgressComponentComponent,
     OperatorConfigurationComponent,
-    EditInputComponent
-    
+    EditInputComponent,
+  
+    SenderSmsComponent,
+    SenderMmsComponent,
+    SenderRemoteSmsComponent
   ],
   imports: [
     BrowserModule,

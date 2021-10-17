@@ -9,11 +9,15 @@
 
       <div class="col-4">
         <label for="selects"> Select Devices</label>
-        <select class="form-select form-select-sm me-auto" id="selects" aria-label=".form-select-sm example">
-          <option selected>Open this select menu</option>
-          <option value="1">One</option>
-          <option value="2">Two</option>
-          <option value="3">Three</option>
+        <select class="form-select form-select-sm me-auto" id="selects" aria-label=".form-select-sm example" 
+        (change)="onSubscribedDeviceChange($event)">
+          <option selected [value]="-1" [ngValue]="-1">Select a Device</option>
+          <option selected *ngFor="let sd of this.subscribedDevices" 
+          [value]="sd.id"
+          [ngValue]="sd.id"
+          [selected]="sd.phone == 'NONE'">
+            {{sd.phone}}
+          </option>
         </select>
       </div>
 

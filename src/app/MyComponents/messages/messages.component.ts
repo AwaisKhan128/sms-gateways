@@ -15,6 +15,9 @@ import { MMsMessage } from 'src/app/Classes/MMS/send_mms_param';
 import * as $ from 'jquery';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { Snake_Waiting } from 'src/app/Classes/Waiting_bar';
+import { HTTPResponseSubscribedDevices } from 'src/app/Classes/subscribed_devices';
+import { SubscribedDevicesRemoteMessagesResponse, SubscribedDevicesRemoteMessage } from 'src/app/Classes/subscribed_devices_remote_messages';
+
 
 
 
@@ -29,9 +32,14 @@ export class MessagesComponent implements OnInit {
   filtered_history_array: HistoryDatum[] = [];
   resendMessages: HistoryDatum[] = [];
 
+  subscribedDevices : HTTPResponseSubscribedDevices[] = [];
+  remoteMessages : SubscribedDevicesRemoteMessage[] = []  
+
+  
   messageTo: string =  "0"; //"+61411111111,+61422222222";
   messageFrom: string =  "0"
 
+  search_param_selected_subscribed_ID: number = -1
   search_param_messageType: string = "ALL"
   search_param_messageStatus: string = "ALL"
   
@@ -53,6 +61,7 @@ export class MessagesComponent implements OnInit {
   ngOnInit(): void {
     this.snakeBar.start_bar("Please Wait");
     this.actionSearch()
+    this.getSubscribedDevices("23911")
   }
 
   onMessageTypeChange(event: any) {
@@ -70,15 +79,23 @@ export class MessagesComponent implements OnInit {
     this.search_param_messageStatus = messageStatusType
     console.log(this.search_param_messageStatus)
     this.snakeBar.close_bar();
+  }
 
-
+  onSubscribedDeviceChange(event: any) {
+    this.snakeBar.start_bar("Please Wait");
+    const subscribedDeviceID = <number>event.target.value;
+    this.search_param_selected_subscribed_ID = subscribedDeviceID
+    console.log(this.search_param_selected_subscribed_ID)
+    this.snakeBar.close_bar();
   }
   
   actionSearch() {
-    // console.log("search param "+this.search_param_messageType)
-    // console.log("search param index "+this.pageIndex)
-    // console.log("search param size "+this.pageSize)
-    this.actionFetchHistory(this.search_param_messageType)
+   if (this.search_param_selected_subscribed_ID > -1) {
+      this.actionFetchSubscribedDeviceRemoteMessages()
+    }
+    else {
+      this.actionFetchHistory(this.search_param_messageType)
+    }
   }
   
   actionFetchHistory(history_type : string = "ALL") {
@@ -134,7 +151,57 @@ export class MessagesComponent implements OnInit {
         this.applyfilteringOnThisData()
       })
     }
+  }
 
+  actionFetchSubscribedDeviceRemoteMessages() {
+    this.search_param_selected_subscribed_ID = 270610
+    this.apiService.getSubscribedDevicesRemoteMessages(this.search_param_selected_subscribed_ID).subscribe(
+      e => {
+        // const msgs = e.SubscribedDevicesRemoteMessage as SubscribedDevicesRemoteMessage[]
+        // this.remoteMessages = msgs
+        // this.sms_history_array = []
+        
+        // //HistoryDatum
+        // this.remoteMessages.forEach(i =>{
+        //   const k : HistoryDatum = {
+        //     direction:   i.direction,
+        //     date:          +i.date!,
+        //     to:            i.to_num,
+        //     body:          i.body,
+        //     status:        i.status,
+        //     from:          i.from_num,
+        //     schedule:      "",
+        //     status_code:   null,
+        //     status_text:   i.status,
+        //     error_code:    null,
+        //     error_text:    null,
+        //     message_id:    i.id!.toString(),
+        //     message_parts: i.id,
+        //     message_price: i.cost,
+        //     from_email:    null,
+        //     list_id:       null,
+        //     custom_string: "",
+        //     contact_id:    null,
+        //     user_id:       0,
+        //     subaccount_id: 0,
+        //     country:       "",
+        //     carrier:       "",
+        //     first_name:    null,
+        //     last_name:     null,
+        //     _api_username: "",
+        //     date_added:      0,
+        //     _media_file_url: "",
+        //     subject:         "",
+        //     priority:        1,
+        //     message_type:    i.type
+        //   }
+        //   this.sms_history_array.push(k)
+        // })
+        // this.filtered_history_array = this.sms_history_array
+        // console.log("length of the remote message is"+msgs!)
+        // this.snakeBar.close_bar();
+      }
+    )
   }
 
   applyfilteringOnThisData() {
@@ -274,6 +341,8 @@ export class MessagesComponent implements OnInit {
     }
   }
 
+
+
   openExportDialog() {
     this.modalService.open(SimpledialogComponent, { ariaLabelledBy: 'modal-basic-title', centered:true, size:'l' }).result.then((result) => {
       console.log($(result));
@@ -297,6 +366,18 @@ export class MessagesComponent implements OnInit {
       }
   }
 
+
+  getSubscribedDevices(userID: string) {
+    this.apiService.getSubscribedDevices(userID).subscribe(
+      response => {
+        console.log(response)
+        var devicees = response.http_response as HTTPResponseSubscribedDevices[]
+        this.subscribedDevices = devicees
+      }
+    )
+  }
+
+  
 
    // used to build a slice of papers relevant at any given time
    public getPaginatorData(event: PageEvent): PageEvent {

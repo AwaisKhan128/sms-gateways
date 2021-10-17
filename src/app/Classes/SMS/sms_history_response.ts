@@ -24,15 +24,15 @@ export interface Data {
 }
 
 export interface HistoryDatum {
-    direction?:     Direction;
+    direction?:     string;
     date?:          number;
     to?:            string;
-    body?:          Body;
-    status?:        Status;
+    body?:          string;
+    status?:        string;
     from?:          string;
     schedule?:      string;
     status_code?:   null;
-    status_text?:   null;
+    status_text?:   string;
     error_code?:    null;
     error_text?:    null;
     message_id?:    string;
@@ -40,7 +40,7 @@ export interface HistoryDatum {
     message_price?: string;
     from_email?:    null;
     list_id?:       null;
-    custom_string?: CustomString;
+    custom_string?: string;
     contact_id?:    null;
     user_id?:       number;
     subaccount_id?: number;
@@ -48,7 +48,7 @@ export interface HistoryDatum {
     carrier?:       string;
     first_name?:    null;
     last_name?:     null;
-    _api_username?: APIUsername;
+    _api_username?: string;
     date_added?:      number;
     _media_file_url?: string;
     subject?:         string;
@@ -56,25 +56,6 @@ export interface HistoryDatum {
     message_type?:    string;
 }
 
-export enum APIUsername {
-    Gadig54496TinilaloCOM = "gadig54496@tinilalo.com",
-}
-
-export enum Body {
-    HelloThere = "Hello there",
-}
-
-export enum CustomString {
-    ThisIsATest = "this is a test",
-}
-
-export enum Direction {
-    Out = "out",
-}
-
-export enum Status {
-    Completed = "Completed",
-}
 
 // Converts JSON strings to/from your types
 export class Convert {
