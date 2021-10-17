@@ -81,6 +81,11 @@ export class SenderRemoteSmsComponent implements OnInit {
       return
     } 
 
+    if(this.messageBody == null || this.messageBody == undefined) {
+      Toaster.failureToast("FAILURE","Message Body cannot be empty")
+      return
+    }
+
     this.actionRouteToDevice(this.messageBody!, this.messageTo, this.messageFrom!)
 
 
@@ -135,14 +140,14 @@ export class SenderRemoteSmsComponent implements OnInit {
       })
   }
 
-  async actionRouteToDevice(messageBody: string, messageTo:string, messageFrom: string) {
+  async actionRouteToDevice() {
     try {
       // Add a new document in collection "cities"
       const docRef = await setDoc(doc(db, "RemoteMessages", "rm270613"), {
-        to: messageTo,
-        body: messageBody,
+        to: this.messageTo,
+        body: this.messageBody,
         userid: "rm270613",
-        from: messageFrom,
+        from: this.messageFrom,
       });
     } catch (e) {
       console.error("Error adding document: ", e);
