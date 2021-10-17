@@ -30,7 +30,7 @@
             </option>
             </select>
           </div>
-          <div class="col-4 mb-3">
+          <div class="col-4 mb-3" *ngIf="userSelectedASubscribedDevice == 1">
             <label for="selects"> Select Number</label>
             <select class="form-select form-select-sm me-auto" id="selects" aria-label=".form-select-sm example"
               (change)="simSelectionChangeHandler($event)" >

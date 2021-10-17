@@ -49,6 +49,7 @@ export class SenderRemoteSmsComponent implements OnInit {
   pickedTime: string = "";
   defaultValue:any;
 
+  userSelectedASubscribedDevice = 0
   userID: number = 0; 
   subscribedDevices : HTTPResponseSubscribedDevices[] = [];
   sims: HTTPResponseSubscribedDeviceSim[] = [];
@@ -83,7 +84,11 @@ export class SenderRemoteSmsComponent implements OnInit {
     const selectedSubscribedDeviceID = <number>event.target.value;
     console.log("selected device is is",selectedSubscribedDeviceID)
     if (selectedSubscribedDeviceID !== null || selectedSubscribedDeviceID != undefined) {
+      this.userSelectedASubscribedDevice = 1
       this.fetchSubscribedDevicesSim(selectedSubscribedDeviceID.toString())
+    }
+    else {
+      this.userSelectedASubscribedDevice = 0
     }
   }
 
@@ -93,13 +98,14 @@ export class SenderRemoteSmsComponent implements OnInit {
     console.log("selected sim  is",selectedSim)
     if (selectedSim !== null || selectedSim != undefined) {
       this.messageFrom = selectedSim.toString()
+      console.log("selected sim is",this.messageFrom)
     }
   }
 
 
   actionSendSMS() {
     if (this.messageFrom == null || this.messageFrom == undefined || this.messageFrom == "") {
-      Toaster.failureToast("FAILURE","From cannot be empty")
+      Toaster.failureToast("FAILURE","Please select a phone number to send a message from")
       return
     }
     if (this.messageTo == null || this.messageTo == undefined || this.messageTo == "") {
@@ -146,7 +152,6 @@ export class SenderRemoteSmsComponent implements OnInit {
     this.apiService.getSubscribedDevices(userID).subscribe(
       response => {
         console.log(response)
-        let intialTemplate: SMSTemplate = {template_id:-1, template_name: "NONE", body:""} as SMSTemplate;      
         let initialDevice: HTTPResponseSubscribedDevices = {
           country:"-1",
           device: "NONE",
@@ -167,7 +172,11 @@ export class SenderRemoteSmsComponent implements OnInit {
     this.apiService.getSubscribedDevicesSim(userID).subscribe(
       response => {
         console.log(response)
+        let intialSim : HTTPResponseSubscribedDeviceSim = {
+          number : "NONE"
+        }
         var fetchedSims = response.http_response as HTTPResponseSubscribedDeviceSim[]
+        fetchedSims.push(intialSim)
         this.sims = fetchedSims
       }
     )
