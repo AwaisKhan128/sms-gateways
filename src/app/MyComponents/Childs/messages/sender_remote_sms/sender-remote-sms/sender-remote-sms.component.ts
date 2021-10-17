@@ -87,6 +87,15 @@ export class SenderRemoteSmsComponent implements OnInit {
     }
   }
 
+  simSelectionChangeHandler (event: any) {
+    console.log("selected device SIM/PHONE is is 1")
+    const selectedSim = <number>event.target.value;
+    console.log("selected sim  is",selectedSim)
+    if (selectedSim !== null || selectedSim != undefined) {
+      this.messageFrom = selectedSim.toString()
+    }
+  }
+
 
   actionSendSMS() {
     if (this.messageFrom == null || this.messageFrom == undefined || this.messageFrom == "") {

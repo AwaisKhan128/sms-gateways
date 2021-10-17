@@ -33,10 +33,10 @@
           <div class="col-4 mb-3">
             <label for="selects"> Select Number</label>
             <select class="form-select form-select-sm me-auto" id="selects" aria-label=".form-select-sm example"
-              (change)="templatedSelectionChangeHandler($event)" >
+              (change)="simSelectionChangeHandler($event)" >
               <option selected *ngFor="let s of this.sims" 
-              [value]="s.id"
-              [ngValue]="s.id"
+              [value]="s.number"
+              [ngValue]="s.number"
               [selected]="s.number == 'NONE'">
                 {{s.number}}
             </option>
