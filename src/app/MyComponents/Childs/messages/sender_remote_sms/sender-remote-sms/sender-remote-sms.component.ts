@@ -16,16 +16,6 @@ import { HTTPResponseSubscribedDevices } from 'src/app/Classes/subscribed_device
 import { HTTPResponseSubscribedDeviceSim } from 'src/app/Classes/subscribed_devices_sim';
 
 
-// Your web app's Firebase configuration
-// const firebaseConfig = {
-//   apiKey: "AIzaSyBh5DCzVFWsrqihS6_Tbt1hwlFYxFeHaIU",
-//   authDomain: "sms-gateway-ccdc4.firebaseapp.com",
-//   projectId: "sms-gateway-ccdc4",
-//   storageBucket: "sms-gateway-ccdc4.appspot.com",
-//   messagingSenderId: "415413135777",
-//   appId: "1:415413135777:web:ea60a1b97d20f00cd183e0"
-// };
-
 const firebaseConfig = {
   apiKey: "AIzaSyDyiduM5noPodZMAYyXMeMZxY4gOac3_fI",
   authDomain: "sms-gateway-app-bf4bc.firebaseapp.com",
