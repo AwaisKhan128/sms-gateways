@@ -38,6 +38,7 @@ export class SenderSmsComponent implements OnInit {
     $('#schedule_input_sms_date').prop('disabled', true);
     $('#schedule_input_sms_time').prop('disabled', true);
     this.fetchSMSTemplates()
+    
   }
 
   templatedSelectionChangeHandler (event: any) {

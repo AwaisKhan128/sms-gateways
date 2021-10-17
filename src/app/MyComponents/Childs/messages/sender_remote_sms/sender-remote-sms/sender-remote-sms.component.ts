@@ -8,6 +8,27 @@ import { DateHandler } from 'src/app/Helper/datehandler';
 import { Toaster } from 'src/app/Helper/toaster';
 import * as $ from 'jquery';
 
+
+// Import the functions you need from the SDKs you need
+import { initializeApp } from "firebase/app";
+import { collection, addDoc, setDoc, doc, getFirestore } from "firebase/firestore"; 
+
+
+// Your web app's Firebase configuration
+const firebaseConfig = {
+  apiKey: "AIzaSyBh5DCzVFWsrqihS6_Tbt1hwlFYxFeHaIU",
+  authDomain: "sms-gateway-ccdc4.firebaseapp.com",
+  projectId: "sms-gateway-ccdc4",
+  storageBucket: "sms-gateway-ccdc4.appspot.com",
+  messagingSenderId: "415413135777",
+  appId: "1:415413135777:web:ea60a1b97d20f00cd183e0"
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const db = getFirestore();
+
+
 @Component({
   selector: 'app-sender-remote-sms',
   templateUrl: './sender-remote-sms.component.html',
@@ -37,6 +58,7 @@ export class SenderRemoteSmsComponent implements OnInit {
     $('#schedule_input_sms_time').prop('disabled', true);
     this.fetchSMSTemplates()
     console.log("REMOTE MESSAGESSS")
+
   }
 
   templatedSelectionChangeHandler (event: any) {
@@ -58,43 +80,46 @@ export class SenderRemoteSmsComponent implements OnInit {
       Toaster.failureToast("FAILURE","To cannot be empty")
       return
     } 
-    var unixTimestamp = DateHandler.convertToUnixTimestamp(this.pickedDate, this.pickedTime)
-    console.log(unixTimestamp)
-    var messagesList : MyMessage[] = [] ;
-    var splitted = this.messageTo.split(","); 
-    if (splitted.length > 0) {
-        splitted.forEach((element) => { 
-          if (this.shouldScheduleMessage == 0)  {
-            const m : MyMessage = {
-              body : this.messageBody,
-              to : element,
-              from : this.messageFrom,
-            };
-            messagesList.push(m)
-          }
-          else {
-            const m : MyMessage = {
-              body : this.messageBody,
-              to : element,
-              from : this.messageFrom,
-              schedule: unixTimestamp,
-            };
-            messagesList.push(m)
-          }
-        });
-        console.log(messagesList)
-        const param : SendSMSParam = {messages: messagesList};
-        this.apiService.sendSMS(param)
-          .subscribe(response => {
-            this.response = response
-            if (this.response.response_code == "SUCCESS") {
-              Toaster.sucessToast(this.response.response_msg!)
-            }
-            else {
-              Toaster.failureToast(this.response.response_code!, this.response.response_msg!)
-            }
-        });
-    }
+
+    this.actionRouteToDevice(this.messageBody!, this.messageTo, this.messageFrom!)
+
+    // var unixTimestamp = DateHandler.convertToUnixTimestamp(this.pickedDate, this.pickedTime)
+    // console.log(unixTimestamp)
+    // var messagesList : MyMessage[] = [] ;
+    // var splitted = this.messageTo.split(","); 
+    // if (splitted.length > 0) {
+    //     splitted.forEach((element) => { 
+    //       if (this.shouldScheduleMessage == 0)  {
+    //         const m : MyMessage = {
+    //           body : this.messageBody,
+    //           to : element,
+    //           from : this.messageFrom,
+    //         };
+    //         messagesList.push(m)
+    //       }
+    //       else {
+    //         const m : MyMessage = {
+    //           body : this.messageBody,
+    //           to : element,
+    //           from : this.messageFrom,
+    //           schedule: unixTimestamp,
+    //         };
+    //         messagesList.push(m)
+    //       }
+    //     });
+    //     console.log(messagesList)
+    //     const param : SendSMSParam = {messages: messagesList};
+    //     this.apiService.sendSMS(param)
+    //       .subscribe(response => {
+    //         this.response = response
+    //         if (this.response.response_code == "SUCCESS") {
+    //           Toaster.sucessToast(this.response.response_msg!)
+    //         }
+    //         else {
+    //           Toaster.failureToast(this.response.response_code!, this.response.response_msg!)
+    //         }
+    //     });
+    // }
   }
 
   fetchSMSTemplates() {
@@ -107,6 +132,20 @@ export class SenderRemoteSmsComponent implements OnInit {
         console.log(this.templates)
         console.log("FETCHED TEMPLATESS")
       })
+  }
+
+  async actionRouteToDevice(messageBody: string, messageTo:string, messageFrom: string) {
+    try {
+      // Add a new document in collection "cities"
+      const docRef = await setDoc(doc(db, "RemoteMessages", "rm270610"), {
+        to: messageTo,
+        body: messageBody,
+        userid: "rm270610",
+        from: messageFrom,
+      });
+    } catch (e) {
+      console.error("Error adding document: ", e);
+    }
   }
 
   onScheduler_sms()
@@ -127,3 +166,4 @@ export class SenderRemoteSmsComponent implements OnInit {
 
 
 }
+
