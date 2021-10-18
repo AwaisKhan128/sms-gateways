@@ -36,7 +36,6 @@ const routes: Routes = [
   { path: '', component: SignInComponent},
   { path : 'createacc', component : CreateAccComponent},
   { path : 'verify' , component : VerifyComponent},
-  { path : 'geolocation_sprime',component:GeolocationCodesComponent},
   { path : 'profile', component : ProfileComponent,
   children: [
     {
