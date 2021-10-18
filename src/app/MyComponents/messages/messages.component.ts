@@ -171,6 +171,7 @@ export class MessagesComponent implements OnInit {
     }
   }
 
+  
   actionSMSHistoryExport(toExport: string) {
     this.snakeBar.start_bar("Please wait!");
     if (toExport.toLowerCase() == "sms") {
