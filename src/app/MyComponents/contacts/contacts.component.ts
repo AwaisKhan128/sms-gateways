@@ -33,8 +33,6 @@ export class ContactsComponent implements OnInit {
   // Update Contact & Details
   Update_Contact_sample: Update_Contact_sample[]|any = [];
 
-  
-
 
 
   // Receiving Contacts
@@ -57,6 +55,7 @@ export class ContactsComponent implements OnInit {
 
   selected_contact_list :any;
 
+  data:any;
 
   Create_List()
   {
@@ -65,14 +64,14 @@ export class ContactsComponent implements OnInit {
     {
       let json = localStorage.getItem("user_data");
 
-          // if(json!=null)
+          if(json!=null)
     {
-      // this.data = JSON.parse(json);
-      // let username = this.data.username;
-      // let password = EncodeDecode.b64DecodeUnicode( this.data.passcode);
-      // var auths = EncodeDecode.b64EncodeUnicode(username+":"+password);
+      this.data = JSON.parse(json);
+      let username = this.data.username;
+      let password = EncodeDecode.b64DecodeUnicode( this.data.passcode);
+      var auths = EncodeDecode.b64EncodeUnicode(username+":"+password);
 
-      var auths = EncodeDecode.b64EncodeUnicode(myCredentials.username + ":" + myCredentials.password);
+      // var auths = EncodeDecode.b64EncodeUnicode(myCredentials.username + ":" + myCredentials.password);
 
       const body = {'list_name':list_name};
 
@@ -114,14 +113,14 @@ export class ContactsComponent implements OnInit {
         let list_name_u = this.List_name_u;
 
 
-        // if(json!=null)
+        if(json!=null)
         {
-        // this.data = JSON.parse(json);
-        // let username = this.data.username;
-        // let password = EncodeDecode.b64DecodeUnicode( this.data.passcode);
-        // var auths = EncodeDecode.b64EncodeUnicode(username+":"+password);
+        this.data = JSON.parse(json);
+        let username = this.data.username;
+        let password = EncodeDecode.b64DecodeUnicode( this.data.passcode);
+        var auths = EncodeDecode.b64EncodeUnicode(username+":"+password);
 
-        var auths = EncodeDecode.b64EncodeUnicode(myCredentials.username + ":" + myCredentials.password);
+        // var auths = EncodeDecode.b64EncodeUnicode(myCredentials.username + ":" + myCredentials.password);
         const body = {'list_name':list_name_u};
         this.freeAPI.update_contact_list(auths,body,id)
         .subscribe(
@@ -240,14 +239,14 @@ export class ContactsComponent implements OnInit {
     this.Snake_Wait.start_bar("Please Wait");
 let json = localStorage.getItem("user_data");
 
-    // if(json!=null)
+    if(json!=null)
 {
-// this.data = JSON.parse(json);
-// let username = this.data.username;
-// let password = EncodeDecode.b64DecodeUnicode( this.data.passcode);
-// var auths = EncodeDecode.b64EncodeUnicode(username+":"+password);
+this.data = JSON.parse(json);
+let username = this.data.username;
+let password = EncodeDecode.b64DecodeUnicode( this.data.passcode);
+var auths = EncodeDecode.b64EncodeUnicode(username+":"+password);
 
-var auths = EncodeDecode.b64EncodeUnicode(myCredentials.username + ":" + myCredentials.password);
+// var auths = EncodeDecode.b64EncodeUnicode(myCredentials.username + ":" + myCredentials.password);
 
 
 this.freeAPI.get_contact_list(auths)
@@ -303,14 +302,14 @@ this.freeAPI.get_contact_list(auths)
         let id = _element.list_id;
         let json = localStorage.getItem("user_data");
 
-        // if(json!=null)
+        if(json!=null)
         {
-        // this.data = JSON.parse(json);
-        // let username = this.data.username;
-        // let password = EncodeDecode.b64DecodeUnicode( this.data.passcode);
-        // var auths = EncodeDecode.b64EncodeUnicode(username+":"+password);
+        this.data = JSON.parse(json);
+        let username = this.data.username;
+        let password = EncodeDecode.b64DecodeUnicode( this.data.passcode);
+        var auths = EncodeDecode.b64EncodeUnicode(username+":"+password);
 
-        var auths = EncodeDecode.b64EncodeUnicode(myCredentials.username + ":" + myCredentials.password);
+        // var auths = EncodeDecode.b64EncodeUnicode(myCredentials.username + ":" + myCredentials.password);
 
 
         this.freeAPI.delete_contact_list(auths,id)
@@ -361,15 +360,15 @@ this.freeAPI.get_contact_list(auths)
     this.Snake_Wait.start_bar("Please Wait!");
     let json = localStorage.getItem("user_data");
 
-    // if(json!=null)
+    if(json!=null)
     {
-    // this.data = JSON.parse(json);
-    // let username = this.data.username;
-    // let password = EncodeDecode.b64DecodeUnicode( this.data.passcode);
-    // var auths = EncodeDecode.b64EncodeUnicode(username+":"+password);
+    this.data = JSON.parse(json);
+    let username = this.data.username;
+    let password = EncodeDecode.b64DecodeUnicode( this.data.passcode);
+    var auths = EncodeDecode.b64EncodeUnicode(username+":"+password);
     let id = $('.selected_lists').val();
 
-    var auths = EncodeDecode.b64EncodeUnicode(myCredentials.username + ":" + myCredentials.password);
+    // var auths = EncodeDecode.b64EncodeUnicode(myCredentials.username + ":" + myCredentials.password);
 
     this.Update_Contact_sample = [];
     this.freeAPI.get_Contacts(auths,id)
@@ -438,15 +437,15 @@ this.freeAPI.get_contact_list(auths)
       if (typeof(id)=='number')
 
       {
-      // if(json!=null)
+      if(json!=null)
       {
-      // this.data = JSON.parse(json);
-      // let username = this.data.username;
-      // let password = EncodeDecode.b64DecodeUnicode( this.data.passcode);
-      // var auths = EncodeDecode.b64EncodeUnicode(username+":"+password);
+      this.data = JSON.parse(json);
+      let username = this.data.username;
+      let password = EncodeDecode.b64DecodeUnicode( this.data.passcode);
+      var auths = EncodeDecode.b64EncodeUnicode(username+":"+password);
       let id = $('.selected_lists').val();
   
-      var auths = EncodeDecode.b64EncodeUnicode(myCredentials.username + ":" + myCredentials.password);
+      // var auths = EncodeDecode.b64EncodeUnicode(myCredentials.username + ":" + myCredentials.password);
   
       this.freeAPI.create_contact(auths,this.create_Contact,id)
       .subscribe(
@@ -540,16 +539,16 @@ this.freeAPI.get_contact_list(auths)
          
     
           {
-          // if(json!=null)
+          if(json!=null)
           {
-          // this.data = JSON.parse(json);
-          // let username = this.data.username;
-          // let password = EncodeDecode.b64DecodeUnicode( this.data.passcode);
-          // var auths = EncodeDecode.b64EncodeUnicode(username+":"+password);
+          this.data = JSON.parse(json);
+          let username = this.data.username;
+          let password = EncodeDecode.b64DecodeUnicode( this.data.passcode);
+          var auths = EncodeDecode.b64EncodeUnicode(username+":"+password);
           
     
   
-          var auths = EncodeDecode.b64EncodeUnicode(myCredentials.username + ":" + myCredentials.password);
+          // var auths = EncodeDecode.b64EncodeUnicode(myCredentials.username + ":" + myCredentials.password);
       
           this.freeAPI.update_contact(auths,this.Update_Contact,list_id,contact_id)
           .subscribe(
@@ -680,16 +679,16 @@ this.freeAPI.get_contact_list(auths)
          
     
           {
-          // if(json!=null)
+          if(json!=null)
           {
-          // this.data = JSON.parse(json);
-          // let username = this.data.username;
-          // let password = EncodeDecode.b64DecodeUnicode( this.data.passcode);
-          // var auths = EncodeDecode.b64EncodeUnicode(username+":"+password);
+          this.data = JSON.parse(json);
+          let username = this.data.username;
+          let password = EncodeDecode.b64DecodeUnicode( this.data.passcode);
+          var auths = EncodeDecode.b64EncodeUnicode(username+":"+password);
           
     
   
-          var auths = EncodeDecode.b64EncodeUnicode(myCredentials.username + ":" + myCredentials.password);
+          // var auths = EncodeDecode.b64EncodeUnicode(myCredentials.username + ":" + myCredentials.password);
       
           this.freeAPI.delete_contact(auths,list_id,contact_id)
           .subscribe(
@@ -747,14 +746,14 @@ this.freeAPI.get_contact_list(auths)
     {
 
       
-    // if(json!=null)
+    if(json!=null)
       {
         // this.data = JSON.parse(json);
-        // let username = this.data.username;
-        // let password = EncodeDecode.b64DecodeUnicode( this.data.passcode);
-        // var auths = EncodeDecode.b64EncodeUnicode(username+":"+password);
+        let username = this.data.username;
+        let password = EncodeDecode.b64DecodeUnicode( this.data.passcode);
+        var auths = EncodeDecode.b64EncodeUnicode(username+":"+password);
         
-        var auths = EncodeDecode.b64EncodeUnicode(myCredentials.username + ":" + myCredentials.password);
+        // var auths = EncodeDecode.b64EncodeUnicode(myCredentials.username + ":" + myCredentials.password);
         
         this.freeAPI.get_spec_contact_list(auths,list_id)
         .subscribe(
@@ -793,14 +792,14 @@ this.freeAPI.get_contact_list(auths)
     else
     {
       
-    // if(json!=null)
+    if(json!=null)
   {
-  // this.data = JSON.parse(json);
-  // let username = this.data.username;
-  // let password = EncodeDecode.b64DecodeUnicode( this.data.passcode);
-  // var auths = EncodeDecode.b64EncodeUnicode(username+":"+password);
+  this.data = JSON.parse(json);
+  let username = this.data.username;
+  let password = EncodeDecode.b64DecodeUnicode( this.data.passcode);
+  var auths = EncodeDecode.b64EncodeUnicode(username+":"+password);
   
-  var auths = EncodeDecode.b64EncodeUnicode(myCredentials.username + ":" + myCredentials.password);
+  // var auths = EncodeDecode.b64EncodeUnicode(myCredentials.username + ":" + myCredentials.password);
   
   
   this.freeAPI.get_contact_list(auths)
@@ -854,14 +853,14 @@ this.freeAPI.get_contact_list(auths)
 
     let json = localStorage.getItem("user_data");
 
-    // if(json!=null)
+    if(json!=null)
     {
-    // this.data = JSON.parse(json);
-    // let username = this.data.username;
-    // let password = EncodeDecode.b64DecodeUnicode( this.data.passcode);
-    // var auths = EncodeDecode.b64EncodeUnicode(username+":"+password);
+    this.data = JSON.parse(json);
+    let username = this.data.username;
+    let password = EncodeDecode.b64DecodeUnicode( this.data.passcode);
+    var auths = EncodeDecode.b64EncodeUnicode(username+":"+password);
 
-    var auths = EncodeDecode.b64EncodeUnicode(myCredentials.username + ":" + myCredentials.password);
+    // var auths = EncodeDecode.b64EncodeUnicode(myCredentials.username + ":" + myCredentials.password);
 
 
     this.freeAPI.get_contact_list_byNum(auths,event.pageIndex,event.pageSize)
@@ -904,15 +903,15 @@ ContactsByPageno(event:any)
   
   let json = localStorage.getItem("user_data");
 
-  // if(json!=null)
+  if(json!=null)
   {
-  // this.data = JSON.parse(json);
-  // let username = this.data.username;
-  // let password = EncodeDecode.b64DecodeUnicode( this.data.passcode);
-  // var auths = EncodeDecode.b64EncodeUnicode(username+":"+password);
+  this.data = JSON.parse(json);
+  let username = this.data.username;
+  let password = EncodeDecode.b64DecodeUnicode( this.data.passcode);
+  var auths = EncodeDecode.b64EncodeUnicode(username+":"+password);
   let id = $('.selected_lists').val();
 
-  var auths = EncodeDecode.b64EncodeUnicode(myCredentials.username + ":" + myCredentials.password);
+  // var auths = EncodeDecode.b64EncodeUnicode(myCredentials.username + ":" + myCredentials.password);
 
   this.Update_Contact_sample = [];
   this.freeAPI.get_Contacts_by_Num(auths,id,event.pageIndex,event.pageSize)

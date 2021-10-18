@@ -35,13 +35,13 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit(): void {
     let json = localStorage.getItem("user_data");
-    // if(json!=null)
+    if(json!=null)
     {
-      // this.data = JSON.parse(json);
-      // let username = this.data.username;
-      // let password = EncodeDecode.b64DecodeUnicode(this.data.passcode);
-      let username = ( myCredentials.username);
-      let password = (myCredentials.password);
+      this.data = JSON.parse(json);
+      let username = this.data.username;
+      let password = EncodeDecode.b64DecodeUnicode(this.data.passcode);
+      // let username = ( myCredentials.username);
+      // let password = (myCredentials.password);
       this.get_Info(username,password);
       
       

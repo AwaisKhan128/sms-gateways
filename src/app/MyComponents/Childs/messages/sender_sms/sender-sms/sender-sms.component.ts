@@ -8,6 +8,7 @@ import { SMSTemplate } from 'src/app/Classes/SMS/view_sms_templates_response';
 import { DateHandler } from 'src/app/Helper/datehandler';
 import { Toaster } from 'src/app/Helper/toaster';
 import * as $ from 'jquery';
+import { EncodeDecode } from 'src/app/Classes/EncodeDec64';
 
 
 @Component({
@@ -27,6 +28,7 @@ export class SenderSmsComponent implements OnInit {
   pickedDate: string = "" //new Date().toDateString();
   pickedTime: string = "";
   defaultValue:any;
+  data:any;
 
   // window: any["$"] = $;
   response: SendResponse | undefined;
@@ -86,33 +88,60 @@ export class SenderSmsComponent implements OnInit {
         });
         console.log(messagesList)
         const param : SendSMSParam = {messages: messagesList};
-        this.apiService.sendSMS(param)
-          .subscribe(response => {
-            this.response = response
-            if (this.response.response_code == "SUCCESS") {
-              Toaster.sucessToast(this.response.response_msg!)
-            }
-            else {
-              Toaster.failureToast(this.response.response_code!, this.response.response_msg!)
-            }
-        });
+
+        let json = localStorage.getItem("user_data");
+
+        if(json!=null)
+        {
+            this.data = JSON.parse(json);
+            let username = this.data.username;
+            let password = EncodeDecode.b64DecodeUnicode( this.data.passcode);
+            var auths = EncodeDecode.b64EncodeUnicode(username+":"+password);            
+            this.apiService.sendSMS(auths,param)
+              .subscribe(response => {
+                this.response = response
+                if (this.response.response_code == "SUCCESS") {
+                  Toaster.sucessToast(this.response.response_msg!)
+                }
+                else {
+                  Toaster.failureToast(this.response.response_code!, this.response.response_msg!)
+                }
+            });
+        }
+
+
+
+
     }
   }
 
   fetchSMSTemplates() {
-    this.apiService.getSMSTemplates().
-      subscribe(response =>{
-        let intialTemplate: SMSTemplate = {template_id:-1, template_name: "NONE", body:""} as SMSTemplate;    
-        let intialTemplate2: SMSTemplate = {template_id:-2, template_name: "Helloww", body:"I AM Arrwr2323423UTOFILLINGGG"} as SMSTemplate;    
-        let intialTemplate3: SMSTemplate = {template_id:-3, template_name: "ewrwfdsv444", body:"234I234 AM Arrw323r2323423UTOFILLINGGG"} as SMSTemplate;    
-        var smsTemplates = response.data?.data as SMSTemplate[];
-        smsTemplates.push(intialTemplate);
-        smsTemplates.push(intialTemplate2);
-        smsTemplates.push(intialTemplate3);
-        smsTemplates.forEach(t => this.templates.push(t))
-        console.log(this.templates)
-        console.log("FETCHED TEMPLATESS")
-      })
+    let json = localStorage.getItem("user_data");
+
+    if(json!=null)
+    {
+        this.data = JSON.parse(json);
+        let username = this.data.username;
+          let password = EncodeDecode.b64DecodeUnicode( this.data.passcode);
+          var auths = EncodeDecode.b64EncodeUnicode(username+":"+password);
+          this.apiService.getSMSTemplates(auths).
+            subscribe(response =>{
+              let intialTemplate: SMSTemplate = {template_id:-1, template_name: "NONE", body:""} as SMSTemplate;    
+              let intialTemplate2: SMSTemplate = {template_id:-2, template_name: "Helloww", body:"I AM Arrwr2323423UTOFILLINGGG"} as SMSTemplate;    
+              let intialTemplate3: SMSTemplate = {template_id:-3, template_name: "ewrwfdsv444", body:"234I234 AM Arrw323r2323423UTOFILLINGGG"} as SMSTemplate;    
+              var smsTemplates = response.data?.data as SMSTemplate[];
+              smsTemplates.push(intialTemplate);
+              smsTemplates.push(intialTemplate2);
+              smsTemplates.push(intialTemplate3);
+              smsTemplates.forEach(t => this.templates.push(t))
+              console.log(this.templates)
+              console.log("FETCHED TEMPLATESS")
+            })
+    }
+
+
+
+
   }
 
   onScheduler_sms()

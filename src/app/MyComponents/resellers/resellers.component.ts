@@ -25,6 +25,7 @@ export class ResellersComponent implements OnInit {
   window: any["$"] = $;
   get_permissions : Permission[]|any;
   get_permissions_sample : Permission_Sample[]|any;
+  data: any;
 
   Resend_Email()
   {
@@ -63,7 +64,7 @@ export class ResellersComponent implements OnInit {
         {
           email =  element.email;
           user = element.username;
-          api = '';
+          api = element.api_key;
         }
   
       });
@@ -73,11 +74,12 @@ export class ResellersComponent implements OnInit {
           
   
           {
-          // if(json!=null)
+          if(json!=null)
           {
           // this.data = JSON.parse(json);
           // let username = this.data.username;
           // let password = EncodeDecode.b64DecodeUnicode( this.data.passcode);
+
           // var auths = EncodeDecode.b64EncodeUnicode(username+":"+password);
           
     
@@ -122,7 +124,7 @@ export class ResellersComponent implements OnInit {
   ngOnInit(): void {
     let json = localStorage.getItem("user_data");
 
-    // if(json!=null)
+    if(json!=null)
     {
       // this.data = JSON.parse(json);
       // let username = this.data.username;
@@ -201,7 +203,7 @@ export class ResellersComponent implements OnInit {
     this.create_Reseller.country = country;
     
     console.log(this.create_Reseller);
-    // if(json!=null)
+    if(json!=null)
     {
       // this.data = JSON.parse(json);
       // let username = this.data.username;
@@ -383,14 +385,14 @@ export class ResellersComponent implements OnInit {
           let json = localStorage.getItem("user_data");  
           this.managing_permissions();
           {
-          // if(json!=null)
+          if(json!=null)
           {
           // this.data = JSON.parse(json);
           // let username = this.data.username;
           // let password = EncodeDecode.b64DecodeUnicode( this.data.passcode);
           // var auths = EncodeDecode.b64EncodeUnicode(username+":"+password);
           
-          var auths = EncodeDecode.b64EncodeUnicode(myCredentials.username + ":" + myCredentials.password);
+          // var auths = EncodeDecode.b64EncodeUnicode(myCredentials.username + ":" + myCredentials.password);
 
           this.permission.username = user_name;
           this.permission.id = sub_Acc_id;

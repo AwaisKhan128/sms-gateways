@@ -14,6 +14,7 @@ import { initializeApp } from "firebase/app";
 import { collection, addDoc, setDoc, doc, getFirestore } from "firebase/firestore"; 
 import { HTTPResponseSubscribedDevices } from 'src/app/Classes/subscribed_devices';
 import { HTTPResponseSubscribedDeviceSim } from 'src/app/Classes/subscribed_devices_sim';
+import { EncodeDecode } from 'src/app/Classes/EncodeDec64';
 
 
 const firebaseConfig = {
@@ -56,6 +57,7 @@ export class SenderRemoteSmsComponent implements OnInit {
 
   window: any["$"] = $;
   response: SendResponse | undefined;
+  data: any;
 
 
   constructor(private apiService: API_Services, private http: HttpClient) { }
@@ -65,7 +67,16 @@ export class SenderRemoteSmsComponent implements OnInit {
     $('#schedule_input_sms_time').prop('disabled', true);
     this.fetchSMSTemplates()
     console.log("REMOTE MESSAGESSS")
-    this.fetchSubscribedDevices("23911")
+
+
+    let json = localStorage.getItem("user_data");
+
+    if(json!=null)
+    {
+        this.data = JSON.parse(json);
+        let ids = this.data.id;
+        this.fetchSubscribedDevices(ids);
+    }
   }
 
   templatedSelectionChangeHandler (event: any) {
@@ -120,31 +131,44 @@ export class SenderRemoteSmsComponent implements OnInit {
     //localStorage.setItem("user_data", JSON.stringify(content));
     //localStorage.setItem("user_status", "Logged_in");
 
-    let jsonData: string = localStorage.getItem("user_data") as string
+    let jsonData = JSON.parse(JSON.stringify( localStorage.getItem("user_data"))); 
 
     if (jsonData == null) {
       Toaster.failureToast("FAILURE","User is not loggedin, we will give deafult user id for testing purposes")
-      this.userID = 270610
+      this.userID = 0;
     }
     else {
-      const data = JSON.parse(jsonData);
-      this.userID = data.id      
+      this.userID = jsonData.id      
+      this.actionRouteToDevice()
     }
     console.log("The user id has to be data iss",this.userID)
 
-    this.actionRouteToDevice()
   }
 
   fetchSMSTemplates() {
-    this.apiService.getSMSTemplates().
-      subscribe(response =>{
-        let intialTemplate: SMSTemplate = {template_id:-1, template_name: "NONE", body:""} as SMSTemplate;      
-        var smsTemplates = response.data?.data as SMSTemplate[];
-        smsTemplates.push(intialTemplate);
-        smsTemplates.forEach(t => this.templates.push(t))
-        console.log(this.templates)
-        console.log("FETCHED TEMPLATESS")
-      })
+    let json = localStorage.getItem("user_data");
+
+    if(json!=null)
+    {
+        this.data = JSON.parse(json);
+        let username = this.data.username;
+          let password = EncodeDecode.b64DecodeUnicode( this.data.passcode);
+          var auths = EncodeDecode.b64EncodeUnicode(username+":"+password);
+          this.apiService.getSMSTemplates(auths).
+            subscribe(response =>{
+              let intialTemplate: SMSTemplate = {template_id:-1, template_name: "NONE", body:""} as SMSTemplate;      
+              var smsTemplates = response.data?.data as SMSTemplate[];
+              smsTemplates.push(intialTemplate);
+              smsTemplates.forEach(t => this.templates.push(t))
+              console.log(this.templates)
+              console.log("FETCHED TEMPLATESS")
+            })
+    }
+
+
+
+
+
   }
 
   fetchSubscribedDevices(userID: string) {
@@ -212,6 +236,8 @@ export class SenderRemoteSmsComponent implements OnInit {
       this.shouldScheduleMessage = 0
     }
   }
+
+
 
 
 }

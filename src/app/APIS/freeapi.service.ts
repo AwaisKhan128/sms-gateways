@@ -356,47 +356,58 @@ export class API_Services{
 
 
 
-    sendSMS(param: SendSMSParam):Observable<SendResponse>
+    sendSMS(auth:string,param: SendSMSParam):Observable<SendResponse>
     {
+        const header = { 'Authorization':'Basic '+auth};
         const url= API_BASE_URLS.CLICKSEND_BASE_URL + CLICKSEND_API_ENDPOINTS.SMS_SEND
-        return this.httpClient.post(url, param, {headers:HTTP_HEADER_OPTIONS.CLICKSEND_HEADER});  
+        return this.httpClient.post(url, param, {headers:header});  
     }
  
 
-    sendMMS(param: SendMMSParam):Observable<SendResponse>
+    sendMMS(auth:string,param: SendMMSParam):Observable<SendResponse>
     {
+        const header = { 'Authorization':'Basic '+auth};
         const url= API_BASE_URLS.CLICKSEND_BASE_URL + CLICKSEND_API_ENDPOINTS.MMS_SEND
-        return this.httpClient.post(url, param, {headers:HTTP_HEADER_OPTIONS.CLICKSEND_HEADER});  
+        return this.httpClient.post(url, param, {headers:header});  
     }
 
-    getSMSHisory(date_from?: number | undefined, date_to?: number | undefined, current_page_index?: number | undefined, page_limit?: number | undefined):Observable<HistoryResponse>
+    getSMSHisory(auth:string ,date_from?: number | undefined, date_to?: number | undefined, current_page_index?: number | undefined, page_limit?: number | undefined):Observable<HistoryResponse>
     {
+        const header = { 'Authorization':'Basic '+auth};
         var url= API_BASE_URLS.CLICKSEND_BASE_URL + CLICKSEND_API_ENDPOINTS.SMS_HISTORY
         url+="?date_from="+date_from+"&date_to="+date_to+"&page="+current_page_index+"&limit="+page_limit
-        return this.httpClient.get(url, {headers: HTTP_HEADER_OPTIONS.CLICKSEND_HEADER})
+        return this.httpClient.get(url, {headers:header})
     }
 
-    getMMSHistory(date_from?: number | undefined, date_to?: number | undefined):Observable<HistoryResponse> {
+    getMMSHistory(auth:string, date_from?: number | undefined, date_to?: number | undefined):Observable<HistoryResponse> 
+    {
+        const header = { 'Authorization':'Basic '+auth};
+
         var url= API_BASE_URLS.CLICKSEND_BASE_URL + CLICKSEND_API_ENDPOINTS.MMS_HISTORY
         url +="?date_from="+date_from+"&date_to="+date_to
-        return this.httpClient.get(url,{headers: HTTP_HEADER_OPTIONS.CLICKSEND_HEADER})
+        return this.httpClient.get(url,{headers: header})
     }
 
-    getSMSTemplates(): Observable<ViewSMSTemplatesResponse> {
+    getSMSTemplates(auth:string): Observable<ViewSMSTemplatesResponse> {
+        const header = { 'Authorization':'Basic '+auth};
         const url= API_BASE_URLS.CLICKSEND_BASE_URL + CLICKSEND_API_ENDPOINTS.SMS_Template
-        return this.httpClient.get(url,{headers: HTTP_HEADER_OPTIONS.CLICKSEND_HEADER})
+        return this.httpClient.get(url,{headers: header})
     }
 
-    getExportSMSHistory(filename: string = ""): Observable<SMSHistoryExportResponse> {
+    getExportSMSHistory(auth:string, filename: string = ""): Observable<SMSHistoryExportResponse> {
+        const header = { 'Authorization':'Basic '+auth};
+
         var url= API_BASE_URLS.CLICKSEND_BASE_URL + CLICKSEND_API_ENDPOINTS.SMS_History_Export
         url+="?filename="+filename
-        return this.httpClient.get(url,{headers: HTTP_HEADER_OPTIONS.CLICKSEND_HEADER})
+        return this.httpClient.get(url,{headers: header})
     }
 
 
-    getExportMMSHistory(): Observable<SMSHistoryExportResponse> {
+    getExportMMSHistory(auth:string): Observable<SMSHistoryExportResponse> {
+        const header = { 'Authorization':'Basic '+auth};
+
         const url= API_BASE_URLS.CLICKSEND_BASE_URL + CLICKSEND_API_ENDPOINTS.MMS_History_Export
-        return this.httpClient.get(url,{headers: HTTP_HEADER_OPTIONS.CLICKSEND_HEADER})
+        return this.httpClient.get(url,{headers: header})
     }
 
     getFileMessageHistory(url:string): Observable<string> {
