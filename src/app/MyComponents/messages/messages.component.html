@@ -87,7 +87,6 @@
         <mat-paginator 
         [length]="this.search_param_page_length" 
         [pageSize]="this.search_param_page_size"
-        [pageSizeOptions]="[15, 30, 60]"
         (page)="getPaginatorData($event)"
         (pageIndex)="this.search_param_page_index"
         showFirstLastButtons="false"

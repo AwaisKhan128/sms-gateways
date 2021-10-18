@@ -45,17 +45,10 @@ export class MessagesComponent implements OnInit {
   search_param_selected_subscribed_device_ID: number = -1
   search_param_messageType: string = "ALL"
   search_param_messageStatus: string = "ALL"
-  
-  // pageEvent!: PageEvent;
-  // pageLength = 0;
-  // pageIndex: number = 0;
-  // pageSize: number = 15;
 
-  // lowValue: number = 0;
-  // highValue: number = 15;
-
+  //Pagination
   search_param_page_length : number = 0
-  search_param_page_index: number = 0;
+  search_param_page_index: number = 1;
   search_param_page_size: number = 15;
 
 
@@ -94,7 +87,7 @@ export class MessagesComponent implements OnInit {
     }
   }
   
-  actionFetchHistory(history_type : string = "ALL") {
+   actionFetchHistory(history_type : string = "ALL") {
     this.messageFrom = (this.messageFrom !== "" || this.messageFrom !== undefined || this.messageFrom !== null) ? this.messageFrom : "0"
     var messageFromUnixTimestamp = DateHandler.convertDateToUnixTimestamp(this.messageFrom)
 
@@ -105,7 +98,7 @@ export class MessagesComponent implements OnInit {
     
     var messageToUnixTimestamp = DateHandler.convertDateToUnixTimestamp(this.messageTo)
     if(history_type == "SMS") {
-      this.apiService.getSMSHisory(messageFromUnixTimestamp, messageToUnixTimestamp).subscribe(
+      this.apiService.getSMSHisory(messageFromUnixTimestamp, messageToUnixTimestamp, this.search_param_page_index, this.search_param_page_size).subscribe(
         response => {
           var total = response.data?.total! as number
           this.search_param_page_length = total
@@ -412,10 +405,10 @@ export class MessagesComponent implements OnInit {
   }
 
    // used to build a slice of papers relevant at any given time
-   public getPaginatorData(event: PageEvent): PageEvent {
-    // this.lowValue = event.pageIndex * event.pageSize;
-    // this.highValue = this.lowValue + event.pageSize;
-    var search_param_page_index = event.pageIndex
+   public getPaginatorData(event: PageEvent) {
+    var index = event.pageIndex + 1
+    this.search_param_page_index = index
+    this.actionFetchHistory(this.search_param_messageType)
     return event;
   }
 }
