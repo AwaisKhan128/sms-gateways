@@ -34,4 +34,9 @@ export class DateHandler {
       const unixTime =  new Date(newDate).getTime() / 1000
       return unixTime
   }
+
+  public static convertDateFromUnixTimestapm(unixtimestap: number) : string{
+    return new Date(unixtimestap).toLocaleDateString("en-US")
+  }
+
 }

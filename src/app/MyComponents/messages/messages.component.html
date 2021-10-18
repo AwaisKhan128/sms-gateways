@@ -174,7 +174,7 @@
          {{sms.to}}
         </td>
         <td>
-          {{sms.date}}
+          {{ (sms.date!) * 1000 | date: 'yyyy-MM-dd HH:mm:ss Z'}}
         </td>
         <td>
           {{sms.message_type}}
