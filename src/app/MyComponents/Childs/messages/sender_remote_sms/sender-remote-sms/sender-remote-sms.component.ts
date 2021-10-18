@@ -57,6 +57,7 @@ export class SenderRemoteSmsComponent implements OnInit {
   window: any["$"] = $;
   response: SendResponse | undefined;
 
+  
 
   constructor(private apiService: API_Services, private http: HttpClient) { }
 
