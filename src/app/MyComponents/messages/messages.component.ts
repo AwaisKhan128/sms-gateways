@@ -83,45 +83,6 @@ export class MessagesComponent implements OnInit {
     this.snakeBar.close_bar();
   }
 
-  onSubscribedDeviceChange(event: any) {
-    this.snakeBar.start_bar("Please Wait");
-    const subscribedDeviceID = <number>event.target.value;
-    this.search_param_selected_subscribed_device_ID = subscribedDeviceID
-    console.log("snakeee", this.search_param_selected_subscribed_device_ID)
-    if (this.search_param_selected_subscribed_device_ID != -1) {
-      this.fetchSubscribedDevicesSim()
-      this.selectedRemoteMessages = 1
-    }
-    else {
-      this.selectedRemoteMessages = 0
-    }
-    console.log("snakeee2", this.selectedRemoteMessages)
-    this.snakeBar.close_bar();
-  }
-  
-  fetchSubscribedDevicesSim() {
-    this.apiService.getSubscribedDevicesSim(this.search_param_selected_subscribed_device_ID.toString()).subscribe(
-      response => {
-        console.log(response)
-        let intialSim : HTTPResponseSubscribedDeviceSim = {
-          number : "NONE"
-        }
-        var fetchedSims = response.http_response as HTTPResponseSubscribedDeviceSim[]
-        fetchedSims.push(intialSim)
-        this.sims = fetchedSims
-      }
-    )
-  }
-
-  simSelectionChangeHandler (event: any) {
-    console.log("selected device SIM/PHONE is is 1")
-    const selectedSim = <number>event.target.value;
-    console.log("selected sim  is",selectedSim)
-    // if (selectedSim !== null || selectedSim != undefined) {
-    //   this.messageFrom = selectedSim.toString()
-    //   console.log("selected sim is",this.messageFrom)
-    // }
-  }
 
   actionSearch() {
    if (this.search_param_selected_subscribed_device_ID > -1) {
@@ -187,63 +148,7 @@ export class MessagesComponent implements OnInit {
     }
   }
 
-  actionFetchSubscribedDeviceRemoteMessages() {
-    this.search_param_selected_subscribed_device_ID = 270610
-    this.apiService.getSubscribedDevicesRemoteMessages(this.search_param_selected_subscribed_device_ID).subscribe(
-      e=> {
 
-      }
-    )
-    // this.apiService.getSubscribedDevicesRemoteMessages(this.search_param_selected_subscribed_ID).subscribe(
-    //   e => {
-    //     const msgs = e.SubscribedDevicesRemoteMessage as SubscribedDevicesRemoteMessage[]
-        // this.remoteMessages = msgs
-        // this.sms_history_array = []
-        
-        // //HistoryDatum
-        // this.remoteMessages.forEach(i =>{
-        //   const k : HistoryDatum = {
-        //     direction:   i.direction,
-        //     date:          +i.date!,
-        //     to:            i.to_num,
-        //     body:          i.body,
-        //     status:        i.status,
-        //     from:          i.from_num,
-        //     schedule:      "",
-        //     status_code:   null,
-        //     status_text:   i.status,
-        //     error_code:    null,
-        //     error_text:    null,
-        //     message_id:    i.id!.toString(),
-        //     message_parts: i.id,
-        //     message_price: i.cost,
-        //     from_email:    null,
-        //     list_id:       null,
-        //     custom_string: "",
-        //     contact_id:    null,
-        //     user_id:       0,
-        //     subaccount_id: 0,
-        //     country:       "",
-        //     carrier:       "",
-        //     first_name:    null,
-        //     last_name:     null,
-        //     _api_username: "",
-        //     date_added:      0,
-        //     _media_file_url: "",
-        //     subject:         "",
-        //     priority:        1,
-        //     message_type:    i.type
-        //   }
-        //   this.sms_history_array.push(k)
-        // })
-        //this.filtered_history_array = this.sms_history_array
-        //console.log("length of the remote message is"+msgs!)
-    //     this.sms_history_array = []
-    //     this.filtered_history_array = []
-    //     this.snakeBar.close_bar();
-    //   }
-    // )
-  }
 
   applyfilteringOnThisData() {
     if (this.sms_history_array.length > 0 && this.search_param_messageStatus.toLowerCase() !== "all") {
@@ -408,6 +313,33 @@ export class MessagesComponent implements OnInit {
   }
 
 
+  //REMOTE MESSAGES
+  onSubscribedDeviceChange(event: any) {
+    this.snakeBar.start_bar("Please Wait");
+    const subscribedDeviceID = <number>event.target.value;
+    this.search_param_selected_subscribed_device_ID = subscribedDeviceID
+    console.log("snakeee", this.search_param_selected_subscribed_device_ID)
+    if (this.search_param_selected_subscribed_device_ID != -1) {
+      this.fetchSubscribedDevicesSim()
+      this.selectedRemoteMessages = 1
+    }
+    else {
+      this.selectedRemoteMessages = 0
+    }
+    console.log("snakeee2", this.selectedRemoteMessages)
+    this.snakeBar.close_bar();
+  }
+  
+  simSelectionChangeHandler (event: any) {
+    console.log("selected device SIM/PHONE is is 1")
+    const selectedSim = <number>event.target.value;
+    console.log("selected sim  is",selectedSim)
+    // if (selectedSim !== null || selectedSim != undefined) {
+    //   this.messageFrom = selectedSim.toString()
+    //   console.log("selected sim is",this.messageFrom)
+    // }
+  }
+  
   getSubscribedDevices(userID: string) {
     this.apiService.getSubscribedDevices(userID).subscribe(
       response => {
@@ -428,7 +360,79 @@ export class MessagesComponent implements OnInit {
     )
   }
 
-  
+  fetchSubscribedDevicesSim() {
+    this.apiService.getSubscribedDevicesSim(this.search_param_selected_subscribed_device_ID.toString()).subscribe(
+      response => {
+        console.log(response)
+        let intialSim : HTTPResponseSubscribedDeviceSim = {
+          number : "NONE"
+        }
+        var fetchedSims = response.http_response as HTTPResponseSubscribedDeviceSim[]
+        fetchedSims.push(intialSim)
+        this.sims = fetchedSims
+      }
+    )
+  }
+
+  actionFetchSubscribedDeviceRemoteMessages() {
+    this.search_param_selected_subscribed_device_ID = 270610
+    this.apiService.getSubscribedDevicesRemoteMessages(this.search_param_selected_subscribed_device_ID).subscribe(
+      e=> {
+
+      }
+    )
+    // this.apiService.getSubscribedDevicesRemoteMessages(this.search_param_selected_subscribed_ID).subscribe(
+    //   e => {
+    //     const msgs = e.SubscribedDevicesRemoteMessage as SubscribedDevicesRemoteMessage[]
+        // this.remoteMessages = msgs
+        // this.sms_history_array = []
+        
+        // //HistoryDatum
+        // this.remoteMessages.forEach(i =>{
+        //   const k : HistoryDatum = {
+        //     direction:   i.direction,
+        //     date:          +i.date!,
+        //     to:            i.to_num,
+        //     body:          i.body,
+        //     status:        i.status,
+        //     from:          i.from_num,
+        //     schedule:      "",
+        //     status_code:   null,
+        //     status_text:   i.status,
+        //     error_code:    null,
+        //     error_text:    null,
+        //     message_id:    i.id!.toString(),
+        //     message_parts: i.id,
+        //     message_price: i.cost,
+        //     from_email:    null,
+        //     list_id:       null,
+        //     custom_string: "",
+        //     contact_id:    null,
+        //     user_id:       0,
+        //     subaccount_id: 0,
+        //     country:       "",
+        //     carrier:       "",
+        //     first_name:    null,
+        //     last_name:     null,
+        //     _api_username: "",
+        //     date_added:      0,
+        //     _media_file_url: "",
+        //     subject:         "",
+        //     priority:        1,
+        //     message_type:    i.type
+        //   }
+        //   this.sms_history_array.push(k)
+        // })
+        //this.filtered_history_array = this.sms_history_array
+        //console.log("length of the remote message is"+msgs!)
+    //     this.sms_history_array = []
+    //     this.filtered_history_array = []
+    //     this.snakeBar.close_bar();
+    //   }
+    // )
+  }
+
+
 
    // used to build a slice of papers relevant at any given time
    public getPaginatorData(event: PageEvent): PageEvent {
