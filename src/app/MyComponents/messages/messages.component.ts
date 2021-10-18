@@ -115,7 +115,7 @@ export class MessagesComponent implements OnInit {
           this.sms_history_array = smsArray as HistoryDatum[]
           this.sms_history_array.map(e=> {
             e.message_type = "SMS"
-        })
+          })
           this.applyfilteringOnThisData()
           this.snakeBar.close_bar();
         }
