@@ -170,7 +170,6 @@ export class MessagesComponent implements OnInit {
       this.filtered_history_array = this.sms_history_array
     }
   }
-
   
   actionSMSHistoryExport(toExport: string) {
     this.snakeBar.start_bar("Please wait!");
