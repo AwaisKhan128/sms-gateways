@@ -35,6 +35,7 @@ import { OperatorConfigurationComponent } from './operator-configuration/operato
 const routes: Routes = [
   { path: '', component: SignInComponent},
   { path : 'createacc', component : CreateAccComponent},
+  {path :'geoplugin_activation.html',component:GeolocationCodesComponent},
   { path : 'verify' , component : VerifyComponent},
   { path : 'profile', component : ProfileComponent,
   children: [
