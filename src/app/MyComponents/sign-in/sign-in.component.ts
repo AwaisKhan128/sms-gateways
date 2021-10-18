@@ -893,15 +893,6 @@ export class SignInComponent implements OnInit {
 
 
 
- 
-    
-
-
-  
-  
-
-
-
   // public forget_chk(id:string )
   // {
 
