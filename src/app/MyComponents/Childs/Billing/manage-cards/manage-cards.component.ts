@@ -108,12 +108,13 @@ export class ManageCardsComponent implements OnInit {
   public receive_card_details() {
     let json = localStorage.getItem("user_data");
 
-    // if (json != null) 
+    if (json != null) 
     {
-      // this.data = JSON.parse(json);
-      // let username = this.data.username;
-      // let password = EncodeDecode.b64DecodeUnicode(this.data.passcode);
-      var auths = EncodeDecode.b64EncodeUnicode('awais.khan128@yahoo.com' + ":" + 'Myyahooacc#1');
+      this.data = JSON.parse(json);
+      let username = this.data.username;
+      let password = EncodeDecode.b64DecodeUnicode(this.data.passcode);
+
+      var auths = EncodeDecode.b64EncodeUnicode(username + ":" + password);
       let cards = new card_info();
       cards.bank_name = this.b_name;
       cards.cvc = this.cvc;

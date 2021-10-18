@@ -3,6 +3,14 @@ import { Component, OnInit } from '@angular/core';
 import { API_Services } from 'src/app/APIS/freeapi.service';
 import { myCredentials } from 'src/app/APIS/APIConfig';
 import { EncodeDecode } from 'src/app/Classes/EncodeDec64';
+import {FlatTreeControl} from '@angular/cdk/tree';
+import {MatTreeFlatDataSource, MatTreeFlattener} from '@angular/material/tree';
+import * as $ from 'jquery';
+
+
+
+
+
 
 @Component({
   selector: 'app-device-settings',
@@ -10,10 +18,32 @@ import { EncodeDecode } from 'src/app/Classes/EncodeDec64';
   styleUrls: ['./device-settings.component.css']
 })
 export class DeviceSettingsComponent implements OnInit {
+  name = 'Angular';
+  enableEdit = false;
+  enableEditIndex = null;
+  window: any["$"] = $;
+
+
+
+  enableEditMethod(e, i) {
+    this.enableEdit = true;
+    this.enableEditIndex = i;
+    console.log(i, e);
+  }
+
+
+
+
+  // ----------------------->
+  show = 'A';
+  popup:any;
+
+
   devices_list : devices_list[]|any;
   device_list_details: device_list_details[]|any;
 
-  constructor(private free_api: API_Services) { }
+  constructor(private free_api: API_Services) {    
+  }
 
   ngOnInit(): void {
 
@@ -33,7 +63,8 @@ export class DeviceSettingsComponent implements OnInit {
       // let password = ( myCredentials.password);
       // let auth = EncodeDecode.b64EncodeUnicode(username+':'+password)
 
-      let auth_id = "124"
+      let auth_id = "23911"
+      
 
       this.free_api.get_subscribe_devices(auth_id)
       .subscribe
@@ -63,6 +94,8 @@ export class DeviceSettingsComponent implements OnInit {
         {
             let DATA = JSON.parse(JSON.stringify(res));
             this.device_list_details = DATA.http_response;
+
+            // let hidden_info = 
         },
         err=>
         {
@@ -74,6 +107,39 @@ export class DeviceSettingsComponent implements OnInit {
       
 
     }
+  }
+
+
+  filterby(id:any)
+  {
+    this.free_api.get_subscribe_devices_details(id)
+    .subscribe
+    (
+      res=>
+      {
+          let DATA = JSON.parse(JSON.stringify(res));
+          this.device_list_details = DATA.http_response;
+
+          // let hidden_info = 
+      },
+      err=>
+      {
+          console.log(err);
+      }
+    )
+
+  }
+
+
+  showupdate_sim(event:any)
+  {
+    console.log(event);
+
+  }
+
+  sim(event:any)
+  {
+    console.log(event);
   }
 
 }

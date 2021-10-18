@@ -22,14 +22,14 @@ export class TransactionsComponent implements OnInit {
 
   ngOnInit(): void {
     let json = localStorage.getItem("user_data");
-    // if(json!=null)
+    if(json!=null)
     {
-      // this.data = JSON.parse(json);
-      // let username = this.data.username;
-      // let password = EncodeDecode.b64DecodeUnicode( this.data.passcode);
-      // var auths = EncodeDecode.b64EncodeUnicode(username+":"+password);
+      this.data = JSON.parse(json);
+      let username = this.data.username;
+      let password = EncodeDecode.b64DecodeUnicode( this.data.passcode);
+      var auths = EncodeDecode.b64EncodeUnicode(username+":"+password);
 
-      var auths = EncodeDecode.b64EncodeUnicode('awais.khan128@yahoo.com' + ":" + 'Myyahooacc#1');
+      // var auths = EncodeDecode.b64EncodeUnicode('awais.khan128@yahoo.com' + ":" + 'Myyahooacc#1');
 
 
       this.freeAPI.getbilling_transaction(auths)

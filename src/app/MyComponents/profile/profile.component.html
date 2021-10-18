@@ -80,7 +80,9 @@
           Web Balance
         </button>
         <button [routerLink]='["device"]' mat-menu-item>Device Settings</button>
-        <button mat-menu-item>Log Out</button>
+        <button [routerLink]='["operator_config"]' mat-menu-item>Operator Configuration</button>
+
+        <button mat-menu-item (click)="logout()">Log Out</button>
 
       </mat-menu>
 

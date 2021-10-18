@@ -46,6 +46,7 @@ export class AdminComponent implements OnInit {
   Update_Admin_Result:Update_Admin_Result|any;
   Update_Admin_Sample:Update_Admin_Sample[]|any;
   Update_Admin_Sample_for_Selection:Update_Admin_Sample[]|any;
+  data: any;
 
 
 
@@ -348,16 +349,16 @@ export class AdminComponent implements OnInit {
           
   
           {
-          // if(json!=null)
+          if(json!=null)
           {
-          // this.data = JSON.parse(json);
-          // let username = this.data.username;
-          // let password = EncodeDecode.b64DecodeUnicode( this.data.passcode);
-          // var auths = EncodeDecode.b64EncodeUnicode(username+":"+password);
+          this.data = JSON.parse(json);
+          let username = this.data.username;
+          let password = EncodeDecode.b64DecodeUnicode( this.data.passcode);
+          var auths = EncodeDecode.b64EncodeUnicode(username+":"+password);
           
     
   
-          var auths = EncodeDecode.b64EncodeUnicode(myCredentials.username + ":" + myCredentials.password);
+          // var auths = EncodeDecode.b64EncodeUnicode(myCredentials.username + ":" + myCredentials.password);
           this.Create_subAcc.phone_number = $("#selects_u").val() + this.Create_subAcc.phone_number;
 
       
@@ -466,7 +467,7 @@ export class AdminComponent implements OnInit {
           
   
           {
-          // if(json!=null)
+          if(json!=null)
           {
           // this.data = JSON.parse(json);
           // let username = this.data.username;
@@ -513,12 +514,12 @@ export class AdminComponent implements OnInit {
 
     let json = localStorage.getItem("user_data");
 
-    // if(json!=null)
+    if(json!=null)
     {
-    // this.data = JSON.parse(json);
-    // let username = this.data.username;
-    // let password = EncodeDecode.b64DecodeUnicode( this.data.passcode);
-    // var auths = EncodeDecode.b64EncodeUnicode(username+":"+password);
+    this.data = JSON.parse(json);
+    let username = this.data.username;
+    let password = EncodeDecode.b64DecodeUnicode( this.data.passcode);
+    var auths = EncodeDecode.b64EncodeUnicode(username+":"+password);
     let id = $('.selected_admin').val();
 
     if (id !='Default')
@@ -527,7 +528,7 @@ export class AdminComponent implements OnInit {
           this.get_SubAcc_details2 = [];
           this.Update_Admin_Sample = [];
       
-          var auths = EncodeDecode.b64EncodeUnicode(myCredentials.username + ":" + myCredentials.password);
+          // var auths = EncodeDecode.b64EncodeUnicode(myCredentials.username + ":" + myCredentials.password);
       
           this.freeapi.get_Sub_Acc_byID(auths,id)
           .subscribe(
@@ -566,14 +567,14 @@ export class AdminComponent implements OnInit {
 
     }
     else{
-              // if(json!=null)
+              if(json!=null)
               {
-                // this.data = JSON.parse(json);
-                // let username = this.data.username;
-                // let password = EncodeDecode.b64DecodeUnicode( this.data.passcode);
-                // var auths = EncodeDecode.b64EncodeUnicode(username+":"+password);
+                this.data = JSON.parse(json);
+                let username = this.data.username;
+                let password = EncodeDecode.b64DecodeUnicode( this.data.passcode);
+                var auths = EncodeDecode.b64EncodeUnicode(username+":"+password);
             
-                var auths = EncodeDecode.b64EncodeUnicode(myCredentials.username + ":" + myCredentials.password);
+                // var auths = EncodeDecode.b64EncodeUnicode(myCredentials.username + ":" + myCredentials.password);
                 
                 this.freeapi.get_Sub_Acc(auths)
                 .subscribe
@@ -622,14 +623,14 @@ export class AdminComponent implements OnInit {
         count++;
       subaccount_id = element.subaccount_id;
       let json = localStorage.getItem("user_data");
-      // if(json!=null)
+      if(json!=null)
       {
-        // this.data = JSON.parse(json);
-        // let username = this.data.username;
-        // let password = EncodeDecode.b64DecodeUnicode( this.data.passcode);
-        // var auths = EncodeDecode.b64EncodeUnicode(username+":"+password);
+        this.data = JSON.parse(json);
+        let username = this.data.username;
+        let password = EncodeDecode.b64DecodeUnicode( this.data.passcode);
+        var auths = EncodeDecode.b64EncodeUnicode(username+":"+password);
     
-        var auths = EncodeDecode.b64EncodeUnicode(myCredentials.username + ":" + myCredentials.password);
+        // var auths = EncodeDecode.b64EncodeUnicode(myCredentials.username + ":" + myCredentials.password);
         
         this.freeapi.delete_subAcc(auths,subaccount_id)
         .subscribe

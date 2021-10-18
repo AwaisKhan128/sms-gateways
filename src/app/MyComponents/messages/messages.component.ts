@@ -18,6 +18,7 @@ import { Snake_Waiting } from 'src/app/Classes/Waiting_bar';
 import { HTTPResponseSubscribedDevices } from 'src/app/Classes/subscribed_devices';
 import { SubscribedDevicesRemoteMessagesResponse, SubscribedDevicesRemoteMessage } from 'src/app/Classes/subscribed_devices_remote_messages';
 import { HTTPResponseSubscribedDeviceSim } from 'src/app/Classes/subscribed_devices_sim';
+import { EncodeDecode } from 'src/app/Classes/EncodeDec64';
 
 
 
@@ -52,6 +53,8 @@ export class MessagesComponent implements OnInit {
   search_param_page_index: number = 1;
   search_param_page_size: number = 15;
   donot_load_paginator : number = 1
+  data :any;
+  search_param_selected_subscribed_ID: any;
 
 
   constructor(private apiService: API_Services, private modalService: NgbModal, private snakeBar:Snake_Waiting) { }
@@ -60,7 +63,15 @@ export class MessagesComponent implements OnInit {
     this.donot_load_paginator = 1
     this.snakeBar.start_bar("Please Wait");
     this.actionSearch()
-    this.getSubscribedDevices("23911")
+
+    let json = localStorage.getItem("user_data");
+
+    if(json!=null)
+{
+    this.data = JSON.parse(json);
+    let id = this.data.id;
+    this.getSubscribedDevices(id);
+}
   }
 
   onMessageTypeChange(event: any) {
@@ -97,65 +108,169 @@ export class MessagesComponent implements OnInit {
   }
   
   actionFetchHistory(history_type : string = "ALL") {
-    this.messageFrom = (this.messageFrom !== "" || this.messageFrom !== undefined || this.messageFrom !== null) ? this.messageFrom : "0"
+    this.messageFrom = (this.messageFrom !== "" || this.messageFrom !== undefined 
+    || this.messageFrom !== null) ? this.messageFrom : "0"
     var messageFromUnixTimestamp = DateHandler.convertDateToUnixTimestamp(this.messageFrom)
 
-    this.messageTo = (this.messageTo !== "" || this.messageTo !== undefined || this.messageTo !== null || isNaN(this.messageTo) == false) ? this.messageTo : "0"
+    this.messageTo = (this.messageTo !== "" 
+    || this.messageTo !== undefined || this.messageTo !== null 
+    || isNaN(this.messageTo) == false) ? this.messageTo : "0"
+
     if (this.messageTo == null) {
       this.messageTo = "0"
     }
-    
+    let json = localStorage.getItem("user_data");
     var messageToUnixTimestamp = DateHandler.convertDateToUnixTimestamp(this.messageTo)
     if(history_type == "SMS") {
-      this.apiService.getSMSHisory(messageFromUnixTimestamp, messageToUnixTimestamp, this.search_param_page_index, this.search_param_page_size).subscribe(
-        response => {
-          var total = response.data?.total! as number
-          this.search_param_page_length = total
-          const smsArray =  response.data?.data
-          this.sms_history_array = smsArray as HistoryDatum[]
-          this.sms_history_array.map(e=> {
-            e.message_type = "SMS"
-          })
-          this.applyfilteringOnThisData()
-          this.snakeBar.close_bar();
-        }
-      );
-    }
-    else if(history_type == "MMS"){
-      this.apiService.getMMSHistory(messageFromUnixTimestamp, messageToUnixTimestamp, this.search_param_page_index, this.search_param_page_size).subscribe(
-        response => {
-          var total = response.data?.total! as number
-          this.search_param_page_length = total
-          const mmsArray =  response.data?.data//?.map(i => i.message_type = "mms")
-          this.sms_history_array = mmsArray as HistoryDatum[]
-          this.sms_history_array.map(e=> e.message_type = "MMS")
-          this.applyfilteringOnThisData()
-          this.snakeBar.close_bar();
+    let json = localStorage.getItem("user_data");
+
+    if(json!=null)
+        {
+            this.data = JSON.parse(json);
+            let username = this.data.username;
+            let password = EncodeDecode.b64DecodeUnicode( this.data.passcode);
+            var auths = EncodeDecode.b64EncodeUnicode(username+":"+password);
+        
+              this.apiService.getSMSHisory(auths,messageFromUnixTimestamp, messageToUnixTimestamp, this.search_param_page_index, this.search_param_page_size).subscribe(
+                response => {
+                  var total = response.data?.total! as number
+                  this.search_param_page_length = total
+                  const smsArray =  response.data?.data
+                  this.sms_history_array = smsArray as HistoryDatum[]
+                  this.sms_history_array.map(e=> e.message_type = "SMS")
+                  this.applyfilteringOnThisData()
+                  this.snakeBar.close_bar();
+                }
+              );
+
+
 
         }
-      )
+    }
+    else if(history_type == "MMS"){
+      if(json!=null)
+        {
+            this.data = JSON.parse(json);
+            let username = this.data.username;
+            let password = EncodeDecode.b64DecodeUnicode( this.data.passcode);
+            var auths = EncodeDecode.b64EncodeUnicode(username+":"+password);
+
+            this.apiService.getMMSHistory(auths, messageFromUnixTimestamp, messageToUnixTimestamp, this.search_param_page_index, this.search_param_page_size).subscribe(
+              response => {
+                var total = response.data?.total! as number
+                this.search_param_page_length = total
+                const mmsArray =  response.data?.data//?.map(i => i.message_type = "mms")
+                this.sms_history_array = mmsArray as HistoryDatum[]
+                this.sms_history_array.map(e=> e.message_type = "MMS")
+                this.applyfilteringOnThisData()
+                this.snakeBar.close_bar();
+      
+              }
+            )
+        }
+
+
     }
     else {
-      const call_sms_api = this.apiService.getSMSHisory(messageFromUnixTimestamp, messageToUnixTimestamp, this.search_param_page_index, this.search_param_page_size)
-      const call_mms_api = this.apiService.getMMSHistory(messageFromUnixTimestamp, messageToUnixTimestamp, this.search_param_page_index, this.search_param_page_size)
-      forkJoin([call_sms_api,call_mms_api]).subscribe( responses =>{
-        var smsArray =  responses[0].data?.data  as HistoryDatum[]
-        var mmsArray =  responses[1].data?.data  as HistoryDatum[]
-        var total = (responses[0].data?.total! + responses[1].data?.total!) as number
-        this.search_param_page_length = total
-        this.sms_history_array = []
-        smsArray.map(sms => {
-          sms.message_type = "SMS"
-          this.sms_history_array.push(sms)
-        })
-        mmsArray.map(mms => {
-          mms.message_type = "MMS"
-          this.sms_history_array.push(mms)
-        })
-        this.snakeBar.close_bar();
-        this.applyfilteringOnThisData()
-      })
+
+      if(json!=null)
+      {
+          this.data = JSON.parse(json);
+          let username = this.data.username;
+          let password = EncodeDecode.b64DecodeUnicode( this.data.passcode);
+          var auths = EncodeDecode.b64EncodeUnicode(username+":"+password);
+
+          const call_sms_api = this.apiService.getSMSHisory(auths,messageFromUnixTimestamp, messageToUnixTimestamp,this.search_param_page_index, this.search_param_page_size)
+          const call_mms_api = this.apiService.getMMSHistory(auths,messageFromUnixTimestamp, messageToUnixTimestamp,this.search_param_page_index, this.search_param_page_size)
+          forkJoin([call_sms_api,call_mms_api]).subscribe( responses =>{
+            var smsArray =  responses[0].data?.data  as HistoryDatum[]
+            var mmsArray =  responses[1].data?.data  as HistoryDatum[]
+            var total = (responses[0].data?.total! + responses[1].data?.total!) as number
+            this.search_param_page_length = total
+            this.sms_history_array = []
+            smsArray.map(sms => {
+              sms.message_type = "SMS"
+              this.sms_history_array.push(sms)
+            })
+            mmsArray.map(mms => {
+              mms.message_type = "MMS"
+              this.sms_history_array.push(mms)
+            })
+            this.snakeBar.close_bar();
+            this.applyfilteringOnThisData()
+          })
+      }
+
+
+
+
+
     }
+
+
+  }
+
+  actionFetchSubscribedDeviceRemoteMessages() {
+
+    let json = localStorage.getItem("user_data");
+
+    if(json!=null)
+    {
+        this.data = JSON.parse(json);
+        let id = this.data.id;
+        this.search_param_selected_subscribed_ID = id;
+
+        this.apiService.getSubscribedDevicesRemoteMessages(id).subscribe(
+          e => {
+            // const msgs = e.SubscribedDevicesRemoteMessage as SubscribedDevicesRemoteMessage[]
+            // this.remoteMessages = msgs
+            // this.sms_history_array = []
+            
+            // //HistoryDatum
+            // this.remoteMessages.forEach(i =>{
+            //   const k : HistoryDatum = {
+            //     direction:   i.direction,
+            //     date:          +i.date!,
+            //     to:            i.to_num,
+            //     body:          i.body,
+            //     status:        i.status,
+            //     from:          i.from_num,
+            //     schedule:      "",
+            //     status_code:   null,
+            //     status_text:   i.status,
+            //     error_code:    null,
+            //     error_text:    null,
+            //     message_id:    i.id!.toString(),
+            //     message_parts: i.id,
+            //     message_price: i.cost,
+            //     from_email:    null,
+            //     list_id:       null,
+            //     custom_string: "",
+            //     contact_id:    null,
+            //     user_id:       0,
+            //     subaccount_id: 0,
+            //     country:       "",
+            //     carrier:       "",
+            //     first_name:    null,
+            //     last_name:     null,
+            //     _api_username: "",
+            //     date_added:      0,
+            //     _media_file_url: "",
+            //     subject:         "",
+            //     priority:        1,
+            //     message_type:    i.type
+            //   }
+            //   this.sms_history_array.push(k)
+            // })
+            // this.filtered_history_array = this.sms_history_array
+            // console.log("length of the remote message is"+msgs!)
+            // this.snakeBar.close_bar();
+          }
+        )
+    }
+
+
+
   }
 
   applyfilteringOnThisData() {
@@ -173,32 +288,58 @@ export class MessagesComponent implements OnInit {
   
   actionSMSHistoryExport(toExport: string) {
     this.snakeBar.start_bar("Please wait!");
+    let json = localStorage.getItem("user_data");
     if (toExport.toLowerCase() == "sms") {
-      this.apiService.getExportSMSHistory("sms_history")
-      .subscribe(response => {
-          var url = response.data?.url!
-          if (url != null || url != undefined || url != ""){
-            this.apiService.getFileMessageHistory(url).subscribe( t => 
-              this.downLoadFile(t, "text/csv")
-            )
-            this.snakeBar.close_bar();
-
-          }
-      })
+      if(json!=null)
+            {
+                this.data = JSON.parse(json);
+                let username = this.data.username;
+                  let password = EncodeDecode.b64DecodeUnicode( this.data.passcode);
+                  var auths = EncodeDecode.b64EncodeUnicode(username+":"+password);
+            
+                  this.apiService.getExportSMSHistory(auths,"sms_history")
+                  .subscribe(response => {
+                      var url = response.data?.url!
+                      if (url != null || url != undefined || url != ""){
+                        this.apiService.getFileMessageHistory(url).subscribe( t => 
+                          this.downLoadFile(t, "text/csv")
+                        )
+                        this.snakeBar.close_bar();
+            
+                      }
+                  })
+            }
     }
+
+
+    
     else if (toExport.toLowerCase() == "mms") {
-      this.apiService.getExportMMSHistory()
-      .subscribe(response => {
-          var url = response.data?.url!
-          if (url != null || url != undefined || url != ""){
-            this.apiService.getFileMessageHistory(url).subscribe( t => 
-              this.downLoadFile(t, "text/csv")
-            )
-            this.snakeBar.close_bar();
 
-          }
-      }) 
+      if(json!=null)
+            {
+                this.data = JSON.parse(json);
+                let username = this.data.username;
+                  let password = EncodeDecode.b64DecodeUnicode( this.data.passcode);
+                  var auths = EncodeDecode.b64EncodeUnicode(username+":"+password);
+
+                  this.apiService.getExportMMSHistory(auths)
+                  .subscribe(response => {
+                      var url = response.data?.url!
+                      if (url != null || url != undefined || url != ""){
+                        this.apiService.getFileMessageHistory(url).subscribe( t => 
+                          this.downLoadFile(t, "text/csv")
+                        )
+                        this.snakeBar.close_bar();
+            
+                      }
+                  }) 
+            }
+
+
+
+
     }
+
   }
 
   onScheduler_resend(event: any) {
@@ -251,19 +392,31 @@ export class MessagesComponent implements OnInit {
           from : e.from!,
         };
         const param : SendSMSParam = {messages: [m]};
-          this.apiService.sendSMS(param)
-            .subscribe(response => {
-              if (response.response_code == "SUCCESS") {
-                Toaster.sucessToast(response.response_msg!)
-                this.snakeBar.close_bar();
+        let json = localStorage.getItem("user_data");
 
-              }
-              else {
-                Toaster.failureToast(response.response_code!, response.response_msg!)
-                this.snakeBar.close_bar();
+        if(json!=null)
+        {
+            this.data = JSON.parse(json);
+            let username = this.data.username;
+              let password = EncodeDecode.b64DecodeUnicode( this.data.passcode);
+              var auths = EncodeDecode.b64EncodeUnicode(username+":"+password);
 
-              }
-        });
+              this.apiService.sendSMS(auths,param)
+                .subscribe(response => {
+                  if (response.response_code == "SUCCESS") {
+                    Toaster.sucessToast(response.response_msg!)
+                    this.snakeBar.close_bar();
+    
+                  }
+                  else {
+                    Toaster.failureToast(response.response_code!, response.response_msg!)
+                    this.snakeBar.close_bar();
+    
+                  }
+            });
+        }
+
+
       })
     }
     if (filtered_mmsMessages.length > 0) {
@@ -276,19 +429,31 @@ export class MessagesComponent implements OnInit {
           body : e.body!,
         }
         const param : SendSMSParam = {messages: [mms_message]};
-          this.apiService.sendMMS(param)
-            .subscribe(response => {
-              if (response.response_code == "SUCCESS") {
-                Toaster.sucessToast(response.response_msg!)
-                this.snakeBar.close_bar();
+        let json = localStorage.getItem("user_data");
 
-              }
-              else {
-                Toaster.failureToast(response.response_code!, response.response_msg!)
-                this.snakeBar.close_bar();
+        if(json!=null)
+        {
+            this.data = JSON.parse(json);
+            let username = this.data.username;
+              let password = EncodeDecode.b64DecodeUnicode( this.data.passcode);
+              var auths = EncodeDecode.b64EncodeUnicode(username+":"+password);
+              this.apiService.sendMMS(auths,param)
+                .subscribe(response => {
+                  if (response.response_code == "SUCCESS") {
+                    Toaster.sucessToast(response.response_msg!)
+                    this.snakeBar.close_bar();
+    
+                  }
+                  else {
+                    Toaster.failureToast(response.response_code!, response.response_msg!)
+                    this.snakeBar.close_bar();
+    
+                  }
+            });
+        }
 
-              }
-        });
+
+
       })
     }
     if (this.resendMessages.length <= 0) {
@@ -380,36 +545,36 @@ export class MessagesComponent implements OnInit {
     )
   }
 
-  actionFetchSubscribedDeviceRemoteMessages() {
-    this.search_param_selected_subscribed_device_ID = 270610
-    this.apiService.getSubscribedDevicesRemoteMessages(this.search_param_selected_subscribed_device_ID).subscribe(
-      e=> {
-        this.sms_history_array = [];
-        this.filtered_history_array = [];
-        const msgs = e.http_response as SubscribedDevicesRemoteMessage[]
-        msgs.forEach(item => {
-          const k : HistoryDatum = {
-            message_id: item.id?.toString(),
-            _api_username: item.username,
-            first_name: item.username,
-            carrier:item.device,
-            body: item.body,
-            from: item.from_num != "" ? item.from_num : "N/A",
-            to: item.to_num,
-            direction: item.direction,
-            message_price: item.cost,
-            status:item.status,
-            status_text:item.status,
-            message_type: "Remote SMS",
-            date: DateHandler.convertDateToUnixTimestampWith(item.date!)
-          }
-          this.sms_history_array.push(k)  
-        })
-        this.applyFilteringOnRemoteMessagesData()
-        this.snakeBar.close_bar();
-      }
-    )
-  }
+  // actionFetchSubscribedDeviceRemoteMessages() {
+  //   this.search_param_selected_subscribed_device_ID = 270610
+  //   this.apiService.getSubscribedDevicesRemoteMessages(this.search_param_selected_subscribed_device_ID).subscribe(
+  //     e=> {
+  //       this.sms_history_array = [];
+  //       this.filtered_history_array = [];
+  //       const msgs = e.http_response as SubscribedDevicesRemoteMessage[]
+  //       msgs.forEach(item => {
+  //         const k : HistoryDatum = {
+  //           message_id: item.id?.toString(),
+  //           _api_username: item.username,
+  //           first_name: item.username,
+  //           carrier:item.device,
+  //           body: item.body,
+  //           from: item.from_num != "" ? item.from_num : "N/A",
+  //           to: item.to_num,
+  //           direction: item.direction,
+  //           message_price: item.cost,
+  //           status:item.status,
+  //           status_text:item.status,
+  //           message_type: "Remote SMS",
+  //           date: DateHandler.convertDateToUnixTimestampWith(item.date!)
+  //         }
+  //         this.sms_history_array.push(k)  
+  //       })
+  //       this.applyFilteringOnRemoteMessagesData()
+  //       this.snakeBar.close_bar();
+  //     }
+  //   )
+  // }
 
   applyFilteringOnRemoteMessagesData() {
     if(this.sms_history_array.length > 0 && this.userSelectDeviceSim != "0") {

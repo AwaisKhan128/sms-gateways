@@ -46,7 +46,7 @@
                       </div>
                       <div class="col-4 mt-1 ms-auto d-flex-inline" style="color: blue;">
                         <!-- <a href="mailto:someone@example.com">Send email</a> -->
-                        <a [routerLink]="" (click)="forget_chk('forget_user')" id="forget_user"> Forget Username?</a>
+                        <a [routerLink]=""  id="forget_user"> Forget Username?</a>
                       </div>
                     </div>
                     <input type="text" [(ngModel)]="uname" name="uname" class="form-control" placeholder="Username"
@@ -60,30 +60,30 @@
 
                       </div>
                       <div class="col-4 mt-1 ms-auto d-flex-inline" style="color: blue;">
-                        <a [routerLink]="" id="forget_pass" (click)="forget_chk('forget_pass')"> Forget Password?</a>
+                        <a [routerLink]="" id="forget_pass" > Forget Password?</a>
                       </div>
                     </div>
                     <input type="password" placeholder="Password" [(ngModel)]="passcode" name="passcode"
                       class="form-control" id="passcode">
                   </div>
                   <div class="mb-3 ">
-                    <p>Not a Member?
+                    <!-- <p>Not a Member?
                       <a [routerLink]='["createacc"]' class="link-primary">Click Here </a>
-                    </p>
+                    </p> -->
 
 
                   </div>
                   <div class="mb-3 ">
-                    <p>Wants to switch to board?
+                    <!-- <p>Wants to switch to board?
                       <a [routerLink]='["profile"]' class="link-primary">Profile </a>
-                    </p>
+                    </p> -->
 
                   </div>
 
                   <div class="mb-3 ">
-                    <p>Wants to switch to Verify?
+                    <!-- <p>Wants to switch to Verify?
                       <a [routerLink]='["verify"]' class="link-primary">Verify </a>
-                    </p>
+                    </p> -->
 
                   </div>
 

@@ -47,14 +47,14 @@ export class TemplatesComponent implements OnInit {
     this.Snake_Wait.start_bar("Please Wait");
     // snackBarRef._open();
     let json = localStorage.getItem("user_data");
-    // if(json!=null)
+    if(json!=null)
     {
-      // this.data = JSON.parse(json);
-      // let username = this.data.username;
-      // let password = EncodeDecode.b64DecodeUnicode( this.data.passcode);
-      // var auths = EncodeDecode.b64EncodeUnicode(username+":"+password);
+      this.data = JSON.parse(json);
+      let username = this.data.username;
+      let password = EncodeDecode.b64DecodeUnicode( this.data.passcode);
+      var auths = EncodeDecode.b64EncodeUnicode(username+":"+password);
 
-      var auths = EncodeDecode.b64EncodeUnicode(myCredentials.username + ":" + myCredentials.password);
+      // var auths = EncodeDecode.b64EncodeUnicode(myCredentials.username + ":" + myCredentials.password);
 
       this.freeAPI.get_sms_templates(auths)
         .subscribe
@@ -140,14 +140,14 @@ export class TemplatesComponent implements OnInit {
     this.Snake_Wait.start_bar('Please Wait');
 
     let json = localStorage.getItem("user_data");
-    // if(json!=null)
+    if(json!=null)
     {
-      // this.data = JSON.parse(json);
-      // let username = this.data.username;
-      // let password = EncodeDecode.b64DecodeUnicode( this.data.passcode);
-      // var auths = EncodeDecode.b64EncodeUnicode(username+":"+password);
+      this.data = JSON.parse(json);
+      let username = this.data.username;
+      let password = EncodeDecode.b64DecodeUnicode( this.data.passcode);
+      var auths = EncodeDecode.b64EncodeUnicode(username+":"+password);
 
-      var auths = EncodeDecode.b64EncodeUnicode('awais.khan128@yahoo.com' + ":" + 'Myyahooacc#1');
+      // var auths = EncodeDecode.b64EncodeUnicode('awais.khan128@yahoo.com' + ":" + 'Myyahooacc#1');
 
       this.freeAPI.create_sms_template(auths, JSON_Body)
         .subscribe
@@ -185,14 +185,14 @@ export class TemplatesComponent implements OnInit {
       this.Snake_Wait.start_bar("Please Wait!");
 
       let json = localStorage.getItem("user_data");
-      // if(json!=null)
+      if(json!=null)
       {
-        // this.data = JSON.parse(json);
-        // let username = this.data.username;
-        // let password = EncodeDecode.b64DecodeUnicode( this.data.passcode);
-        // var auths = EncodeDecode.b64EncodeUnicode(username+":"+password);
+        this.data = JSON.parse(json);
+        let username = this.data.username;
+        let password = EncodeDecode.b64DecodeUnicode( this.data.passcode);
+        var auths = EncodeDecode.b64EncodeUnicode(username+":"+password);
 
-        var auths = EncodeDecode.b64EncodeUnicode('awais.khan128@yahoo.com' + ":" + 'Myyahooacc#1');
+        // var auths = EncodeDecode.b64EncodeUnicode('awais.khan128@yahoo.com' + ":" + 'Myyahooacc#1');
 
         if (element.active == true) {
           this.freeAPI.remove_sms_templates(auths, element.template_id)
@@ -312,15 +312,15 @@ export class TemplatesComponent implements OnInit {
         }
   
       });
-      // if(json!=null)
+      if(json!=null)
       {
-        // this.data = JSON.parse(json);
-        // let username = this.data.username;
-        // let password = EncodeDecode.b64DecodeUnicode( this.data.passcode);
-        // var auths = EncodeDecode.b64EncodeUnicode(username+":"+password);
+        this.data = JSON.parse(json);
+        let username = this.data.username;
+        let password = EncodeDecode.b64DecodeUnicode( this.data.passcode);
+        var auths = EncodeDecode.b64EncodeUnicode(username+":"+password);
         let json_data = {template_name:title, body:message};
   
-        var auths = EncodeDecode.b64EncodeUnicode(myCredentials.username + ":" + myCredentials.password);
+        // var auths = EncodeDecode.b64EncodeUnicode(myCredentials.username + ":" + myCredentials.password);
   
         this.freeAPI.update_sms_tempalte(auths,json_data,template_id)
           .subscribe
@@ -350,15 +350,15 @@ export class TemplatesComponent implements OnInit {
   TemplatesByPageno(event:any)
   {
     let json = localStorage.getItem("user_data");
-    // if(json!=null)
+    if(json!=null)
     {
-      // this.data = JSON.parse(json);
-      // let username = this.data.username;
-      // let password = EncodeDecode.b64DecodeUnicode( this.data.passcode);
-      // var auths = EncodeDecode.b64EncodeUnicode(username+":"+password);
+      this.data = JSON.parse(json);
+      let username = this.data.username;
+      let password = EncodeDecode.b64DecodeUnicode( this.data.passcode);
+      var auths = EncodeDecode.b64EncodeUnicode(username+":"+password);
       console.log(event.pageIndex,event.pageSize)
 
-      var auths = EncodeDecode.b64EncodeUnicode(myCredentials.username + ":" + myCredentials.password);
+      // var auths = EncodeDecode.b64EncodeUnicode(myCredentials.username + ":" + myCredentials.password);
 
       this.freeAPI.get_sms_templates_by_Num(auths,event.pageIndex,event.pageSize)
         .subscribe

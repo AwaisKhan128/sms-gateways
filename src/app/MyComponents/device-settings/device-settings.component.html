@@ -16,7 +16,7 @@
                                 <select  id="list_selected" class="form-select form-select-sm mb-1 ms-1 me-1"
                                 aria-label=".form-select-sm example">
                                 <option selected>Default</option>
-                                <option *ngFor = "let data of this.devices_list"  value="data?.id">{{data?.device}}</option>
+                                <option *ngFor = "let data of this.devices_list" (click) = filterby(data?.id)  value="data?.id">{{data?.device}}</option>
                               </select>
                             </div>
 
@@ -24,7 +24,6 @@
                                 <select  id="list_selected" class="form-select form-select-sm mb-1 ms-1 me-1"
                                 aria-label=".form-select-sm example">
                                 <option selected>Auto</option>
-                                <option  value="packed?.list_id">{{"manual"}}</option>
                         
                               </select>
                             </div>
@@ -39,7 +38,7 @@
         </div>
     </div>
   </div>
-
+<!-- New Work committed -->
   <div class="container h-auto p-2 ">
     <div class="row align-items-center h-100 p-2">
         <div class="col-12 mx-auto ">
@@ -54,7 +53,7 @@
                         <tr>
 
                           <th>
-                            SIM
+                            Name
                           </th>
                           <th>
                             Number
@@ -63,53 +62,146 @@
                             Balance
                           </th>
                           <th>
-                            Model
+                            Date
                           </th>
                           <th>
-                            Android Version
+                            Time
                           </th>
                           <th>
-                            IMEI
+                            Sim Status
                           </th>
                           <th>
-                            IMSI
+                            Success %
                           </th>
+                          <th>
+                            Delay
+                          </th>
+                          <th>
+                            Phone Status
+                          </th>
+                          <th>
+                            Top up
+                          </th>
+                          
+                          
 
                         </tr>
 
-                        <tr *ngFor= "let sim_data of device_list_details" value = "sim_data?.id">
+                        <tr *ngFor= "let sim_data of device_list_details,index as i" class="hover-highlight" value = "sim_data?.id">
 
                             <td >
                                 {{sim_data?.sim}}
-                            </td>
-                            <td >
+                            </td> 
+
+                            <td class="btn btn-light"   (click)="popup = true">
                                 {{sim_data?.number}}
                             </td>
-                            <td >
+                            <td class="table-row-action">
                                 {{sim_data?.balance}}
                             </td>
                             <td>
-                                {{sim_data?.model}}
+                                {{sim_data?.date}}
                             </td>
                             <td >
-                                {{sim_data?.android_ver}}
+                                {{sim_data?.time}}
                             </td>
                             <td >
-                                {{sim_data?.imei}}
-                            </td>
-                            <td >
-                                {{sim_data?.imsi}}
+                                {{sim_data?.sim_Status}}
                             </td>
 
+                            <td >
+                              {{sim_data?.success}}
+                          </td>
+
+                            <td >
+                              {{sim_data?.delay}}
+                            </td>
+
+                            <td >
+                              {{sim_data?.phone_Status}}
+                          </td>
+
+                          <td >
+                            {{sim_data?.top_up}}
+                          </td>
+
+                          
+                          
+
+                          <div class="overlay" *ngIf="popup">
+                            <div class="popup">
+                                <h2>Details</h2>
+                                <a class="close" (click)="popup = false">&times;</a>
+                                <div class="content">
+
+                                  <div class="row">
+
+                                    <div class="col">
+                                      <th>
+                                        IMEI
+                                      </th>
+                                      
+                                    </div>
+
+                                    <div class="col">
+
+                                      <th>
+                                        Android Version
+                                      </th>
+                                    </div>
+
+                                    
+
+                                  </div>
+
+
+                                  <div class="row">
+                                    <div class="col">
+
+                                      <td >
+                                        {{sim_data?.imei}}
+                                       
+                                    </td>
+    
+                                  </div>
+                                  <div class="col">
+
+                                    <td >
+                                      {{sim_data?.android_ver}}
+                                    </td>
+                                  </div>
+
+                                  
+
+
+                                  </div>
+                                  
+                                
+
+                                </div>
+                            </div>
+                        </div>
 
                         </tr>
 
                       </table>
+                      
                     
                   </div>
+                     
   
                 </div>
             </div>
         </div>
     </div>
   </div>
+
+ 
+
+
+
+
+
+
+
+   

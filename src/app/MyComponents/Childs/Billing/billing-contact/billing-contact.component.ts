@@ -25,13 +25,13 @@ export class BillingContactComponent implements OnInit {
 
   ngOnInit(): void {
     let json = localStorage.getItem("user_data");
-    // if (json!=null)
+    if (json!=null)
     {
-      // this.data = JSON.parse(json);
-      // let username = this.data.username;
-      // let password = EncodeDecode.b64DecodeUnicode( this.data.passcode);
-      let username = myCredentials.username;
-      let password = myCredentials.password;
+      this.data = JSON.parse(json);
+      let username = this.data.username;
+      let password = EncodeDecode.b64DecodeUnicode( this.data.passcode);
+      // let username = myCredentials.username;
+      // let password = myCredentials.password;
       var auths = EncodeDecode.b64EncodeUnicode(username+":"+password);
       
       console.log((auths));

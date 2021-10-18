@@ -8,6 +8,7 @@ import { SMSTemplate } from 'src/app/Classes/SMS/view_sms_templates_response';
 import { DateHandler } from 'src/app/Helper/datehandler';
 import { Toaster } from 'src/app/Helper/toaster';
 import * as $ from 'jquery';
+import { EncodeDecode } from 'src/app/Classes/EncodeDec64';
 
 
 @Component({
@@ -32,6 +33,7 @@ export class SenderMmsComponent implements OnInit {
   shouldScheduleMMSMessage: number = 0
   mmsPickedDate: string = "" //new Date().toDateString();
   mmsPickedTime: string = "";
+  data:any;
 
   // window: any["$"] = $;
   response: SendResponse | undefined;
@@ -99,20 +101,33 @@ export class SenderMmsComponent implements OnInit {
         });
         console.log(messagesList)
         const param: SendMMSParam = {media_file: this.media_file_url, messages: messagesList}
-        this.apiService.sendMMS(param)
-          .subscribe(response =>{
-            this.response = response
-            console.log("Before")
-            if (this.response.response_code == "SUCCESS") {
-              console.log("Sucess")
-              Toaster.sucessToast(this.response.response_msg!)
-            }
-            else {
-              console.log("Failure")
-              Toaster.failureToast(this.response.response_code!, this.response.response_msg!)
-            }
-            console.log("After")
-          })
+
+    let json = localStorage.getItem("user_data");
+
+    if(json!=null)
+    {
+        this.data = JSON.parse(json);
+        let username = this.data.username;
+          let password = EncodeDecode.b64DecodeUnicode( this.data.passcode);
+          var auths = EncodeDecode.b64EncodeUnicode(username+":"+password);
+          this.apiService.sendMMS(auths,param)
+            .subscribe(response =>{
+              this.response = response
+              console.log("Before")
+              if (this.response.response_code == "SUCCESS") {
+                console.log("Sucess")
+                Toaster.sucessToast(this.response.response_msg!)
+              }
+              else {
+                console.log("Failure")
+                Toaster.failureToast(this.response.response_code!, this.response.response_msg!)
+              }
+              console.log("After")
+            })
+    }
+
+
+
     }
   }
 

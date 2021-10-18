@@ -41,12 +41,6 @@ import {MatMenuModule} from '@angular/material/menu';
 import { MatTableModule } from '@angular/material/table'  
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
-
-
-
-
-
-
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -87,9 +81,14 @@ import { Permission } from './Classes/Permissions';
 import { DeviceSettingsComponent } from './MyComponents/device-settings/device-settings.component';
 import { ProgressComponentComponent } from './MyComponents/progress-component/progress-component.component';
 import { Snake_Waiting } from './Classes/Waiting_bar';
+import {MatTreeModule} from '@angular/material/tree';
+import { OperatorConfigurationComponent } from './operator-configuration/operator-configuration.component';
+import { EditInputComponent } from './MyComponents/edit-input/edit-input.component';
+
 import { SenderMmsComponent } from './MyComponents/Childs/messages/sender_mms/sender-mms/sender-mms.component';
 import { SenderRemoteSmsComponent } from './MyComponents/Childs/messages/sender_remote_sms/sender-remote-sms/sender-remote-sms.component';
 import { SenderSmsComponent } from './MyComponents/Childs/messages/sender_sms/sender-sms/sender-sms.component';
+import { GeolocationCodesComponent } from './MyComponents/geolocation-codes/geolocation-codes.component';
 
 
 
@@ -126,9 +125,13 @@ import { SenderSmsComponent } from './MyComponents/Childs/messages/sender_sms/se
     MobTopComponent,
     DeviceSettingsComponent,
     ProgressComponentComponent,
+    OperatorConfigurationComponent,
+    EditInputComponent,
+  
     SenderSmsComponent,
     SenderMmsComponent,
-    SenderRemoteSmsComponent
+    SenderRemoteSmsComponent,
+    GeolocationCodesComponent
   ],
   imports: [
     BrowserModule,
@@ -152,6 +155,7 @@ import { SenderSmsComponent } from './MyComponents/Childs/messages/sender_sms/se
     NgxMaterialTimepickerModule,
     MatProgressSpinnerModule,
     MatSnackBarModule,
+    MatTreeModule,
     NgxAwesomePopupModule.forRoot({
       ColorList: {
         Success: '#3caea3', // optional

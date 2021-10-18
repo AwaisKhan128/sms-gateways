@@ -34,7 +34,7 @@ export class ProfileComponent implements OnInit {
   }
 
 
-  constructor(private sharedService:SharedService,private router: Router,private freeapi: API_Services) { }
+  constructor(private sharedService:SharedService,public router: Router,private freeapi: API_Services) { }
 
   ngOnInit(): void {
 
@@ -42,16 +42,16 @@ export class ProfileComponent implements OnInit {
     let json1 = localStorage.getItem("user_status");
 
 
-    // if(json!=null)
+    if(json!=null)
     {
 
-      // this.data = JSON.parse(json);
+      this.data = JSON.parse(json);
 
-      // let username = this.data.username;
-      // let password = EncodeDecode.b64DecodeUnicode( this.data.passcode);
+      let username = this.data.username;
+      let password = EncodeDecode.b64DecodeUnicode( this.data.passcode);
 
-      let username = myCredentials.username;
-      let password = ( myCredentials.password);
+      // let username = myCredentials.username;
+      // let password = ( myCredentials.password);
       let auth = EncodeDecode.b64EncodeUnicode(username+':'+password)
       this.freeapi.getLogin(auth)
       .subscribe
@@ -62,16 +62,13 @@ export class ProfileComponent implements OnInit {
             let balance = data.data.balance;
             // var button_text = document.getElementById('your_button_id').innerHTML;
             console.log(balance);
-
-
-            console.log($('#web_balance').text());
-            console.log($('#web_balance').val());
-            console.log($('#web_balance').html());
-
+            // console.log($('#web_balance').text());
+            // console.log($('#web_balance').val());
+            // console.log($('#web_balance').html());
 
 
             // $('#web_balance').attr('text', 'balance');
-            // $('#web_balance').text(balance);
+            $('#web_balance').val(balance);
         },
         err=>
         {
@@ -82,6 +79,7 @@ export class ProfileComponent implements OnInit {
       
 
     }
+
     if(json1!=null)
     {
 
@@ -90,10 +88,16 @@ export class ProfileComponent implements OnInit {
       {
         this.router.navigate(['./'])
       }
+      else if (this.data1 == null)
+      {
+        this.router.navigate(['./'])
+      }
     }
-    // else{
-    //   this.router.navigate(['./'])
-    // }
+
+
+    else{
+      this.router.navigate(['./'])
+    }
 
     //console.log((this.data));
     // console.log(this.data1);
@@ -254,4 +258,10 @@ export class ProfileComponent implements OnInit {
   /* Set the width of the side navigation to 250px */
 
 
+
+  logout()
+  {
+    localStorage.removeItem("user_data")
+    this.router.navigate(['']); 
+  }
 }
