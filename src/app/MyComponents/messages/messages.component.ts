@@ -101,6 +101,7 @@ export class MessagesComponent implements OnInit {
     if (this.messageTo == null) {
       this.messageTo = "0"
     }
+    
     var messageToUnixTimestamp = DateHandler.convertDateToUnixTimestamp(this.messageTo)
     if(history_type == "SMS") {
       this.apiService.getSMSHisory(messageFromUnixTimestamp, messageToUnixTimestamp).subscribe(
@@ -396,7 +397,7 @@ export class MessagesComponent implements OnInit {
             message_price: item.cost,
             status:item.status,
             status_text:item.status,
-            message_type: "Remote SMS"
+            message_type: "Remote SMS",
           }
           this.sms_history_array.push(k)  
         })
