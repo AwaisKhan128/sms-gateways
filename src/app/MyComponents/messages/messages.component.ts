@@ -35,9 +35,10 @@ export class MessagesComponent implements OnInit {
 
   subscribedDevices : HTTPResponseSubscribedDevices[] = [];
   sims: HTTPResponseSubscribedDeviceSim[] = [];
-  selectedRemoteMessages = 0
+  userSearchedForRemoteMessages = 0
   remoteMessages: SubscribedDevicesRemoteMessage[] = []
-  
+  userSelectDeviceSim = "0"
+
   messageTo: string =  "0"; //"+61411111111,+61422222222";
   messageFrom: string =  "0"
 
@@ -115,7 +116,6 @@ export class MessagesComponent implements OnInit {
         })
           this.applyfilteringOnThisData()
           this.snakeBar.close_bar();
-          console.log("the first date uniztimestamp is", this.sms_history_array[0].date!)
         }
       );
     }
@@ -151,8 +151,6 @@ export class MessagesComponent implements OnInit {
       })
     }
   }
-
-
 
   applyfilteringOnThisData() {
     if (this.sms_history_array.length > 0 && this.search_param_messageStatus.toLowerCase() !== "all") {
@@ -322,32 +320,28 @@ export class MessagesComponent implements OnInit {
     this.snakeBar.start_bar("Please Wait");
     const subscribedDeviceID = <number>event.target.value;
     this.search_param_selected_subscribed_device_ID = subscribedDeviceID
-    console.log("snakeee", this.search_param_selected_subscribed_device_ID)
     if (this.search_param_selected_subscribed_device_ID != -1) {
       this.fetchSubscribedDevicesSim()
-      this.selectedRemoteMessages = 1
+      this.userSearchedForRemoteMessages = 1
     }
     else {
-      this.selectedRemoteMessages = 0
+      this.userSearchedForRemoteMessages = 0
     }
-    console.log("snakeee2", this.selectedRemoteMessages)
     this.snakeBar.close_bar();
   }
   
   simSelectionChangeHandler (event: any) {
-    console.log("selected device SIM/PHONE is is 1")
-    const selectedSim = <number>event.target.value;
+    var selectedSim = <string>event.target.value;
     console.log("selected sim  is",selectedSim)
-    // if (selectedSim !== null || selectedSim != undefined) {
-    //   this.messageFrom = selectedSim.toString()
-    //   console.log("selected sim is",this.messageFrom)
-    // }
+    if(selectedSim === '' || selectedSim === "NONE") {
+      selectedSim = "0"  
+    }
+    this.userSelectDeviceSim = selectedSim
   }
   
   getSubscribedDevices(userID: string) {
     this.apiService.getSubscribedDevices(userID).subscribe(
       response => {
-        console.log(response)
         let initialDevice: HTTPResponseSubscribedDevices = {
           country:"-1",
           device: "NONE",
@@ -367,7 +361,6 @@ export class MessagesComponent implements OnInit {
   fetchSubscribedDevicesSim() {
     this.apiService.getSubscribedDevicesSim(this.search_param_selected_subscribed_device_ID.toString()).subscribe(
       response => {
-        console.log(response)
         let intialSim : HTTPResponseSubscribedDeviceSim = {
           number : "NONE"
         }
@@ -379,7 +372,6 @@ export class MessagesComponent implements OnInit {
   }
 
   actionFetchSubscribedDeviceRemoteMessages() {
-    console.log("onit 1")
     this.search_param_selected_subscribed_device_ID = 270610
     this.apiService.getSubscribedDevicesRemoteMessages(this.search_param_selected_subscribed_device_ID).subscribe(
       e=> {
@@ -387,7 +379,6 @@ export class MessagesComponent implements OnInit {
         this.filtered_history_array = [];
         const msgs = e.http_response as SubscribedDevicesRemoteMessage[]
         msgs.forEach(item => {
-          console.log(item.date)
           const k : HistoryDatum = {
             message_id: item.id?.toString(),
             _api_username: item.username,
@@ -405,13 +396,20 @@ export class MessagesComponent implements OnInit {
           }
           this.sms_history_array.push(k)  
         })
-        this.filtered_history_array = this.sms_history_array 
+        this.applyFilteringOnRemoteMessagesData()
         this.snakeBar.close_bar();
       }
     )
   }
 
-
+  applyFilteringOnRemoteMessagesData() {
+    if(this.sms_history_array.length > 0 && this.userSelectDeviceSim != "0") {
+        this.filtered_history_array = this.sms_history_array.filter((m:HistoryDatum) => m.from! === this.userSelectDeviceSim)
+    }
+    else {
+      this.filtered_history_array = this.sms_history_array
+    }
+  }
 
    // used to build a slice of papers relevant at any given time
    public getPaginatorData(event: PageEvent): PageEvent {

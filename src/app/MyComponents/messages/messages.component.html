@@ -22,7 +22,7 @@
 
       <div class="col-4">
         <label for="selects1"> Status</label>
-        <select class="form-select form-select-sm me-auto" id="selects1" aria-label=".form-select-sm example" [disabled]="selectedRemoteMessages == 1" 
+        <select class="form-select form-select-sm me-auto" id="selects1" aria-label=".form-select-sm example" [disabled]="userSearchedForRemoteMessages == 1" 
         (change)="onMessageStatusTypeChange($event)">
           <option selected value="ALL">All</option>
           <option value="COMPLETED">Completed</option>
@@ -32,7 +32,7 @@
 
       <div class="col-4">
         <label for="selects1"> Type</label>
-        <select class="form-select form-select-sm me-auto" id="selects1" aria-label=".form-select-sm example"[disabled]="selectedRemoteMessages == 1" 
+        <select class="form-select form-select-sm me-auto" id="selects1" aria-label=".form-select-sm example"[disabled]="userSearchedForRemoteMessages == 1" 
          (change)="onMessageTypeChange($event)">
           <option selected value="ALL">All</option>
           <option value="SMS">SMS</option>
@@ -48,7 +48,7 @@
         <div class="col-sm-3">
           <label for="selects1"> Mobile Number</label>
           <select class="form-select form-select-sm me-auto" id="selects1" aria-label=".form-select-sm example" 
-          [disabled]="selectedRemoteMessages == 0"
+          [disabled]="userSearchedForRemoteMessages == 0"
           (change)="simSelectionChangeHandler($event)">
             <option selected *ngFor="let s of this.sims" 
               [value]="s.number"
@@ -63,7 +63,7 @@
         <div class="col-sm-3">
           <label for="selects1"> Messages</label>
           <select class="form-select form-select-sm me-auto" id="selects1" aria-label=".form-select-sm example"
-           [disabled]="selectedRemoteMessages == 1">
+           [disabled]="userSearchedForRemoteMessages == 1">
             <option selected>All</option>
             <option value="1">One</option>
             <option value="2">Two</option>
@@ -76,8 +76,8 @@
         <mat-form-field appearance="fill">
           <mat-label>Enter a date range</mat-label>
           <mat-date-range-input [rangePicker]="picker">
-            <input class="form-control" id="start_date" [disabled]="selectedRemoteMessages == 1" matStartDate placeholder="Start date"  [(ngModel)] = "this.messageFrom" [ngModelOptions]="{standalone: true}" readonly>
-            <input class="form-control" id="end_date" [disabled]="selectedRemoteMessages == 1" matEndDate placeholder="End date"  [(ngModel)] = "this.messageTo" [ngModelOptions]="{standalone: true}" readonly>
+            <input class="form-control" id="start_date" [disabled]="userSearchedForRemoteMessages == 1" matStartDate placeholder="Start date"  [(ngModel)] = "this.messageFrom" [ngModelOptions]="{standalone: true}" readonly>
+            <input class="form-control" id="end_date" [disabled]="userSearchedForRemoteMessages == 1" matEndDate placeholder="End date"  [(ngModel)] = "this.messageTo" [ngModelOptions]="{standalone: true}" readonly>
           </mat-date-range-input>
           <mat-date-range-picker #picker></mat-date-range-picker>
         </mat-form-field>
