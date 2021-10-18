@@ -47,17 +47,17 @@ export class MessagesComponent implements OnInit {
   search_param_messageStatus: string = "ALL"
 
   //Pagination
-  //Pagination
-
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   search_param_page_length : number = 0
   search_param_page_index: number = 1;
   search_param_page_size: number = 15;
+  donot_load_paginator : number = 1
 
 
   constructor(private apiService: API_Services, private modalService: NgbModal, private snakeBar:Snake_Waiting) { }
 
   ngOnInit(): void {
+    this.donot_load_paginator = 1
     this.snakeBar.start_bar("Please Wait");
     this.actionSearch()
     this.getSubscribedDevices("23911")
@@ -82,7 +82,12 @@ export class MessagesComponent implements OnInit {
 
 
   actionSearch() {
-   this.paginator.firstPage()
+   if (this.donot_load_paginator == 0) {
+      this.paginator.firstPage()  
+   }
+   else {
+     this.donot_load_paginator = 0
+   }
    if (this.search_param_selected_subscribed_device_ID > -1) {
       this.actionFetchSubscribedDeviceRemoteMessages()
     }
