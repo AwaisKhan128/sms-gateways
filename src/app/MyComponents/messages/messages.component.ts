@@ -96,7 +96,7 @@ export class MessagesComponent implements OnInit {
     }
   }
   
-   actionFetchHistory(history_type : string = "ALL") {
+  actionFetchHistory(history_type : string = "ALL") {
     this.messageFrom = (this.messageFrom !== "" || this.messageFrom !== undefined || this.messageFrom !== null) ? this.messageFrom : "0"
     var messageFromUnixTimestamp = DateHandler.convertDateToUnixTimestamp(this.messageFrom)
 
@@ -162,6 +162,9 @@ export class MessagesComponent implements OnInit {
     if (this.sms_history_array.length > 0 && this.search_param_messageStatus.toLowerCase() !== "all") {
       this.filtered_history_array = this.sms_history_array.filter((m:HistoryDatum) => m.status!.toLowerCase()
        === this.search_param_messageStatus.toLowerCase())
+       if (this.filtered_history_array.length == 0) {
+          this.search_param_page_length = 0 
+       }
     }
     else {
       this.filtered_history_array = this.sms_history_array
@@ -411,9 +414,15 @@ export class MessagesComponent implements OnInit {
   applyFilteringOnRemoteMessagesData() {
     if(this.sms_history_array.length > 0 && this.userSelectDeviceSim != "0") {
         this.filtered_history_array = this.sms_history_array.filter((m:HistoryDatum) => m.from! === this.userSelectDeviceSim)
+        if (this.filtered_history_array.length == 0) {
+          this.search_param_page_length = 0
+        }
     }
     else {
       this.filtered_history_array = this.sms_history_array
+      if (this.filtered_history_array.length == 0) {
+        this.search_param_page_length = 0
+      }
     }
   }
 
