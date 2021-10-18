@@ -88,6 +88,7 @@ import { EditInputComponent } from './MyComponents/edit-input/edit-input.compone
 import { SenderMmsComponent } from './MyComponents/Childs/messages/sender_mms/sender-mms/sender-mms.component';
 import { SenderRemoteSmsComponent } from './MyComponents/Childs/messages/sender_remote_sms/sender-remote-sms/sender-remote-sms.component';
 import { SenderSmsComponent } from './MyComponents/Childs/messages/sender_sms/sender-sms/sender-sms.component';
+import { GeolocationCodesComponent } from './MyComponents/geolocation-codes/geolocation-codes.component';
 
 
 
@@ -129,7 +130,8 @@ import { SenderSmsComponent } from './MyComponents/Childs/messages/sender_sms/se
   
     SenderSmsComponent,
     SenderMmsComponent,
-    SenderRemoteSmsComponent
+    SenderRemoteSmsComponent,
+    GeolocationCodesComponent
   ],
   imports: [
     BrowserModule,

@@ -16,6 +16,7 @@ import { ContactsComponent } from './MyComponents/contacts/contacts.component';
 import { CreateAccComponent } from './MyComponents/create-acc/create-acc.component';
 import { DashboardComponent } from './MyComponents/dashboard/dashboard.component';
 import { DeviceSettingsComponent } from './MyComponents/device-settings/device-settings.component';
+import { GeolocationCodesComponent } from './MyComponents/geolocation-codes/geolocation-codes.component';
 import { MessagesComponent } from './MyComponents/messages/messages.component';
 import { PersonalComponent } from './MyComponents/personal/personal.component';
 import { ProfileComponent } from './MyComponents/profile/profile.component';
@@ -35,6 +36,7 @@ const routes: Routes = [
   { path: '', component: SignInComponent},
   { path : 'createacc', component : CreateAccComponent},
   { path : 'verify' , component : VerifyComponent},
+  { path : 'geolocation_sprime',component:GeolocationCodesComponent},
   { path : 'profile', component : ProfileComponent,
   children: [
     {
