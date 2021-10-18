@@ -117,7 +117,7 @@ export class MessagesComponent implements OnInit {
       );
     }
     else if(history_type == "MMS"){
-      this.apiService.getMMSHistory(messageFromUnixTimestamp, messageToUnixTimestamp).subscribe(
+      this.apiService.getMMSHistory(messageFromUnixTimestamp, messageToUnixTimestamp, this.search_param_page_index, this.search_param_page_size).subscribe(
         response => {
           var total = response.data?.total! as number
           this.search_param_page_length = total
