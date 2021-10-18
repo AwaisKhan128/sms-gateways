@@ -35,8 +35,13 @@ export class DateHandler {
       return unixTime
   }
 
-  public static convertDateFromUnixTimestapm(unixtimestap: number) : string{
-    return new Date(unixtimestap).toLocaleDateString("en-US")
+  public static convertDateToUnixTimestampWith(date: string, dateFormat: string = "y-M-d'T'HH:mm:ss.SSSZ") : number{
+      var datePipe = new DatePipe("en-US");
+      var convertedDate = datePipe.transform(date, dateFormat);
+      var newDate = new Date(convertedDate + "")
+      const unixTime =  new Date(newDate).getTime() / 1000
+      console.log("UNIX TIME",unixTime)
+      return unixTime
   }
 
 }

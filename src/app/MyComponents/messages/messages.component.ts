@@ -401,6 +401,7 @@ export class MessagesComponent implements OnInit {
             status:item.status,
             status_text:item.status,
             message_type: "Remote SMS",
+            date: DateHandler.convertDateToUnixTimestampWith(item.date!)
           }
           this.sms_history_array.push(k)  
         })
