@@ -35,7 +35,6 @@ export class MessagesComponent implements OnInit {
 
   subscribedDevices : HTTPResponseSubscribedDevices[] = [];
   sims: HTTPResponseSubscribedDeviceSim[] = [];
-  remoteMessages : SubscribedDevicesRemoteMessage[] = []  
   selectedRemoteMessages = 0
   
   messageTo: string =  "0"; //"+61411111111,+61422222222";
@@ -303,7 +302,7 @@ export class MessagesComponent implements OnInit {
    * @param data - Array Buffer data
    * @param type - type of the document.
    */
-      downLoadFile(data: any, type: string) {
+  downLoadFile(data: any, type: string) {
       let blob = new Blob([data], { type: type});
       let url = window.URL.createObjectURL(blob);
       let pwa = window.open(url);
@@ -378,7 +377,19 @@ export class MessagesComponent implements OnInit {
     this.search_param_selected_subscribed_device_ID = 270610
     this.apiService.getSubscribedDevicesRemoteMessages(this.search_param_selected_subscribed_device_ID).subscribe(
       e=> {
-
+        const msgs = e.SubscribedDevicesRemoteMessage as SubscribedDevicesRemoteMessagesResponse[]
+        this.sms_history_array = []
+        this.filtered_history_array = []
+        msgs.forEach(
+          item => {
+            const hMessage : HistoryDatum = {
+              
+            }
+            this.sms_history_array.push(hMessage)
+          }
+        )
+        this.filtered_history_array = this.sms_history_array
+        this.snakeBar.close_bar();
       }
     )
     // this.apiService.getSubscribedDevicesRemoteMessages(this.search_param_selected_subscribed_ID).subscribe(
