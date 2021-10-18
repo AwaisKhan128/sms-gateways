@@ -6,7 +6,7 @@ import { CLICKSEND_STATISTICS_TYPE, MESSAGE_STATUS_TYPE } from 'src/app/APIS/API
 import { Message } from 'src/app/Classes/SMS/send_sms_response';
 import { DateHandler } from 'src/app/Helper/datehandler';
 import { isNull } from '@angular/compiler/src/output/output_ast';
-import { PageEvent } from '@angular/material/paginator';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { Toaster } from 'src/app/Helper/toaster';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { SimpledialogComponent } from '../simpledialog/simpledialog.component';
@@ -47,6 +47,7 @@ export class MessagesComponent implements OnInit {
   search_param_messageStatus: string = "ALL"
 
   //Pagination
+  @ViewChild(MatPaginator, {static:false}) paginator: MatPaginator;
   search_param_page_length : number = 0
   search_param_page_index: number = 1;
   search_param_page_size: number = 15;
@@ -100,6 +101,7 @@ export class MessagesComponent implements OnInit {
     if(history_type == "SMS") {
       this.apiService.getSMSHisory(messageFromUnixTimestamp, messageToUnixTimestamp, this.search_param_page_index, this.search_param_page_size).subscribe(
         response => {
+          this.search_param_page_index = 0
           var total = response.data?.total! as number
           this.search_param_page_length = total
           const smsArray =  response.data?.data
@@ -115,6 +117,9 @@ export class MessagesComponent implements OnInit {
     else if(history_type == "MMS"){
       this.apiService.getMMSHistory(messageFromUnixTimestamp, messageToUnixTimestamp).subscribe(
         response => {
+          this.search_param_page_index = 0
+          var total = response.data?.total! as number
+          this.search_param_page_length = total
           const mmsArray =  response.data?.data//?.map(i => i.message_type = "mms")
           this.sms_history_array = mmsArray as HistoryDatum[]
           this.sms_history_array.map(e=> e.message_type = "MMS")
