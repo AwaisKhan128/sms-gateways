@@ -79,6 +79,7 @@ export class DashboardComponent implements OnInit {
     )
   }
 
+  
   fetchMessagesCount(auth:string) {
     const remoteMessages = this.freeapi.getSubscribedDevicesRemoteMessages(270610)
     const getStatisticsSMS = this.freeapi.getStatisticsSMS(auth)
