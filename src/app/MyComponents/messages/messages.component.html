@@ -84,7 +84,7 @@
 
       </div>
       <div>
-        <mat-paginator 
+        <mat-paginator #paginator
         [length]="this.search_param_page_length" 
         [pageSize]="this.search_param_page_size"
         (page)="getPaginatorData($event)"

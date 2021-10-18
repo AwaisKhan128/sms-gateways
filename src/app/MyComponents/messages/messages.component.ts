@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { API_Services } from 'src/app/APIS/freeapi.service';
 import { HistoryResponse, HistoryDatum } from 'src/app/Classes/SMS/sms_history_response';
 import { forkJoin } from 'rxjs';
@@ -47,7 +47,9 @@ export class MessagesComponent implements OnInit {
   search_param_messageStatus: string = "ALL"
 
   //Pagination
-  @ViewChild(MatPaginator, {static:false}) paginator: MatPaginator;
+  //Pagination
+
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
   search_param_page_length : number = 0
   search_param_page_index: number = 1;
   search_param_page_size: number = 15;
@@ -80,6 +82,7 @@ export class MessagesComponent implements OnInit {
 
 
   actionSearch() {
+   this.paginator.firstPage()
    if (this.search_param_selected_subscribed_device_ID > -1) {
       this.actionFetchSubscribedDeviceRemoteMessages()
     }
@@ -101,7 +104,6 @@ export class MessagesComponent implements OnInit {
     if(history_type == "SMS") {
       this.apiService.getSMSHisory(messageFromUnixTimestamp, messageToUnixTimestamp, this.search_param_page_index, this.search_param_page_size).subscribe(
         response => {
-          this.search_param_page_index = 0
           var total = response.data?.total! as number
           this.search_param_page_length = total
           const smsArray =  response.data?.data
@@ -117,7 +119,6 @@ export class MessagesComponent implements OnInit {
     else if(history_type == "MMS"){
       this.apiService.getMMSHistory(messageFromUnixTimestamp, messageToUnixTimestamp).subscribe(
         response => {
-          this.search_param_page_index = 0
           var total = response.data?.total! as number
           this.search_param_page_length = total
           const mmsArray =  response.data?.data//?.map(i => i.message_type = "mms")
