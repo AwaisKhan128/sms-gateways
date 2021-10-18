@@ -37,6 +37,8 @@ export class SignInComponent implements OnInit {
   getAccCurrency: any;
   getsubAcc: any;
 
+  location_access :any = 'https://www.geoplugin.net/json.gp';
+
 
   window: any["$"] = $;
   forget_username_resp: forget_username_resp|any;
@@ -163,7 +165,7 @@ export class SignInComponent implements OnInit {
                       // Toaster_Service.toastNotification_S("Check Console");
 
                       // Here to Register him...
-                    $.getJSON('http://www.geoplugin.net/json.gp', (data1) => {
+                    $.getJSON(this.location_access, (data1) => {
                     const data_R = data1;
 
 
@@ -224,7 +226,7 @@ export class SignInComponent implements OnInit {
                     else if (val.http_response.length>0){
                       let data = val.http_response[0];
                       var content_comp={}
-                      $.getJSON('http://www.geoplugin.net/json.gp', (data1) => {
+                      $.getJSON(this.location_access, (data1) => {
                         const data_R = data1;
 
 
@@ -278,7 +280,7 @@ export class SignInComponent implements OnInit {
                             res=>
                             {
                               this.snakeBar.close_bar();
-                              $.getJSON('http://www.geoplugin.net/json.gp', (data1) => {
+                              $.getJSON(this.location_access, (data1) => {
 
                               const data_R = data1;
                               content_comp = {
@@ -404,7 +406,7 @@ export class SignInComponent implements OnInit {
                         // Toaster_Service.toastNotification_S("Check Console");
   
                         // Here to Register him...
-                      $.getJSON('http://www.geoplugin.net/json.gp', (data1) => {
+                      $.getJSON(this.location_access, (data1) => {
                       const data_R = data1;
   
   
@@ -464,7 +466,7 @@ export class SignInComponent implements OnInit {
                       else if (val.http_response.length>0){
                         let data = val.http_response[0];
                         var content_comp={}
-                        $.getJSON('http://www.geoplugin.net/json.gp', (data1) => {
+                        $.getJSON(this.location_access, (data1) => {
                           const data_R = data1;
   
   
@@ -518,7 +520,7 @@ export class SignInComponent implements OnInit {
                             res=>
                             {
                               this.snakeBar.close_bar();
-                              $.getJSON('http://www.geoplugin.net/json.gp', (data1) => {
+                              $.getJSON(this.location_access, (data1) => {
 
                               const data_R = data1;
                               content_comp = {
@@ -641,7 +643,7 @@ export class SignInComponent implements OnInit {
                         // Toaster_Service.toastNotification_S("Check Console");
   
                         // Here to Register him...
-                      $.getJSON('http://www.geoplugin.net/json.gp', (data1) => {
+                      $.getJSON(this.location_access, (data1) => {
                       const data_R = data1;
   
   
@@ -701,7 +703,7 @@ export class SignInComponent implements OnInit {
                       else if (val.http_response.length>0){
                         let data = val.http_response[0];
                         var content_comp={}
-                        $.getJSON('http://www.geoplugin.net/json.gp', (data1) => {
+                        $.getJSON(this.location_access, (data1) => {
                           const data_R = data1;
   
   
@@ -753,7 +755,7 @@ export class SignInComponent implements OnInit {
                             res=>
                             {
                               this.snakeBar.close_bar();
-                              $.getJSON('http://www.geoplugin.net/json.gp', (data1) => {
+                              $.getJSON(this.location_access, (data1) => {
 
                               const data_R = data1;
                               content_comp = {
