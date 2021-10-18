@@ -6,6 +6,9 @@ import { EncodeDecode } from 'src/app/Classes/EncodeDec64';
 import * as $ from 'jquery';
 import { getAccDetails, getAccDetails1, getAccCurrency, getsubAcc, getSignin_responseDBforSuper } from 'src/app/Classes/signin';
 import { Router } from '@angular/router';
+import { SubscribedDevicesRemoteMessage } from 'src/app/Classes/subscribed_devices_remote_messages';
+import { forkJoin } from 'rxjs/internal/observable/forkJoin';
+import { response } from 'express';
 
 
 
@@ -50,6 +53,8 @@ export class DashboardComponent implements OnInit {
     
   }
 
+  
+
   public get_Info(uname:string,password:string) {
     // this.Login(this.uname, this.passcode);
     var encoded = EncodeDecode.b64EncodeUnicode(uname + ':' + password);
@@ -64,7 +69,7 @@ export class DashboardComponent implements OnInit {
           this.getAccCurrency = res._currency;
           this.getsubAcc = res._subaccount;
           var encoded = EncodeDecode.b64EncodeUnicode(uname + ':' + password);
-          this.fetchStatistcs(encoded);
+          this.fetchMessagesCount(encoded)
 
           // ---------------------Populating items-------------------
       },
@@ -74,22 +79,16 @@ export class DashboardComponent implements OnInit {
     )
   }
 
-  fetchStatistcs(auth:string) {
-    // console.log("11")
-    this.freeapi.getStatisticsSMS(auth).subscribe(
-      res=> {
-        // console.log(res)
-        let response = JSON.parse(JSON.stringify(res));
-        this.bounced_messages_total = response.data.total?.bounced?.count ?? 0 as number
-        this.outbound_messages_total = response.data.total?.outbound?.count ?? 0 as number
-        this.bounced_messages_total = response.data.total?.inbound?.count ?? 0 as number
-        // console.log("inbound"+this.inbound_messages_total)
-        // console.log("outbound"+this.outbound_messages_total)
-        // console.log("bounced"+this.bounced_messages_total)
-      }
-      
-
-    )
+  fetchMessagesCount(auth:string) {
+    const remoteMessages = this.freeapi.getSubscribedDevicesRemoteMessages(270610)
+    const getStatisticsSMS = this.freeapi.getStatisticsSMS(auth)
+    forkJoin([remoteMessages,getStatisticsSMS]).subscribe( responses =>{
+      const remote = responses[0].http_response as SubscribedDevicesRemoteMessage[]
+      let response = JSON.parse(JSON.stringify(responses[1]));
+      this.bounced_messages_total = response.data.total?.bounced?.count ?? 0 as number
+      this.outbound_messages_total = (response.data.total?.outbound?.count ?? 0 as number) + remote.length
+      this.inbound_messages_total = response.data.total?.inbound?.count ?? 0 as number
+    })
   }
 
 }
