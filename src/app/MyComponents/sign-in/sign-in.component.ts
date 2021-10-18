@@ -10,6 +10,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { empty } from 'rxjs';
 import { forget_password, forget_username, forget_username_resp } from 'src/app/Classes/forgets';
 import { Snake_Waiting } from 'src/app/Classes/Waiting_bar';
+import {GeolocationService} from '@ng-web-apis/geolocation';
+
 
 
 
