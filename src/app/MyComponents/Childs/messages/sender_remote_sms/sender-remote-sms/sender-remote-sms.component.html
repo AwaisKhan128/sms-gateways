@@ -9,7 +9,6 @@
             <label for="selects"> Select templates</label>
             <select class="form-select form-select-sm me-auto" id="selects" aria-label=".form-select-sm example"
               (change)="templatedSelectionChangeHandler($event)" >
-              <option>Select a</option>
               <option selected *ngFor="let template of this.templates" 
               [value]="template.template_id"
               [ngValue]="template.template_id"
