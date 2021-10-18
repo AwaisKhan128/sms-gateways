@@ -226,10 +226,9 @@ export class SignInComponent implements OnInit {
                     else if (val.http_response.length>0){
                       let data = val.http_response[0];
                       var content_comp={}
-                      $.getJSON(this.location_access, (data1) => {
+                      $.getJSON(this.location_access, (data1) => 
+                      {
                         const data_R = data1;
-
-
                         content_comp = {
                           "id": this.getAccDetails1.user_id,
                           "username": this.uname,
@@ -250,9 +249,8 @@ export class SignInComponent implements OnInit {
                                 "resellers":data.access_resellers,
                                 "banned":data.banned,
                               }
+                              
                         }
-
-
 
                         if (data.id == this.getAccDetails1.user_id 
                           && data.username == this.uname && data.ip_addr== 
