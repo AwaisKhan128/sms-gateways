@@ -1,3 +1,4 @@
+import { AddUSSDInquiryComponent } from './MyComponents/Childs/Operators/add-ussd-inquiry/add-ussd-inquiry.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AdminComponent } from './MyComponents/admin/admin.component';
@@ -9,6 +10,8 @@ import { UsageComponent } from './MyComponents/Childs/Billing/usage/usage.compon
 import { SenderMmsComponent } from './MyComponents/Childs/messages/sender_mms/sender-mms/sender-mms.component';
 import { SenderRemoteSmsComponent } from './MyComponents/Childs/messages/sender_remote_sms/sender-remote-sms/sender-remote-sms.component';
 import { SenderSmsComponent } from './MyComponents/Childs/messages/sender_sms/sender-sms/sender-sms.component';
+import { AddSMSInquiryComponent } from './MyComponents/Childs/Operators/add-sms-inquiry/add-sms-inquiry.component';
+import { OperatorComponent } from './MyComponents/Childs/Operators/operator/operator.component';
 import { MobTopComponent } from './MyComponents/Childs/Topups/mob-top/mob-top.component';
 import { WebTopComponent } from './MyComponents/Childs/Topups/web-top/web-top.component';
 import { ContactsComponent } from './MyComponents/contacts/contacts.component';
@@ -27,6 +30,8 @@ import { TemplatesComponent } from './MyComponents/templates/templates.component
 import { TopupsComponent } from './MyComponents/topups/topups.component';
 import { VerifyComponent } from './MyComponents/verify/verify.component';
 import { OperatorConfigurationComponent } from './operator-configuration/operator-configuration.component';
+import { SendUSSDInquiryComponent } from './MyComponents/Childs/Operators/send-ussd-inquiry/send-ussd-inquiry.component';
+import { SendSMSInquiryComponent } from './MyComponents/Childs/Operators/send-sms-inquiry/send-sms-inquiry.component';
 
 
 
@@ -145,6 +150,24 @@ const routes: Routes = [
     {
       path: 'operator_config',
       component: OperatorConfigurationComponent, // another child route component that the router renders
+      children:[
+        {
+          path: 'operator',component:OperatorComponent
+        },
+        {
+          path: 'add_sms',component:AddSMSInquiryComponent
+        },
+        {
+          path: 'add_ussd',component:AddUSSDInquiryComponent
+        },
+        {
+          path: 'send_ussd',component:SendUSSDInquiryComponent
+        },
+        
+        {
+          path: 'send_sms',component:SendSMSInquiryComponent
+        },
+      ]
     }
 
   ]},

@@ -15,6 +15,8 @@ import { Toaster_Service } from './../../Classes/ToasterNg';
 export class VerifyComponent implements OnInit {
   code:any;
   number:any;
+  data: any;
+  update_data: any;
 
   constructor(private freeapi: API_Services, 
     private router: Router, private shared_services: SharedService,
@@ -32,24 +34,34 @@ export class VerifyComponent implements OnInit {
     }
     else
     {
-      console.log(this.code);
+      // console.log(this.code);
       let new_code = this.code;
-      let data  = JSON.parse(JSON.stringify( localStorage.getItem("temp_code")));
+      let data  = (localStorage.getItem("temp_code"));
 
       if (new_code == data)
       {
         this.snakeBar.start_bar('Please Wait');
         localStorage.removeItem("temp_code");
         localStorage.setItem("user_status", "Logged_in");
-        let update_data = JSON.parse(JSON.stringify(localStorage.getItem("user_data"))) ;
+        // let update_data:any|null = JSON.parse(JSON.stringify(localStorage.getItem("user_data"))) ;
+
+        let json = localStorage.getItem("user_data");
+
+    
+        // let username = this.data.username;
         
-        if (update_data!=null)
+        if (json!=null)
         {
-          let id = update_data.id;
-          let ip_addr = update_data.ip_addr;
-          let device = update_data.device;
-          let country = update_data.country;
-          let type = update_data.type;
+          this.update_data = JSON.parse(json);
+          let id = this.update_data.id;
+          let ip_addr = this.update_data.ip_addr;
+          let device = this.update_data.device;
+          let country = this.update_data.country;
+          let type = this.update_data.type;
+          // console.log(type+" "+country)
+
+
+
           this.freeapi.modifyUserDetailsDB(id
             , ip_addr,device,country, type).subscribe
             (
@@ -71,10 +83,14 @@ export class VerifyComponent implements OnInit {
                 }
   
             )
-          this.router.navigate(['./profile']);
 
         }
+        this.router.navigate(['./profile'])
 
+
+      }
+      else{
+        console.log("Not matched "+data)
       }
 
       // let data  = JSON.parse(JSON.stringify( localStorage.getItem("user_data")));

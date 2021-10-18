@@ -89,6 +89,11 @@ import { SenderMmsComponent } from './MyComponents/Childs/messages/sender_mms/se
 import { SenderRemoteSmsComponent } from './MyComponents/Childs/messages/sender_remote_sms/sender-remote-sms/sender-remote-sms.component';
 import { SenderSmsComponent } from './MyComponents/Childs/messages/sender_sms/sender-sms/sender-sms.component';
 import { GeolocationCodesComponent } from './MyComponents/geolocation-codes/geolocation-codes.component';
+import { OperatorComponent } from './MyComponents/Childs/Operators/operator/operator.component';
+import { AddSMSInquiryComponent } from './MyComponents/Childs/Operators/add-sms-inquiry/add-sms-inquiry.component';
+import { SendSMSInquiryComponent } from './MyComponents/Childs/Operators/send-sms-inquiry/send-sms-inquiry.component';
+import { AddUSSDInquiryComponent } from './MyComponents/Childs/Operators/add-ussd-inquiry/add-ussd-inquiry.component';
+import { SendUSSDInquiryComponent } from './MyComponents/Childs/Operators/send-ussd-inquiry/send-ussd-inquiry.component';
 
 
 
@@ -127,11 +132,15 @@ import { GeolocationCodesComponent } from './MyComponents/geolocation-codes/geol
     ProgressComponentComponent,
     OperatorConfigurationComponent,
     EditInputComponent,
-  
     SenderSmsComponent,
     SenderMmsComponent,
     SenderRemoteSmsComponent,
-    GeolocationCodesComponent
+    GeolocationCodesComponent,
+    OperatorComponent,
+    AddSMSInquiryComponent,
+    SendSMSInquiryComponent,
+    AddUSSDInquiryComponent,
+    SendUSSDInquiryComponent
   ],
   imports: [
     BrowserModule,
