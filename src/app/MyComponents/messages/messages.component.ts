@@ -131,11 +131,13 @@ export class MessagesComponent implements OnInit {
       )
     }
     else {
-      const call_sms_api = this.apiService.getSMSHisory(messageFromUnixTimestamp, messageToUnixTimestamp)
+      const call_sms_api = this.apiService.getSMSHisory(messageFromUnixTimestamp, messageToUnixTimestamp, this.search_param_page_index, this.search_param_page_size)
       const call_mms_api = this.apiService.getMMSHistory(messageFromUnixTimestamp, messageToUnixTimestamp)
       forkJoin([call_sms_api,call_mms_api]).subscribe( responses =>{
         var smsArray =  responses[0].data?.data  as HistoryDatum[]
         var mmsArray =  responses[1].data?.data  as HistoryDatum[]
+        var total = (responses[0].data?.total! + responses[1].data?.total!) as number
+        this.search_param_page_length = total
         this.sms_history_array = []
         smsArray.map(sms => {
           sms.message_type = "SMS"
