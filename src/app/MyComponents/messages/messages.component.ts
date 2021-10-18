@@ -36,6 +36,7 @@ export class MessagesComponent implements OnInit {
   subscribedDevices : HTTPResponseSubscribedDevices[] = [];
   sims: HTTPResponseSubscribedDeviceSim[] = [];
   selectedRemoteMessages = 0
+  remoteMessages: SubscribedDevicesRemoteMessage[] = []
   
   messageTo: string =  "0"; //"+61411111111,+61422222222";
   messageFrom: string =  "0"
@@ -374,73 +375,35 @@ export class MessagesComponent implements OnInit {
   }
 
   actionFetchSubscribedDeviceRemoteMessages() {
+    console.log("onit 1")
     this.search_param_selected_subscribed_device_ID = 270610
     this.apiService.getSubscribedDevicesRemoteMessages(this.search_param_selected_subscribed_device_ID).subscribe(
       e=> {
-        const msgs = e.SubscribedDevicesRemoteMessage as SubscribedDevicesRemoteMessagesResponse[]
-        this.sms_history_array = []
-        this.filtered_history_array = []
-        msgs.forEach(
-          item => {
-            const hMessage : HistoryDatum = {
-              
-            }
-            this.sms_history_array.push(hMessage)
+        this.sms_history_array = [];
+        this.filtered_history_array = [];
+        const msgs = e.http_response as SubscribedDevicesRemoteMessage[]
+        msgs.forEach(item => {
+          console.log(item.date)
+          const k : HistoryDatum = {
+            message_id: item.id?.toString(),
+            _api_username: item.username,
+            first_name: item.username,
+            carrier:item.device,
+            body: item.body,
+            from: item.from_num != "" ? item.from_num : "N/A",
+            to: item.to_num,
+            direction: item.direction,
+            message_price: item.cost,
+            status:item.status,
+            status_text:item.status,
+            message_type: "Remote SMS"
           }
-        )
-        this.filtered_history_array = this.sms_history_array
+          this.sms_history_array.push(k)  
+        })
+        this.filtered_history_array = this.sms_history_array 
         this.snakeBar.close_bar();
       }
     )
-    // this.apiService.getSubscribedDevicesRemoteMessages(this.search_param_selected_subscribed_ID).subscribe(
-    //   e => {
-    //     const msgs = e.SubscribedDevicesRemoteMessage as SubscribedDevicesRemoteMessage[]
-        // this.remoteMessages = msgs
-        // this.sms_history_array = []
-        
-        // //HistoryDatum
-        // this.remoteMessages.forEach(i =>{
-        //   const k : HistoryDatum = {
-        //     direction:   i.direction,
-        //     date:          +i.date!,
-        //     to:            i.to_num,
-        //     body:          i.body,
-        //     status:        i.status,
-        //     from:          i.from_num,
-        //     schedule:      "",
-        //     status_code:   null,
-        //     status_text:   i.status,
-        //     error_code:    null,
-        //     error_text:    null,
-        //     message_id:    i.id!.toString(),
-        //     message_parts: i.id,
-        //     message_price: i.cost,
-        //     from_email:    null,
-        //     list_id:       null,
-        //     custom_string: "",
-        //     contact_id:    null,
-        //     user_id:       0,
-        //     subaccount_id: 0,
-        //     country:       "",
-        //     carrier:       "",
-        //     first_name:    null,
-        //     last_name:     null,
-        //     _api_username: "",
-        //     date_added:      0,
-        //     _media_file_url: "",
-        //     subject:         "",
-        //     priority:        1,
-        //     message_type:    i.type
-        //   }
-        //   this.sms_history_array.push(k)
-        // })
-        //this.filtered_history_array = this.sms_history_array
-        //console.log("length of the remote message is"+msgs!)
-    //     this.sms_history_array = []
-    //     this.filtered_history_array = []
-    //     this.snakeBar.close_bar();
-    //   }
-    // )
   }
 
 

@@ -6,7 +6,7 @@
 
 export interface SubscribedDevicesRemoteMessagesResponse {
     http_code?:                      number;
-    SubscribedDevicesRemoteMessage?: SubscribedDevicesRemoteMessage[];
+    http_response?: SubscribedDevicesRemoteMessage[];
 }
 
 export interface SubscribedDevicesRemoteMessage {

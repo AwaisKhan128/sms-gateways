@@ -46,7 +46,7 @@ export interface HistoryDatum {
     subaccount_id?: number;
     country?:       string;
     carrier?:       string;
-    first_name?:    null;
+    first_name?:    string;
     last_name?:     null;
     _api_username?: string;
     date_added?:      number;
