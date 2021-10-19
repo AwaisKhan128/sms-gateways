@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import * as $ from 'jquery';
+
 
 @Component({
   selector: 'app-operator-configuration',
@@ -8,6 +10,8 @@ import { Component, OnInit } from '@angular/core';
 export class OperatorConfigurationComponent implements OnInit {
 
   constructor() { }
+  window: any["$"] = $;
+
 
   ngOnInit(): void {
   }
