@@ -132,15 +132,19 @@ export class SenderRemoteSmsComponent implements OnInit {
     //localStorage.setItem("user_data", JSON.stringify(content));
     //localStorage.setItem("user_status", "Logged_in");
 
-    let jsonData = JSON.parse(JSON.stringify( localStorage.getItem("user_data"))); 
+    // let jsonData = JSON.parse(JSON.stringify( localStorage.getItem("user_data"))); 
+    let jsonData = localStorage.getItem("user_data");
+
 
     if (jsonData == null) {
-      Toaster.failureToast("FAILURE","User is not loggedin, we will give deafult user id for testing purposes")
+      // Toaster.failureToast("FAILURE","User is not loggedin, we will give deafult user id for testing purposes")
       this.userID = 0;
     }
     else {
-      // this.userID = jsonData.id      
-      this.userID = 270610      
+      // this.userID = jsonData.id     
+      
+      this.data = JSON.parse( jsonData)
+      this.userID = this.data.id;      
 
       this.actionRouteToDevice()
     }
