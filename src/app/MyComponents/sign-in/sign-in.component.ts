@@ -103,6 +103,11 @@ export class SignInComponent implements OnInit {
     // this.test();
   }
 
+  // test()
+  // {
+  //   let json = ( this.data_security);
+  //   console.log(json.coords.latitude)
+  // }
   
 
 
@@ -157,14 +162,12 @@ export class SignInComponent implements OnInit {
 
                       // Here to Register him...
                     
-                      this.geolocation$.pipe(take(1)).subscribe(
-                        position => 
-                        {
+                     
                           
-                          this.data_security = position;
+                          
                           // console.log(latitude+" "+longitude);
-                          let latitude = this.data_security.latitude;
-                          let longitude = this.data_security.latitude;
+                          let latitude = this.data_security.coords.latitude;
+                          let longitude = this.data_security.coords.longitude;
                           var content = {
                             "id": this.getAccDetails1.user_id,
                             "username": this.uname,
@@ -213,13 +216,7 @@ export class SignInComponent implements OnInit {
       
                             )
 
-                          }
-                        );
-                   
-
-                  
-
-
+                          
                     }
 
 
@@ -231,14 +228,11 @@ export class SignInComponent implements OnInit {
                       
                       {
 
-                        this.geolocation$.pipe(take(1)).subscribe(
-                          position => 
-                          {
-                            this.data_security = position;
+                        
                             
                             // console.log(latitude+" "+longitude);
-                            let latitude = this.data_security.latitude;
-                            let longitude = this.data_security.latitude;
+                            let latitude = this.data_security.coords.latitude;
+                            let longitude = this.data_security.coords.longtitude;
         
                             content_comp = {
                               "id": this.getAccDetails1.user_id,
@@ -279,8 +273,8 @@ export class SignInComponent implements OnInit {
                             {
                               // this navigate to OTP.
                               console.log("Not Matched");
-                              let latitude = this.data_security.latitude;
-                              let longitude = this.data_security.latitude;
+                              let latitude = this.data_security.coords.latitude;
+                              let longitude = this.data_security.coords.longitude;
                               
                               var val = Math.floor(1000 + Math.random() * (9000+54));
     
@@ -330,7 +324,7 @@ export class SignInComponent implements OnInit {
                               )
     
                             }
-                          });
+                          
                     
 
                   
