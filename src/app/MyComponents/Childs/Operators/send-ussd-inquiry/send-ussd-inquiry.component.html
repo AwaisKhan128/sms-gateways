@@ -1,22 +1,65 @@
 
-<div class="container h-auto p-2">
-    <div class="row align-items-center h-100 p-2">
-        <div class="col-12 mx-auto ">
-          <div class="card h-auto shadow-sm p-3 mb-5 bg-white rounded border-primary justify-content-center">
-                <div class="mb-10 p-2">
-                  
-                  <h1 class="display-4 justify-content-center">
-
-                    <p>
-                       Send-USSD-inquiry 
-                    </p>
-                  </h1>
-                  <div class="login-block d-flex justify-content-center" >
-
-                  </div>
-  
-                </div>
-            </div>
-        </div>
-    </div>
+  <div class="card mt-5 p-1 w-auto h-auto" >
+    <h1 class="mb-3">
+      USSD
+    </h1>
   </div>
+  <div class="card mt-2 w-auto h-auto" *ngIf="numbers.length table-responsive">
+    <table>
+      <tr>
+        <th>
+          <div class=" d-flex">
+            <div class="check">
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="{{areAllNumbersSelected}}" id="{{areAllNumbersSelected}}" (click)="allNumbersSelected($event)">
+              </div>
+            </div>
+            <span>All</span>
+          </div>
+        </th>
+        <th>
+          Port
+        </th>
+        <th>
+          Slot
+        </th>
+        <th>
+          Number
+        </th>
+        <th>
+          USSD Request
+        </th>
+        <th>
+          USSD Status
+        </th>
+      </tr>
+      <tr *ngFor="let n of this.numbers">
+        <td>
+          <div class=" d-flex">
+            <div class="check">
+              <div class="form-check">
+                <input class="form-check-input" value="{{n.number}}" id="{{n.number}}" type="checkbox" (click)="specificNumbersSelected($event)" >
+              </div>
+            </div>
+          </div>
+        </td>
+        <td>
+          {{n.port}}
+        </td>
+        <td>
+          {{n.slot}}
+        </td>
+        <td>
+          {{n.number}}
+        </td>
+        <td>
+          <input class="form-check-input" type="text" value="{{n.number}}" id="{{n.number}}" [disabled]="n.isDisabled == true"  style="width:40%">
+        </td>
+        <td>
+          <input class="form-check-input" type="text" value="{{n.USSDStatus}}" id="{{n.number}}" style="width:70%">
+        </td>
+      </tr>
+    </table>
+  </div>
+
+ 
