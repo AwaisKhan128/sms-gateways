@@ -139,7 +139,9 @@ export class SenderRemoteSmsComponent implements OnInit {
       this.userID = 0;
     }
     else {
-      this.userID = jsonData.id      
+      // this.userID = jsonData.id      
+      this.userID = 270610      
+
       this.actionRouteToDevice()
     }
     console.log("The user id has to be data iss",this.userID)
