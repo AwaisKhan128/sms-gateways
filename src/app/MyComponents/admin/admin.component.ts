@@ -131,14 +131,14 @@ export class AdminComponent implements OnInit {
     this.Create_subAcc.phone_number = $("#selects1").val() + this.Create_subAcc.phone_number;
 
 
-        // if(json!=null)
+        if(json!=null)
         {
-          // this.data = JSON.parse(json);
-          // let username = this.data.username;
-          // let password = EncodeDecode.b64DecodeUnicode( this.data.passcode);
-          // var auths = EncodeDecode.b64EncodeUnicode(username+":"+password);
+          this.data = JSON.parse(json);
+          let username = this.data.username;
+          let password = EncodeDecode.b64DecodeUnicode( this.data.passcode);
+          var auths = EncodeDecode.b64EncodeUnicode(username+":"+password);
       
-          var auths = EncodeDecode.b64EncodeUnicode(myCredentials.username + ":" + myCredentials.password);
+          // var auths = EncodeDecode.b64EncodeUnicode(myCredentials.username + ":" + myCredentials.password);
           this.Create_subAcc.phone_number = $("#select1").val() + this.Create_subAcc.phone_number;
       
       
@@ -464,8 +464,7 @@ export class AdminComponent implements OnInit {
 
       {
           let json = localStorage.getItem("user_data");  
-          
-  
+
           {
           if(json!=null)
           {
