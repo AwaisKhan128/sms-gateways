@@ -5,7 +5,7 @@
     </h1>
   </div>
   <div class="card mt-2 w-auto h-auto" *ngIf="numbers.length table-responsive">
-    <table>
+    <table id="displayingData">
       <tr>
         <th>
           <div class=" d-flex">
@@ -33,7 +33,7 @@
           USSD Status
         </th>
       </tr>
-      <tr *ngFor="let n of this.numbers">
+      <tr id="displayingNumbers" *ngFor="let n of this.numbers">
         <td>
           <div class=" d-flex">
             <div class="check">

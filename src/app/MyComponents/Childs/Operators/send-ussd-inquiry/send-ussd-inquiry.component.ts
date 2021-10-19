@@ -81,15 +81,16 @@ export class SendUSSDInquiryComponent implements OnInit {
   }
 
   allNumbersSelected(event: any) {
-    if ($('#'+this.areAllNumbersSelected).prop('checked')) {
-      this.areAllNumbersSelected = true
-      this.numbers.map(e=>{e.isDisabled = false})
-    }
-    else {
-      this.areAllNumbersSelected = false
-      this.numbers.map(e=>{e.isDisabled = true})
-    }
-    console.log(this.areAllNumbersSelected)
+    this.numbers.forEach(i=>{
+      if ($('#'+i.number!).prop('checked')) {
+        $('#'+i.number!).prop('checked', false)
+        i.isDisabled! = true
+      }
+      else {
+        $('#'+i.number!).prop('checked', true)
+        i.isDisabled! = false
+      }
+    })
   }
 
 
