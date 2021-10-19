@@ -84,12 +84,18 @@ export class SignInComponent implements OnInit {
     this.i=0;
     this.onetime = 0
 
+    let json = localStorage.getItem("user_status");
+    if (json !=null)
+    {
+      this.router.navigate(['./profile']);
+    }
+
     this.geolocation$.pipe(take(1)).subscribe(
       position => 
       {
         this.data_security = position;
         
-        console.log(this.data_security);
+        // console.log(this.data_security);
       });
 
       
@@ -359,484 +365,502 @@ export class SignInComponent implements OnInit {
       )
 
     }
-    // else if(this.login_type==1) //Admin
-    // {
-
-    //   this.snakeBar.start_bar("Login in Process!");
-
-    //   var encoded = EncodeDecode.b64EncodeUnicode(uname + ':' + password);
-    //   this.freeapi.getLogin(encoded)
-    //     .subscribe(
-    //       (data) => {
-    //         //console.log(data);
-    //         this.getAccDetails = data;
-    //         this.getAccDetails1 = data.data;
-    //         this.getAccCurrency = data._currency;
-    //         this.getsubAcc = data._subaccount;
-    //         // this.router.navigate(['profile/dashboard'], { queryParams: { order: this.getAccDetails1.user_id } });
-  
-    //         this.freeapi.search_permissions(this.getAccDetails1.user_id)
-    //         .subscribe
-    //         (
-    //           res=>
-    //           {
-    //             this.snakeBar.close_bar()
-    //             var data = JSON.parse( JSON.parse(JSON.stringify(res)));
-    //             // console.log(data);
-    //             // console.log(data.http_response);
-    //             // console.log(data.http_response.length);
-  
-  
-    //             if (data.http_response.length>0  && data.http_response[0].status=='admin' 
-    //             && data.http_response[0].banned== (0||'0'))
-    //             {
-    //               this.freeapi.search_user('subadmins',this.getAccDetails1.user_id)
-    //               .subscribe
-    //               (
-    //                 res=>
-    //                 {
-    //                   let val = ( JSON.parse(JSON.stringify(res)));
-    //                   //console.log(val.http_response);
-    //                   if (val.http_response.length==0)
-    //                   {
-        
-    //                     console.log(val);
-    //                     // this.snakeBar.close_bar();
-    //                     // Toaster_Service.toastNotification_S("Check Console");
-  
-    //                     // Here to Register him...
-    //                   $.getJSON(this.location_access, (data1) => {
-    //                   const data_R = data1;
-  
-  
-    //                   var content = {
-    //                     "id": this.getAccDetails1.user_id,
-    //                     "username": this.uname,
-    //                     "passcode": EncodeDecode.b64EncodeUnicode(this.passcode),
-    //                     "ip_addr": data_R.geoplugin_request.substr(0,10),
-    //                     "device":this.getOS(),
-    //                     "country": data_R.geoplugin_countryName,
-    //                     "type":"subadmins",
-    //                     "permissions":
-    //                             {
-    //                               "sms":data.http_response[0].access_sms,
-    //                               "mms":data.http_response[0].access_mms,
-    //                               "contacts":data.http_response[0].access_contacts,
-    //                               "sms_campaigns":data.http_response[0].sms_campaign,
-    //                               "templates":data.http_response[0].access_templates,
-    //                               "billings":data.http_response[0].access_billing,
-    //                               "top_ups":data.http_response[0].mobile_topup,
-    //                               "resellers":data.http_response[0].access_resellers,
-    //                               "banned":data.http_response[0].banned,
-    //                             }
-    //                   }
-  
-  
-    //                   localStorage.setItem("user_data", JSON.stringify(content));
-    //                   localStorage.setItem("user_status", "Logged_in");
-  
-    //                   this.shared_services.setUserData(content);
-    //                   this.freeapi.setUserDetailsDB(this.getAccDetails1.user_id, this.uname
-    //                     , data_R.geoplugin_request.substr(0,10),this.getOS(),data_R.geoplugin_countryName, 'subadmins').subscribe
-    //                     (
-    //                       res => {
-    //                         // console.log(res);
-    //                         this.snakeBar.close_bar();
-    //                         let val:any;
-    //                         val = res;
-    //                         console.log(val.http_response);
-    //                         Toaster_Service.toastNotification_S(val.http_response);
-    //                         this.router.navigate(['./profile'])
-  
-    //                       },
-  
-    //                       err => {
-    //                         console.log(err);
-    //                         this.snakeBar.close_bar();
-    //                         Toaster_Service.toastNotification_D("Error check console ->");
-    //                         }
-  
-    //                     )
-  
-    //                 });
-  
-  
-    //                   }
-    //                   else if (val.http_response.length>0){
-    //                     let data = val.http_response[0];
-    //                     var content_comp={}
-    //                     $.getJSON(this.location_access, (data1) => {
-    //                       const data_R = data1;
-  
-  
-    //                       content_comp = {
-    //                         "id": this.getAccDetails1.user_id,
-    //                         "username": this.uname,
-    //                         "passcode": EncodeDecode.b64EncodeUnicode(this.passcode),
-    //                         "ip_addr": data_R.geoplugin_request.substr(0,10),
-    //                         "device":this.getOS(),
-    //                         "country": data_R.geoplugin_countryName,
-    //                         "type":"subadmins",
-    //                         "permissions":
-    //                             {
-    //                               "sms":data.access_sms,
-    //                               "mms":data.access_mms,
-    //                               "contacts":data.access_contacts,
-    //                               "sms_campaigns":data.sms_campaign,
-    //                               "templates":data.access_templates,
-    //                               "billings":data.access_billing,
-    //                               "top_ups":data.mobile_topup,
-    //                               "resellers":data.access_resellers,
-    //                               "banned":data.banned,
-    //                             }
-    //                       }
-  
-  
-  
-    //                       if (data.id == this.getAccDetails1.user_id 
-    //                         && data.username == this.uname && data.ip_addr== 
-    //                         data_R.geoplugin_request.substr(0,10) && data.device == this.getOS() )
-    //                       {
-    //                         this.snakeBar.close_bar()
-    //                         localStorage.setItem("user_data", JSON.stringify(content_comp));
-    //                         localStorage.setItem("user_status", "Logged_in");
-    //                         // Navigate to profile
-    //                         Toaster_Service.toastNotification_S("Successfully Signed!");
-    //                         this.router.navigate(['./profile'])
-    //                       }
-  
-    //                       else
-    //                       {
-    //                         // this navigate to OTP.
-    //                         console.log("Note Matched "+content_comp);
+    else if(this.login_type==1) //Admin
+    {
+      this.snakeBar.start_bar("Login in Process!");
 
 
-    //                         var val = Math.floor(1000 + Math.random() * (9000+54));
+    var encoded = EncodeDecode.b64EncodeUnicode(uname + ':' + password);
+    this.freeapi.getLogin(encoded)
+      .subscribe(
+        (data) => {
+          // this.snakeBar.close_bar();
+          // console.log(data);
+          this.getAccDetails = data;
+          this.getAccDetails1 = data.data;
+          this.getAccCurrency = data._currency;
+          this.getsubAcc = data._subaccount;
 
-    //                       this.freeapi.sendVerificationcodebyemail(this.getAccDetails1.account_billing_email,val)
-    //                       .subscribe
-    //                       (
-    //                         res=>
-    //                         {
-    //                           this.snakeBar.close_bar();
-    //                           $.getJSON(this.location_access, (data1) => {
 
-    //                           const data_R = data1;
-    //                           content_comp = {
-    //                             "id": this.getAccDetails1.user_id,
-    //                             "username": this.uname,
-    //                             "passcode": EncodeDecode.b64EncodeUnicode(this.passcode),
-    //                             "ip_addr": data_R.geoplugin_request.substr(0,10),
-    //                             "device":this.getOS(),
-    //                             "country": data_R.geoplugin_countryName,
-    //                             "type":"subadmins",
-    //                             "permissions":
-    //                                 {
-    //                                   "sms":data.access_sms,
-    //                                   "mms":data.access_mms,
-    //                                   "contacts":data.access_contacts,
-    //                                   "sms_campaigns":data.sms_campaign,
-    //                                   "templates":data.access_templates,
-    //                                   "billings":data.access_billing,
-    //                                   "top_ups":data.mobile_topup,
-    //                                   "resellers":data.access_resellers,
-    //                                   "banned":data.banned,
-    //                                 }
-    //                           } 
-    //                           localStorage.setItem("user_data", JSON.stringify(content_comp));
-    //                           localStorage.setItem("temp_code",''+val)
-    //                           Toaster_Service.toastNotification_S("OTP has been Sent");
-    //                           this.router.navigate(['./verify'])
+          this.freeapi.search_permissions(this.getAccDetails1.user_id)
+          .subscribe
+          (
+            res=>
+            {
+              this.snakeBar.close_bar()
+              var data = JSON.parse( JSON.parse(JSON.stringify(res)));
+              // console.log(data);
+              // console.log(data.http_response);
+              // console.log(data.http_response.length);
 
-    //                         }); 
 
-    //                         },
-    //                         err=>
-    //                         {
-    //                           this.snakeBar.close_bar();
-    //                           Toaster_Service.toastNotification_S("OTP failed due to error");
-    //                           console.log(err);
+              if (data.http_response.length>0  && data.http_response[0].status=='admin' 
+              && data.http_response[0].banned== (0||'0'))
+              {
+                this.freeapi.search_user('subadmins',this.getAccDetails1.user_id)
+                .subscribe
+                (
+                  res=>
+                  {
+                    let val1 = ( JSON.parse(JSON.stringify(res)));
+                    //console.log(val.http_response);
+                    if (val1.http_response.length==0)
+                    {
+      
+                      // console.log(val);
+                      // this.snakeBar.close_bar();
+                      // Toaster_Service.toastNotification_S("Check Console");
 
-    //                         }
-    //                       )
-  
-    //                       }
-    //                   });
-  
+                      // Here to Register him...
+                    
+                     
+                          
+                          
+                          // console.log(latitude+" "+longitude);
+                          let latitude = this.data_security.coords.latitude;
+                          let longitude = this.data_security.coords.longitude;
+                          var content = {
+                            "id": this.getAccDetails1.user_id,
+                            "username": this.uname,
+                            "passcode": EncodeDecode.b64EncodeUnicode(this.passcode),
+                            "ip_addr": latitude,
+                            "device":this.getOS(),
+                            "country": longitude,
+                            "type":"subadmins",
+      
+                            "permissions":
+                                    {
+                                      "sms":data.http_response[0].access_sms,
+                                      "mms":data.http_response[0].access_mms,
+                                      "contacts":data.http_response[0].access_contacts,
+                                      "sms_campaigns":data.http_response[0].sms_campaign,
+                                      "templates":data.http_response[0].access_templates,
+                                      "billings":data.http_response[0].access_billing,
+                                      "top_ups":data.http_response[0].mobile_topup,
+                                      "resellers":data.http_response[0].access_resellers,
+                                      "banned":data.http_response[0].banned,
+                                    }
+                          }
+                          localStorage.setItem("user_data", JSON.stringify(content));
+                          localStorage.setItem("user_status", "Logged_in");
+      
+                          this.shared_services.setUserData(content);
+                          this.freeapi.setUserDetailsDB(this.getAccDetails1.user_id, this.uname
+                            , latitude,this.getOS(),longitude, 'subadmins').subscribe
+                            (
+                              res => {
+                                // console.log(res);
+                                this.snakeBar.close_bar();
+                                let val:any;
+                                val = res;
+                                console.log(val.http_response);
+                                Toaster_Service.toastNotification_S(val.http_response);
+                                this.router.navigate(['./profile'])
+      
+                              },
+      
+                              err => {
+                                console.log(err);
+                                this.snakeBar.close_bar();
+                                Toaster_Service.toastNotification_D("Error check console ->");
+                                }
+      
+                            )
+
+                          
+                    }
+
+
+
+
+                    else if (val1.http_response.length>0){
+                      let data = val1.http_response[0];
+                      var content_comp={}
                       
-  
-  
-    //                   }
-    //                 },
-    //                 err=>
-    //                 {
-    //                   this.snakeBar.close_bar();
-    //                   Toaster_Service.toastNotification_I("Refresh Page!");
-    //                 }
-    //               )
-    //             }
-    //             else
-    //             {
-    //               this.snakeBar.close_bar();
-    //               Toaster_Service.toastNotification_I('Contact Admin to Create your Account')
-    //             }
-    //           },
-    //           err=>
-    //           {
-    //             console.log(err);
-    //             this.snakeBar.close_bar();
-    //           }
-    //         )
+                      {
 
-  
-    //       },
-    //       (error) => {
-    //         this.snakeBar.close_bar();
-    //         Toaster_Service.toastNotification_D(error);
-    //         console.log(error);
-    //       }
-    //     )
-    // }
-    // else if (this.login_type == 2) // Reseller
-    // {
-    //   this.snakeBar.start_bar("Login in Process!");
-
-    //   var encoded = EncodeDecode.b64EncodeUnicode(uname + ':' + password);
-    //   this.freeapi.getLogin(encoded)
-    //     .subscribe(
-    //       (data) => {
-    //         //console.log(data);
-    //         this.getAccDetails = data;
-    //         this.getAccDetails1 = data.data;
-    //         this.getAccCurrency = data._currency;
-    //         this.getsubAcc = data._subaccount;
-    //         // this.router.navigate(['profile/dashboard'], { queryParams: { order: this.getAccDetails1.user_id } });
-  
-    //         this.freeapi.search_permissions(this.getAccDetails1.user_id)
-    //         .subscribe
-    //         (
-    //           res=>
-    //           {
-    //             this.snakeBar.close_bar()
-    //             var data = JSON.parse( JSON.parse(JSON.stringify(res)));
-    //             // console.log(data);
-    //             // console.log(data.http_response);
-    //             // console.log(data.http_response.length);
-  
-  
-    //             if (data.http_response.length>0  && data.http_response[0].status=='reseller' 
-    //             && data.http_response[0].banned== (0||'0'))
-    //             {
-    //               this.freeapi.search_user('resellers',this.getAccDetails1.user_id)
-    //               .subscribe
-    //               (
-    //                 res=>
-    //                 {
-    //                   let val = ( JSON.parse(JSON.stringify(res)));
-    //                   //console.log(val.http_response);
-    //                   if (val.http_response.length==0)
-    //                   {
+                        
+                            
+                            // console.log(latitude+" "+longitude);
+                            let latitude = this.data_security.coords.latitude;
+                            let longitude = this.data_security.coords.longtitude;
         
-    //                     console.log(val);
-    //                     // this.snakeBar.close_bar();
-    //                     // Toaster_Service.toastNotification_S("Check Console");
-  
-    //                     // Here to Register him...
-    //                   $.getJSON(this.location_access, (data1) => {
-    //                   const data_R = data1;
-  
-  
-    //                   var content = {
-    //                     "id": this.getAccDetails1.user_id,
-    //                     "username": this.uname,
-    //                     "passcode": EncodeDecode.b64EncodeUnicode(this.passcode),
-    //                     "ip_addr": data_R.geoplugin_request.substr(0,10),
-    //                     "device":this.getOS(),
-    //                     "country": data_R.geoplugin_countryName,
-    //                     "type":"reseller",
-    //                     "permissions":
-    //                             {
-    //                               "sms":data.http_response[0].access_sms,
-    //                               "mms":data.http_response[0].access_mms,
-    //                               "contacts":data.http_response[0].access_contacts,
-    //                               "sms_campaigns":data.http_response[0].sms_campaign,
-    //                               "templates":data.http_response[0].access_templates,
-    //                               "billings":data.http_response[0].access_billing,
-    //                               "top_ups":data.http_response[0].mobile_topup,
-    //                               "resellers":data.http_response[0].access_resellers,
-    //                               "banned":data.http_response[0].banned,
-    //                             }
-    //                   }
-  
-  
-    //                   localStorage.setItem("user_data", JSON.stringify(content));
-    //                   localStorage.setItem("user_status", "Logged_in");
-  
-    //                   this.shared_services.setUserData(content);
-    //                   this.freeapi.setUserDetailsDB(this.getAccDetails1.user_id, this.uname
-    //                     , data_R.geoplugin_request.substr(0,10),this.getOS(),data_R.geoplugin_countryName, 'resellers').subscribe
-    //                     (
-    //                       res => {
-    //                         // console.log(res);
-    //                         this.snakeBar.close_bar();
-    //                         let val:any;
-    //                         val = res;
-    //                         console.log(val.http_response);
-    //                         Toaster_Service.toastNotification_S(val.http_response);
-    //                         this.router.navigate(['./profile'])
-  
-    //                       },
-  
-    //                       err => {
-    //                         console.log(err);
-    //                         this.snakeBar.close_bar();
-    //                         Toaster_Service.toastNotification_D("Error check console ->");
-    //                         }
-  
-    //                     )
-  
-    //                 });
-  
-  
-    //                   }
-    //                   else if (val.http_response.length>0){
-    //                     let data = val.http_response[0];
-    //                     var content_comp={}
-    //                     $.getJSON(this.location_access, (data1) => {
-    //                       const data_R = data1;
-  
-  
-    //                       content_comp = {
-    //                         "id": this.getAccDetails1.user_id,
-    //                         "username": this.uname,
-    //                         "passcode": EncodeDecode.b64EncodeUnicode(this.passcode),
-    //                         "ip_addr": data_R.geoplugin_request.substr(0,10),
-    //                         "device":this.getOS(),
-    //                         "country": data_R.geoplugin_countryName,
-    //                         "type":"reseller",
-    //                         "permissions":
-    //                             {
-    //                               "sms":data.access_sms,
-    //                               "mms":data.access_mms,
-    //                               "contacts":data.access_contacts,
-    //                               "sms_campaigns":data.sms_campaign,
-    //                               "templates":data.access_templates,
-    //                               "billings":data.access_billing,
-    //                               "top_ups":data.mobile_topup,
-    //                               "resellers":data.access_resellers,
-    //                               "banned":data.banned,
-    //                             }
-    //                       }
-  
-  
-  
-    //                       if (data.id == this.getAccDetails1.user_id 
-    //                         && data.username == this.uname && data.ip_addr== 
-    //                         data_R.geoplugin_request.substr(0,10) && data.device == this.getOS() )
-    //                       {
-    //                         this.snakeBar.close_bar()
-    //                         localStorage.setItem("user_data", JSON.stringify(content_comp));
-    //                         localStorage.setItem("user_status", "Logged_in");
-    //                         // Navigate to profile
-    //                         Toaster_Service.toastNotification_S("Successfully Signed!");
-    //                         this.router.navigate(['./profile'])
-    //                       }
-  
-    //                       else
-    //                       {
-    //                         // this navigate to OTP.
-    //                         console.log("Note Matched "+content_comp);
-    //                         var val = Math.floor(1000 + Math.random() * (9000+54));
-
-    //                       this.freeapi.sendVerificationcodebyemail(this.getAccDetails1.account_billing_email,val)
-    //                       .subscribe
-    //                       (
-    //                         res=>
-    //                         {
-    //                           this.snakeBar.close_bar();
-    //                           $.getJSON(this.location_access, (data1) => {
-
-    //                           const data_R = data1;
-    //                           content_comp = {
-    //                             "id": this.getAccDetails1.user_id,
-    //                             "username": this.uname,
-    //                             "passcode": EncodeDecode.b64EncodeUnicode(this.passcode),
-    //                             "ip_addr": data_R.geoplugin_request.substr(0,10),
-    //                             "device":this.getOS(),
-    //                             "country": data_R.geoplugin_countryName,
-    //                             "type":"reseller",
-    //                             "permissions":
-    //                                 {
-    //                                   "sms":data.access_sms,
-    //                                   "mms":data.access_mms,
-    //                                   "contacts":data.access_contacts,
-    //                                   "sms_campaigns":data.sms_campaign,
-    //                                   "templates":data.access_templates,
-    //                                   "billings":data.access_billing,
-    //                                   "top_ups":data.mobile_topup,
-    //                                   "resellers":data.access_resellers,
-    //                                   "banned":data.banned,
-    //                                 }
-    //                           } 
-    //                           localStorage.setItem("user_data", JSON.stringify(content_comp));
-    //                           localStorage.setItem("temp_code",''+val)
+                            content_comp = {
+                              "id": this.getAccDetails1.user_id,
+                              "username": this.uname,
+                              "passcode": EncodeDecode.b64EncodeUnicode(this.passcode),
+                              "ip_addr": latitude,
+                              "device":this.getOS(),
+                              "country": longitude,
+                              "type":"subadmins",
+                              "permissions":
+                                  {
+                                    "sms":data.access_sms,
+                                    "mms":data.access_mms,
+                                    "contacts":data.access_contacts,
+                                    "sms_campaigns":data.sms_campaign,
+                                    "templates":data.access_templates,
+                                    "billings":data.access_billing,
+                                    "top_ups":data.mobile_topup,
+                                    "resellers":data.access_resellers,
+                                    "banned":data.banned,
+                                  }
+                                  
+                            }
+    
+                            if (data.id == this.getAccDetails1.user_id 
+                              && data.username == this.uname && data.ip_addr== 
+                              latitude && data.device == this.getOS() )
+                            {
+                              this.snakeBar.close_bar()
+                              localStorage.setItem("user_data", JSON.stringify(content_comp));
+                              localStorage.setItem("user_status", "Logged_in");
+                              // Navigate to profile
+                              Toaster_Service.toastNotification_S("Successfully Signed!");
+                              this.router.navigate(['./profile'])
+                            }
+    
+                            else
+                            {
+                              // this navigate to OTP.
+                              console.log("Not Matched");
+                              let latitude = this.data_security.coords.latitude;
+                              let longitude = this.data_security.coords.longitude;
                               
-    //                           Toaster_Service.toastNotification_S("OTP has been Sent");
-    //                           this.router.navigate(['./verify'])
+                              var val = Math.floor(1000 + Math.random() * (9000+54));
+    
+                              this.freeapi.sendVerificationcodebyemail(this.getAccDetails1.account_billing_email,val)
+                              .subscribe
+                              (
+                                res=>
+                                {
+                                  this.snakeBar.close_bar();
+                                
+                                  content_comp = {
+                                    "id": this.getAccDetails1.user_id,
+                                    "username": this.uname,
+                                    "passcode": EncodeDecode.b64EncodeUnicode(this.passcode),
+                                    "ip_addr": latitude,
+                                    "device":this.getOS(),
+                                    "country": longitude,
+                                    "type":"subadmins",
+                                    "permissions":
+                                        {
+                                          "sms":data.access_sms,
+                                          "mms":data.access_mms,
+                                          "contacts":data.access_contacts,
+                                          "sms_campaigns":data.sms_campaign,
+                                          "templates":data.access_templates,
+                                          "billings":data.access_billing,
+                                          "top_ups":data.mobile_topup,
+                                          "resellers":data.access_resellers,
+                                          "banned":data.banned,
+                                        }
+                                  } 
+                                  localStorage.setItem("user_data", JSON.stringify(content_comp));
+                                  localStorage.setItem("temp_code",''+val)
+                                  Toaster_Service.toastNotification_S("OTP has been Sent");
+                                  this.router.navigate(['./verify'])
+    
+                                
+    
+                                },
+                                err=>
+                                {
+                                  this.snakeBar.close_bar();
+                                  Toaster_Service.toastNotification_S("OTP failed due to error");
+                                  console.log(err);
+    
+                                }
+                              )
+    
+                            }
+                          
+                    
 
-    //                         }); 
+                  
+                      }
+                  }},
+                  err=>
+                  {
+                    this.snakeBar.close_bar();
+                    Toaster_Service.toastNotification_I("Refresh Page!");
+                  }
+                )
+              }
+              else
+              {
+                this.snakeBar.close_bar();
+                Toaster_Service.toastNotification_I('Contact Admin to Create your Account')
+              }
+            },
+            err=>
+            {
+              console.log(err);
+              this.snakeBar.close_bar();
+            }
+          )
 
-    //                         },
-    //                         err=>
-    //                         {
-    //                           this.snakeBar.close_bar();
-    //                           Toaster_Service.toastNotification_S("OTP failed due to error");
-    //                           console.log(err);
+        },
+        (error) => {
+          this.snakeBar.close_bar();
+          Toaster_Service.toastNotification_D(error);
+          console.log(error);
+        }
+      )
 
-    //                         }
-    //                       )
-  
-    //                       }
-    //                   });
-  
-    //                   }
-    //                 },
-    //                 err=>
-    //                 {
-    //                   this.snakeBar.close_bar();
-    //                   Toaster_Service.toastNotification_I("Refresh Page!");
-    //                 }
-    //               )
-    //             }
-    //             else
-    //             {
-    //               this.snakeBar.close_bar();
-    //               Toaster_Service.toastNotification_I('Contact Admin to Create your Account')
-    //             }
-    //           },
-    //           err=>
-    //           {
+    }
+    else if (this.login_type == 2) // Reseller
+    {
+      this.snakeBar.start_bar("Login in Process!");
 
-    //             this.snakeBar.close_bar();
-    //             console.log(err);
-    //           }
-    //         )
 
-  
-    //       },
-    //       (error) => {
-    //         this.snakeBar.close_bar();
-    //         Toaster_Service.toastNotification_D(error);
-    //         console.log(error);
-    //       }
-    //     )
-    // }
-    // else
-    // {
-    //   this.snakeBar.close_bar();
-    //   Toaster_Service.toastNotification_I("Please select from type first!");
+    var encoded = EncodeDecode.b64EncodeUnicode(uname + ':' + password);
+    this.freeapi.getLogin(encoded)
+      .subscribe(
+        (data) => {
+          // this.snakeBar.close_bar();
+          // console.log(data);
+          this.getAccDetails = data;
+          this.getAccDetails1 = data.data;
+          this.getAccCurrency = data._currency;
+          this.getsubAcc = data._subaccount;
 
-    // }
+
+          this.freeapi.search_permissions(this.getAccDetails1.user_id)
+          .subscribe
+          (
+            res=>
+            {
+              this.snakeBar.close_bar()
+              var data = JSON.parse( JSON.parse(JSON.stringify(res)));
+              // console.log(data);
+              // console.log(data.http_response);
+              // console.log(data.http_response.length);
+
+
+              if (data.http_response.length>0  && data.http_response[0].status=='reseller' 
+              && data.http_response[0].banned== (0||'0'))
+              {
+                this.freeapi.search_user('resellers',this.getAccDetails1.user_id)
+                .subscribe
+                (
+                  res=>
+                  {
+                    let val1 = ( JSON.parse(JSON.stringify(res)));
+                    //console.log(val.http_response);
+                    if (val1.http_response.length==0)
+                    {
+      
+                      // console.log(val);
+                      // this.snakeBar.close_bar();
+                      // Toaster_Service.toastNotification_S("Check Console");
+
+                      // Here to Register him...
+                    
+                     
+                          
+                          
+                          // console.log(latitude+" "+longitude);
+                          let latitude = this.data_security.coords.latitude;
+                          let longitude = this.data_security.coords.longitude;
+                          var content = {
+                            "id": this.getAccDetails1.user_id,
+                            "username": this.uname,
+                            "passcode": EncodeDecode.b64EncodeUnicode(this.passcode),
+                            "ip_addr": latitude,
+                            "device":this.getOS(),
+                            "country": longitude,
+                            "type":"resellers",
+      
+                            "permissions":
+                                    {
+                                      "sms":data.http_response[0].access_sms,
+                                      "mms":data.http_response[0].access_mms,
+                                      "contacts":data.http_response[0].access_contacts,
+                                      "sms_campaigns":data.http_response[0].sms_campaign,
+                                      "templates":data.http_response[0].access_templates,
+                                      "billings":data.http_response[0].access_billing,
+                                      "top_ups":data.http_response[0].mobile_topup,
+                                      "resellers":data.http_response[0].access_resellers,
+                                      "banned":data.http_response[0].banned,
+                                    }
+                          }
+                          localStorage.setItem("user_data", JSON.stringify(content));
+                          localStorage.setItem("user_status", "Logged_in");
+      
+                          this.shared_services.setUserData(content);
+                          this.freeapi.setUserDetailsDB(this.getAccDetails1.user_id, this.uname
+                            , latitude,this.getOS(),longitude, 'resellers').subscribe
+                            (
+                              res => {
+                                // console.log(res);
+                                this.snakeBar.close_bar();
+                                let val:any;
+                                val = res;
+                                console.log(val.http_response);
+                                Toaster_Service.toastNotification_S(val.http_response);
+                                this.router.navigate(['./profile'])
+      
+                              },
+      
+                              err => {
+                                console.log(err);
+                                this.snakeBar.close_bar();
+                                Toaster_Service.toastNotification_D("Error check console ->");
+                                }
+      
+                            )
+
+                          
+                    }
+
+
+
+
+                    else if (val1.http_response.length>0){
+                      let data = val1.http_response[0];
+                      var content_comp={}
+                      
+                      {
+
+                        
+                            
+                            // console.log(latitude+" "+longitude);
+                            let latitude = this.data_security.coords.latitude;
+                            let longitude = this.data_security.coords.longtitude;
+        
+                            content_comp = {
+                              "id": this.getAccDetails1.user_id,
+                              "username": this.uname,
+                              "passcode": EncodeDecode.b64EncodeUnicode(this.passcode),
+                              "ip_addr": latitude,
+                              "device":this.getOS(),
+                              "country": longitude,
+                              "type":"resellers",
+                              "permissions":
+                                  {
+                                    "sms":data.access_sms,
+                                    "mms":data.access_mms,
+                                    "contacts":data.access_contacts,
+                                    "sms_campaigns":data.sms_campaign,
+                                    "templates":data.access_templates,
+                                    "billings":data.access_billing,
+                                    "top_ups":data.mobile_topup,
+                                    "resellers":data.access_resellers,
+                                    "banned":data.banned,
+                                  }
+                                  
+                            }
+    
+                            if (data.id == this.getAccDetails1.user_id 
+                              && data.username == this.uname && data.ip_addr== 
+                              latitude && data.device == this.getOS() )
+                            {
+                              this.snakeBar.close_bar()
+                              localStorage.setItem("user_data", JSON.stringify(content_comp));
+                              localStorage.setItem("user_status", "Logged_in");
+                              // Navigate to profile
+                              Toaster_Service.toastNotification_S("Successfully Signed!");
+                              this.router.navigate(['./profile'])
+                            }
+    
+                            else
+                            {
+                              // this navigate to OTP.
+                              console.log("Not Matched");
+                              let latitude = this.data_security.coords.latitude;
+                              let longitude = this.data_security.coords.longitude;
+                              
+                              var val = Math.floor(1000 + Math.random() * (9000+54));
+    
+                              this.freeapi.sendVerificationcodebyemail(this.getAccDetails1.account_billing_email,val)
+                              .subscribe
+                              (
+                                res=>
+                                {
+                                  this.snakeBar.close_bar();
+                                
+                                  content_comp = {
+                                    "id": this.getAccDetails1.user_id,
+                                    "username": this.uname,
+                                    "passcode": EncodeDecode.b64EncodeUnicode(this.passcode),
+                                    "ip_addr": latitude,
+                                    "device":this.getOS(),
+                                    "country": longitude,
+                                    "type":"resellers",
+                                    "permissions":
+                                        {
+                                          "sms":data.access_sms,
+                                          "mms":data.access_mms,
+                                          "contacts":data.access_contacts,
+                                          "sms_campaigns":data.sms_campaign,
+                                          "templates":data.access_templates,
+                                          "billings":data.access_billing,
+                                          "top_ups":data.mobile_topup,
+                                          "resellers":data.access_resellers,
+                                          "banned":data.banned,
+                                        }
+                                  } 
+                                  localStorage.setItem("user_data", JSON.stringify(content_comp));
+                                  localStorage.setItem("temp_code",''+val)
+                                  Toaster_Service.toastNotification_S("OTP has been Sent");
+                                  this.router.navigate(['./verify'])
+    
+                                
+    
+                                },
+                                err=>
+                                {
+                                  this.snakeBar.close_bar();
+                                  Toaster_Service.toastNotification_S("OTP failed due to error");
+                                  console.log(err);
+    
+                                }
+                              )
+    
+                            }
+                          
+                    
+
+                  
+                      }
+                  }},
+                  err=>
+                  {
+                    this.snakeBar.close_bar();
+                    Toaster_Service.toastNotification_I("Refresh Page!");
+                  }
+                )
+              }
+              else
+              {
+                this.snakeBar.close_bar();
+                Toaster_Service.toastNotification_I('Contact Admin to Create your Account')
+              }
+            },
+            err=>
+            {
+              console.log(err);
+              this.snakeBar.close_bar();
+            }
+          )
+
+        },
+        (error) => {
+          this.snakeBar.close_bar();
+          Toaster_Service.toastNotification_D(error);
+          console.log(error);
+        }
+      )
+
+    }
+    else
+    {
+      this.snakeBar.close_bar();
+      Toaster_Service.toastNotification_I("Please select from type first!");
+
+    }
   }
 
 
