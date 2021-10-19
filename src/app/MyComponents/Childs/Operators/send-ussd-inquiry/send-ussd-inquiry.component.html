@@ -3,6 +3,16 @@
     <h1 class="mb-3">
       USSD
     </h1>
+    <div class="row p-1">
+      <div class="col-4">
+        <label for="selects"> Select Devices</label>
+        <select class="form-select form-select-sm me-auto" id="selects" aria-label=".form-select-sm example">
+          <option>
+            NONE
+          </option>
+        </select>
+      </div>
+    </div>
   </div>
   <div class="card mt-2 w-auto h-auto" *ngIf="numbers.length table-responsive">
     <table id="displayingData">
