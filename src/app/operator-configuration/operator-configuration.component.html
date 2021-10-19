@@ -1,13 +1,4 @@
   <!-- Page content -->
-  <div class="content">
-    <h1>
-      <router-outlet>
-      </router-outlet>
-    </h1>
-  </div>
-  
-
-
   <!-- The sidebar -->
 <div class="sidebar">
   <a class="active" id="operator" (click)="Operator()"  [routerLink]='["./operator"]'>Operators</a>
@@ -18,3 +9,11 @@
   <!-- <a id="usage" (click)="usage()" [routerLink]='["./usage"]'>Usage</a> -->
   </div>
   
+  <div class="content">
+    <h1>
+      <router-outlet>
+      </router-outlet>
+    </h1>
+  </div>
+  
+
