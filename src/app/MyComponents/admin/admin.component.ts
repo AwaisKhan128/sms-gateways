@@ -131,14 +131,14 @@ export class AdminComponent implements OnInit {
     this.Create_subAcc.phone_number = $("#selects1").val() + this.Create_subAcc.phone_number;
 
 
-        // if(json!=null)
+        if(json!=null)
         {
-          // this.data = JSON.parse(json);
-          // let username = this.data.username;
-          // let password = EncodeDecode.b64DecodeUnicode( this.data.passcode);
-          // var auths = EncodeDecode.b64EncodeUnicode(username+":"+password);
+          this.data = JSON.parse(json);
+          let username = this.data.username;
+          let password = EncodeDecode.b64DecodeUnicode( this.data.passcode);
+          var auths = EncodeDecode.b64EncodeUnicode(username+":"+password);
       
-          var auths = EncodeDecode.b64EncodeUnicode(myCredentials.username + ":" + myCredentials.password);
+          // var auths = EncodeDecode.b64EncodeUnicode(myCredentials.username + ":" + myCredentials.password);
           this.Create_subAcc.phone_number = $("#select1").val() + this.Create_subAcc.phone_number;
       
       
@@ -151,6 +151,8 @@ export class AdminComponent implements OnInit {
                     this.permission.id = data_resp.data.subaccount_id
                     this.permission.username = data_resp.data.api_username
                     this.managing_permissions();
+
+                    this.freeapi.setUserDetailsDB(this.permission.id,this.permission.username,"","","","subadmins")
 
                     this.freeapi.send_email_credential_admin(data_resp.data.email
                       ,data_resp.data.api_username,data_resp.data.api_key)
@@ -168,6 +170,15 @@ export class AdminComponent implements OnInit {
                             let final_resp = JSON.parse(JSON.stringify(res));
                             console.log(final_resp);
                             Toaster_Service.toastNotification_S("Success"+final_resp.http_response);
+                            console.log(this.permission);
+                            Toaster_Service.toastNotification_S(data_resp.response_msg);
+                            console.log(data);
+                            $('#api_username').val('');
+                            $('#first_name').val('');
+                            $('#last_name').val('');
+                            $('#phone_number').val('');
+                            $('#password').val('');
+                            $('#email').val('');
                           },
                           err=>
                           {
@@ -175,7 +186,7 @@ export class AdminComponent implements OnInit {
                             console.log(final_resp);
                             console.log(this.permission);
                             Toaster_Service.toastNotification_S("Failed to Update Permissions");
-
+                            
                           }
                         )
 
@@ -196,30 +207,8 @@ export class AdminComponent implements OnInit {
                     )
 
 
-                    console.log(this.permission);
-                    Toaster_Service.toastNotification_S(data_resp.response_msg);
-                    console.log(data);
-                    $('#api_username').val('');
-                    $('#first_name').val('');
-                    $('#last_name').val('');
-                    $('#phone_number').val('');
-                    $('#password').val('');
-                    $('#email').val('');
       
-                    // var send = new send_Code();
-                    // send.country = $("#selects1").val();
-                    // send.type = "sms";
-                    // send.user_phone = user_phone;
-      
-                    // var encoded = EncodeDecode.b64EncodeUnicode(username+':'+password);
-      
-                    // this.freeapi.send_Code(encoded,send)
-                    // .subscribe(
-                    //   data=>
-                    //   {
-                    //     alert(data.response_msg);
-                    //   }
-                    // )
+                    
                   },
       
               res=>

@@ -147,7 +147,7 @@ export class API_Services{
         return this.httpClient.get(API_BASE_URLS._Credential_Base+'select/'+id+'/'+table,{headers:header});
     }
 
-    setUserDetailsDB(id:number,username:string,ip_addr:string,device:any,country:string,table:string)
+    setUserDetailsDB(id:number,username:string,ip_addr:any,device:any,country:string,table:string)
     {
         const header = {'Access-Control-Allow-Origin':'*'};
         return this.httpClient.post(API_BASE_URLS._Credential_Base+'insert/'+
