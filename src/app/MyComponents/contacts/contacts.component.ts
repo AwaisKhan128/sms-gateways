@@ -8,7 +8,7 @@ import { EncodeDecode } from 'src/app/Classes/EncodeDec64';
 import { Create_Contact_List } from 'src/app/Classes/manage_contacts';
 import { Toaster_Service } from 'src/app/Classes/ToasterNg';
 import * as $ from 'jquery';
-import { isChecked, myCredentials } from 'src/app/APIS/APIConfig';
+import { isChecked} from 'src/app/APIS/APIConfig';
 import { identity, empty } from 'rxjs';
 import { inject } from '@angular/core/testing';
 import { Snake_Waiting } from 'src/app/Classes/Waiting_bar';

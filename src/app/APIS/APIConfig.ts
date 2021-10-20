@@ -2,18 +2,18 @@ import { HttpHeaders } from "@angular/common/http";
 import { EncodeDecode } from "../Classes/EncodeDec64";
 
 
-var username = "awais.khan128@yahoo.com";
-var password = "Myyahooacc#1";
-var encoded = EncodeDecode.b64EncodeUnicode(username+':'+password);
+// var username = "awais.khan128@yahoo.com";
+// var password = "Myyahooacc#1";
+// var encoded = EncodeDecode.b64EncodeUnicode(username+':'+password);
 
-export const HTTP_HEADER_OPTIONS = {
-    CLICKSEND_HEADER: new HttpHeaders(
-        { 
-            'Authorization':'Basic '+encoded,
-            'Content-Type': 'application/json'
-        }
-    ),
-}
+// export const HTTP_HEADER_OPTIONS = {
+//     CLICKSEND_HEADER: new HttpHeaders(
+//         { 
+//             'Authorization':'Basic '+encoded,
+//             'Content-Type': 'application/json'
+//         }
+//     ),
+// }
 
 
 export enum API_BASE_URLS {
@@ -52,11 +52,7 @@ export interface isChecked
 }
 
 
-export enum myCredentials
-{
-    username = "awais.khan128@yahoo.com",
-    password = "Myyahooacc#1"
-}
+
 export enum MESSAGE_STATUS_TYPE {
     sent ="sent",
     completed = "completed",

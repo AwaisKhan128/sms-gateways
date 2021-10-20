@@ -8,7 +8,6 @@ import { EncodeDecode } from 'src/app/Classes/EncodeDec64';
 import { create_sms_template, View_sms_template, View_sms_template1 } from 'src/app/Classes/sms_templates';
 import * as $ from 'jquery';
 import { ToastNotificationInitializer, DialogLayoutDisplay } from '@costlydeveloper/ngx-awesome-popup';
-import { myCredentials } from 'src/app/APIS/APIConfig';
 import { ProgressComponentComponent } from '../progress-component/progress-component.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Snake_Waiting } from 'src/app/Classes/Waiting_bar';

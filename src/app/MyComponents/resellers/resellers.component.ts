@@ -1,7 +1,6 @@
 import { Permission, Permission_Sample } from 'src/app/Classes/Permissions';
 import { Component, OnInit } from '@angular/core';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { myCredentials } from 'src/app/APIS/APIConfig';
 import { API_Services } from 'src/app/APIS/freeapi.service';
 import { EncodeDecode } from 'src/app/Classes/EncodeDec64';
 import { Countries } from 'src/app/Classes/getCountries';
@@ -200,6 +199,7 @@ export class ResellersComponent implements OnInit {
   {
     let json = localStorage.getItem("user_data");
     let country = $('#selects_country').val();
+    this.create_Reseller.country = '';
     this.create_Reseller.country = country;
     
     console.log(this.create_Reseller);
@@ -212,6 +212,9 @@ export class ResellersComponent implements OnInit {
   
       // var auths = EncodeDecode.b64EncodeUnicode(myCredentials.username + ":" + myCredentials.password);
       
+
+
+      
       this.freeapi.create_reseller(this.create_Reseller)
       .subscribe
       (
@@ -220,50 +223,61 @@ export class ResellersComponent implements OnInit {
           let data_resp = JSON.parse(JSON.stringify(data));
           console.log(data_resp);
           Toaster_Service.toastNotification_S(data_resp.response_msg)
+          let id = data_resp.data.user_id;
+          let username = data_resp.data.username;
 
-          this.freeapi.send_email_credential_admin(data_resp.data.user_email
-            ,data_resp.data.username,this.create_Reseller.password)
+          this.freeapi.setUserDetailsDB(id,username,"","","","resellers")
           .subscribe
           (
-            data=>
+            res=>
             {
-              let resp_data= JSON.parse(JSON.stringify(data));
-              Toaster_Service.toastNotification_S(resp_data.response_msg);
-              this.permission.id = data_resp.data.user_id;
-              this.permission.username = data_resp.data.username;
-              this.managing_permissions();
-    
-    
-              this.freeapi.push_Acc_permissions("reseller",this.permission)
-              .subscribe(
-                res=>
+              Toaster_Service.toastNotification_S("success");
+              this.freeapi.send_email_credential_admin(data_resp.data.user_email
+                ,username,this.create_Reseller.password)
+              .subscribe
+              (
+                data=>
                 {
-                  let data_resp = JSON.parse(JSON.stringify(res));
-                  console.log(data_resp);
-                  Toaster_Service.toastNotification_S(data_resp.http_response);
-                  this.modalService.dismissAll();
+                  let resp_data= JSON.parse(JSON.stringify(data));
+                  Toaster_Service.toastNotification_S(resp_data.response_msg);
+                  this.permission.id = data_resp.data.user_id;
+                  this.permission.username = data_resp.data.username;
+                  this.managing_permissions();
+        
+        
+                  this.freeapi.push_Acc_permissions("reseller",this.permission)
+                  .subscribe(
+                    res=>
+                    {
+                      let data_resp = JSON.parse(JSON.stringify(res));
+                      console.log(data_resp);
+                      Toaster_Service.toastNotification_S(data_resp.http_response);
+                      this.modalService.dismissAll();
+        
+                    },
+                    err=>
+                    {
+                      let err_resp = JSON.parse(JSON.stringify(err));
+                      console.log(err_resp);
+                      Toaster_Service.toastNotification_D(err_resp.http_response);
+                    }
+                  )
+                  
     
                 },
+    
                 err=>
                 {
-                  let err_resp = JSON.parse(JSON.stringify(err));
-                  console.log(err_resp);
-                  Toaster_Service.toastNotification_D(err_resp.http_response);
+                  console.log(err);
+                  Toaster_Service.toastNotification_D(err);
                 }
               )
-              
-
             },
-
             err=>
             {
-              console.log(err);
-              Toaster_Service.toastNotification_D(err);
+
             }
           )
-
-
-
         },
         res=>
         {

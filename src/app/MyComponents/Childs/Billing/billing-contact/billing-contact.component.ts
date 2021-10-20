@@ -1,4 +1,3 @@
-import { myCredentials } from 'src/app/APIS/APIConfig';
 import { Component, OnInit } from '@angular/core';
 import { API_Services } from 'src/app/APIS/freeapi.service';
 import { EncodeDecode } from 'src/app/Classes/EncodeDec64';
