@@ -18,7 +18,7 @@
     </div>
     <div class="row p-2" *ngIf = "this.ussds.length">
       <div class="col-4">
-        <input id= "ussdcode" class="form-check-input" type="text" value="{{this.ussds[0].ussd}}" style="width:50%" placeholder="USSD Code">
+        <input id= "ussdcode" class="form-check-input" type="text" [(ngModel)]="this.ussds[0].ussd" value="{{this.ussds[0].ussd}}" style="width:50%" placeholder="USSD Code">
         <div>
           <button class="btn btn-primary ms-1 mt-1 mb-1 me-1" (click)="actionCopyToSelected($event)">
             Copy to selected
@@ -77,7 +77,7 @@
           {{n.number}}
         </td>
         <td>
-          <input class="form-check-input" type="text" style="width:70%" (keyup)="onUSSDCodeKeyInputAdded($event)" [(ngModel)]="n.ussdCodeToSend" value="{{n.ussdCodeToSend}}" [disabled]= "n.isDisabled">
+          <input class="form-check-input" type="text" style="width:70%" [(ngModel)]="n.ussdCodeToSend" value="{{n.ussdCodeToSend}}" [disabled]= "n.isDisabled">
         </td>
         <td>
           <input class="form-check-input" type="text" value="{{n.defaultUSSDStatus}}" id="{{n.defaultUSSDStatus}}" style="width:70%">
