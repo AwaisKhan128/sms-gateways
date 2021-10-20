@@ -9,6 +9,7 @@ import { FormsModule } from '@angular/forms';
 import { collection, addDoc, setDoc, doc, getFirestore } from "firebase/firestore"; 
 import { initializeApp } from '@firebase/app';
 import { FirebaseUSSDInquiry } from 'src/app/Classes/firebase_ussd_inquiry';
+import { Toaster } from 'src/app/Helper/toaster';
 
 const firebaseConfig = {
   apiKey: "AIzaSyDyiduM5noPodZMAYyXMeMZxY4gOac3_fI",
@@ -138,7 +139,15 @@ export class SendUSSDInquiryComponent implements OnInit {
     const selectedNumbs = this.phoneNumbers.filter(e=>e.isDisabled == false)
     if (selectedNumbs.length <= 0) {
       console.log("NONE SELECTEDD")
+      Toaster.failureToast("FAILURE","NO number was selected!")
       return 
+    }
+    else {
+      const isEmpty = selectedNumbs.filter(e=>e.ussdCodeToSend! == "")
+      if(isEmpty.length >= 0) {
+        Toaster.failureToast("FAILURE","USSD Code are required!")
+        return
+      }
     }
     console.log("SELECTEDD")
     try {
@@ -156,8 +165,10 @@ export class SendUSSDInquiryComponent implements OnInit {
       const docRef = await setDoc(doc(db, "USSDInquiry", "ussd_opcode_0322"), {
           devices: ar
       });
+      Toaster.sucessToast("SUCESS")
     } catch (e) {
       console.error("Error adding document: ", e);
+      Toaster.failureToast("FAILURE","Something went wrong")
     }
 
   }
