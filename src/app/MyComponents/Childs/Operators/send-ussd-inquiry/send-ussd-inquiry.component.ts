@@ -6,6 +6,22 @@ import { DevicesMatchingOperator } from 'src/app/Classes/devices_matching_operat
 import { PhoneOperator } from 'src/app/Classes/operatorResponse';
 import { USSDMatchingOperators } from 'src/app/Classes/ussd_matching_operator';
 import { FormsModule } from '@angular/forms';
+import { collection, addDoc, setDoc, doc, getFirestore } from "firebase/firestore"; 
+import { initializeApp } from '@firebase/app';
+import { FirebaseUSSDInquiry } from 'src/app/Classes/firebase_ussd_inquiry';
+
+const firebaseConfig = {
+  apiKey: "AIzaSyDyiduM5noPodZMAYyXMeMZxY4gOac3_fI",
+  authDomain: "sms-gateway-app-bf4bc.firebaseapp.com",
+  projectId: "sms-gateway-app-bf4bc",
+  storageBucket: "sms-gateway-app-bf4bc.appspot.com",
+  messagingSenderId: "330157825905",
+  appId: "1:330157825905:web:e9d7e8575b215f0a22e0d0"
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const db = getFirestore();
 
 
 @Component({
@@ -13,6 +29,7 @@ import { FormsModule } from '@angular/forms';
   templateUrl: './send-ussd-inquiry.component.html',
   styleUrls: ['./send-ussd-inquiry.component.css']
 })
+
 export class SendUSSDInquiryComponent implements OnInit {
 
   areAllNumbersSelected = false
@@ -31,6 +48,7 @@ export class SendUSSDInquiryComponent implements OnInit {
 
 
 
+  //change events
   onOperatorCodeSelected(event: any) {
     const opCode = <number>event.target.value;
     console.log(opCode)
@@ -44,8 +62,6 @@ export class SendUSSDInquiryComponent implements OnInit {
     }
   }
 
-
-  //change events
   specificNumbersSelected(event: any) {
     const number = <string>event.target.value;
     if ($('#'+number).prop('checked')) {
@@ -117,6 +133,35 @@ export class SendUSSDInquiryComponent implements OnInit {
       }
     })
   }
+
+  async actionSend() {
+    const selectedNumbs = this.phoneNumbers.filter(e=>e.isDisabled == false)
+    if (selectedNumbs.length <= 0) {
+      console.log("NONE SELECTEDD")
+      return 
+    }
+    console.log("SELECTEDD")
+    try {
+      var ar : FirebaseUSSDInquiry[] = [];
+      selectedNumbs.forEach(e=>{
+        const k : FirebaseUSSDInquiry = {
+          device: e.number!,
+          reply: "Waiting for Reply",
+          myStatus: "Sending",
+          ussd: e.ussdCodeToSend!
+        }
+        ar.push(k)
+      })
+
+      const docRef = await setDoc(doc(db, "USSDInquiry", "ussd_opcode_0322"), {
+          devices: ar
+      });
+    } catch (e) {
+      console.error("Error adding document: ", e);
+    }
+
+  }
+
 
   //apis
   getOperators() {
