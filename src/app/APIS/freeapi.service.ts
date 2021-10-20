@@ -4,7 +4,7 @@ import { HttpClient,HttpHeaderResponse,HttpHeaders,HttpParams } from "@angular/c
 import { Injectable } from "@angular/core";
 import { CreateAcc } from '../Classes/createAcc_';
 import { send_Code } from '../Classes/Verify_acc';
-import { API_BASE_URLS, CLICKSEND_API_ENDPOINTS, HEROKU_API_ENDPOINTS, HTTP_HEADER_OPTIONS } from './APIConfig';
+import { API_BASE_URLS, CLICKSEND_API_ENDPOINTS, HEROKU_API_ENDPOINTS } from './APIConfig';
 import { SendSMSParam } from '../Classes/SMS/send_sms_param';
 import { SendResponse } from '../Classes/SMS/send_sms_response';
 import { SendMMSParam } from '../Classes/MMS/send_mms_param';
@@ -42,55 +42,55 @@ export class API_Services{
         return this.httpClient.post(API_BASE_URLS.CLICKSEND_BASE_URL+'subaccounts',body, { headers:headers })
     }
 
-    get_Sub_Acc(auth:string)
+    get_Sub_Acc(auth:string):Observable<any>
     {
         const headers = {'Authorization': 'Basic '+auth };
         return this.httpClient.get(API_BASE_URLS.CLICKSEND_BASE_URL+'subaccounts',{headers:headers})
     }
 
-    get_Sub_Acc_byID(auth:string,sub_id:any)
+    get_Sub_Acc_byID(auth:string,sub_id:any):Observable<any>
     {
         const headers = {'Authorization': 'Basic '+auth };
         return this.httpClient.get(API_BASE_URLS.CLICKSEND_BASE_URL+'subaccounts/'+sub_id,{headers:headers})
     }
 
-    update_Sub_Acc(auth:string,body:any, subAcc_id:any|number)
+    update_Sub_Acc(auth:string,body:any, subAcc_id:any|number):Observable<any>
     {
         const headers = {'Authorization': 'Basic '+auth, "Content-Type": "application/json" };
         return this.httpClient.put(API_BASE_URLS.CLICKSEND_BASE_URL+'subaccounts/'+subAcc_id,body,{headers:headers})
     }
 
-    send_email_credential_admin(email:string|any,user:any,API:any)
+    send_email_credential_admin(email:string|any,user:any,API:any):Observable<any>
     {
         const header = {'Access-Control-Allow-Origin':'*'};
         return this.httpClient.post(API_BASE_URLS._Credential_Base+'gatewaysendmail/'+email+'/'+user+'/'+API,{headers:header});
     }
 
-    delete_subAcc(auth:string, subAcc_Id:number|any)
+    delete_subAcc(auth:string, subAcc_Id:number|any):Observable<any>
     {
         const headers = {'Authorization': 'Basic '+auth };
         return this.httpClient.delete(API_BASE_URLS.CLICKSEND_BASE_URL+'subaccounts/'+subAcc_Id,{headers:headers});
     }
 
-    push_Acc_permissions(user_type:any,body:any)
+    push_Acc_permissions(user_type:any,body:any):Observable<any>
     {
         const headers = {'Access-Control-Allow-Origin':'*', "Content-Type": "application/json" };
         return this.httpClient.post(API_BASE_URLS._Credential_Base+'insert/permissions/'+user_type,body,{headers:headers});
     }
 
-    inject_Acc_permissions(subAcc_id:any,body:any)
+    inject_Acc_permissions(subAcc_id:any,body:any):Observable<any>
     {
         const headers = {'Access-Control-Allow-Origin':'*', "Content-Type": "application/json" };
         return this.httpClient.put(API_BASE_URLS._Credential_Base+'modify/permissions?id='+subAcc_id,body,{headers:headers});
     }
 
-    retrieve_Acc_permissions(id:any|number)
+    retrieve_Acc_permissions(id:any|number):Observable<any>
     {
         const headers = {'Access-Control-Allow-Origin':'*'};
         return this.httpClient.get(API_BASE_URLS._Credential_Base+'select/permissions?id='+id,{headers:headers})
     }
 
-    retrieve_Acc_permissionsALL(status:any|number)
+    retrieve_Acc_permissionsALL(status:any|number):Observable<any>
     {
         // const headers = {'Access-Control-Allow-Origin':'*'};
         return this.httpClient.get(API_BASE_URLS._Credential_Base+'select/permissions?status='+status)
@@ -98,13 +98,13 @@ export class API_Services{
 
 
     // ------------Subscribe devices-----------------
-    get_subscribe_devices(id:any|number)
+    get_subscribe_devices(id:any|number):Observable<any>
     {
         const headers = {'Access-Control-Allow-Origin':'*'};
         return this.httpClient.get(API_BASE_URLS._Credential_Base+'subscribe/subscribe_devices?id='+id,{headers:headers})
     }
 
-    get_subscribe_devices_details(id:any|number)
+    get_subscribe_devices_details(id:any|number):Observable<any>
     {
         const headers = {'Access-Control-Allow-Origin':'*'};
         return this.httpClient.get(API_BASE_URLS._Credential_Base+'subscribe/sim/subscribe_devices_info?id='+id,{headers:headers})
@@ -114,7 +114,7 @@ export class API_Services{
 
 // ---------------->Resellers-------------->
 
-    create_reseller(body:any)
+    create_reseller(body:any):Observable<any>
     {
         const headers = {"Content-Type": "application/json" };
         return this.httpClient.post(API_BASE_URLS.CLICKSEND_BASE_URL+'account',body,{headers:headers});
@@ -147,33 +147,33 @@ export class API_Services{
         return this.httpClient.get(API_BASE_URLS._Credential_Base+'select/'+id+'/'+table,{headers:header});
     }
 
-    setUserDetailsDB(id:number,username:string,ip_addr:any,device:any,country:string,table:string)
+    setUserDetailsDB(id:number,username:string,ip_addr:any,device:any,country:string,table:string):Observable<any>
     {
         const header = {'Access-Control-Allow-Origin':'*'};
         return this.httpClient.post(API_BASE_URLS._Credential_Base+'insert/'+
         table+'?id='+id+'&username='+username+'&ip_addr='+ip_addr+'&device='+device+'&country='+country,{headers:header});
     }
 
-    modifyUserDetailsDB(id:number,ip_addr:string,device:any,country:string,table:string)
+    modifyUserDetailsDB(id:number,ip_addr:string,device:any,country:string,table:string):Observable<any>
     {
         const header = {'Access-Control-Allow-Origin':'*'};
         return this.httpClient.put(API_BASE_URLS._Credential_Base+'modify/'+
         table+'?id='+id+'&ip_addr='+ip_addr+'&device='+device+'&country='+country,{headers:header});
     }
 
-    Send_forget_notify(body:any)
+    Send_forget_notify(body:any):Observable<any>
     {
         const header = { 'Content-Type': 'application/json' };
         return this.httpClient.put(API_BASE_URLS.CLICKSEND_BASE_URL+'forgot-username',body,{headers:header})
     }
 
-    Send_forget_passcode(body:any)
+    Send_forget_passcode(body:any):Observable<any>
     {
         const header = { 'Content-Type': 'application/json' };
         return this.httpClient.put(API_BASE_URLS.CLICKSEND_BASE_URL+'forgot-password',body,{headers:header})
     }
 
-    getbilling_transaction(auth:string)
+    getbilling_transaction(auth:string):Observable<any>
     {
         const headers = { 'Authorization': 'Basic '+auth};
         return  this.httpClient.get(API_BASE_URLS.CLICKSEND_BASE_URL+'recharge/transactions',{headers:headers})
@@ -181,7 +181,7 @@ export class API_Services{
 
 
 
-    get_card_details(auth:string|any)
+    get_card_details(auth:string|any):Observable<any>
     {
         const headers = { 'Authorization': 'Basic '+auth};
         return this.httpClient.get(API_BASE_URLS.CLICKSEND_BASE_URL+'recharge/credit-card',{headers:headers})
@@ -190,31 +190,31 @@ export class API_Services{
 
 
 
-    create_sms_template(auth:string|any,body:any)
+    create_sms_template(auth:string|any,body:any):Observable<any>
     {
         const headers = { 'Authorization': 'Basic '+auth};
         return this.httpClient.post(API_BASE_URLS.CLICKSEND_BASE_URL+'sms/templates',body,{headers:headers})
     }
 
-    update_sms_tempalte(auth:string , body:any ,template_id:any)
+    update_sms_tempalte(auth:string , body:any ,template_id:any):Observable<any>
     {
         const headers = { 'Authorization': 'Basic '+auth , 'Content-Type':'application/json'};
         return this.httpClient.put(API_BASE_URLS.CLICKSEND_BASE_URL+'sms/templates/'+template_id,body,{headers:headers})
     }
 
-    get_sms_templates(auth:string|any)
+    get_sms_templates(auth:string|any):Observable<any>
     {
         const headers = { 'Authorization': 'Basic '+auth};
         return this.httpClient.get(API_BASE_URLS.CLICKSEND_BASE_URL+'sms/templates',{headers:headers})
     }
 
-    get_sms_templates_by_Num(auth:string|any,page:any,limit:any)
+    get_sms_templates_by_Num(auth:string|any,page:any,limit:any):Observable<any>
     {
         const headers = { 'Authorization': 'Basic '+auth};
         return this.httpClient.get(API_BASE_URLS.CLICKSEND_BASE_URL+'sms/templates?page='+page+'&limit='+limit,{headers:headers})
     }
 
-    remove_sms_templates(auth:string|any,template_id:any)
+    remove_sms_templates(auth:string|any,template_id:any):Observable<any>
     {
         const headers = { 'Authorization': 'Basic '+auth};
         return this.httpClient.delete(API_BASE_URLS.CLICKSEND_BASE_URL+'sms/templates/'+template_id,{headers:headers})
@@ -222,24 +222,24 @@ export class API_Services{
 
 
 
-    update_payment_info(auth:string|any, body:any )
+    update_payment_info(auth:string|any, body:any ):Observable<any>
     {
         const headers = { 'Authorization': 'Basic '+auth , 'Content-Type':'application/json'};
         return this.httpClient.put(API_BASE_URLS.CLICKSEND_BASE_URL+'recharge/credit-card',body,{headers:headers})
     }
 
-    get_packages_list(auth:string|any, country:any)
+    get_packages_list(auth:string|any, country:any):Observable<any>
     {
         const headers = { 'Authorization': 'Basic '+auth};
         return this.httpClient.get(API_BASE_URLS.CLICKSEND_BASE_URL+'recharge/packages?country='+country,{headers:headers})
     }
 
-    recharge_package(auth:string,id:any)
+    recharge_package(auth:string,id:any):Observable<any>
     {
         const headers = { 'Authorization': 'Basic '+auth};
         return this.httpClient.put(API_BASE_URLS.CLICKSEND_BASE_URL+'recharge/purchase/'+id,{headers:headers})
     }
-    get_recharged_history(auth:string,page:any=undefined)
+    get_recharged_history(auth:string,page:any=undefined):Observable<any>
     {
 
         if(page!=null||undefined||'')
@@ -258,40 +258,40 @@ export class API_Services{
 
     //Receive contact list
 
-    create_contact_list(auth:string|any,body:any)
+    create_contact_list(auth:string|any,body:any):Observable<any>
     {
         const headers = { 'Authorization': 'Basic '+auth};
         return this.httpClient.post(API_BASE_URLS.CLICKSEND_BASE_URL+'lists',body,{headers:headers})
     }
 
-    get_contact_list(auth:string|any)
+    get_contact_list(auth:string|any):Observable<any>
     {
         const headers = { 'Authorization': 'Basic '+auth};
         return this.httpClient.get(API_BASE_URLS.CLICKSEND_BASE_URL+'lists',{headers:headers})
 
     }
 
-    get_contact_list_byNum(auth:string|any,page:any,limit:any)
+    get_contact_list_byNum(auth:string|any,page:any,limit:any):Observable<any>
     {
         const headers = { 'Authorization': 'Basic '+auth};
         return this.httpClient.get(API_BASE_URLS.CLICKSEND_BASE_URL+'lists?page='+page+'&limit='+limit,{headers:headers})
     }
 
 
-    get_spec_contact_list(auth:string|any,list_id:any)
+    get_spec_contact_list(auth:string|any,list_id:any):Observable<any>
     {
         const headers = { 'Authorization': 'Basic '+auth};
         return this.httpClient.get(API_BASE_URLS.CLICKSEND_BASE_URL+'lists/'+list_id,{headers:headers})
 
     }
 
-    update_contact_list(auth:string|any, body:any,list_id:any)
+    update_contact_list(auth:string|any, body:any,list_id:any):Observable<any>
     {
         const headers = { 'Authorization': 'Basic '+auth};
         return this.httpClient.put(API_BASE_URLS.CLICKSEND_BASE_URL+'lists/'+list_id,body,{headers:headers})
     }
 
-    delete_contact_list(auth:string, id:any)
+    delete_contact_list(auth:string, id:any):Observable<any>
     {
         const headers = { 'Authorization': 'Basic '+auth};
         return this.httpClient.delete(API_BASE_URLS.CLICKSEND_BASE_URL+'lists/'+id,{headers:headers})
@@ -300,19 +300,19 @@ export class API_Services{
 
     // ----------Receive Contacts----------------
 
-    get_Contacts(auth:string, id:any)
+    get_Contacts(auth:string, id:any):Observable<any>
     {
         const headers = { 'Authorization': 'Basic '+auth};
         return this.httpClient.get(API_BASE_URLS.CLICKSEND_BASE_URL+'lists/'+id+'/contacts',{headers:headers})
     }
 
-    get_Contacts_by_Num(auth:string, id:any,page:any,limit:any)
+    get_Contacts_by_Num(auth:string, id:any,page:any,limit:any):Observable<any>
     {
         const headers = { 'Authorization': 'Basic '+auth};
         return this.httpClient.get(API_BASE_URLS.CLICKSEND_BASE_URL+'lists/'+id+'/contacts?page='+page+'&limit='+limit,{headers:headers})
     }
 
-    create_contact(auth:string,body:any,list_id:any)
+    create_contact(auth:string,body:any,list_id:any):Observable<any>
     {
         const headers = { 'Authorization': 'Basic '+auth,
          'Content-Type': 'application/json'};
@@ -320,14 +320,14 @@ export class API_Services{
     }
 
 
-    update_contact(auth:string,body:any,list_id:any,contact_id:any)
+    update_contact(auth:string,body:any,list_id:any,contact_id:any):Observable<any>
     {
         const headers = { 'Authorization': 'Basic '+auth,
          'Content-Type': 'application/json'};
         return this.httpClient.put(API_BASE_URLS.CLICKSEND_BASE_URL+'lists/'+list_id+'/contacts/'+contact_id,body,{headers:headers});
     }
 
-    delete_contact(auth:string,list_id:any, contact_id:any)
+    delete_contact(auth:string,list_id:any, contact_id:any):Observable<any>
     {
         const headers = { 'Authorization': 'Basic '+auth,
          'Content-Type': 'application/json'};
@@ -337,18 +337,18 @@ export class API_Services{
 
 
     // --------------Check Users Available----------------
-    search_user(type:any,id:any)
+    search_user(type:any,id:any):Observable<any>
     {
         return this.httpClient.get(API_BASE_URLS._Credential_Base+'select/'+type+"?id="+id);
     }
 
-    search_permissions(id:any)
+    search_permissions(id:any):Observable<any>
     {
         return this.httpClient.get(API_BASE_URLS._Credential_Base+'select/permissions?id='+id);
     }
 
     // Verification Code Send..
-    sendVerificationcodebyemail(email:any,code:any)
+    sendVerificationcodebyemail(email:any,code:any):Observable<any>
     {
         const headers = {"Content-Type": "application/json" };
         return this.httpClient.post(API_BASE_URLS._Credential_Base+'sendverification/'+email+'/'+code,{headers:headers})
@@ -435,6 +435,24 @@ export class API_Services{
         const url = API_BASE_URLS._Credential_Base + HEROKU_API_ENDPOINTS.GET_SUBSCRIBE_DEVICES_REMOTE_MESSAGES + "?id=" + userID
         return this.httpClient.get(url)
     }
+
+    // ----------------------Operators-------------------
+
+    getlistofOperators(): Observable<any>
+    {
+        const url = API_BASE_URLS._Credential_Base+'select/operators/operators_list';
+        return this.httpClient.get(url);
+    }
+
+    create_operator(body:any) : Observable<any> // Name and code
+    {
+        const url = API_BASE_URLS._Credential_Base+'insert/operators/operators_list';
+        return this.httpClient.post(url,body);
+    }
+
+
+
+    
 
     /**
    * Handle Http operation that failed.

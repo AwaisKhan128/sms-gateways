@@ -9,7 +9,6 @@ import { CreateAcc } from 'src/app/Classes/createAcc_';
 import { EncodeDecode } from 'src/app/Classes/EncodeDec64';
 import { send_Code } from 'src/app/Classes/Verify_acc';
 import { Toaster_Service } from 'src/app/Classes/ToasterNg';
-import { myCredentials } from 'src/app/APIS/APIConfig';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Permission } from 'src/app/Classes/Permissions';
 // this is just a comment
@@ -58,14 +57,14 @@ export class AdminComponent implements OnInit {
 
 
     let json = localStorage.getItem("user_data");
-        // if(json!=null)
+        if(json!=null)
         {
-          // this.data = JSON.parse(json);
-          // let username = this.data.username;
-          // let password = EncodeDecode.b64DecodeUnicode( this.data.passcode);
-          // var auths = EncodeDecode.b64EncodeUnicode(username+":"+password);
+          this.data = JSON.parse(json);
+          let username = this.data.username;
+          let password = EncodeDecode.b64DecodeUnicode( this.data.passcode);
+          var auths = EncodeDecode.b64EncodeUnicode(username+":"+password);
       
-          var auths = EncodeDecode.b64EncodeUnicode(myCredentials.username + ":" + myCredentials.password);
+          // var auths = EncodeDecode.b64EncodeUnicode(myCredentials.username + ":" + myCredentials.password);
           
           this.freeapi.get_Sub_Acc(auths)
           .subscribe
@@ -91,6 +90,7 @@ export class AdminComponent implements OnInit {
             res=>
             {
               console.log(res);
+
             }
 
           )
@@ -128,8 +128,10 @@ export class AdminComponent implements OnInit {
   {
 
     let json = localStorage.getItem("user_data");
+    this.Create_subAcc.phone_number = '';
     this.Create_subAcc.phone_number = $("#selects1").val() + this.Create_subAcc.phone_number;
-
+    // console.log($("#selects1").val())
+    // console.log(this.Create_subAcc);
 
         if(json!=null)
         {
@@ -138,8 +140,8 @@ export class AdminComponent implements OnInit {
           let password = EncodeDecode.b64DecodeUnicode( this.data.passcode);
           var auths = EncodeDecode.b64EncodeUnicode(username+":"+password);
       
-          // var auths = EncodeDecode.b64EncodeUnicode(myCredentials.username + ":" + myCredentials.password);
-          this.Create_subAcc.phone_number = $("#select1").val() + this.Create_subAcc.phone_number;
+          
+          // this.Create_subAcc.phone_number = $("#select1").val() + this.Create_subAcc.phone_number;
       
       
           this.freeapi.createAcc_post(auths,this.Create_subAcc)
@@ -215,6 +217,7 @@ export class AdminComponent implements OnInit {
                   {
                     let err = JSON.parse( JSON.stringify (res) );
                     console.log(res);
+                    console.log(this.Create_subAcc);
                     Toaster_Service.toastNotification_D(err.response_msg+"Error Creating subAcc!");
                     // alert(err.response_code + " " + err.response_msg);
                   }
@@ -223,7 +226,8 @@ export class AdminComponent implements OnInit {
           }
 
 
-  }
+  
+}
 
   public C_Admin(content:any)
   {

@@ -1,7 +1,6 @@
 import { Permission, Permission_Sample } from 'src/app/Classes/Permissions';
 import { Component, OnInit } from '@angular/core';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { myCredentials } from 'src/app/APIS/APIConfig';
 import { API_Services } from 'src/app/APIS/freeapi.service';
 import { EncodeDecode } from 'src/app/Classes/EncodeDec64';
 import { Countries } from 'src/app/Classes/getCountries';

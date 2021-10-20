@@ -1,4 +1,3 @@
-import { myCredentials } from './../../APIS/APIConfig';
 import { SharedService } from './../../Classes/shared_services';
 import { Component, OnInit } from '@angular/core';
 import { EncodeDecode } from 'src/app/Classes/EncodeDec64';
