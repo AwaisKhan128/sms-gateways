@@ -14,9 +14,9 @@
     <div class="row ms-auto">
 
       <div class="col ms-auto">
-        <button class="btn btn-outline-success ms-auto me-2" id="create_it" (click)="open(content)" type="button">Create Template</button>
-        <button class="btn btn-outline-success ms-auto" id="delete_it" (click)="delete_template(delete1)" type="button">Delete Template</button>
-        <button class="btn btn-outline-success ms-auto me-2" id="delete_it" (click)="update_templates(update_template)" type="button">Update Template</button>
+        <button class="btn btn-outline-success ms-auto me-2" id="create_it" (click)="open(content)" type="button">Create Operator</button>
+        <button class="btn btn-outline-success ms-auto me-2" id="delete_it" (click)="update_templates(update_template)" type="button">Update Operator</button>
+        <button class="btn btn-outline-success ms-auto" id="delete_it" (click)="delete_template(delete1)" type="button">Delete Operator</button>
       
       </div>
 
@@ -67,7 +67,7 @@
       <td>
         <div class="form-check">
           <input class="form-check-input" type="checkbox" value="{{out?.id}}"
-           id="form_checked" (click)="OnCheckBoxClicked(out?.id)" >
+           id="form_checked" (click)="OnCheckBoxClicked(out)" >
 
           <label class="form-check-label" for="flexCheckDefault">
           </label>

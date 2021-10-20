@@ -450,6 +450,13 @@ export class API_Services{
         return this.httpClient.post(url,body);
     }
 
+    update_operator(body:any,id:any): Observable<any>
+    {
+        const url = API_BASE_URLS._Credential_Base+'modify/operators/operator_list?id='+id;
+        return this.httpClient.put(url,body);
+    }
+
+
 
 
     

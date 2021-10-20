@@ -3,6 +3,9 @@ import { Component, OnInit } from '@angular/core';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { API_Services } from 'src/app/APIS/freeapi.service';
 import { Snake_Waiting } from 'src/app/Classes/Waiting_bar';
+import { operators_get_list } from 'src/app/Classes/operators_get_list';
+import * as $ from 'jquery';
+
 
 
 @Component({
@@ -17,6 +20,9 @@ export class OperatorComponent implements OnInit {
   title : any;
   message :any;
   alloperators:any[] | undefined;
+  operator_list: operators_get_list[]|any;
+  window: any["$"] = $;
+
 
   
   
@@ -34,6 +40,7 @@ export class OperatorComponent implements OnInit {
         this.Snake_Wait.close_bar();
         let data = JSON.parse(JSON.stringify(res));
         this.alloperators = data.http_response;
+        this.operator_list = data.http_response;
         // console.log(data.http_response.length);
         Toaster_Service.toastNotification_S("Loaded Complete");
       },
@@ -129,14 +136,35 @@ export class OperatorComponent implements OnInit {
 
   }
 
-  OnCheckBoxClicked(event:any) // Remain
+  OnCheckBoxClicked(out:any) // Remain
   {
-    console.log(event)
+    const index = this.operator_list.indexOf(out);
+    this.operator_list[index].active = !this.operator_list[index].active  
+    console.log(this.operator_list);
   }
 
 
   Checked_All() // Remain
   {
+    if ($(':checkbox').prop('checked')) {
+      //blah blah
+      $(':checkbox').prop('checked', true);
+      this.operator_list.forEach((_element: any) => {
+        _element.active = true;
 
+      });
+      console.log(this.operator_list);
+
+    }
+    else {
+
+      $(':checkbox').prop('checked', false);
+
+      this.operator_list.forEach((_element: any) => {
+        _element.active = false;
+
+      });
+      console.log(this.operator_list);
+    }
   }
 }
