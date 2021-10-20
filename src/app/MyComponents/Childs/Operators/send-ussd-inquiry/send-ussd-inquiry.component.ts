@@ -81,9 +81,6 @@ export class SendUSSDInquiryComponent implements OnInit {
     })
   }
 
-  onUSSDCodeKeyInputAdded(event) {
-    const numb = event.target.value as string
-  }
 
 
   //button clicks
@@ -149,9 +146,9 @@ export class SendUSSDInquiryComponent implements OnInit {
             i+= 1
             e.number! += i
             e.isDisabled = true
-            e.defaultUSSDReply = ""
+            e.defaultUSSDReply = "N/A"
             e.defaultUSSDStatus = "Not Send"
-            e.ussdCodeToSend = ''
+            e.ussdCodeToSend = ""
           })
           this.phoneNumbers = d
         }
