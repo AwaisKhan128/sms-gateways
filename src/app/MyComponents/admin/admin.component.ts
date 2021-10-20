@@ -19,6 +19,7 @@ import { Permission } from 'src/app/Classes/Permissions';
   templateUrl: './admin.component.html',
   styleUrls: ['./admin.component.css']
 })
+
 export class AdminComponent implements OnInit {
   countries:Countries[]|any;
   contries_data: Country_Data[]|undefined;
