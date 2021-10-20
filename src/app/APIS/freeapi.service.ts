@@ -1,5 +1,5 @@
 
-import { Observable, of } from 'rxjs';
+import { Observable, of, Operator } from 'rxjs';
 import { HttpClient,HttpHeaderResponse,HttpHeaders,HttpParams } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { CreateAcc } from '../Classes/createAcc_';
@@ -17,6 +17,7 @@ import { StatisticsSMSData } from '../Classes/Statistics/statistics_sms';
 import { SubscribedDevices } from '../Classes/subscribed_devices';
 import { SubscribedDevicesRemoteMessagesResponse } from '../Classes/subscribed_devices_remote_messages';
 import { SubscribedDevicesSim } from '../Classes/subscribed_devices_sim';
+import { OperatorsResponse } from '../Classes/operatorResponse';
 
 
 
@@ -438,9 +439,9 @@ export class API_Services{
 
     // ----------------------Operators-------------------
 
-    getlistofOperators(): Observable<any>
+    getlistofOperators(): Observable<OperatorsResponse>
     {
-        const url = API_BASE_URLS._Credential_Base+'select/operators/operators_list';
+        const url = API_BASE_URLS._Credential_Base+ HEROKU_API_ENDPOINTS.GET_OPERATORS;
         return this.httpClient.get(url);
     }
 

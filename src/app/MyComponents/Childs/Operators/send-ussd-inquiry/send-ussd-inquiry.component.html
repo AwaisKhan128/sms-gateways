@@ -7,20 +7,17 @@
       <div class="col-4">
         <label for="selects"> Select Operators</label>
         <select class="form-select form-select-sm me-auto" id="selects" aria-label=".form-select-sm example">
-          <option>
-            NONE
-          </option>
-          <option>
-            0343
-          </option>
-          <option>
-            0355
+          <option selected *ngFor="let o of this.operators"
+          [value]="o.id"
+          [ngValue]="o.id"
+          [selected]="o.operator_name == 'NONE' ">
+            {{o.operator_code}}
           </option>
         </select>
       </div>
     </div>
   </div>
-  <div class="card mt-2 w-auto h-auto" *ngIf="numbers.length table-responsive">
+  <div class="card mt-2 w-auto h-auto" *ngIf="operators.length table-responsive">
     <table id="displayingData">
       <tr>
         <th>
@@ -49,30 +46,30 @@
           USSD Status
         </th>
       </tr>
-      <tr id="displayingNumbers" *ngFor="let n of this.numbers">
+      <tr id="displayingNumbers" *ngFor="let n of this.operators">
         <td>
           <div class=" d-flex">
             <div class="check">
               <div class="form-check">
-                <input class="form-check-input" value="{{n.number}}" id="{{n.number}}" type="checkbox" (click)="specificNumbersSelected($event)" >
+                <input class="form-check-input" value="{{n.id}}" id="{{n.id}}" type="checkbox" (click)="specificNumbersSelected($event)" >
               </div>
             </div>
           </div>
         </td>
         <td>
-          {{n.port}}
+          {{n.id}}
         </td>
         <td>
-          {{n.slot}}
+          {{n.id}}
         </td>
         <td>
-          {{n.number}}
+          {{n.id}}
         </td>
         <td>
-          <input class="form-check-input" type="text" value="{{n.number}}" id="{{n.number}}" [disabled]="n.isDisabled == true"  style="width:70%">
+          <input class="form-check-input" type="text" value="{{n.id}}" id="{{n.id}}" style="width:70%">
         </td>
         <td>
-          <input class="form-check-input" type="text" value="{{n.USSDStatus}}" id="{{n.number}}" style="width:70%">
+          <input class="form-check-input" type="text" value="{{n.id}}" id="{{n.id}}" style="width:70%">
         </td>
       </tr>
     </table>
