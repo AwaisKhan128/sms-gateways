@@ -41,6 +41,8 @@ export class SendUSSDInquiryComponent implements OnInit {
   ussds: USSDMatchingOperators[] = [];
   selectedUSSD = ""
 
+  ussdInquires : FirebaseUSSDInquiry[] = [];
+
   constructor(private apiService: API_Services) { }
 
   ngOnInit(): void {
@@ -151,7 +153,6 @@ export class SendUSSDInquiryComponent implements OnInit {
     }
     console.log("SELECTEDD")
     try {
-      var ar : FirebaseUSSDInquiry[] = [];
       selectedNumbs.forEach(e=>{
         const k : FirebaseUSSDInquiry = {
           device: e.number!,
@@ -159,11 +160,11 @@ export class SendUSSDInquiryComponent implements OnInit {
           myStatus: "Sending",
           ussd: e.ussdCodeToSend!
         }
-        ar.push(k)
+        this.ussdInquires.push(k)
       })
 
       const docRef = await setDoc(doc(db, "USSDInquiry", "ussd_opcode_0322"), {
-          devices: ar
+          devices: this.ussdInquires
       });
       Toaster.sucessToast("SUCESS")
     } catch (e) {
