@@ -13,7 +13,7 @@ export interface DevicesMatchingOperator {
     number?: string;
     defaultUSSDStatus: string;
     defaultUSSDReply: string;
-    isDisabled?: false
+    isDisabled: boolean
 }
 
 // Converts JSON strings to/from your types

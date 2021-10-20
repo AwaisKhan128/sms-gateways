@@ -13,7 +13,6 @@ import { PhoneOperator } from 'src/app/Classes/operatorResponse';
 export class SendUSSDInquiryComponent implements OnInit {
 
   areAllNumbersSelected = false
-  didSelectOperator = false;
   didSendSelectedDeviceMessage = false
 
   operators: PhoneOperator[] = [];
@@ -32,45 +31,43 @@ export class SendUSSDInquiryComponent implements OnInit {
     const opCode = <number>event.target.value;
     console.log(opCode)
     if(opCode !== -1) {
-      this.didSelectOperator = true
       this.getListOfDevicesForOperator(opCode.toString())
     }
     else {
-      this.didSelectOperator = false
     }
   }
 
   specificNumbersSelected(event: any) {
-    // const number = <string>event.target.value;
-    // if ($('#'+number).prop('checked')) {
-    //     this.numbers.forEach(e=>{
-    //       if(e.number! == number) {
-    //         e.isDisabled = false
-    //         console.log("founddd")
-    //       }
-    //     })
-    // }
-    // else {
-    //   this.numbers.forEach(e=>{
-    //     if(e.number! == number) {
-    //       e.isDisabled = true
-    //       console.log("founddd to disable")
-    //     }
-    //   })
-    // }
+    const number = <string>event.target.value;
+    if ($('#'+number).prop('checked')) {
+        this.phoneNumbers.forEach(e=>{
+          if(e.number! == number) {
+            e.isDisabled = false
+            console.log("founddd")
+          }
+        })
+    }
+    else {
+      this.phoneNumbers.forEach(e=>{
+        if(e.number! == number) {
+          e.isDisabled = true
+          console.log("founddd to disable")
+        }
+      })
+    }
   }
 
   allNumbersSelected(event: any) {
-    // this.numbers.forEach(i=>{
-    //   if ($('#'+i.number!).prop('checked')) {
-    //     $('#'+i.number!).prop('checked', false)
-    //     i.isDisabled! = true
-    //   }
-    //   else {
-    //     $('#'+i.number!).prop('checked', true)
-    //     i.isDisabled! = false
-    //   }
-    // })
+    this.phoneNumbers.forEach(i=>{
+      if ($('#'+i.number!).prop('checked')) {
+        $('#'+i.number!).prop('checked', false)
+        i.isDisabled! = true
+      }
+      else {
+        $('#'+i.number!).prop('checked', true)
+        i.isDisabled! = false
+      }
+    })
   }
 
 
@@ -92,13 +89,16 @@ export class SendUSSDInquiryComponent implements OnInit {
   }
 
   getListOfDevicesForOperator(opcode: string) {
+      var i = 0
       this.apiService.getlistofDevicesForOperator(opcode).subscribe(
         e=> {
           this.phoneNumbers = [];
           const d = e.http_response as DevicesMatchingOperator[]
           console.log(d)
           d.forEach(e=>{
-            e.isDisabled = false
+            i+= 1
+            e.number! += i
+            e.isDisabled = true
             e.defaultUSSDReply = ""
             e.defaultUSSDStatus = "Not Send"
           })

@@ -68,7 +68,7 @@
           <div class=" d-flex">
             <div class="check">
               <div class="form-check">
-                <input class="form-check-input" value="{{n}}" id="{{n}}" type="checkbox" (click)="specificNumbersSelected($event)" >
+                <input class="form-check-input" value="{{n.number}}" id="{{n.number}}" type="checkbox" (click)="specificNumbersSelected($event)" >
               </div>
             </div>
           </div>
@@ -77,7 +77,7 @@
           {{n.number}}
         </td>
         <td>
-          <input class="form-check-input" type="text" style="width:70%">
+          <input class="form-check-input" type="text" style="width:70%" [disabled]= "n.isDisabled">
         </td>
         <td>
           <input class="form-check-input" type="text" value="{{n.defaultUSSDStatus}}" id="{{n.defaultUSSDStatus}}" style="width:70%">
