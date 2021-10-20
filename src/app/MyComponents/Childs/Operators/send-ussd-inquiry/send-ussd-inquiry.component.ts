@@ -5,6 +5,8 @@ import { API_Services } from 'src/app/APIS/freeapi.service';
 import { DevicesMatchingOperator } from 'src/app/Classes/devices_matching_operator';
 import { PhoneOperator } from 'src/app/Classes/operatorResponse';
 import { USSDMatchingOperators } from 'src/app/Classes/ussd_matching_operator';
+import { FormsModule } from '@angular/forms';
+
 
 @Component({
   selector: 'app-send-ussd-inquiry',
@@ -19,7 +21,7 @@ export class SendUSSDInquiryComponent implements OnInit {
   operators: PhoneOperator[] = [];
   phoneNumbers: DevicesMatchingOperator[] = [];
   ussds: USSDMatchingOperators[] = [];
-
+  selectedUSSD = ""
 
   constructor(private apiService: API_Services) { }
 
@@ -58,6 +60,7 @@ export class SendUSSDInquiryComponent implements OnInit {
       this.phoneNumbers.forEach(e=>{
         if(e.number! == number) {
           e.isDisabled = true
+          e.ussdCodeToSend = ""
           console.log("founddd to disable")
         }
       })
@@ -66,9 +69,10 @@ export class SendUSSDInquiryComponent implements OnInit {
 
   allNumbersSelected(event: any) {
     this.phoneNumbers.forEach(i=>{
-      if ($('#'+i.number!).prop('checked') && this.areAllNumbersSelected == false) {
+      if ($('#'+i.number!).prop('checked')) {
         $('#'+i.number!).prop('checked', false)
         i.isDisabled! = true
+        i.ussdCodeToSend = ""
       }
       else {
         $('#'+i.number!).prop('checked', true)
@@ -77,13 +81,17 @@ export class SendUSSDInquiryComponent implements OnInit {
     })
   }
 
+  onUSSDCodeKeyInputAdded(event) {
+    const numb = event.target.value as string
+  }
+
 
   //button clicks
   actionCopyToSelected(event: any) {
     var v=0
     this.phoneNumbers.forEach(i=>{
       v += 1
-      if ($('#'+i.number!+v).prop('checked', false)) {
+      if(i.isDisabled == false) {
         const selected = this.ussds[0].ussd as string
         this.phoneNumbers.forEach(e=>{
           if (e.number!+v == i.number!+v) {
@@ -93,11 +101,25 @@ export class SendUSSDInquiryComponent implements OnInit {
         console.log("passeddd")
       }
       else {
+        this.phoneNumbers.forEach(e=>{
+          if (e.number!+v == i.number!+v) {
+              e.ussdCodeToSend = ""
+          }
+        })
         console.log("falikeddd")
       }
     })
   }
-
+  
+  actionClearAll(event: any) {
+    var v=0
+    this.phoneNumbers.forEach(e=>{
+      v += 1
+      if (e.number!+v == e.number!+v) {
+          e.ussdCodeToSend = ""
+      }
+    })
+  }
 
   //apis
   getOperators() {
@@ -140,6 +162,7 @@ export class SendUSSDInquiryComponent implements OnInit {
       this.apiService.getListofUSSDsForOperator(opcode).subscribe(e=>{
           const my_ussds = e.http_response as USSDMatchingOperators[]
           this.ussds = my_ussds
+          this.selectedUSSD = this.ussds[0].ussd as string
       })
   }
 
