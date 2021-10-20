@@ -1,4 +1,4 @@
-import { myCredentials } from 'src/app/APIS/APIConfig';
+
 import { Component, OnInit } from '@angular/core';
 import { API_Services } from 'src/app/APIS/freeapi.service';
 import { getAccResp, getAccResp1, _Currency, _subaccount } from 'src/app/Classes/getAccResps';

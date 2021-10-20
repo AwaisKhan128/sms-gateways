@@ -9,7 +9,6 @@ import { CreateAcc } from 'src/app/Classes/createAcc_';
 import { EncodeDecode } from 'src/app/Classes/EncodeDec64';
 import { send_Code } from 'src/app/Classes/Verify_acc';
 import { Toaster_Service } from 'src/app/Classes/ToasterNg';
-import { myCredentials } from 'src/app/APIS/APIConfig';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Permission } from 'src/app/Classes/Permissions';
 // this is just a comment
@@ -58,14 +57,14 @@ export class AdminComponent implements OnInit {
 
 
     let json = localStorage.getItem("user_data");
-        // if(json!=null)
+        if(json!=null)
         {
-          // this.data = JSON.parse(json);
-          // let username = this.data.username;
-          // let password = EncodeDecode.b64DecodeUnicode( this.data.passcode);
-          // var auths = EncodeDecode.b64EncodeUnicode(username+":"+password);
+          this.data = JSON.parse(json);
+          let username = this.data.username;
+          let password = EncodeDecode.b64DecodeUnicode( this.data.passcode);
+          var auths = EncodeDecode.b64EncodeUnicode(username+":"+password);
       
-          var auths = EncodeDecode.b64EncodeUnicode(myCredentials.username + ":" + myCredentials.password);
+          // var auths = EncodeDecode.b64EncodeUnicode(myCredentials.username + ":" + myCredentials.password);
           
           this.freeapi.get_Sub_Acc(auths)
           .subscribe
@@ -91,6 +90,7 @@ export class AdminComponent implements OnInit {
             res=>
             {
               console.log(res);
+
             }
 
           )
@@ -128,8 +128,11 @@ export class AdminComponent implements OnInit {
   {
 
     let json = localStorage.getItem("user_data");
-    this.Create_subAcc.phone_number = $("#selects1").val() + this.Create_subAcc.phone_number;
-
+    // let phone = this.Create_subAcc.phone_number;
+    // this.Create_subAcc.phone_number = '';
+    // this.Create_subAcc.phone_number =  phone;
+    // console.log($("#selects1").val())
+    // console.log(this.Create_subAcc);
 
         if(json!=null)
         {
@@ -138,8 +141,8 @@ export class AdminComponent implements OnInit {
           let password = EncodeDecode.b64DecodeUnicode( this.data.passcode);
           var auths = EncodeDecode.b64EncodeUnicode(username+":"+password);
       
-          // var auths = EncodeDecode.b64EncodeUnicode(myCredentials.username + ":" + myCredentials.password);
-          this.Create_subAcc.phone_number = $("#select1").val() + this.Create_subAcc.phone_number;
+          
+          // this.Create_subAcc.phone_number = $("#select1").val() + this.Create_subAcc.phone_number;
       
       
           this.freeapi.createAcc_post(auths,this.Create_subAcc)
@@ -151,6 +154,8 @@ export class AdminComponent implements OnInit {
                     this.permission.id = data_resp.data.subaccount_id
                     this.permission.username = data_resp.data.api_username
                     this.managing_permissions();
+
+                    this.freeapi.setUserDetailsDB(this.permission.id,this.permission.username,"","","","subadmins")
 
                     this.freeapi.send_email_credential_admin(data_resp.data.email
                       ,data_resp.data.api_username,data_resp.data.api_key)
@@ -168,6 +173,15 @@ export class AdminComponent implements OnInit {
                             let final_resp = JSON.parse(JSON.stringify(res));
                             console.log(final_resp);
                             Toaster_Service.toastNotification_S("Success"+final_resp.http_response);
+                            console.log(this.permission);
+                            Toaster_Service.toastNotification_S(data_resp.response_msg);
+                            console.log(data);
+                            // $('#api_username').val('');
+                            // $('#first_name').val('');
+                            // $('#last_name').val('');
+                            // $('#phone_number').val('');
+                            // $('#password').val('');
+                            // $('#email').val('');
                           },
                           err=>
                           {
@@ -175,7 +189,7 @@ export class AdminComponent implements OnInit {
                             console.log(final_resp);
                             console.log(this.permission);
                             Toaster_Service.toastNotification_S("Failed to Update Permissions");
-
+                            
                           }
                         )
 
@@ -196,36 +210,15 @@ export class AdminComponent implements OnInit {
                     )
 
 
-                    console.log(this.permission);
-                    Toaster_Service.toastNotification_S(data_resp.response_msg);
-                    console.log(data);
-                    $('#api_username').val('');
-                    $('#first_name').val('');
-                    $('#last_name').val('');
-                    $('#phone_number').val('');
-                    $('#password').val('');
-                    $('#email').val('');
       
-                    // var send = new send_Code();
-                    // send.country = $("#selects1").val();
-                    // send.type = "sms";
-                    // send.user_phone = user_phone;
-      
-                    // var encoded = EncodeDecode.b64EncodeUnicode(username+':'+password);
-      
-                    // this.freeapi.send_Code(encoded,send)
-                    // .subscribe(
-                    //   data=>
-                    //   {
-                    //     alert(data.response_msg);
-                    //   }
-                    // )
+                    
                   },
       
               res=>
                   {
                     let err = JSON.parse( JSON.stringify (res) );
                     console.log(res);
+                    console.log(this.Create_subAcc);
                     Toaster_Service.toastNotification_D(err.response_msg+"Error Creating subAcc!");
                     // alert(err.response_code + " " + err.response_msg);
                   }
@@ -234,7 +227,8 @@ export class AdminComponent implements OnInit {
           }
 
 
-  }
+  
+}
 
   public C_Admin(content:any)
   {
@@ -355,13 +349,7 @@ export class AdminComponent implements OnInit {
           let username = this.data.username;
           let password = EncodeDecode.b64DecodeUnicode( this.data.passcode);
           var auths = EncodeDecode.b64EncodeUnicode(username+":"+password);
-          
-    
-  
-          // var auths = EncodeDecode.b64EncodeUnicode(myCredentials.username + ":" + myCredentials.password);
-          this.Create_subAcc.phone_number = $("#selects_u").val() + this.Create_subAcc.phone_number;
 
-      
           this.freeapi.update_Sub_Acc(auths,this.Create_subAcc,sub_Acc_id)
           .subscribe(
             res=>{

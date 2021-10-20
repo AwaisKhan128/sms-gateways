@@ -1,4 +1,3 @@
-import { myCredentials } from './../../APIS/APIConfig';
 import { SharedService } from './../../Classes/shared_services';
 import { Component, OnInit } from '@angular/core';
 import { EncodeDecode } from 'src/app/Classes/EncodeDec64';
@@ -262,6 +261,8 @@ export class ProfileComponent implements OnInit {
   logout()
   {
     localStorage.removeItem("user_data")
+    localStorage.removeItem("user_status");
+
     this.router.navigate(['']); 
   }
 }
