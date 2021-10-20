@@ -128,8 +128,9 @@ export class AdminComponent implements OnInit {
   {
 
     let json = localStorage.getItem("user_data");
-    this.Create_subAcc.phone_number = '';
-    this.Create_subAcc.phone_number = $("#selects1").val() + this.Create_subAcc.phone_number;
+    // let phone = this.Create_subAcc.phone_number;
+    // this.Create_subAcc.phone_number = '';
+    // this.Create_subAcc.phone_number =  phone;
     // console.log($("#selects1").val())
     // console.log(this.Create_subAcc);
 
@@ -175,12 +176,12 @@ export class AdminComponent implements OnInit {
                             console.log(this.permission);
                             Toaster_Service.toastNotification_S(data_resp.response_msg);
                             console.log(data);
-                            $('#api_username').val('');
-                            $('#first_name').val('');
-                            $('#last_name').val('');
-                            $('#phone_number').val('');
-                            $('#password').val('');
-                            $('#email').val('');
+                            // $('#api_username').val('');
+                            // $('#first_name').val('');
+                            // $('#last_name').val('');
+                            // $('#phone_number').val('');
+                            // $('#password').val('');
+                            // $('#email').val('');
                           },
                           err=>
                           {
@@ -348,13 +349,7 @@ export class AdminComponent implements OnInit {
           let username = this.data.username;
           let password = EncodeDecode.b64DecodeUnicode( this.data.passcode);
           var auths = EncodeDecode.b64EncodeUnicode(username+":"+password);
-          
-    
-  
-          // var auths = EncodeDecode.b64EncodeUnicode(myCredentials.username + ":" + myCredentials.password);
-          this.Create_subAcc.phone_number = $("#selects_u").val() + this.Create_subAcc.phone_number;
 
-      
           this.freeapi.update_Sub_Acc(auths,this.Create_subAcc,sub_Acc_id)
           .subscribe(
             res=>{

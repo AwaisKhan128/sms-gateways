@@ -16,8 +16,9 @@ export class OperatorComponent implements OnInit {
   u_message :any;
   title : any;
   message :any;
+  alloperators:any[] | undefined;
 
-  alloperators:any;
+  
   
 
 
@@ -130,7 +131,7 @@ export class OperatorComponent implements OnInit {
 
   OnCheckBoxClicked(event:any) // Remain
   {
-
+    console.log(event)
   }
 
 

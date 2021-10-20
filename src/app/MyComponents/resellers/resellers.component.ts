@@ -199,6 +199,7 @@ export class ResellersComponent implements OnInit {
   {
     let json = localStorage.getItem("user_data");
     let country = $('#selects_country').val();
+    this.create_Reseller.country = '';
     this.create_Reseller.country = country;
     
     console.log(this.create_Reseller);
