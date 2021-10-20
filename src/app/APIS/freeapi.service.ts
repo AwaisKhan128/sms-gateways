@@ -19,6 +19,7 @@ import { SubscribedDevicesRemoteMessagesResponse } from '../Classes/subscribed_d
 import { SubscribedDevicesSim } from '../Classes/subscribed_devices_sim';
 import { OperatorsResponse } from '../Classes/operatorResponse';
 import { DevicesMatchingOperatorResponse } from '../Classes/devices_matching_operator';
+import { USSDMatchingOperatorResponse } from '../Classes/ussd_matching_operator';
 
 
 
@@ -464,7 +465,11 @@ export class API_Services{
         return this.httpClient.get(url);
     }
 
-    
+    getListofUSSDsForOperator(opCode: string): Observable<USSDMatchingOperatorResponse>
+    {
+        const url = API_BASE_URLS._Credential_Base+ HEROKU_API_ENDPOINTS.GET_OPERATORS_MATCHING_USSD + "?opcode="+ opCode;
+        return this.httpClient.get(url);
+    }
 
     /**
    * Handle Http operation that failed.

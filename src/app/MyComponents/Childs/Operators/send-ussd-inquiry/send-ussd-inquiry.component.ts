@@ -4,6 +4,7 @@ import { Operator } from 'rxjs';
 import { API_Services } from 'src/app/APIS/freeapi.service';
 import { DevicesMatchingOperator } from 'src/app/Classes/devices_matching_operator';
 import { PhoneOperator } from 'src/app/Classes/operatorResponse';
+import { USSDMatchingOperators } from 'src/app/Classes/ussd_matching_operator';
 
 @Component({
   selector: 'app-send-ussd-inquiry',
@@ -17,6 +18,7 @@ export class SendUSSDInquiryComponent implements OnInit {
 
   operators: PhoneOperator[] = [];
   phoneNumbers: DevicesMatchingOperator[] = [];
+  ussds: USSDMatchingOperators[] = [];
 
 
   constructor(private apiService: API_Services) { }
@@ -32,8 +34,11 @@ export class SendUSSDInquiryComponent implements OnInit {
     console.log(opCode)
     if(opCode !== -1) {
       this.getListOfDevicesForOperator(opCode.toString())
+      this.getListOfUSSD(opCode.toString())
     }
     else {
+      this.phoneNumbers = [];
+      this.ussds = [];
     }
   }
 
@@ -59,7 +64,7 @@ export class SendUSSDInquiryComponent implements OnInit {
 
   allNumbersSelected(event: any) {
     this.phoneNumbers.forEach(i=>{
-      if ($('#'+i.number!).prop('checked')) {
+      if ($('#'+i.number!).prop('checked') && this.areAllNumbersSelected == false) {
         $('#'+i.number!).prop('checked', false)
         i.isDisabled! = true
       }
@@ -105,6 +110,13 @@ export class SendUSSDInquiryComponent implements OnInit {
           this.phoneNumbers = d
         }
       )
+  }
+
+  getListOfUSSD(opcode: string) {
+      this.apiService.getListofUSSDsForOperator(opcode).subscribe(e=>{
+          const my_ussds = e.http_response as USSDMatchingOperators[]
+          this.ussds = my_ussds
+      })
   }
 
 }
