@@ -80,10 +80,10 @@
           <input class="form-check-input" type="text" style="width:70%" [(ngModel)]="n.ussdCodeToSend" value="{{n.ussdCodeToSend}}" [disabled]= "n.isDisabled">
         </td>
         <td>
-          <input class="form-check-input" type="text" value="{{n.defaultUSSDStatus}}" id="{{n.defaultUSSDStatus}}" style="width:70%">
+          <input class="form-check-input" type="text" value="{{n.defaultUSSDStatus}}" [value]="n.defaultUSSDStatus" id="{{n.defaultUSSDStatus}}" style="width:70%">
         </td>
         <td>
-          <input class="form-check-input" type="text" value="{{n.defaultUSSDReply}}" id="{{n.defaultUSSDReply}}" style="width:70%">
+          <input class="form-check-input" type="text" value="{{n.defaultUSSDReply}}" [value]="n.defaultUSSDReply" id="{{n.defaultUSSDReply}}" style="width:70%">
         </td>
       </tr>
     </table>

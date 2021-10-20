@@ -6,7 +6,7 @@ import { DevicesMatchingOperator } from 'src/app/Classes/devices_matching_operat
 import { PhoneOperator } from 'src/app/Classes/operatorResponse';
 import { USSDMatchingOperators } from 'src/app/Classes/ussd_matching_operator';
 import { FormsModule } from '@angular/forms';
-import { collection, addDoc, setDoc, doc, getFirestore } from "firebase/firestore"; 
+import { collection, addDoc, setDoc, doc, getFirestore, onSnapshot } from "firebase/firestore"; 
 import { initializeApp } from '@firebase/app';
 import { FirebaseUSSDInquiry } from 'src/app/Classes/firebase_ussd_inquiry';
 import { Toaster } from 'src/app/Helper/toaster';
@@ -100,6 +100,23 @@ export class SendUSSDInquiryComponent implements OnInit {
     })
   }
 
+  listenFirebaseEvents() {
+    const unsub = onSnapshot(doc(db, "USSDInquiry", "ussd_opcode_0322"), (doc) => {
+      const source = doc.metadata.hasPendingWrites ? "Local" : "Server";
+      let k = (doc.data()!["devices"] as FirebaseUSSDInquiry[])
+      k.forEach(e=>{
+        const i = e as FirebaseUSSDInquiry
+        this.phoneNumbers.filter(k=> {
+          if(k.number! == i.device!) {
+            k.defaultUSSDReply! = i.reply!
+          }
+          if(k.number! == i.device!) {
+            k.defaultUSSDStatus! = i.myStatus!
+          }
+        })
+      })
+    });
+  }
 
 
   //button clicks
@@ -145,11 +162,11 @@ export class SendUSSDInquiryComponent implements OnInit {
       return 
     }
     else {
-      const isEmpty = selectedNumbs.filter(e=>e.ussdCodeToSend! == "")
-      if(isEmpty.length >= 0) {
-        Toaster.failureToast("FAILURE","USSD Code are required!")
-        return
-      }
+      // const isEmpty = selectedNumbs.filter(e=>e.ussdCodeToSend! == "")
+      // if(isEmpty.length >= 0) {
+      //   Toaster.failureToast("FAILURE","USSD Code are required!")
+      //   return
+      // }
     }
     console.log("SELECTEDD")
     try {
@@ -167,6 +184,7 @@ export class SendUSSDInquiryComponent implements OnInit {
           devices: this.ussdInquires
       });
       Toaster.sucessToast("SUCESS")
+      this.listenFirebaseEvents()
     } catch (e) {
       console.error("Error adding document: ", e);
       Toaster.failureToast("FAILURE","Something went wrong")
