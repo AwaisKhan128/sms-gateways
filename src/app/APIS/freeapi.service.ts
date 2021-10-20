@@ -18,6 +18,7 @@ import { SubscribedDevices } from '../Classes/subscribed_devices';
 import { SubscribedDevicesRemoteMessagesResponse } from '../Classes/subscribed_devices_remote_messages';
 import { SubscribedDevicesSim } from '../Classes/subscribed_devices_sim';
 import { OperatorsResponse } from '../Classes/operatorResponse';
+import { DevicesMatchingOperatorResponse } from '../Classes/devices_matching_operator';
 
 
 
@@ -457,8 +458,11 @@ export class API_Services{
         return this.httpClient.put(url,body);
     }
 
-
-
+    getlistofDevicesForOperator(opCode: string): Observable<DevicesMatchingOperatorResponse>
+    {
+        const url = API_BASE_URLS._Credential_Base+ HEROKU_API_ENDPOINTS.GET_OPERATORS_MATCHING_DEVICES + "?opcode="+ opCode;
+        return this.httpClient.get(url);
+    }
 
     
 

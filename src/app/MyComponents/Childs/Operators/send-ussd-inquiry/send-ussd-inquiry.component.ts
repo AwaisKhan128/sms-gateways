@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import * as $ from 'jquery';
 import { Operator } from 'rxjs';
 import { API_Services } from 'src/app/APIS/freeapi.service';
+import { DevicesMatchingOperator } from 'src/app/Classes/devices_matching_operator';
 import { PhoneOperator } from 'src/app/Classes/operatorResponse';
 
 @Component({
@@ -12,8 +13,12 @@ import { PhoneOperator } from 'src/app/Classes/operatorResponse';
 export class SendUSSDInquiryComponent implements OnInit {
 
   areAllNumbersSelected = false
+  didSelectOperator = false;
+  didSendSelectedDeviceMessage = false
+
   operators: PhoneOperator[] = [];
-  
+  phoneNumbers: DevicesMatchingOperator[] = [];
+
 
   constructor(private apiService: API_Services) { }
 
@@ -22,6 +27,18 @@ export class SendUSSDInquiryComponent implements OnInit {
   }
 
 
+
+  onOperatorCodeSelected(event: any) {
+    const opCode = <number>event.target.value;
+    console.log(opCode)
+    if(opCode !== -1) {
+      this.didSelectOperator = true
+      this.getListOfDevicesForOperator(opCode.toString())
+    }
+    else {
+      this.didSelectOperator = false
+    }
+  }
 
   specificNumbersSelected(event: any) {
     // const number = <string>event.target.value;
@@ -72,6 +89,22 @@ export class SendUSSDInquiryComponent implements OnInit {
         this.operators = ops
       }
     )
+  }
+
+  getListOfDevicesForOperator(opcode: string) {
+      this.apiService.getlistofDevicesForOperator(opcode).subscribe(
+        e=> {
+          this.phoneNumbers = [];
+          const d = e.http_response as DevicesMatchingOperator[]
+          console.log(d)
+          d.forEach(e=>{
+            e.isDisabled = false
+            e.defaultUSSDReply = ""
+            e.defaultUSSDStatus = "Not Send"
+          })
+          this.phoneNumbers = d
+        }
+      )
   }
 
 }
