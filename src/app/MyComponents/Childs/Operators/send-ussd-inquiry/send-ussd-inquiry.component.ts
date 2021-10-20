@@ -18,7 +18,7 @@ export class SendUSSDInquiryComponent implements OnInit {
     const i1 : databseNumberModel = {
       port: "1",
       slot: "1",
-      number: "03431111111",
+      number: "11111111111",
       USSDRequest: "1",
       USSDStatus: "Not Send",
       isDisabled: true
@@ -27,7 +27,7 @@ export class SendUSSDInquiryComponent implements OnInit {
     const i2 : databseNumberModel = {
       port: "1",
       slot: "1",
-      number: "03431111111",
+      number: "11111111112",
       USSDRequest: "1",
       USSDStatus: "Not Send",
       isDisabled: true
@@ -36,7 +36,7 @@ export class SendUSSDInquiryComponent implements OnInit {
     const i3 : databseNumberModel = {
       port: "1",
       slot: "1",
-      number: "03551234123",
+      number: "11111111113",
       USSDRequest: "1",
       USSDStatus: "Not Send",
       isDisabled: true
@@ -45,7 +45,7 @@ export class SendUSSDInquiryComponent implements OnInit {
     const i4 : databseNumberModel = {
       port: "1",
       slot: "1",
-      number: "03551354123",
+      number: "11111111114",
       USSDRequest: "1",
       USSDStatus: "Not Send",
       isDisabled: true
@@ -92,7 +92,7 @@ export class SendUSSDInquiryComponent implements OnInit {
       }
     })
   }
-  
+
 
 
 }
