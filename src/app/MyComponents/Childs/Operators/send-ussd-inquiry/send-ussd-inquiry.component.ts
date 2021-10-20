@@ -42,6 +42,8 @@ export class SendUSSDInquiryComponent implements OnInit {
     }
   }
 
+
+  //change events
   specificNumbersSelected(event: any) {
     const number = <string>event.target.value;
     if ($('#'+number).prop('checked')) {
@@ -71,6 +73,27 @@ export class SendUSSDInquiryComponent implements OnInit {
       else {
         $('#'+i.number!).prop('checked', true)
         i.isDisabled! = false
+      }
+    })
+  }
+
+
+  //button clicks
+  actionCopyToSelected(event: any) {
+    var v=0
+    this.phoneNumbers.forEach(i=>{
+      v += 1
+      if ($('#'+i.number!+v).prop('checked', false)) {
+        const selected = this.ussds[0].ussd as string
+        this.phoneNumbers.forEach(e=>{
+          if (e.number!+v == i.number!+v) {
+              e.ussdCodeToSend = selected
+          }
+        })
+        console.log("passeddd")
+      }
+      else {
+        console.log("falikeddd")
       }
     })
   }
@@ -106,6 +129,7 @@ export class SendUSSDInquiryComponent implements OnInit {
             e.isDisabled = true
             e.defaultUSSDReply = ""
             e.defaultUSSDStatus = "Not Send"
+            e.ussdCodeToSend = ''
           })
           this.phoneNumbers = d
         }
