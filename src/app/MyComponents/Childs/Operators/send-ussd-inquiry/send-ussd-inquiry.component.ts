@@ -72,10 +72,10 @@ export class SendUSSDInquiryComponent implements OnInit {
 
   //change events
   onOperatorCodeSelected(event: any) {
-    const opCode = <number>event.target.value;
+    const opCode = <string>event.target.value;
     console.log(opCode)
-    this.selectedOPcode = opCode
-    if(opCode !== -1) {
+    this.selectedOPcode = parseInt(opCode)
+    if(opCode !== "NONE") {
       this.getListOfDevicesForOperator(opCode.toString())
       this.getListOfUSSD(this.selectedOPcode.toString())
       this.responseTypes[0].isSelected! = true 
