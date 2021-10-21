@@ -50,6 +50,10 @@ export class SendUSSDInquiryComponent implements OnInit {
 
   constructor(private apiService: API_Services) { }
 
+
+
+
+  
   ngOnInit(): void {
     const rt1 : InquiryResponseType = {
       id:1,
