@@ -67,6 +67,23 @@ export class SendSMSInquiryComponent implements OnInit {
     this.getOperators()
   }
 
+  populateReponseTypes() {
+    this.responseTypes = []
+    const rt1 : InquiryResponseType = {
+      id:1,
+      response_type: "Number",
+      isSelected: true
+    }
+    const rt2 : InquiryResponseType = {
+      id:2,
+      response_type: "Balance",
+      isSelected: false
+    }
+
+    this.responseTypes.push(rt1)
+    this.responseTypes.push(rt2)
+  }
+
   
   //change events
   onOperatorCodeSelected(event: any) {
@@ -75,10 +92,9 @@ export class SendSMSInquiryComponent implements OnInit {
     this.selectedOPcode = opCode
     console.log("SSSSDD",opCode)
     if(opCode !== "NONE") {
+      this.populateReponseTypes()
       this.getListOfDevicesForOperator(opCode.toString())
       this.getListOfUSSD(this.selectedOPcode.toString())
-      this.responseTypes[0].isSelected! = true 
-      this.responseTypes[1].isSelected! = false 
     }
     else {
       this.phoneNumbers = [];
