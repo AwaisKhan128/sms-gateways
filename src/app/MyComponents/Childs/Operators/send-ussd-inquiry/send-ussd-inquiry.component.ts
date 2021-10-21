@@ -10,7 +10,7 @@ import { collection, addDoc, setDoc, doc, getFirestore, onSnapshot } from "fireb
 import { initializeApp } from '@firebase/app';
 import { FirebaseUSSDInquiry } from 'src/app/Classes/firebase_ussd_inquiry';
 import { Toaster } from 'src/app/Helper/toaster';
-import { BalanceMatchingOperator } from 'src/app/Classes/balance_matching_operator_response';
+import { InquiryResponseType } from 'src/app/Classes/inquiry_response_type';
 
 const firebaseConfig = {
   apiKey: "AIzaSyDyiduM5noPodZMAYyXMeMZxY4gOac3_fI",
@@ -37,20 +37,33 @@ export class SendUSSDInquiryComponent implements OnInit {
   areAllNumbersSelected = false
   didSendSelectedDeviceMessage = false
 
+  responseTypes: InquiryResponseType[] = [];
+
   operators: PhoneOperator[] = [];
   phoneNumbers: DevicesMatchingOperator[] = [];
   ussds: USSDMatchingOperators[] = [];
-  balances: BalanceMatchingOperator[] = [];
-  selectedOPCode = -1
-  selectedResponseType = 0
   selectedUSSD = ""
-  selectedBalance = ""
+  selectedOPcode = 0
 
   ussdInquires : FirebaseUSSDInquiry[] = [];
 
   constructor(private apiService: API_Services) { }
 
   ngOnInit(): void {
+    const rt1 : InquiryResponseType = {
+      id:1,
+      response_type: "Number",
+      isSelected: true
+    }
+    const rt2 : InquiryResponseType = {
+      id:2,
+      response_type: "Balance",
+      isSelected: false
+    }
+
+    this.responseTypes.push(rt1)
+    this.responseTypes.push(rt2)
+
     this.getOperators()
   }
 
@@ -60,10 +73,12 @@ export class SendUSSDInquiryComponent implements OnInit {
   onOperatorCodeSelected(event: any) {
     const opCode = <number>event.target.value;
     console.log(opCode)
+    this.selectedOPcode = opCode
     if(opCode !== -1) {
-      this.selectedOPCode = opCode
       this.getListOfDevicesForOperator(opCode.toString())
-      //this.getListOfUSSD(opCode.toString())
+      this.getListOfUSSD(this.selectedOPcode.toString())
+      this.responseTypes[0].isSelected! = true 
+      this.responseTypes[1].isSelected! = false 
     }
     else {
       this.phoneNumbers = [];
@@ -72,16 +87,13 @@ export class SendUSSDInquiryComponent implements OnInit {
   }
 
   onResponseTypeSelected(event: any) {
-    const rType = <number>event.target.value;
-    this.selectedResponseType = rType
-    console.log("selected response type is", rType)
-    if(rType == 0) {
-      //this.getListOfUSSD(this.selectedOPCode.toString())
-      console.log("call numbers api")
-    } 
+    const rTypeSelectedID = <number>event.target.value;
+    console.log("selected response type",rTypeSelectedID)
+    if(rTypeSelectedID == 1) {
+        this.getListOfUSSD(this.selectedOPcode.toString())
+    }
     else {
-      //this.getListOfBalance(this.selectedOPCode.toString())
-      console.log("call balance api")
+        this.getListOBalances(this.selectedOPcode.toString())
     }
   }
 
@@ -250,7 +262,6 @@ export class SendUSSDInquiryComponent implements OnInit {
       )
   }
 
-  //code to get number ussds = numbers
   getListOfUSSD(opcode: string) {
       this.apiService.getListofUSSDsForOperator(opcode).subscribe(e=>{
           const my_ussds = e.http_response as USSDMatchingOperators[]
@@ -259,17 +270,18 @@ export class SendUSSDInquiryComponent implements OnInit {
       })
   }
 
-  //code to get balance
-  getListOfBalance(opcode: string) {
-      this.apiService.getListofBalancesForOperator(opcode).subscribe(
-        e=> {
-          const b = e.http_response as BalanceMatchingOperator[]
-          console.log("balance is",b)
-          //this.balances = b
-          //this.selectedBalance = this.balances[0].ussd as string
+  getListOBalances(opcode: string) {
+    this.apiService.getListofBalancesForOperator(opcode).subscribe(e=>{
+        const my_ussds = e.http_response as USSDMatchingOperators[]
+        console.log("asdad",my_ussds.length)
+        this.ussds = my_ussds
+        if (my_ussds.length > 0) {
+            this.selectedUSSD = this.ussds[0].ussd as string
         }
-      )
-  }
-
+        else {
+          this.selectedUSSD = ""
+        }
+    })
+}
 }
 
