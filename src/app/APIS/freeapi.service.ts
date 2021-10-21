@@ -20,6 +20,7 @@ import { SubscribedDevicesSim } from '../Classes/subscribed_devices_sim';
 import { OperatorsResponse } from '../Classes/operatorResponse';
 import { DevicesMatchingOperatorResponse } from '../Classes/devices_matching_operator';
 import { USSDMatchingOperatorResponse } from '../Classes/ussd_matching_operator';
+import { BalanceMatchingOperatorResponse } from '../Classes/balance_matching_operator_response';
 
 
 
@@ -468,6 +469,12 @@ export class API_Services{
     getListofUSSDsForOperator(opCode: string): Observable<USSDMatchingOperatorResponse>
     {
         const url = API_BASE_URLS._Credential_Base+ HEROKU_API_ENDPOINTS.GET_OPERATORS_MATCHING_USSD + "?opcode="+ opCode;
+        return this.httpClient.get(url);
+    }
+
+    getListofBalancesForOperator(opCode: string): Observable<BalanceMatchingOperatorResponse>
+    {
+        const url = API_BASE_URLS._Credential_Base+ HEROKU_API_ENDPOINTS.GET_OPERATORS_MATCHING_BALANCE_NUMBERS + "?opcode="+ opCode;
         return this.httpClient.get(url);
     }
 

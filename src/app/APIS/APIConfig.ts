@@ -40,7 +40,8 @@ export enum HEROKU_API_ENDPOINTS {
     GET_SUBSCRIBE_DEVICES_REMOTE_MESSAGES = "message/remote_messages",
     GET_OPERATORS = "select/operators/operators_list",
     GET_OPERATORS_MATCHING_DEVICES = "operators/sim/subscribe_devices_info",
-    GET_OPERATORS_MATCHING_USSD = "nselect/ussd/operator_number"
+    GET_OPERATORS_MATCHING_USSD = "nselect/ussd/operator_number",
+    GET_OPERATORS_MATCHING_BALANCE_NUMBERS = "bselect/ussd/operator_balance"
 }
 
 export enum CLICKSEND_STATISTICS_TYPE {

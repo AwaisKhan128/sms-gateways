@@ -10,6 +10,7 @@ import { collection, addDoc, setDoc, doc, getFirestore, onSnapshot } from "fireb
 import { initializeApp } from '@firebase/app';
 import { FirebaseUSSDInquiry } from 'src/app/Classes/firebase_ussd_inquiry';
 import { Toaster } from 'src/app/Helper/toaster';
+import { BalanceMatchingOperator } from 'src/app/Classes/balance_matching_operator_response';
 
 const firebaseConfig = {
   apiKey: "AIzaSyDyiduM5noPodZMAYyXMeMZxY4gOac3_fI",
@@ -39,7 +40,9 @@ export class SendUSSDInquiryComponent implements OnInit {
   operators: PhoneOperator[] = [];
   phoneNumbers: DevicesMatchingOperator[] = [];
   ussds: USSDMatchingOperators[] = [];
+  balances: BalanceMatchingOperator[] = [];
   selectedUSSD = ""
+  selectedBalance = ""
 
   ussdInquires : FirebaseUSSDInquiry[] = [];
 
@@ -230,12 +233,24 @@ export class SendUSSDInquiryComponent implements OnInit {
       )
   }
 
+  //code to get number ussds = numbers
   getListOfUSSD(opcode: string) {
       this.apiService.getListofUSSDsForOperator(opcode).subscribe(e=>{
           const my_ussds = e.http_response as USSDMatchingOperators[]
           this.ussds = my_ussds
           this.selectedUSSD = this.ussds[0].ussd as string
       })
+  }
+
+  //code to get balance
+  getListOfBalance(opcode: string) {
+      this.apiService.getListofBalancesForOperator(opcode).subscribe(
+        e=> {
+          const b = e.http_response as BalanceMatchingOperator[]
+          this.balances = b
+          this.selectedBalance = this.balances[0].ussd as string
+        }
+      )
   }
 
 }

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { API_Services } from 'src/app/APIS/freeapi.service';
 
 @Component({
   selector: 'app-send-sms-inquiry',
@@ -12,40 +13,40 @@ export class SendSMSInquiryComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  getOperators() {
-    this.apiService.getlistofOperators().subscribe(
-      e=>{
-        const ops = e.http_response as PhoneOperator[]
-        let k : PhoneOperator = {
-          id: -1,
-          operator_name: "NONE",
-          operator_code: "NONE"
-        }
-        ops.push(k)
-        console.log("ops 0",ops[0])
-        this.operators = ops
-      }
-    )
-  }
+  // getOperators() {
+  //   this.apiService.getlistofOperators().subscribe(
+  //     e=>{
+  //       const ops = e.http_response as PhoneOperator[]
+  //       let k : PhoneOperator = {
+  //         id: -1,
+  //         operator_name: "NONE",
+  //         operator_code: "NONE"
+  //       }
+  //       ops.push(k)
+  //       console.log("ops 0",ops[0])
+  //       this.operators = ops
+  //     }
+  //   )
+  // }
 
-  getListOfDevicesForOperator(opcode: string) {
-      var i = 0
-      this.apiService.getlistofDevicesForOperator(opcode).subscribe(
-        e=> {
-          this.phoneNumbers = [];
-          const d = e.http_response as DevicesMatchingOperator[]
-          console.log(d)
-          d.forEach(e=>{
-            i+= 1
-            e.number! += i
-            e.isDisabled = true
-            e.defaultUSSDReply = "N/A"
-            e.defaultUSSDStatus = "Not Send"
-            e.ussdCodeToSend = ""
-          })
-          this.phoneNumbers = d
-        }
-      )
-  }
+  // getListOfDevicesForOperator(opcode: string) {
+  //     var i = 0
+  //     this.apiService.getlistofDevicesForOperator(opcode).subscribe(
+  //       e=> {
+  //         this.phoneNumbers = [];
+  //         const d = e.http_response as DevicesMatchingOperator[]
+  //         console.log(d)
+  //         d.forEach(e=>{
+  //           i+= 1
+  //           e.number! += i
+  //           e.isDisabled = true
+  //           e.defaultUSSDReply = "N/A"
+  //           e.defaultUSSDStatus = "Not Send"
+  //           e.ussdCodeToSend = ""
+  //         })
+  //         this.phoneNumbers = d
+  //       }
+  //     )
+  // }
 
 }
