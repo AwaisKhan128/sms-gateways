@@ -1,6 +1,7 @@
 export interface FirebaseUSSDInquiry {
-    device:     string;
+    device: string;
     reply: string;
     myStatus: string;
-    ussd: string;
+    code: string;
+    type: string
 }

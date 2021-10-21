@@ -44,6 +44,7 @@ export class SendUSSDInquiryComponent implements OnInit {
   ussds: USSDMatchingOperators[] = [];
   selectedUSSD = ""
   selectedOPcode = 0
+  selectedResponseType = 1
 
   ussdInquires : FirebaseUSSDInquiry[] = [];
 
@@ -133,7 +134,7 @@ export class SendUSSDInquiryComponent implements OnInit {
   }
 
   listenFirebaseEvents() {
-    const unsub = onSnapshot(doc(db, "USSDInquiry", "ussd_opcode_0322"), (doc) => {
+    const unsub = onSnapshot(doc(db, "InquiryCall", "opcode_"+ this.selectedOPcode), (doc) => {
       const source = doc.metadata.hasPendingWrites ? "Local" : "Server";
       let k = (doc.data()!["devices"] as FirebaseUSSDInquiry[])
       k.forEach(e=>{
@@ -200,6 +201,15 @@ export class SendUSSDInquiryComponent implements OnInit {
       //   return
       // }
     }
+
+    var selectedResponseValue = ""
+    if(this.selectedResponseType == 1) {
+      selectedResponseValue = "Number"
+    }
+    else {
+      selectedResponseValue = "Balance"
+    }
+
     console.log("SELECTEDD")
     try {
       selectedNumbs.forEach(e=>{
@@ -207,12 +217,13 @@ export class SendUSSDInquiryComponent implements OnInit {
           device: e.number!,
           reply: "Waiting for Reply",
           myStatus: "Sending",
-          ussd: e.ussdCodeToSend!
+          code: e.ussdCodeToSend!,
+          type: selectedResponseValue
         }
         this.ussdInquires.push(k)
       })
 
-      const docRef = await setDoc(doc(db, "USSDInquiry", "ussd_opcode_0322"), {
+      const docRef = await setDoc(doc(db, "InquiryCall", "opcode_"+this.selectedOPcode), {
           devices: this.ussdInquires
       });
       Toaster.sucessToast("SUCESS")
