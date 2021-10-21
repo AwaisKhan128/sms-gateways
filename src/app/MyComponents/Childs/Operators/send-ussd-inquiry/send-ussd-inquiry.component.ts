@@ -43,7 +43,7 @@ export class SendUSSDInquiryComponent implements OnInit {
   phoneNumbers: DevicesMatchingOperator[] = [];
   ussds: USSDMatchingOperators[] = [];
   selectedUSSD = ""
-  selectedOPcode = 0
+  selectedOPcode = "0"
   selectedResponseType = 1
 
   ussdInquires : FirebaseUSSDInquiry[] = [];
@@ -69,13 +69,13 @@ export class SendUSSDInquiryComponent implements OnInit {
   }
 
 
-  
+
 
   //change events
   onOperatorCodeSelected(event: any) {
     const opCode = <string>event.target.value;
     console.log(opCode)
-    this.selectedOPcode = parseInt(opCode)
+    this.selectedOPcode = opCode
     console.log("SSSSDD",opCode)
     if(opCode !== "NONE") {
       this.getListOfDevicesForOperator(opCode.toString())
@@ -93,12 +93,14 @@ export class SendUSSDInquiryComponent implements OnInit {
     const rTypeSelectedID = <number>event.target.value;
     console.log("selected response type",rTypeSelectedID)
     console.log("selected 222",this.responseTypes)
-    if(rTypeSelectedID == 1) {
-      this.getListOfUSSD(this.selectedOPcode.toString())
+    if (this.selectedOPcode != "NONE") {
+      if(rTypeSelectedID == 1) {
+        this.getListOfUSSD(this.selectedOPcode.toString())
+      }
+      else {
+        this.getListOBalances(this.selectedOPcode.toString())
+      } 
     }
-    else {
-      this.getListOBalances(this.selectedOPcode.toString())
-    } 
   }
 
   specificNumbersSelected(event: any) {
