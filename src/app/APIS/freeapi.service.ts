@@ -456,7 +456,8 @@ export class API_Services{
 
     update_operator(body:any,id:any): Observable<any>
     {
-        const url = API_BASE_URLS._Credential_Base+'modify/operators/operator_list?id='+id;
+        
+        const url = API_BASE_URLS._Credential_Base+'modify/operators/operators_list?id='+id;
         return this.httpClient.put(url,body);
     }
 
@@ -477,6 +478,40 @@ export class API_Services{
         const url = API_BASE_URLS._Credential_Base+ HEROKU_API_ENDPOINTS.GET_OPERATORS_MATCHING_BALANCE_NUMBERS + "?opcode="+ opCode;
         return this.httpClient.get(url);
     }
+
+    delete_operator(id:any):Observable<any>
+    {
+        const url = API_BASE_URLS._Credential_Base+'remove/operators/operators_list?id='+id;
+        return this.httpClient.delete(url)
+    }
+
+
+    // -----------------Create save sms inquiry data------------->
+    create_balance_inquiry(body:any) : Observable<any> // Name and code
+    {
+        const url = API_BASE_URLS._Credential_Base+'insert/balance/operator_balance';
+        return this.httpClient.post(url,body);
+    }
+
+    update_balance_inquiry(body:any,opcode:any) : Observable<any> // Name and code
+    {
+        const url = API_BASE_URLS._Credential_Base+'modify/balance/operator_balance?opcode='+opcode;
+        return this.httpClient.put(url,body);
+    }
+
+    create_number_inquiry(body:any) : Observable<any> // Name and code
+    {
+        const url = API_BASE_URLS._Credential_Base+'insert/number/operator_number';
+        return this.httpClient.post(url,body);
+    }
+
+    update_number_inquiry(body:any,opcode:any) : Observable<any> // Name and code
+    {
+        const url = API_BASE_URLS._Credential_Base+'modify/number/operator_number?opcode='+opcode;
+        return this.httpClient.put(url,body);
+    }
+    
+
 
     /**
    * Handle Http operation that failed.
