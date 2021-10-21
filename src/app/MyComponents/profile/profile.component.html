@@ -28,7 +28,7 @@
         
       <li class="nav-item ">
           <!-- Routerlink with href -->
-        <a class="nav-link" id="messages" (click)="OnTop_Change(4)" [routerLink]='["messages"]'>Messages</a>
+        <a class="nav-link "  id="messages" (click)="OnTop_Change(4)" [routerLink]='["messages"]'>Messages</a>
       </li>
 
       <li class="nav-item ">
@@ -79,8 +79,8 @@
         <button class="drop_button" id="web_balance" (click) = "update_val($event)" mat-menu-item>
           Web Balance
         </button>
-        <button [routerLink]='["device"]' mat-menu-item>Device Settings</button>
-        <button [routerLink]='["operator_config"]' mat-menu-item>Operator Configuration</button>
+        <button  id="device_set" (click)="OnTop_Change(11)" [routerLink]='["device"]' mat-menu-item>Device Settings</button>
+        <button  id="operators_set" (click)="OnTop_Change(12)" [routerLink]='["operator_config"]' mat-menu-item>Operator Configuration</button>
 
         <button mat-menu-item (click)="logout()">Log Out</button>
 

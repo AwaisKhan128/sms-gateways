@@ -5,6 +5,7 @@ import { API_Services } from 'src/app/APIS/freeapi.service';
 import { Snake_Waiting } from 'src/app/Classes/Waiting_bar';
 import { operators_get_list } from 'src/app/Classes/operators_get_list';
 import * as $ from 'jquery';
+import { EncodeDecode } from 'src/app/Classes/EncodeDec64';
 
 
 
@@ -22,6 +23,7 @@ export class OperatorComponent implements OnInit {
   alloperators:any[] | undefined;
   operator_list: operators_get_list[]|any;
   window: any["$"] = $;
+  data: any;
 
 
   
@@ -97,11 +99,149 @@ export class OperatorComponent implements OnInit {
   update_Template()  // remain
   {
 
+    let title = this.u_title;
+    let message = this.u_message;
+
+    let count = 0;
+
+    this.operator_list.forEach((_element: any) => {
+      if(_element.active)
+      {
+        count++;
+      }
+
+    });
+
+
+
+    if (count<1)
+    {
+      Toaster_Service.toastNotification_I('Need to select one!')
+    }
+    else if (count > 1)
+    {
+      Toaster_Service.toastNotification_I('Update could only apply to one!');
+
+    }
+    else if (count ==1 ){
+      this.Snake_Wait.start_bar("Please wait");
+      let json = localStorage.getItem("user_data");
+      let operator_id = 0;
+
+      this.operator_list.forEach((_element: any) => {
+        if(_element.active)
+        {
+          operator_id = _element.id;
+        }
+  
+      });
+      if(json!=null)
+      {
+        this.data = JSON.parse(json);
+        // let username = this.data.username;
+        // let password = EncodeDecode.b64DecodeUnicode( this.data.passcode);
+        // var auths = EncodeDecode.b64EncodeUnicode(username+":"+password);
+        
+        const json_data = 
+        {
+          operator_name:title,
+          operator_code:message
+        };
+        
+  
+        // var auths = EncodeDecode.b64EncodeUnicode(myCredentials.username + ":" + myCredentials.password);
+  
+        this.freeAPI.update_operator(json_data,operator_id)
+          .subscribe
+          (
+            res => {
+              var data = JSON.parse(JSON.stringify(res));
+              Toaster_Service.toastNotification_S(data.http_response);
+              console.log(json_data);
+              console.log(data);
+              console.log(operator_id);
+
+              this.Snake_Wait.close_bar();
+  
+              // alert(a.response_msg);
+            },
+            err => {
+              var a = JSON.parse(JSON.stringify(err));
+              Toaster_Service.toastNotification_D(a.http_response);
+              this.Snake_Wait.close_bar();
+
+              // alert(a.response_msg);
+            }
+          )
+      }
+    }
+
   }
 
   Cancel_Auth()  // Remain
   {
+    let count = 0;
+    this.operator_list.forEach((_element: any) => {
+      if(_element.active)
+      {
+        count++;
+      }
 
+    });
+
+
+
+    if (count<1)
+    {
+      Toaster_Service.toastNotification_I('Need to select one!')
+    }
+    else if (count > 1)
+    {
+      Toaster_Service.toastNotification_I('Delete could only apply to one!');
+
+    }
+    else if (count ==1 ){
+      this.Snake_Wait.start_bar("Please wait");
+      let json = localStorage.getItem("user_data");
+      let operator_id = 0;
+
+      this.operator_list.forEach((_element: any) => {
+        if(_element.active)
+        {
+          operator_id = _element.id;
+        }
+  
+      });
+      if(json!=null)
+      {
+        // let username = this.data.username;
+        // let password = EncodeDecode.b64DecodeUnicode( this.data.passcode);
+        // var auths = EncodeDecode.b64EncodeUnicode(username+":"+password);
+        
+        // var auths = EncodeDecode.b64EncodeUnicode(myCredentials.username + ":" + myCredentials.password);
+  
+        this.freeAPI.delete_operator(operator_id)
+          .subscribe
+          (
+            res => {
+              var data = JSON.parse(JSON.stringify(res));
+              Toaster_Service.toastNotification_S(data.http_response);
+              
+
+              this.Snake_Wait.close_bar();
+  
+              // alert(a.response_msg);
+            },
+            err => {
+              var a = JSON.parse(JSON.stringify(err));
+              Toaster_Service.toastNotification_D(a.http_response);
+              this.Snake_Wait.close_bar();
+
+              // alert(a.response_msg);
+            }
+          )
+      }
+    }
   }
 
   submit_Template() //Remain
@@ -140,6 +280,7 @@ export class OperatorComponent implements OnInit {
   {
     const index = this.operator_list.indexOf(out);
     this.operator_list[index].active = !this.operator_list[index].active  
+    
     console.log(this.operator_list);
   }
 

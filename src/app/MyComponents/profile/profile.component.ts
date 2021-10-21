@@ -1,3 +1,4 @@
+import { Toaster_Service } from 'src/app/Classes/ToasterNg';
 import { SharedService } from './../../Classes/shared_services';
 import { Component, OnInit } from '@angular/core';
 import { EncodeDecode } from 'src/app/Classes/EncodeDec64';
@@ -37,8 +38,10 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit(): void {
 
+
     let json = localStorage.getItem("user_data");
     let json1 = localStorage.getItem("user_status");
+    console.log(json)
 
 
     if(json!=null)
@@ -48,6 +51,10 @@ export class ProfileComponent implements OnInit {
 
       let username = this.data.username;
       let password = EncodeDecode.b64DecodeUnicode( this.data.passcode);
+      let permissions = this.data.permissions;
+      let type = this.data.type;
+      // console.log(permissions);
+
 
       // let username = myCredentials.username;
       // let password = ( myCredentials.password);
@@ -60,10 +67,12 @@ export class ProfileComponent implements OnInit {
             let data = JSON.parse(JSON.stringify(res));
             let balance = data.data.balance;
             // var button_text = document.getElementById('your_button_id').innerHTML;
+            
             console.log(balance);
             // console.log($('#web_balance').text());
             // console.log($('#web_balance').val());
             // console.log($('#web_balance').html());
+            this.manageUIwithPermissions(type, permissions);
 
 
             // $('#web_balance').attr('text', 'balance');
@@ -101,6 +110,62 @@ export class ProfileComponent implements OnInit {
     //console.log((this.data));
     // console.log(this.data1);
 
+  }
+  manageUIwithPermissions(type:string,permissions:any) {
+    let sms = permissions.sms;
+    let mms = permissions.mms;
+    let contacts = permissions.contacts;
+    let templates = permissions.templates;
+    let billings = permissions.billings;
+    let top_ups = permissions.top_ups;
+    let resellers = permissions.resellers;
+    let banned = permissions.banned;
+
+    if (type != 'superadmins')
+    {
+      if (sms==0 && mms==0)
+      {
+        $('#messages').hide()
+      }
+
+      if (contacts==0)
+      {
+        $('#contacts').hide()
+      }
+
+      if (templates==0)
+      {
+        $('#templates').hide()
+      }
+
+      if (billings == 0)
+      {
+        $('#billing').hide()
+      }
+
+      if (top_ups==0)
+      {
+        $('#topup').hide()
+
+      }
+      if (resellers ==0 )
+      {
+        $('#reseller').hide();
+      }
+
+      if (banned ==1 )
+      {
+        Toaster_Service.toastNotification_D("You are banned! Contact Administrator")
+        this.logout();
+      }
+
+    }
+    else
+    {
+
+    }
+
+    
   }
 
   update_val(event:any)
@@ -252,6 +317,38 @@ export class ProfileComponent implements OnInit {
       $('#reseller').addClass('active')
 
     }
+
+    else if (val==11)
+    {
+      $('#dashboard').removeClass('active')
+      $('#personal').removeClass('active')
+      $('#templates').removeClass('active')
+      $('#contacts').removeClass('active')
+      $('#messages').removeClass('active')
+      $('#sender').removeClass('active')
+      $('#billing').removeClass('active')
+      $('#topup').removeClass('active')
+      $('#admin').removeClass('active')
+      $('#reseller').removeClass('active')
+
+    }
+
+    else if (val==11)
+    {
+      $('#dashboard').removeClass('active')
+      $('#personal').removeClass('active')
+      $('#templates').removeClass('active')
+      $('#contacts').removeClass('active')
+      $('#messages').removeClass('active')
+      $('#sender').removeClass('active')
+      $('#billing').removeClass('active')
+      $('#topup').removeClass('active')
+      $('#admin').removeClass('active')
+      $('#reseller').removeClass('active')
+
+    }
+
+
   }
 
   /* Set the width of the side navigation to 250px */
