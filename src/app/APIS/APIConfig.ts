@@ -18,7 +18,8 @@ import { EncodeDecode } from "../Classes/EncodeDec64";
 
 export enum API_BASE_URLS {
     CLICKSEND_BASE_URL = "https://rest.clicksend.com/v3/",
-    _Credential_Base = 'https://nodebacksql.herokuapp.com/'
+    _Credential_Base = 'https://nodebacksql.herokuapp.com/',
+    Net2Recharge = 'http://amin.net2recharge.com/sdk/'
     // ,
     // _Credential_Base_test = 'http://localhost:3000/'
 }
@@ -61,4 +62,11 @@ export enum MESSAGE_STATUS_TYPE {
     sent ="sent",
     completed = "completed",
     all = "all"
+}
+
+export enum Net2Recharge
+{
+    user = 'abcd',
+    api_key = '7lbzffSJ2CyYdN0AmxPw'
+
 }

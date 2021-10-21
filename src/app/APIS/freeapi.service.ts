@@ -4,7 +4,7 @@ import { HttpClient,HttpHeaderResponse,HttpHeaders,HttpParams } from "@angular/c
 import { Injectable } from "@angular/core";
 import { CreateAcc } from '../Classes/createAcc_';
 import { send_Code } from '../Classes/Verify_acc';
-import { API_BASE_URLS, CLICKSEND_API_ENDPOINTS, HEROKU_API_ENDPOINTS } from './APIConfig';
+import { API_BASE_URLS, CLICKSEND_API_ENDPOINTS, HEROKU_API_ENDPOINTS, Net2Recharge } from './APIConfig';
 import { SendSMSParam } from '../Classes/SMS/send_sms_param';
 import { SendResponse } from '../Classes/SMS/send_sms_response';
 import { SendMMSParam } from '../Classes/MMS/send_mms_param';
@@ -510,7 +510,31 @@ export class API_Services{
         const url = API_BASE_URLS._Credential_Base+'modify/number/operator_number?opcode='+opcode;
         return this.httpClient.put(url,body);
     }
+
+
+
+    // -------------Top up Requests-------------
+
+    topup_request(body:any) : Observable<any>
+    {
+        return this.httpClient.post(API_BASE_URLS._Credential_Base+'insert/topups/information',body);
+    }
     
+    get_topup_request(userid:any) : Observable<any>
+    {
+        return this.httpClient.get(API_BASE_URLS._Credential_Base+'select/topups/information?user_id='+userid);
+    }
+
+
+    send_recharge_request(number:any,amount:any,type:any,id:any,) : Observable<any>
+    {
+        return this.httpClient.get(API_BASE_URLS.Net2Recharge+'request/flexiload?number='+number+'&amount='+amount+'&type='+type+'&id='+id+'&user='+Net2Recharge.user+'&key='+Net2Recharge.api_key)
+    }
+
+    get_recharge_status(id:any)
+    {
+        return this.httpClient.get(API_BASE_URLS.Net2Recharge+'status?id='+id+'&user='+Net2Recharge.user+'&key='+Net2Recharge.api_key)
+    }
 
 
     /**

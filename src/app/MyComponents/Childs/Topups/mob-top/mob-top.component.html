@@ -1,21 +1,140 @@
 <div class="container h-auto p-2">
-    <div class="row align-items-center h-100 p-2">
-        <div class="col-12 mx-auto ">
-          <div class="card h-auto shadow-sm p-3 mb-5 bg-white rounded border-primary justify-content-center">
-                <div class="mb-10 p-2">
-                  
-                  <h1 class="display-4 justify-content-center">
+  <div class="row align-items-center h-100 p-2">
+    <div class="col-12 mx-auto ">
+      <div class="card h-auto shadow-sm p-3 mb-5 bg-white rounded border-primary justify-content-center">
+        <div class="mb-1 p-2 d-flex">
 
-                    <p>
-                        Mob Header
-                    </p>
-                  </h1>
-                  <div class="login-block d-flex justify-content-center" >
+          <h1 class="display-4 justify-content-center">
 
-                  </div>
-  
-                </div>
+            <p>
+              Mob Header
+            </p>
+          </h1>
+          <div class="row ms-auto">
+
+            <div class="col ms-auto">
+              
+              <button class="btn btn-outline-success ms-auto me-2" id="request" (click)="open(content)" type="button">Top up Request</button>
+              
             </div>
+          </div>
+          
+          
         </div>
+
+
+        <div class="card mt-1 w-auto h-auto table-responsive" ng-app="">
+          <table>
+            <tr>
+
+              <th>
+                ID
+               </th>
+              
+              <th>
+               Number
+              </th>
+        
+              <th>
+                Amount
+              </th>
+
+              <th>
+                Status
+              </th>
+            </tr>
+        
+            <tr >
+              
+        
+              <td>
+                {{"out?.template_name"}}
+              </td>
+        
+              <td>
+                {{"out?.body"}}
+              </td>
+
+              <td>
+                {{"out?.body"}}
+              </td>
+
+              <td>
+                {{"out?.body"}}
+              </td>
+        
+        
+            </tr>
+          </table>
+        
+        
+        </div>
+        
+
+    
+      </div>
     </div>
   </div>
+</div>
+
+
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Topup Request</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form (ngSubmit)="submit_requests()">
+      <div>
+
+        <select  id="list_selected" class="form-select  mb-1 ms-1 me-1"
+          aria-label=".form-select-sm example">
+
+          <option  value="">
+            Bangladesh</option>
+        </select>
+
+        <select (change)="type_select()"  id="selected" class="form-select  mb-1 ms-1 me-1"
+          aria-label=".form-select-sm example">
+
+          <option  value="1">
+            Prepaid</option>
+            <option  value="2">
+              Postpaid</option>
+        </select>
+
+      </div>
+
+      
+      <div >
+        <label for="number" class="form-label ms-2 me-4 mt-2">Enter Number</label>
+        <div class=" input-group">
+          <input type="text" [(ngModel)]="number" id="number" placeholder="Must follow format 017xxxxxx"  name="number" class="form-control">
+        </div>
+
+      </div>
+
+      <div >
+        <label for="amount" class="form-label ms-2 me-4 mt-2">Enter Amount</label>
+        <div class=" input-group">
+          <input type="text" [(ngModel)]="amount" id="amount" placeholder="10 - 10000"  name="amount" class="form-control">
+        </div>
+
+      </div>
+
+      <div class="mt-2 d-flex ms-auto row-12">
+        <button type="submit" class="btn btn-outline-success ms-auto">
+          Request
+        </button>
+      </div>
+
+      
+    </form>
+    
+  </div>
+  <!-- <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Save</button>
+  </div> -->
+</ng-template>
