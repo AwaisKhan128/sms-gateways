@@ -223,6 +223,7 @@ export class SendUSSDInquiryComponent implements OnInit {
         this.ussdInquires.push(k)
       })
 
+      
       const docRef = await setDoc(doc(db, "InquiryCall", "opcode_"+this.selectedOPcode), {
           devices: this.ussdInquires
       });
