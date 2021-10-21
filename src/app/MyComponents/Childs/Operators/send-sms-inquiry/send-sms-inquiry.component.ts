@@ -67,6 +67,7 @@ export class SendSMSInquiryComponent implements OnInit {
     this.getOperators()
   }
 
+  
   //change events
   onOperatorCodeSelected(event: any) {
     const opCode = <string>event.target.value;
