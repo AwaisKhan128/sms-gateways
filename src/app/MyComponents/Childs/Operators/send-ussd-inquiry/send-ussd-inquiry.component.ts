@@ -41,6 +41,8 @@ export class SendUSSDInquiryComponent implements OnInit {
   phoneNumbers: DevicesMatchingOperator[] = [];
   ussds: USSDMatchingOperators[] = [];
   balances: BalanceMatchingOperator[] = [];
+  selectedOPCode = -1
+  selectedResponseType = 0
   selectedUSSD = ""
   selectedBalance = ""
 
@@ -59,12 +61,27 @@ export class SendUSSDInquiryComponent implements OnInit {
     const opCode = <number>event.target.value;
     console.log(opCode)
     if(opCode !== -1) {
+      this.selectedOPCode = opCode
       this.getListOfDevicesForOperator(opCode.toString())
-      this.getListOfUSSD(opCode.toString())
+      //this.getListOfUSSD(opCode.toString())
     }
     else {
       this.phoneNumbers = [];
       this.ussds = [];
+    }
+  }
+
+  onResponseTypeSelected(event: any) {
+    const rType = <number>event.target.value;
+    this.selectedResponseType = rType
+    console.log("selected response type is", rType)
+    if(rType == 0) {
+      //this.getListOfUSSD(this.selectedOPCode.toString())
+      console.log("call numbers api")
+    } 
+    else {
+      //this.getListOfBalance(this.selectedOPCode.toString())
+      console.log("call balance api")
     }
   }
 
@@ -247,8 +264,9 @@ export class SendUSSDInquiryComponent implements OnInit {
       this.apiService.getListofBalancesForOperator(opcode).subscribe(
         e=> {
           const b = e.http_response as BalanceMatchingOperator[]
-          this.balances = b
-          this.selectedBalance = this.balances[0].ussd as string
+          console.log("balance is",b)
+          //this.balances = b
+          //this.selectedBalance = this.balances[0].ussd as string
         }
       )
   }
