@@ -299,6 +299,6 @@ export class SendUSSDInquiryComponent implements OnInit {
           this.selectedUSSD = ""
         }
     })
-}
+  }
 }
 
