@@ -55,6 +55,13 @@ export class SendUSSDInquiryComponent implements OnInit {
 
   
   ngOnInit(): void {
+    this.populateReponseTypes()
+    this.getOperators()
+  }
+
+
+  populateReponseTypes() {
+    this.responseTypes = []
     const rt1 : InquiryResponseType = {
       id:1,
       response_type: "Number",
@@ -68,12 +75,7 @@ export class SendUSSDInquiryComponent implements OnInit {
 
     this.responseTypes.push(rt1)
     this.responseTypes.push(rt2)
-
-    this.getOperators()
   }
-
-
-
 
   //change events
   onOperatorCodeSelected(event: any) {
@@ -82,10 +84,9 @@ export class SendUSSDInquiryComponent implements OnInit {
     this.selectedOPcode = opCode
     console.log("SSSSDD",opCode)
     if(opCode !== "NONE") {
+      this.populateReponseTypes()
       this.getListOfDevicesForOperator(opCode.toString())
       this.getListOfUSSD(this.selectedOPcode.toString())
-      this.responseTypes[0].isSelected! = true 
-      this.responseTypes[1].isSelected! = false 
     }
     else {
       this.phoneNumbers = [];
@@ -99,9 +100,11 @@ export class SendUSSDInquiryComponent implements OnInit {
     console.log("selected 222",this.responseTypes)
     if (this.selectedOPcode != "NONE") {
       if(rTypeSelectedID == 1) {
+        this.selectedResponseType == 1
         this.getListOfUSSD(this.selectedOPcode.toString())
       }
       else {
+        this.selectedResponseType == 2
         this.getListOBalances(this.selectedOPcode.toString())
       } 
     }
