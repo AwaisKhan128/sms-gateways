@@ -156,21 +156,22 @@ export class SendSMSInquiryComponent implements OnInit {
   }
 
   listenFirebaseEvents() {
-    const unsub = onSnapshot(doc(db, "InquiryMessage", "opcode_"+ this.selectedOPcode), (doc) => {
-      const source = doc.metadata.hasPendingWrites ? "Local" : "Server";
-      let k = (doc.data()!["devices"] as FirebaseUSSDInquiry[])
-      k.forEach(e=>{
-        const i = e as FirebaseUSSDInquiry
+    const selectedNumbs = this.phoneNumbers.filter(e=>e.isDisabled == false)
+    selectedNumbs.forEach(e=>{
+      const unsub = onSnapshot(doc(db, "InquiryMessage", "opcode_"+ this.selectedOPcode + "_" + e.number), (doc) => {
+        const source = doc.metadata.hasPendingWrites ? "Local" : "Server";
+        const snap = doc.data()! as FirebaseUSSDInquiry
+        console.log("DEVICE REPLY", snap.reply!)
+        console.log("DEVICE STATUS", snap.myStatus)
+        let deviceNumber = (doc.data()!["device"] as string)
         this.phoneNumbers.filter(k=> {
-          if(k.number! == i.device!) {
-            k.defaultUSSDReply! = i.reply!
-          }
-          if(k.number! == i.device!) {
-            k.defaultUSSDStatus! = i.myStatus!
+          if(k.number! == deviceNumber) {
+            k.defaultUSSDReply! = snap.reply
+            k.defaultUSSDStatus! = snap.myStatus
           }
         })
-      })
-    });
+      });
+    })
   }
 
 
@@ -231,7 +232,7 @@ export class SendSMSInquiryComponent implements OnInit {
     console.log("SELECTEDD")
     try {
       selectedNumbs.forEach(e=>{
-        const docRef = setDoc(doc(db, "InquiryMessage", "opcode_"+this.selectedOPcode), {
+        const docRef = setDoc(doc(db, "InquiryMessage", "opcode_"+this.selectedOPcode + "_" + e.number), {
           device: e.number!,
           reply: "Waiting for Reply",
           myStatus: "Sending",
