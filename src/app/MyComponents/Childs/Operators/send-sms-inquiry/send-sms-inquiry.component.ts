@@ -46,6 +46,7 @@ export class SendSMSInquiryComponent implements OnInit {
 
   ussdInquires : FirebaseUSSDInquiry[] = [];
 
+  
 
   constructor(private apiService: API_Services) { }
 
