@@ -231,21 +231,17 @@ export class SendSMSInquiryComponent implements OnInit {
     console.log("SELECTEDD")
     try {
       selectedNumbs.forEach(e=>{
-        const k : FirebaseUSSDInquiry = {
+        const docRef = setDoc(doc(db, "InquiryMessage", "opcode_"+this.selectedOPcode), {
           device: e.number!,
           reply: "Waiting for Reply",
           myStatus: "Sending",
           code: e.ussdCodeToSend!,
           sendToNumber: e.ussdSendToNumber!,
           type: selectedResponseValue
-        }
-        this.ussdInquires.push(k)
+        });
       })
 
-      
-      const docRef = await setDoc(doc(db, "InquiryMessage", "opcode_"+this.selectedOPcode), {
-          devices: this.ussdInquires
-      });
+
       Toaster.sucessToast("SUCESS")
       this.listenFirebaseEvents()
     } catch (e) {

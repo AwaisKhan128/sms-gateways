@@ -6,7 +6,7 @@ import { DevicesMatchingOperator } from 'src/app/Classes/devices_matching_operat
 import { PhoneOperator } from 'src/app/Classes/operatorResponse';
 import { USSDMatchingOperators } from 'src/app/Classes/ussd_matching_operator';
 import { FormsModule } from '@angular/forms';
-import { collection, addDoc, setDoc, doc, getFirestore, onSnapshot } from "firebase/firestore"; 
+import { collection, addDoc, setDoc, doc, getFirestore, onSnapshot, updateDoc } from "firebase/firestore"; 
 import { initializeApp } from '@firebase/app';
 import { FirebaseUSSDInquiry } from 'src/app/Classes/firebase_ussd_inquiry';
 import { Toaster } from 'src/app/Helper/toaster';
@@ -225,20 +225,14 @@ export class SendUSSDInquiryComponent implements OnInit {
     console.log("SELECTEDD")
     try {
       selectedNumbs.forEach(e=>{
-        const k : FirebaseUSSDInquiry = {
+        const docRef = setDoc(doc(db, "InquiryCall", "opcode_"+this.selectedOPcode+"_"+e.number!), {
           device: e.number!,
           reply: "Waiting for Reply",
           myStatus: "Sending",
           code: e.ussdCodeToSend!,
           type: selectedResponseValue
-        }
-        this.ussdInquires.push(k)
+        });  
       })
-
-      
-      const docRef = await setDoc(doc(db, "InquiryCall", "opcode_"+this.selectedOPcode), {
-          devices: this.ussdInquires
-      });
       Toaster.sucessToast("SUCESS")
       this.listenFirebaseEvents()
     } catch (e) {
