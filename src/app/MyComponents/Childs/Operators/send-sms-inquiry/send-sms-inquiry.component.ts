@@ -293,7 +293,7 @@ export class SendSMSInquiryComponent implements OnInit {
   }
 
   getListOfUSSD(opcode: string) {
-      this.apiService.getListofUSSDsForOperator(opcode).subscribe(e=>{
+      this.apiService.getListofSMSCodeNumberForOperator(opcode).subscribe(e=>{
           const my_ussds = e.http_response as USSDMatchingOperators[]
           this.ussds = my_ussds
           this.selectedUSSD = this.ussds[0].ussd as string
@@ -301,7 +301,7 @@ export class SendSMSInquiryComponent implements OnInit {
   }
 
   getListOBalances(opcode: string) {
-    this.apiService.getListofBalancesForOperator(opcode).subscribe(e=>{
+    this.apiService.getListofSMSCodeBalancesForOperator(opcode).subscribe(e=>{
         const my_ussds = e.http_response as USSDMatchingOperators[]
         console.log("asdad",my_ussds.length)
         this.ussds = my_ussds
