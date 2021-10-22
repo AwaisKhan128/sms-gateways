@@ -82,6 +82,7 @@ export class SendSMSInquiryComponent implements OnInit {
 
     this.responseTypes.push(rt1)
     this.responseTypes.push(rt2)
+    this.selectedResponseType = 1
   }
 
   
@@ -109,9 +110,11 @@ export class SendSMSInquiryComponent implements OnInit {
     if (this.selectedOPcode != "NONE") {
       if(rTypeSelectedID == 1) {
         this.getListOfUSSD(this.selectedOPcode.toString())
+        this.selectedResponseType = 1
       }
       else {
         this.getListOBalances(this.selectedOPcode.toString())
+        this.selectedResponseType = 2
       } 
     }
   }
