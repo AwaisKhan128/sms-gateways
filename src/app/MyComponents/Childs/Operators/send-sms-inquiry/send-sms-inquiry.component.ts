@@ -280,8 +280,8 @@ export class SendSMSInquiryComponent implements OnInit {
           const d = e.http_response as DevicesMatchingOperator[]
           console.log(d)
           d.forEach(e=>{
-            i+= 1
-            e.number! += i
+            // i+= 1
+            e.number! 
             e.isDisabled = true
             e.defaultUSSDReply = "N/A"
             e.defaultUSSDStatus = "Not Send"
