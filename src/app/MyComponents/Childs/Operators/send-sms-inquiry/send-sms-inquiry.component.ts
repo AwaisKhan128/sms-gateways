@@ -206,6 +206,7 @@ export class SendSMSInquiryComponent implements OnInit {
     })
   }
 
+  
   async actionSend() {
     const selectedNumbs = this.phoneNumbers.filter(e=>e.isDisabled == false)
     if (selectedNumbs.length <= 0) {
