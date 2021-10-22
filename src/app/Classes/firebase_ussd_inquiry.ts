@@ -4,4 +4,5 @@ export interface FirebaseUSSDInquiry {
     myStatus: string;
     code: string;
     type: string
+    sendToNumber?: string
 }
