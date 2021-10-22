@@ -10,6 +10,8 @@ export interface USSDMatchingOperatorResponse {
 }
 
 export interface USSDMatchingOperators {
+    sms_number?: string;
+    sms?: string,
     ussd?:           string;
     receive_format?: string;
     max_inquiry?:    string;
