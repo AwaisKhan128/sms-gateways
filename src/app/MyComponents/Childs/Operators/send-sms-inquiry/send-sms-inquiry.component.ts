@@ -296,7 +296,12 @@ export class SendSMSInquiryComponent implements OnInit {
       this.apiService.getListofSMSCodeNumberForOperator(opcode).subscribe(e=>{
           const my_ussds = e.http_response as USSDMatchingOperators[]
           this.ussds = my_ussds
-          this.selectedUSSD = this.ussds[0].sms as string
+          this.selectedUSSD = this.ussds[0].sms_number! as string
+          this.phoneNumbers.forEach(e=>{
+              const ussdsendtonumbstrvalue = this.ussds[0].sms_number! as string
+              e.ussdSendToNumber = ussdsendtonumbstrvalue
+              console.log("USSSD sent to number", this.ussds[0].sms_number!)
+          })
       })
   }
 
@@ -306,7 +311,12 @@ export class SendSMSInquiryComponent implements OnInit {
         console.log("asdad",my_ussds.length)
         this.ussds = my_ussds
         if (my_ussds.length > 0) {
-            this.selectedUSSD = this.ussds[0].ussd as string
+            this.selectedUSSD = this.ussds[0].sms_number as string
+            this.phoneNumbers.forEach(e=>{
+              const ussdsendtonumbstrvalue = this.ussds[0].sms_number! as string
+              e.ussdSendToNumber = ussdsendtonumbstrvalue
+              console.log("USSSD sent to number", this.ussds[0].sms_number!)
+          })
         }
         else {
           this.selectedUSSD = ""
