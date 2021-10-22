@@ -296,7 +296,7 @@ export class SendSMSInquiryComponent implements OnInit {
       this.apiService.getListofSMSCodeNumberForOperator(opcode).subscribe(e=>{
           const my_ussds = e.http_response as USSDMatchingOperators[]
           this.ussds = my_ussds
-          this.selectedUSSD = this.ussds[0].ussd as string
+          this.selectedUSSD = this.ussds[0].sms as string
       })
   }
 

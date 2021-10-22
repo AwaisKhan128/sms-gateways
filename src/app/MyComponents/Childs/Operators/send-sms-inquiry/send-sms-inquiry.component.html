@@ -29,7 +29,7 @@
     </div>
     <div class="row p-2" *ngIf = "this.ussds.length">
       <div class="col-4">
-        <input id= "ussdcode" class="form-check-input" type="text" [(ngModel)]="this.ussds[0].ussd" value="{{this.ussds[0].ussd}}" style="width:50%" placeholder="USSD Code">
+        <input id= "ussdcode" class="form-check-input" type="text" [(ngModel)]="this.ussds[0].sms" value="{{this.ussds[0].sms}}" style="width:50%" placeholder="USSD Code">
         <div>
           <button class="btn btn-primary ms-1 mt-1 mb-1 me-1" (click)="actionCopyToSelected($event)">
             Copy to selected
@@ -65,7 +65,7 @@
           Number
         </th>
         <th>
-          USSD Request
+          SMS Code
         </th>
         <th>
           USSD Status
