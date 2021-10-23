@@ -18,7 +18,7 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-sender',
   templateUrl: './sender.component.html',
-  styleUrls: ['./sender.component.css']
+  styleUrls: ['./sender.component.css','./sender.component.scss']
 })
 export class SenderComponent implements OnInit {
 // My 

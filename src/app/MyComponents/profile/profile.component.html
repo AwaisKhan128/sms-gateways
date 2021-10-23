@@ -1,169 +1,169 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light " id="nav_bar">
-  <div class="container">
-    <a class="navbar-brand" [routerLink]='["dashboard"]'>SMS Gateway</a>
-    <button mat-icon-button (click)="sidenav.toggle()">
-      <mat-icon>menu</mat-icon>
-    </button>
-    
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-      
-        <li class="nav-item">
-            <!-- Routerlink with href -->
-          <a class="nav-link active" id="dashboard" (click)="OnTop_Change(0)" [routerLink]='["dashboard"]' aria-current="page">Dashboard</a>
-        </li>
-        <li class="nav-item ">
-            <!-- Routerlink with href -->
-          <a class="nav-link" id="personal" (click)="OnTop_Change(1)" [routerLink]='["personal"]'>Profile</a>
-        </li>
-        <li class="nav-item ">
-          <!-- Routerlink with href -->
-        <a class="nav-link" id="template" (click)="OnTop_Change(2)" [routerLink]='["templates"]'>Templates</a>
-      </li>
 
-      <li class="nav-item ">
-          <!-- Routerlink with href -->
-        <a class="nav-link" id="contacts" (click)="OnTop_Change(3)" [routerLink]='["contacts"]'>Contacts</a>
-      </li>
+<!-- 
+<div class="container">
+
+
+
+</div> -->
+
+<mat-toolbar>
+  <!-- Responsive Side Navigation -->
+  <button mat-icon-button  *ngIf="sidenav.mode==='over'" (click)="sidenav.toggle()">
+    <mat-icon *ngIf = "!sidenav.opened">
+      menu
+    </mat-icon>
+
+    <mat-icon *ngIf = "sidenav.opened">
+      close
+    </mat-icon>
+
+  </button>
+  SMS Gateways Pvt Ltd.
+
+  <div class="ms-auto d-flex">
+
+    <button mat-button [matMenuTriggerFor]="menu"><mat-icon>more_vert</mat-icon></button>
         
-      <li class="nav-item ">
-          <!-- Routerlink with href -->
-        <a class="nav-link "  id="messages" (click)="OnTop_Change(4)" [routerLink]='["messages"]'>Messages</a>
-      </li>
+    <mat-menu #menu="matMenu">
+      <button class="drop_button" id="web_balance" (click) = "update_val($event)" mat-menu-item>
+        Web Balance
+      </button>
+      <button  id="device_set" (click)="OnTop_Change(11)" [routerLink]='["device"]' mat-menu-item>Device Settings</button>
+      <button  id="operators_set" (click)="OnTop_Change(12)"  [matMenuTriggerFor]="operators" [routerLink]='["operator_config"]' mat-menu-item>Operator Configuration</button>
+  
+      <button mat-menu-item (click)="logout()">Log Out</button>
+    </mat-menu>
 
-      <li class="nav-item ">
-          <!-- Routerlink with href -->
-        <a class="nav-link" id="sender" (click)="OnTop_Change(5)" [routerLink]='["sender"]'>Sender</a>
-      </li>
+    <mat-menu #operators="matMenu">
+      <button mat-menu-item id="operator" [routerLink]='["operator_config/operator"]'>Operator</button>
+      <button mat-menu-item id="add_sms" (click)="Add_SMS()"  [routerLink]='["operator_config/add_sms"]'>Add SMS Inquiry</button>
+      <button mat-menu-item id="add_ussd" (click)="Add_USSD()" [routerLink]='["operator_config/add_ussd"]'>Add USSD Inquiry</button>
+      <button mat-menu-item id="send_sms" (click)="Send_SMS()" [routerLink]='["operator_config/send_sms"]'>Send SMS Inquiry </button>
+      <button mat-menu-item id="send_ussd" (click)="Send_USSD()" [routerLink]='["operator_config/send_ussd"]'>Send USSD Inquiry </button>
 
-      <!-- <li class="nav-item "> -->
-          <!-- Routerlink with href -->
-        <!-- <a class="nav-link"  >Auto Responder</a> -->
-      <!-- </li> -->
-
-      <li class="nav-item ">
-        <!-- Routerlink with href -->
-      <a class="nav-link" id="billing" (click)="OnTop_Change(7)" [routerLink]='["billing"]'>Billing</a>
-    </li>
-
-    <li class="nav-item ">
-        <!-- Routerlink with href -->
-      <a class="nav-link" id="topup" (click)="OnTop_Change(8)" [routerLink]='["topup"]' >Top Up</a>
-    </li>
-
-    <li class="nav-item ">
-      <!-- Routerlink with href -->
-  <a class="nav-link" id="admin" (click)="OnTop_Change(9)" [routerLink]='["admin"]' >Admin</a>
-  </li>
-
-  <li class="nav-item ">
-      <!-- Routerlink with href -->
-  <a class="nav-link" id="reseller" (click)="OnTop_Change(10)" [routerLink]='["reseller"]' >Reseller</a>
-  </li>
-
-
-        
-      </ul>
-
-      <div class="dropdown-menu" aria-labelledby="Toggle navigation">
-        <a class="dropdown-item" >Action</a>
-        <a class="dropdown-item" >Another action</a>
-        <a class="dropdown-item" >Something else here</a>
-      </div>
-    
-      <!-- <button class="btn btn-outline-success" type="button">Logout</button> -->
-
-      <button mat-button [matMenuTriggerFor]="menu"><mat-icon>more_vert</mat-icon></button>
-      
-      <mat-menu #menu="matMenu">
-        <button class="drop_button" id="web_balance" (click) = "update_val($event)" mat-menu-item>
-          Web Balance
-        </button>
-        <button  id="device_set" (click)="OnTop_Change(11)" [routerLink]='["device"]' mat-menu-item>Device Settings</button>
-        <button  id="operators_set" (click)="OnTop_Change(12)" [routerLink]='["operator_config"]' mat-menu-item>Operator Configuration</button>
-
-        <button mat-menu-item (click)="logout()">Log Out</button>
-
-      </mat-menu>
-
-
-
-    </div>
+    </mat-menu>
   </div>
 
 
+</mat-toolbar>
 
-</nav>
+<mat-sidenav-container>
+  <mat-sidenav #sidenav = "matSidenav">
 
+    <img class="avatar mat-elevation-z8" src="https://cdn.pixabay.com/photo/2015/03/04/22/35/head-659651_960_720.png" alt="">
+    <h1>
+      Admin
+    </h1>
 
-<div> 
-  <mat-sidenav color="primary" #sidenav fxLayout="column" mode="over"  opened="false" fxHide.gt-sm="true">
-    <div fxLayout="column">
-      <ul class=" ">
-      
-
-        <li >
-            <!-- Routerlink with href -->
-          <a class="nav-link active" id="dashboard" (click)="OnTop_Change(0)" [routerLink]='["dashboard"]' aria-current="page">Dashboard</a>
-        </li>
-        <li >
-            <!-- Routerlink with href -->
-          <a class="nav-link" id="personal" (click)="OnTop_Change(1)" [routerLink]='["personal"]'>Profile</a>
-        </li>
-        <li >
-          <!-- Routerlink with href -->
-        <a class="nav-link" id="template" (click)="OnTop_Change(2)" [routerLink]='["templates"]'>Templates</a>
-      </li>
-
-      <li >
-          <!-- Routerlink with href -->
-        <a class="nav-link" id="contacts" (click)="OnTop_Change(3)" [routerLink]='["contacts"]'>Contacts</a>
-      </li>
-        
-      <li >
-          <!-- Routerlink with href -->
-        <a class="nav-link" id="messages" (click)="OnTop_Change(4)" [routerLink]='["messages"]'>Messages</a>
-      </li>
-
-      <li >
-          <!-- Routerlink with href -->
-        <a class="nav-link" id="sender" (click)="OnTop_Change(5)" [routerLink]='["sender"]'>Sender</a>
-      </li>
+    <a id="dashboard"  [routerLink]='["dashboard"]'  mat-button class="menu-button">
+      <mat-icon>
+        info
+      </mat-icon>
+      <span >Dashboard</span>
+    </a>
 
 
-
-      <li >
-        <!-- Routerlink with href -->
-      <a class="nav-link" id="billing" (click)="OnTop_Change(7)" [routerLink]='["billing"]'>Billing</a>
-    </li>
-
-    <li >
-        <!-- Routerlink with href -->
-      <a class="nav-link" id="topup" (click)="OnTop_Change(8)" [routerLink]='["topup"]' >Top Up</a>
-    </li>
-
-    <li >
-      <!-- Routerlink with href -->
-  <a class="nav-link" id="admin" (click)="OnTop_Change(9)" [routerLink]='["admin"]' >Admin</a>
-  </li>
-
-  <li >
-      <!-- Routerlink with href -->
-  <a class="nav-link" id="reseller" (click)="OnTop_Change(10)" [routerLink]='["reseller"]' >Reseller</a>
-  </li>
+    <a id="personal" [routerLink]='["personal"]' mat-button class="menu-button">
+      <mat-icon>
+        info
+      </mat-icon>
+      <span>Profile</span>
+    </a>
 
 
-        
-      </ul>
-    </div>
+    <a id="template" [routerLink]='["templates"]' mat-button class="menu-button">
+      <mat-icon>
+        info
+      </mat-icon>
+      <span>Templates</span>
+    </a>
+
+    
+    <a id="contacts" [routerLink]='["contacts"]' mat-button class="menu-button">
+      <mat-icon>
+        info
+      </mat-icon>
+      <span>Contacts</span>
+    </a>
+
+    <a id="messages" [routerLink]='["messages"]' mat-button class="menu-button">
+      <mat-icon>
+        info
+      </mat-icon>
+      <span>Messages</span>
+    </a>
+
+
+
+    <a id="sender" [routerLink]='["sender"]' [matMenuTriggerFor]="senders" mat-button class="menu-button">
+      <mat-icon>
+        info
+      </mat-icon>
+      <span>Sender</span>
+    </a>
+    <mat-menu #senders="matMenu">
+      <button mat-menu-item id="sms"  [routerLink]='["sender/sms"]'>SMS</button>
+      <button mat-menu-item id="sms_remote"  [routerLink]='["sender/remote_sms"]'>Remote SMS</button>
+      <button mat-menu-item id="mms"  [routerLink]='["sender/mms"]'>MMS</button>
+    </mat-menu>
+
+    
+    <a id="billing" [matMenuTriggerFor]="billing"  [routerLink]='["billing"]' mat-button class="menu-button">
+      <mat-icon>
+        info
+      </mat-icon>
+      <span>Web Billing</span>
+    </a>
+    <mat-menu #billing="matMenu">
+      <button mat-menu-item id="billingcontact"  [routerLink]='["billing/billingcontact"]'>Billing Contact</button>
+      <button mat-menu-item id="transaction"  [routerLink]='["billing//transaction"]'>Transactions</button>
+      <button mat-menu-item id="manage_cards"  [routerLink]='["billing/manage_cards"]'>Manage Cards</button>
+    </mat-menu>
+
+    <a id="topup" [matMenuTriggerFor]="topups" [routerLink]='["topup"]' mat-button class="menu-button">
+      <mat-icon>
+        info
+      </mat-icon>
+      <span>Topup</span>
+    </a>
+    <mat-menu #topups="matMenu">
+      <button mat-menu-item id="topup_web"  [routerLink]='["topup/topup_web"]'>Web Topup</button>
+      <button mat-menu-item id="transaction"  [routerLink]='["topup/topup_mobile"]'>Mobile Topup</button>
+    </mat-menu>
+
+    <a id="admin" [matMenuTriggerFor]="topups"  [routerLink]='["admin"]' mat-button class="menu-button">
+      <mat-icon>
+        info
+      </mat-icon>
+      <span>Admins</span>
+    </a>
+
+    <a id="reseller" [routerLink]='["reseller"]' mat-button class="menu-button">
+      <mat-icon>
+        info
+      </mat-icon>
+      <span>Resellers</span>
+    </a>
+
+    <mat-divider></mat-divider>
+
+
+
   </mat-sidenav>
- 
 
-</div>
+  <mat-sidenav-content>
+    <div class="content " >
+      <router-outlet>
 
-<router-outlet>
+      </router-outlet>
+    
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>
 
-</router-outlet>
+<footer class="footer">
+  All Copyrights Reserved@2021
+ </footer>
 
 
 

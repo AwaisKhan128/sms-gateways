@@ -1,438 +1,416 @@
-<div class="card mt-1 w-auto h-auto">
 
-    <div class="d-flex  ">
-        <div class="d-flex">
-            <h3 class="ms-3 mt-2">
-              Show
-            </h3>
+<div style="font-family: 'Times New Roman', Times, serif;font-size:medium">
 
-            <select class="form-select form-select-sm mb-1 ms-1 me-1 selected_admin"
-              aria-label=".form-select-sm example"  (change)="onSelected_admin($event)" > 
-            
-              <option selected>Default</option>
-              <option  *ngFor="let packet of Update_Admin_Sample_for_Selection" value="{{packet?.subaccount_id}}"
-                >{{packet?.api_username}}</option>
-            </select>
-      
-            <h4 class="me-2 mt-2 ">
-              Admin
-            </h4>
-        </div>
-        
-        <div class="ms-auto">
-            <button class=" btn btn-outline-success m-1"  (click)="C_Admin(E_admin)">
-                Email Credentials
-            </button>
+  <div class="card mt-1 w-auto h-auto">
 
-            <button class=" btn btn-outline-success m-1"  (click)="C_Admin(C_admin)">
-                Create Admin
-            </button>
-        
-            <button class=" btn btn-outline-success m-1"  (click)="C_Admin(U_admin)">
-                Update Admin
-            </button>
-        
-            <button class=" btn btn-outline-success m-1"  (click)="C_Admin(D_admin)">
-                Delete Admin
-            </button>
-        </div>
+      <div class="d-flex  ">
+          <div class="d-flex">
+              <h3 class="ms-3 mt-2">
+                Show
+              </h3>
 
-
-
-    </div>
-
-
-    
-
-    <ng-template #C_admin let-modal>
-        <div class="modal-header">
-            <h4 class="modal-title container-fluid display-4" id="modal-basic-title">Create Admin</h4>
-            <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-
-          <div class="modal-body">
+              <select class="form-select form-select-sm mb-1 ms-1 me-1 selected_admin"
+                aria-label=".form-select-sm example"  (change)="onSelected_admin($event)" > 
               
-              <div class="mb-10 p-2">
-                            
-             
-                <div class="ms-auto">
-                  
-                
-                  <div class="container-fluid p-auto">
-                    <form (ngSubmit)="Create_Admin()">
-                
-                      <div class="mb-3">
-                        <label for="Create_subAcc.api_username" class="form-label">Username</label>
-                        <input class="form-control" placeholder="Required" [(ngModel)]="Create_subAcc.api_username" name="Create_subAcc.api_username"
-                         id="api_username">
-                      </div>
-                
-                
-                      <div class="mb-3">
-                        <label for="Create_subAcc.first_name" class="form-label">First Name</label>
-                        <input class="form-control" placeholder="Required" [(ngModel)]="Create_subAcc.first_name" 
-                        name="Create_subAcc.first_name" id="first_name">
-                      </div>
-                
-                      <div class="mb-3">
-                        <label for="Create_subAcc.last_name" class="form-label">Last Name</label>
-                        <input class="form-control" placeholder="Required" [(ngModel)]="Create_subAcc.last_name" 
-                        name="Create_subAcc.last_name" id="last_name">
-                      </div>
-                
-                
-                      <div class="row ">
-                        
-            
-                        <div class="col">
-                
-                          <div class="mb-2">
-                            <label for="Create_subAcc.phone_number" class="form-label">Phone</label>
-                            <input type="number" placeholder="Required" [(ngModel)]="Create_subAcc.phone_number" class="form-control" 
-                            placeholder="Without Country Code"  name="Create_subAcc.phone_number" id="phone_number">
-                          </div>
-                
-                        </div>
-                      </div>
-                
-                
-                
-                      <div class="mb-3">
-                        <label for="Create_subAcc.email" class="form-label">Email</label>
-                        <input type="email" placeholder="Required" class="form-control" [(ngModel)]="Create_subAcc.email"  
-                        name="Create_subAcc.email" id="email"
-                          aria-describedby="emailHelp">
-                        <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
-                      </div>
-                      <div class="mb-3">
-                        <label for="Create_subAcc.password" class="form-label">Password</label>
-                        <input type="password" placeholder="Required" class="form-control" [(ngModel)]="Create_subAcc.password"  
-                        name="Create_subAcc.password" id="password"
-                          aria-describedby="emailHelp">
-                
-                      </div>
-
-
-
-                      <div class="mb-3 ">
-                        <h4>
-                          Manage Permissions
-                        </h4>
-
-                        <div class="d-flex">
-                          <div class="row d-flex">
-
-                            <div class="col-6">
-                              <div class="form-check">
-                                <input class="form-check-input subAcc_select"  type="checkbox" value="" id="Access_SMS">
-                                <label class="form-check-label" for="Access_SMS">
-                                  Access SMS
-                                </label>
-                              </div>
-                            </div>
-
-                            <div class="col-6">
-                              <div class="form-check">
-                                <input class="form-check-input subAcc_select"  type="checkbox" value="" id="Access_MMS">
-                                <label class="form-check-label" for="Access_MMS">
-                                  Access MMS
-                                </label>
-                              </div>
-                            </div>
-
-                            <div class="col-6">
-                              <div class="form-check">
-                                <input class="form-check-input subAcc_select"  type="checkbox" value="" id="Access_Contact">
-                                <label class="form-check-label" for="Access_Contact">
-                                  Access Contacts
-                                </label>
-                              </div>
-                            </div>
-
-                            
-
-                            <div class="col-6">
-                              <div class="form-check">
-                                <input class="form-check-input subAcc_select"  type="checkbox" value="" id="access_templates">
-                                <label class="form-check-label" for="access_templates">
-                                  Access Templates
-                                </label>
-                              </div>
-                            </div>
-
-                            <div class="col-6">
-                              <div class="form-check">
-                                <input class="form-check-input subAcc_select"  type="checkbox" value="" id="access_billing">
-                                <label class="form-check-label" for="access_billing">
-                                  Access Billing
-                                </label>
-                              </div>
-                            </div>
-
-
-
-                            <div class="col-6">
-                              <div class="form-check">
-                                <input class="form-check-input subAcc_select"  type="checkbox" value="" id="access_resellers">
-                                <label class="form-check-label" for="access_resellers">
-                                  Access Resellers
-                                </label>
-                              </div>
-                            </div>
-
-                            <div class="col-6">
-                              <div class="form-check">
-                                <input class="form-check-input subAcc_select"  type="checkbox" value="" id="mobile_topup">
-                                <label class="form-check-label" for="mobile_topup">
-                                  Mobile Topup
-                                </label>
-                              </div>
-                            </div>
-
-                            <div class="col-6">
-                              <div class="form-check">
-                                <input class="form-check-input subAcc_select"  type="checkbox" value="" id="sms_campaign">
-                                <label class="form-check-label" for="sms_campaign">
-                                  SMS Campaign
-                                </label>
-                              </div>
-                            </div>
-
-                            <div class="col-6">
-                              <div class="form-check">
-                                <input class="form-check-input subAcc_select"  type="checkbox" value="" id="banned">
-                                <label class="form-check-label" for="banned">
-                                  Banned
-                                </label>
-                              </div>
-                            </div>
-
-
-                          </div>
-
-                        </div>
-                      </div>
-                      <button type="submit"  class="btn btn-primary">Create Account</button>
-                    </form>
-                  </div>
-                
-                </div>
-            
-              </div>
-
+                <option selected>Default</option>
+                <option  *ngFor="let packet of Update_Admin_Sample_for_Selection" value="{{packet?.subaccount_id}}"
+                  >{{packet?.api_username}}</option>
+              </select>
+        
+              <h4 class="me-2 mt-2 ">
+                Admin
+              </h4>
           </div>
-  </ng-template>
-
-  <ng-template #U_admin let-modal>
-    <div class="modal-header">
-        <h4 class="modal-title container-fluid display-4" id="modal-basic-title">Update Admin</h4>
-        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-
-      <div class="modal-body">
           
-          <div class="mb-10 p-2">
-                        
-         
-            <div class="ms-auto">
-              
-            
-              <div class="container-fluid p-auto">
-                <form (ngSubmit)="Update_Admin()">
-            
-                  <div class="mb-3">
-                    <label for="Create_subAcc.api_username" class="form-label">Username</label>
-                    <input class="form-control" placeholder="Required" [(ngModel)]="Create_subAcc.api_username" name="Create_subAcc.api_username"
-                     id="api_username">
-                  </div>
-            
-            
-                  <div class="mb-3">
-                    <label for="Create_subAcc.first_name" class="form-label">First Name</label>
-                    <input class="form-control" placeholder="Required" [(ngModel)]="Create_subAcc.first_name" 
-                    name="Create_subAcc.first_name" id="first_name">
-                  </div>
-            
-                  <div class="mb-3">
-                    <label for="Create_subAcc.last_name" class="form-label">Last Name</label>
-                    <input class="form-control" placeholder="Required" [(ngModel)]="Create_subAcc.last_name" 
-                    name="Create_subAcc.last_name" id="last_name">
-                  </div>
-            
-            
-                  <div class="row ">
-                    
-        
-                    <div class="col">
-            
-                      <div class="mb-2">
-                        <label for="Create_subAcc.phone_number" class="form-label">Phone</label>
-                        <input type="number" placeholder="Required" [(ngModel)]="Create_subAcc.phone_number" class="form-control" 
-                        placeholder="Without Country Code"  name="Create_subAcc.phone_number" id="phone_number">
-                      </div>
-            
-                    </div>
-                  </div>
-            
-            
-            
-                  <div class="mb-3">
-                    <label for="Create_subAcc.email" class="form-label">Email</label>
-                    <input type="email" placeholder="Required" class="form-control" [(ngModel)]="Create_subAcc.email"  
-                    name="Create_subAcc.email" id="email"
-                      aria-describedby="emailHelp">
-                      
-                    <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
-                  </div>
+          <div class="ms-auto">
+              <button class=" btn btn-outline-success m-1"  (click)="C_Admin(E_admin)">
+                  Email Credentials
+              </button>
 
-                  <div class="mb-3">
-                    <label for="Create_subAcc.password" class="form-label">Password</label>
-                    <input type="password" placeholder="Required" class="form-control" [(ngModel)]="Create_subAcc.password"  
-                    name="Create_subAcc.password" id="password"
-                      aria-describedby="emailHelp">
-            
-                  </div>
-                  <div class="mb-3 ">
-                    <h4>
-                      Manage Permissions
-                    </h4>
-
-                    <div class="d-flex">
-                      <div class="row d-flex">
-
-                        <div class="col-6">
-                          <div class="form-check">
-                            <input class="form-check-input subAcc_select"  type="checkbox" value="" id="Access_SMS">
-                            <label class="form-check-label" for="Access_SMS">
-                              Access SMS
-                            </label>
-                          </div>
-                        </div>
-
-                        <div class="col-6">
-                          <div class="form-check">
-                            <input class="form-check-input subAcc_select"  type="checkbox" value="" id="Access_MMS">
-                            <label class="form-check-label" for="Access_MMS">
-                              Access MMS
-                            </label>
-                          </div>
-                        </div>
-
-                        <div class="col-6">
-                          <div class="form-check">
-                            <input class="form-check-input subAcc_select"  type="checkbox" value="" id="Access_Contact">
-                            <label class="form-check-label" for="Access_Contact">
-                              Access Contacts
-                            </label>
-                          </div>
-                        </div>
-
-                        
-
-                        <div class="col-6">
-                          <div class="form-check">
-                            <input class="form-check-input subAcc_select"  type="checkbox" value="" id="access_templates">
-                            <label class="form-check-label" for="access_templates">
-                              Access Templates
-                            </label>
-                          </div>
-                        </div>
-
-                        <div class="col-6">
-                          <div class="form-check">
-                            <input class="form-check-input subAcc_select"  type="checkbox" value="" id="access_billing">
-                            <label class="form-check-label" for="access_billing">
-                              Access Billing
-                            </label>
-                          </div>
-                        </div>
-
-
-
-                        <div class="col-6">
-                          <div class="form-check">
-                            <input class="form-check-input subAcc_select"  type="checkbox" value="" id="access_resellers">
-                            <label class="form-check-label" for="access_resellers">
-                              Access Resellers
-                            </label>
-                          </div>
-                        </div>
-
-                        <div class="col-6">
-                          <div class="form-check">
-                            <input class="form-check-input subAcc_select"  type="checkbox" value="" id="mobile_topup">
-                            <label class="form-check-label" for="mobile_topup">
-                              Mobile Topup
-                            </label>
-                          </div>
-                        </div>
-
-                        <div class="col-6">
-                          <div class="form-check">
-                            <input class="form-check-input subAcc_select"  type="checkbox" value="" id="sms_campaign">
-                            <label class="form-check-label" for="sms_campaign">
-                              SMS Campaign
-                            </label>
-                          </div>
-                        </div>
-
-                        <div class="col-6">
-                          <div class="form-check">
-                            <input class="form-check-input subAcc_select"  type="checkbox" value="" id="banned">
-                            <label class="form-check-label" for="banned">
-                              Banned
-                            </label>
-                          </div>
-                        </div>
-
-
-                      </div>
-
-                    </div>
-                  </div>
-                  <button type="submit" class="btn btn-primary">Update Account</button>
-                </form>
-              </div>
-            
-            </div>
-        
+              <button class=" btn btn-outline-success m-1"  (click)="C_Admin(C_admin)">
+                  Create Admin
+              </button>
+          
+              <button class=" btn btn-outline-success m-1"  (click)="C_Admin(U_admin)">
+                  Update Admin
+              </button>
+          
+              <button class=" btn btn-outline-success m-1"  (click)="C_Admin(D_admin)">
+                  Delete Admin
+              </button>
           </div>
 
+
+
       </div>
-  </ng-template>
 
-  <ng-template #D_admin let-modal>
-    <div class="modal-header">
-      <h4 class="modal-title container-fluid display-4" id="modal-basic-title">Delete Admin</h4>
-      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-        <span aria-hidden="true">&times;</span>
-      </button>
-    </div>
 
-    <div class="modal-body">
-        
-        <div class=" d-flex ms-auto p-2">
-
-          <button class="btn btn btn-light me-2" (click)="modal.dismiss('Cross click')">
-              Cancel
-          </button>
-
-          <button (click)='Delete_Admin()' class="btn btn btn-danger">
-              Delete
-          </button>
       
+
+      <ng-template #C_admin let-modal>
+          <div class="modal-header">
+              <h4 class="modal-title container-fluid display-4" id="modal-basic-title">Create Admin</h4>
+              <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+
+            <div class="modal-body">
+                
+                <div class="mb-10 p-2">
+                              
+              
+                  <div class="ms-auto">
+                    
+                  
+                    <div class="container-fluid p-auto">
+                      <form (ngSubmit)="Create_Admin()">
+                  
+                        <div class="mb-3">
+                          <label for="Create_subAcc.api_username" class="form-label">Username</label>
+                          <input class="form-control" placeholder="Required" [(ngModel)]="Create_subAcc.api_username" name="Create_subAcc.api_username"
+                          id="api_username">
+                        </div>
+                  
+                  
+                        <div class="mb-3">
+                          <label for="Create_subAcc.first_name" class="form-label">First Name</label>
+                          <input class="form-control" placeholder="Required" [(ngModel)]="Create_subAcc.first_name" 
+                          name="Create_subAcc.first_name" id="first_name">
+                        </div>
+                  
+                        <div class="mb-3">
+                          <label for="Create_subAcc.last_name" class="form-label">Last Name</label>
+                          <input class="form-control" placeholder="Required" [(ngModel)]="Create_subAcc.last_name" 
+                          name="Create_subAcc.last_name" id="last_name">
+                        </div>
+                  
+                  
+                        <div class="row ">
+                          
+              
+                          <div class="col">
+                  
+                            <div class="mb-2">
+                              <label for="Create_subAcc.phone_number" class="form-label">Phone</label>
+                              <input type="number" placeholder="Required" [(ngModel)]="Create_subAcc.phone_number" class="form-control" 
+                              placeholder="Without Country Code"  name="Create_subAcc.phone_number" id="phone_number">
+                            </div>
+                  
+                          </div>
+                        </div>
+                  
+                  
+                  
+                        <div class="mb-3">
+                          <label for="Create_subAcc.email" class="form-label">Email</label>
+                          <input type="email" placeholder="Required" class="form-control" [(ngModel)]="Create_subAcc.email"  
+                          name="Create_subAcc.email" id="email"
+                            aria-describedby="emailHelp">
+                          <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+                        </div>
+                        <div class="mb-3">
+                          <label for="Create_subAcc.password" class="form-label">Password</label>
+                          <input type="password" placeholder="Required" class="form-control" [(ngModel)]="Create_subAcc.password"  
+                          name="Create_subAcc.password" id="password"
+                            aria-describedby="emailHelp">
+                  
+                        </div>
+
+
+
+                        <div class="mb-3 ">
+                          <h4>
+                            Manage Permissions
+                          </h4>
+
+                          <div class="d-flex">
+                            <div class="row d-flex">
+
+                              <div class="col-6">
+                                <div class="form-check">
+                                  <input class="form-check-input subAcc_select"  type="checkbox" value="" id="Access_SMS">
+                                  <label class="form-check-label" for="Access_SMS">
+                                    Access SMS
+                                  </label>
+                                </div>
+                              </div>
+
+                              <div class="col-6">
+                                <div class="form-check">
+                                  <input class="form-check-input subAcc_select"  type="checkbox" value="" id="Access_MMS">
+                                  <label class="form-check-label" for="Access_MMS">
+                                    Access MMS
+                                  </label>
+                                </div>
+                              </div>
+
+                              <div class="col-6">
+                                <div class="form-check">
+                                  <input class="form-check-input subAcc_select"  type="checkbox" value="" id="Access_Contact">
+                                  <label class="form-check-label" for="Access_Contact">
+                                    Access Contacts
+                                  </label>
+                                </div>
+                              </div>
+
+                              
+
+                              <div class="col-6">
+                                <div class="form-check">
+                                  <input class="form-check-input subAcc_select"  type="checkbox" value="" id="access_templates">
+                                  <label class="form-check-label" for="access_templates">
+                                    Access Templates
+                                  </label>
+                                </div>
+                              </div>
+
+                              <div class="col-6">
+                                <div class="form-check">
+                                  <input class="form-check-input subAcc_select"  type="checkbox" value="" id="access_billing">
+                                  <label class="form-check-label" for="access_billing">
+                                    Access Billing
+                                  </label>
+                                </div>
+                              </div>
+
+
+
+                              <div class="col-6">
+                                <div class="form-check">
+                                  <input class="form-check-input subAcc_select"  type="checkbox" value="" id="access_resellers">
+                                  <label class="form-check-label" for="access_resellers">
+                                    Access Resellers
+                                  </label>
+                                </div>
+                              </div>
+
+                              <div class="col-6">
+                                <div class="form-check">
+                                  <input class="form-check-input subAcc_select"  type="checkbox" value="" id="mobile_topup">
+                                  <label class="form-check-label" for="mobile_topup">
+                                    Mobile Topup
+                                  </label>
+                                </div>
+                              </div>
+
+                              <div class="col-6">
+                                <div class="form-check">
+                                  <input class="form-check-input subAcc_select"  type="checkbox" value="" id="sms_campaign">
+                                  <label class="form-check-label" for="sms_campaign">
+                                    SMS Campaign
+                                  </label>
+                                </div>
+                              </div>
+
+                              <div class="col-6">
+                                <div class="form-check">
+                                  <input class="form-check-input subAcc_select"  type="checkbox" value="" id="banned">
+                                  <label class="form-check-label" for="banned">
+                                    Banned
+                                  </label>
+                                </div>
+                              </div>
+
+
+                            </div>
+
+                          </div>
+                        </div>
+                        <button type="submit"  class="btn btn-primary">Create Account</button>
+                      </form>
+                    </div>
+                  
+                  </div>
+              
+                </div>
+
+            </div>
+    </ng-template>
+
+    <ng-template #U_admin let-modal>
+      <div class="modal-header">
+          <h4 class="modal-title container-fluid display-4" id="modal-basic-title">Update Admin</h4>
+          <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+          </button>
         </div>
 
-    </div>
-  </ng-template>
+        <div class="modal-body">
+            
+            <div class="mb-10 p-2">
+                          
+          
+              <div class="ms-auto">
+                
+              
+                <div class="container-fluid p-auto">
+                  <form (ngSubmit)="Update_Admin()">
+              
+                    <div class="mb-3">
+                      <label for="Create_subAcc.api_username" class="form-label">Username</label>
+                      <input class="form-control" placeholder="Required" [(ngModel)]="Create_subAcc.api_username" name="Create_subAcc.api_username"
+                      id="api_username">
+                    </div>
+              
+              
+                    <div class="mb-3">
+                      <label for="Create_subAcc.first_name" class="form-label">First Name</label>
+                      <input class="form-control" placeholder="Required" [(ngModel)]="Create_subAcc.first_name" 
+                      name="Create_subAcc.first_name" id="first_name">
+                    </div>
+              
+                    <div class="mb-3">
+                      <label for="Create_subAcc.last_name" class="form-label">Last Name</label>
+                      <input class="form-control" placeholder="Required" [(ngModel)]="Create_subAcc.last_name" 
+                      name="Create_subAcc.last_name" id="last_name">
+                    </div>
+              
+              
+                    <div class="row ">
+                      
+          
+                      <div class="col">
+              
+                        <div class="mb-2">
+                          <label for="Create_subAcc.phone_number" class="form-label">Phone</label>
+                          <input type="number" placeholder="Required" [(ngModel)]="Create_subAcc.phone_number" class="form-control" 
+                          placeholder="Without Country Code"  name="Create_subAcc.phone_number" id="phone_number">
+                        </div>
+              
+                      </div>
+                    </div>
+              
+              
+              
+                    <div class="mb-3">
+                      <label for="Create_subAcc.email" class="form-label">Email</label>
+                      <input type="email" placeholder="Required" class="form-control" [(ngModel)]="Create_subAcc.email"  
+                      name="Create_subAcc.email" id="email"
+                        aria-describedby="emailHelp">
+                        
+                      <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+                    </div>
 
-  <ng-template #E_admin let-modal>
-    <div class="modal-header">
-        <h4 class="modal-title container-fluid display-4" id="modal-basic-title">Resend Email</h4>
+                    <div class="mb-3">
+                      <label for="Create_subAcc.password" class="form-label">Password</label>
+                      <input type="password" placeholder="Required" class="form-control" [(ngModel)]="Create_subAcc.password"  
+                      name="Create_subAcc.password" id="password"
+                        aria-describedby="emailHelp">
+              
+                    </div>
+                    <div class="mb-3 ">
+                      <h4>
+                        Manage Permissions
+                      </h4>
+
+                      <div class="d-flex">
+                        <div class="row d-flex">
+
+                          <div class="col-6">
+                            <div class="form-check">
+                              <input class="form-check-input subAcc_select"  type="checkbox" value="" id="Access_SMS">
+                              <label class="form-check-label" for="Access_SMS">
+                                Access SMS
+                              </label>
+                            </div>
+                          </div>
+
+                          <div class="col-6">
+                            <div class="form-check">
+                              <input class="form-check-input subAcc_select"  type="checkbox" value="" id="Access_MMS">
+                              <label class="form-check-label" for="Access_MMS">
+                                Access MMS
+                              </label>
+                            </div>
+                          </div>
+
+                          <div class="col-6">
+                            <div class="form-check">
+                              <input class="form-check-input subAcc_select"  type="checkbox" value="" id="Access_Contact">
+                              <label class="form-check-label" for="Access_Contact">
+                                Access Contacts
+                              </label>
+                            </div>
+                          </div>
+
+                          
+
+                          <div class="col-6">
+                            <div class="form-check">
+                              <input class="form-check-input subAcc_select"  type="checkbox" value="" id="access_templates">
+                              <label class="form-check-label" for="access_templates">
+                                Access Templates
+                              </label>
+                            </div>
+                          </div>
+
+                          <div class="col-6">
+                            <div class="form-check">
+                              <input class="form-check-input subAcc_select"  type="checkbox" value="" id="access_billing">
+                              <label class="form-check-label" for="access_billing">
+                                Access Billing
+                              </label>
+                            </div>
+                          </div>
+
+
+
+                          <div class="col-6">
+                            <div class="form-check">
+                              <input class="form-check-input subAcc_select"  type="checkbox" value="" id="access_resellers">
+                              <label class="form-check-label" for="access_resellers">
+                                Access Resellers
+                              </label>
+                            </div>
+                          </div>
+
+                          <div class="col-6">
+                            <div class="form-check">
+                              <input class="form-check-input subAcc_select"  type="checkbox" value="" id="mobile_topup">
+                              <label class="form-check-label" for="mobile_topup">
+                                Mobile Topup
+                              </label>
+                            </div>
+                          </div>
+
+                          <div class="col-6">
+                            <div class="form-check">
+                              <input class="form-check-input subAcc_select"  type="checkbox" value="" id="sms_campaign">
+                              <label class="form-check-label" for="sms_campaign">
+                                SMS Campaign
+                              </label>
+                            </div>
+                          </div>
+
+                          <div class="col-6">
+                            <div class="form-check">
+                              <input class="form-check-input subAcc_select"  type="checkbox" value="" id="banned">
+                              <label class="form-check-label" for="banned">
+                                Banned
+                              </label>
+                            </div>
+                          </div>
+
+
+                        </div>
+
+                      </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Update Account</button>
+                  </form>
+                </div>
+              
+              </div>
+          
+            </div>
+
+        </div>
+    </ng-template>
+
+    <ng-template #D_admin let-modal>
+      <div class="modal-header">
+        <h4 class="modal-title container-fluid display-4" id="modal-basic-title">Delete Admin</h4>
         <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -446,114 +424,140 @@
                 Cancel
             </button>
 
-            <button (click)='Resend_Email()' class="btn btn btn-success">
-                Send
+            <button (click)='Delete_Admin()' class="btn btn btn-danger">
+                Delete
             </button>
         
           </div>
 
       </div>
-  </ng-template>
+    </ng-template>
 
+    <ng-template #E_admin let-modal>
+      <div class="modal-header">
+          <h4 class="modal-title container-fluid display-4" id="modal-basic-title">Resend Email</h4>
+          <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
 
-
-
-</div>
-
-<div class="card mt-1 w-auto h-auto">
-
-    <h1 class="m-2">
-        Manage Sub Admins
-    </h1>
-
-    <div class="card mt-1 w-auto h-auto" ng-app="">
-        <table>
-          <tr>
-            <th>
-
-              <div class="form-check">
-                <input class="form-check-input subAcc_select" (change)="Update_admin_checkedAll()" type="checkbox" value="" id="form_checked_contact">
-                <label class="form-check-label" for="flexCheckDefault">
-                </label>
-              </div>
-
-            </th>
-
+        <div class="modal-body">
             
-            <th>
-              Sub Account ID
-            </th>
+            <div class=" d-flex ms-auto p-2">
 
-            <th>
-              API Key
-            </th>
+              <button class="btn btn btn-light me-2" (click)="modal.dismiss('Cross click')">
+                  Cancel
+              </button>
 
-            <th>
-              Username 
-            </th>
-      
-            <th>
-              First Name
-            </th>
-    
-
-            
-            <th>
-              Email 
-            </th>
-
-            <th>
-              Phone Number
-            </th>
-      
-    
-          </tr>
+              <button (click)='Resend_Email()' class="btn btn btn-success">
+                  Send
+              </button>
           
-          <tr *ngFor="let data of get_SubAcc_details2">
-              <td>
-                  <div class="form-check">
-                      <input class="form-check-input subAcc_select" type="checkbox" id="form_checked_contact"
-                      value="{{data?.api_key}}" (change)="Update_contact_byOne(data?.subaccount_id)" >
-                <label class="form-check-label" for="flexCheckDefault">
-                </label>
-              </div>
-            </td>
+            </div>
 
-            <td>
-                {{data?.subaccount_id}}
-            </td>
+        </div>
+    </ng-template>
 
-                  
-            <td>
-                {{data?.api_key}}
+
+
+
+  </div>
+
+  <div class="card mt-1 w-auto h-auto">
+
+      <h1 class="m-2">
+          Manage Sub Admins
+      </h1>
+
+      <div class="card mt-1 w-auto h-auto" ng-app="">
+          <table>
+            <tr>
+              <th>
+
+                <div class="form-check">
+                  <input class="form-check-input subAcc_select" (change)="Update_admin_checkedAll()" type="checkbox" value="" id="form_checked_contact">
+                  <label class="form-check-label" for="flexCheckDefault">
+                  </label>
+                </div>
+
+              </th>
+
+              
+              <th>
+                Sub Account ID
+              </th>
+
+              <th>
+                API Key
+              </th>
+
+              <th>
+                Username 
+              </th>
+        
+              <th>
+                First Name
+              </th>
+      
+
+              
+              <th>
+                Email 
+              </th>
+
+              <th>
+                Phone Number
+              </th>
+        
+      
+            </tr>
+            
+            <tr *ngFor="let data of get_SubAcc_details2">
+                <td>
+                    <div class="form-check">
+                        <input class="form-check-input subAcc_select" type="checkbox" id="form_checked_contact"
+                        value="{{data?.api_key}}" (change)="Update_contact_byOne(data?.subaccount_id)" >
+                  <label class="form-check-label" for="flexCheckDefault">
+                  </label>
+                </div>
               </td>
-      
-            <td>
-              {{data?.api_username}}
-            </td>
-      
-            <td>
-              {{data?.first_name}}
-            </td>
-      
 
-      
-            <td>
-              {{data?.email}}
-            </td>
-      
-            <td>
-              {{data?.phone_number}}
-            </td>
+              <td>
+                  {{data?.subaccount_id}}
+              </td>
 
-      
-      
-      
-      
-          </tr>
-        </table>
-      </div>
+                    
+              <td>
+                  {{data?.api_key}}
+                </td>
+        
+              <td>
+                {{data?.api_username}}
+              </td>
+        
+              <td>
+                {{data?.first_name}}
+              </td>
+        
+
+        
+              <td>
+                {{data?.email}}
+              </td>
+        
+              <td>
+                {{data?.phone_number}}
+              </td>
+
+        
+        
+        
+        
+            </tr>
+          </table>
+        </div>
 
 
 
+  </div>
 </div>

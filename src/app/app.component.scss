@@ -1,0 +1,72 @@
+mat-toolbar{
+        background: #004a9f;
+        color: white;
+    }
+
+mat-sidenav{
+        margin: 16px;
+        width:220px;
+        border-right: none;
+        background: #002b5c;
+        color: white;
+        border-radius: 10px;
+        padding: 10px;
+        text-align: center;
+
+
+
+    }
+
+    .content{
+        height:max-content;
+        margin: 16px;
+        margin-left: 32px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 2rem;
+        color: lightgray;
+        border-radius: 10px;
+    }
+
+mat-sidenav-container{
+        height: calc(100vh - 65px);
+
+}
+
+.menu-button{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    font-size: 1rem;
+
+    mat-icon{
+        margin-right: 8px;
+    }
+}
+
+.designation{
+    margin-top: 2px;
+    font-size: 0.7rem;
+    color: lightgray;
+}
+
+mat-divider{
+    margin-top: 16px;
+    margin-bottom: 16px;
+    background-color: rgba(255,255,255,0.5);
+}
+
+
+table.test td {
+    margin: 5px 5px 5px 5px;
+    padding: 5px 5px 5px 5px;
+  }
+  
+  table.test {
+    border-collapse: separate;
+    border-spacing: 10px;
+    width: flex;
+    *border-collapse: expression('separate', cellSpacing='10px');
+  }

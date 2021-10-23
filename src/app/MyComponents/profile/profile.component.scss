@@ -1,0 +1,86 @@
+mat-toolbar{
+    background: #004a9f;
+    color: white;
+}
+
+mat-sidenav{
+    margin: 16px;
+    width:200px;
+    border-right: none;
+    background: #002b5c;
+    color: white;
+    border-radius: 10px;
+    padding: 16px;
+    text-align: center;
+}
+
+.content{
+    height:max-content;
+    margin: 16px;
+    margin-left: 32px;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2rem;
+    border-radius: 10px;
+}
+
+mat-sidenav-container{
+    height: calc(100vh - 65px);
+
+}
+
+.menu-button{
+width: 100%;
+display: flex;
+align-items: center;
+justify-content: flex-start;
+font-size: 1rem;
+
+mat-icon{
+    margin-right: 8px;
+}
+}
+
+.designation{
+margin-top: 2px;
+font-size: 0.7rem;
+color: lightgray;
+}
+
+mat-divider{
+margin-top: 16px;
+margin-bottom: 16px;
+background-color: rgba(255,255,255,0.5);
+}
+/* The side navigation menu */
+/* The sidenav */
+/* .sidenav {
+    height: 100%;
+    width: 200px;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: #111;
+    overflow-x: hidden;
+    padding-top: 20px;
+    
+  } */
+  
+  /* Page content */
+  
+
+  .footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    /* Set the fixed height of the footer here */
+    height: 60px;
+    line-height: 60px;
+  }
+
+body{
+    background-image: linear-gradient(to right, white, #FFC0CB, #FFC0CB);
+}
+

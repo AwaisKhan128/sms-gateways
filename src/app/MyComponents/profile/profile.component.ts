@@ -1,23 +1,25 @@
 import { Toaster_Service } from 'src/app/Classes/ToasterNg';
 import { SharedService } from './../../Classes/shared_services';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { EncodeDecode } from 'src/app/Classes/EncodeDec64';
 import { Router } from '@angular/router';
 import * as $ from 'jquery';
-import {MatSidenavModule} from '@angular/material/sidenav';
+import {MatSidenav, MatSidenavModule} from '@angular/material/sidenav';
 import { API_Services } from 'src/app/APIS/freeapi.service';
+import { BreakpointObserver } from '@angular/cdk/layout';
 
 
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
-  styleUrls: ['./profile.component.css']
+  styleUrls: ['./profile.component.scss']
 })
 export class ProfileComponent implements OnInit {
   
   data:string|any;
   data1:string|any;
   window: any["$"] = $;
+  @ViewChild(MatSidenav) sidenav !: MatSidenav
 
   dropdown_Clicked()
   {
@@ -34,7 +36,8 @@ export class ProfileComponent implements OnInit {
   }
 
 
-  constructor(private sharedService:SharedService,public router: Router,private freeapi: API_Services) { }
+  constructor(private sharedService:SharedService,public router: Router
+    ,private freeapi: API_Services,private observable: BreakpointObserver) { }
 
   ngOnInit(): void {
 
@@ -361,5 +364,70 @@ export class ProfileComponent implements OnInit {
     localStorage.removeItem("user_status");
 
     this.router.navigate(['']); 
+  }
+
+
+  Operator(){
+    $("#operator").addClass('active');
+    $("#add_sms").removeClass('active');
+    $("#add_ussd").removeClass('active');
+    $("#send_sms").removeClass('active');
+    $("#send_ussd").removeClass('active');
+
+  }
+  Add_SMS()
+  {
+    $("#add_sms").addClass('active');
+    $("#operator").removeClass('active');
+    $("#add_ussd").removeClass('active');
+    $("#send_sms").removeClass('active');
+    $("#send_ussd").removeClass('active');
+  }
+  Add_USSD()
+  {
+    $("#add_ussd").addClass('active');
+    $("#add_sms").removeClass('active');
+    $("#operator").removeClass('active');
+    $("#send_sms").removeClass('active');
+    $("#send_ussd").removeClass('active');
+  }
+  Send_SMS()
+  {
+    $("#send_sms").addClass('active');
+    $("#add_sms").removeClass('active');
+    $("#add_ussd").removeClass('active');
+    $("#operator").removeClass('active');
+    $("#send_ussd").removeClass('active');
+  }
+
+  Send_USSD()
+  {
+    $("#send_ussd").addClass('active');
+    $("#add_sms").removeClass('active');
+    $("#add_ussd").removeClass('active');
+    $("#send_sms").removeClass('active');
+    $("#operator").removeClass('active');
+
+  }
+
+  
+  ngAfterViewInit()
+  {
+    this.observable.observe(['(max-width:800px)']).subscribe(
+      res=>
+      {
+        if (res.matches)
+        {
+          this.sidenav.mode = 'over';
+          this.sidenav.close();
+        }
+        else
+        {
+          this.sidenav.mode = 'side';
+          this.sidenav.open();
+
+        }
+      }
+    )
   }
 }
