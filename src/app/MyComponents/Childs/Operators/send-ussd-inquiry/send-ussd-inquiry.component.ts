@@ -167,13 +167,11 @@ export class SendUSSDInquiryComponent implements OnInit {
 
   //button clicks
   actionCopyToSelected(event: any) {
-    var v=0
     this.phoneNumbers.forEach(i=>{
-      v += 1
       if(i.isDisabled == false) {
         const selected = this.ussds[0].ussd as string
         this.phoneNumbers.forEach(e=>{
-          if (e.number!+v == i.number!+v) {
+          if (e.number == i.number) {
               e.ussdCodeToSend = selected
           }
         })
@@ -181,7 +179,7 @@ export class SendUSSDInquiryComponent implements OnInit {
       }
       else {
         this.phoneNumbers.forEach(e=>{
-          if (e.number!+v == i.number!+v) {
+          if (e.number! == i.number!) {
               e.ussdCodeToSend = ""
           }
         })
