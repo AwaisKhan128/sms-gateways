@@ -18,6 +18,7 @@
     </mat-icon>
 
   </button>
+  <img src="https://www.pngall.com/wp-content/uploads/10/Message-Logo-PNG-File.png" alt="" width="50" height="60">
   SMS Gateways Pvt Ltd.
 
   <div class="ms-auto d-flex">
@@ -51,13 +52,13 @@
   <mat-sidenav #sidenav = "matSidenav">
 
     <img class="avatar mat-elevation-z8" src="https://cdn.pixabay.com/photo/2015/03/04/22/35/head-659651_960_720.png" alt="">
-    <h1>
+    <h1 id="user_title">
       Admin
     </h1>
 
     <a id="dashboard"  [routerLink]='["dashboard"]'  mat-button class="menu-button">
       <mat-icon>
-        info
+        dashboard
       </mat-icon>
       <span >Dashboard</span>
     </a>
@@ -73,7 +74,7 @@
 
     <a id="template" [routerLink]='["templates"]' mat-button class="menu-button">
       <mat-icon>
-        info
+        border_color
       </mat-icon>
       <span>Templates</span>
     </a>
@@ -81,14 +82,14 @@
     
     <a id="contacts" [routerLink]='["contacts"]' mat-button class="menu-button">
       <mat-icon>
-        info
+        contacts
       </mat-icon>
       <span>Contacts</span>
     </a>
 
     <a id="messages" [routerLink]='["messages"]' mat-button class="menu-button">
       <mat-icon>
-        info
+        mail
       </mat-icon>
       <span>Messages</span>
     </a>
@@ -97,7 +98,7 @@
 
     <a id="sender" [routerLink]='["sender"]' [matMenuTriggerFor]="senders" mat-button class="menu-button">
       <mat-icon>
-        info
+        redo
       </mat-icon>
       <span>Sender</span>
     </a>
@@ -110,7 +111,7 @@
     
     <a id="billing" [matMenuTriggerFor]="billing"  [routerLink]='["billing"]' mat-button class="menu-button">
       <mat-icon>
-        info
+        credit_card
       </mat-icon>
       <span>Web Billing</span>
     </a>
@@ -122,7 +123,7 @@
 
     <a id="topup" [matMenuTriggerFor]="topups" [routerLink]='["topup"]' mat-button class="menu-button">
       <mat-icon>
-        info
+        payment
       </mat-icon>
       <span>Topup</span>
     </a>
@@ -154,7 +155,9 @@
   <mat-sidenav-content>
     <div class="content " >
       <router-outlet>
+        <h1 style="align-items: center;" id="animate">
 
+        </h1>
       </router-outlet>
     
     </div>

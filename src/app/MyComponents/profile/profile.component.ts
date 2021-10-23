@@ -42,6 +42,8 @@ export class ProfileComponent implements OnInit {
   ngOnInit(): void {
 
 
+    this. onstartAnimate();
+
     let json = localStorage.getItem("user_data");
     let json1 = localStorage.getItem("user_status");
     console.log(json)
@@ -123,6 +125,8 @@ export class ProfileComponent implements OnInit {
     let top_ups = permissions.top_ups;
     let resellers = permissions.resellers;
     let banned = permissions.banned;
+
+($("#user_title").text(type));
 
     if (type != 'superadmins')
     {
@@ -429,5 +433,14 @@ export class ProfileComponent implements OnInit {
         }
       }
     )
+  }
+
+
+  onstartAnimate()
+  {
+    $("#animate").text("Welcome to SMS Gateways")
+    setTimeout(()=>{                           // <<<---using ()=> syntax
+      $("#animate").text("")
+    }, 3000);
   }
 }
