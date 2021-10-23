@@ -136,7 +136,6 @@ export class SendUSSDInquiryComponent implements OnInit {
     this.phoneNumbers.forEach(i=>{
       let element = <HTMLInputElement> document.getElementById(i.number!);  
       if (element.checked) { 
-        //$('#'+i.number!).prop('checked', false)
         element.checked = false
         i.isDisabled! = true
         i.ussdCodeToSend = ""
@@ -144,18 +143,8 @@ export class SendUSSDInquiryComponent implements OnInit {
       }
       else {
         element.checked = true
-        //$('#'+i.number!).prop('checked', true)
         i.isDisabled! = false
       }
-      // if ($('#'+i.number!).prop('checked')) {
-        //$('#'+i.number!).prop('checked', false)
-        // i.isDisabled! = true
-        // i.ussdCodeToSend = ""
-      // }
-      // else {
-        // $('#'+i.number!).prop('checked', true)
-        // i.isDisabled! = false
-      // }
     })
   }
 

@@ -122,13 +122,14 @@ export class SendSMSInquiryComponent implements OnInit {
 
   specificNumbersSelected(event: any) {
     const number = <string>event.target.value;
-    if ($('#'+number).prop('checked')) {
-        this.phoneNumbers.forEach(e=>{
-          if(e.number! == number) {
-            e.isDisabled = false
-            console.log("founddd")
-          }
-        })
+    let element = <HTMLInputElement> document.getElementById(number);  
+    if (element.checked) { 
+      this.phoneNumbers.forEach(e=>{
+        if(e.number! == number) {
+          e.isDisabled = false
+          console.log("founddd")
+        }
+      })
     }
     else {
       this.phoneNumbers.forEach(e=>{
@@ -143,13 +144,15 @@ export class SendSMSInquiryComponent implements OnInit {
 
   allNumbersSelected(event: any) {
     this.phoneNumbers.forEach(i=>{
-      if ($('#'+i.number!).prop('checked')) {
-        $('#'+i.number!).prop('checked', false)
+      let element = <HTMLInputElement> document.getElementById(i.number!);  
+      if (element.checked) { 
+        element.checked = false
         i.isDisabled! = true
         i.ussdCodeToSend = ""
+        element.checked = false
       }
       else {
-        $('#'+i.number!).prop('checked', true)
+        element.checked = true
         i.isDisabled! = false
       }
     })
