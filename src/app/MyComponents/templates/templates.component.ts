@@ -155,6 +155,8 @@ export class TemplatesComponent implements OnInit {
             var a = JSON.parse(JSON.stringify(res));
             // alert(a.response_msg);
             Toaster_Service.toastNotification_S(a.response_msg);
+            this.modalService.dismissAll();
+
             this.Snake_Wait.close_bar();
 
           },
@@ -201,6 +203,8 @@ export class TemplatesComponent implements OnInit {
                 console.log(res);
                 this.Snake_Wait.close_bar();
                 Toaster_Service.toastNotification_S("Success");
+                this.modalService.dismissAll();
+
 
 
               },
@@ -327,6 +331,7 @@ export class TemplatesComponent implements OnInit {
             res => {
               var data = JSON.parse(JSON.stringify(res));
               Toaster_Service.toastNotification_S(data.response_msg);
+              this.modalService.dismissAll();
               this.Snake_Wait.close_bar();
   
               // alert(a.response_msg);
