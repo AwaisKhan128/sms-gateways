@@ -214,14 +214,20 @@ export class SendSMSInquiryComponent implements OnInit {
       Toaster.failureToast("FAILURE","NO number was selected!")
       return 
     }
-    // if(selectedNumbs.filter(e=>{e.ussdCodeToSend!.length > 0})) {
-    //   console.log("isddddmmmmmm", true);
-    //   Toaster.failureToast("FAILURE","USSD Code are required!")
-    //     return
-    // }
-    selectedNumbs.filter(p=>{
-      console.log("DDD ", p.ussdCodeToSend!)
-    })
+    else {
+      var emptyCodeArray: string[] = []
+      selectedNumbs.forEach(e=> {
+        const value = e.ussdCodeToSend!
+        if(value == "") {
+            emptyCodeArray.push(value)
+        }
+      })
+      if (emptyCodeArray.length > 0) {
+        console.log("TOO MANY EMPTY SEND WITH NOE CODESS")
+        Toaster.failureToast("FAILURE","USSD Code are required!")
+        return
+      }
+    }
 
     var selectedResponseValue = ""
     if(this.selectedResponseType == 1) {

@@ -204,11 +204,18 @@ export class SendUSSDInquiryComponent implements OnInit {
       return 
     }
     else {
-      // const isEmpty = selectedNumbs.filter(e=>e.ussdCodeToSend! == "")
-      // if(isEmpty.length >= 0) {
-      //   Toaster.failureToast("FAILURE","USSD Code are required!")
-      //   return
-      // }
+      var emptyCodeArray: string[] = []
+      selectedNumbs.forEach(e=> {
+        const value = e.ussdCodeToSend!
+        if(value == "") {
+            emptyCodeArray.push(value)
+        }
+      })
+      if (emptyCodeArray.length > 0) {
+        console.log("TOO MANY EMPTY SEND WITH NOE CODESS")
+        Toaster.failureToast("FAILURE","USSD Code are required!")
+        return
+      }
     }
 
     var selectedResponseValue = ""
