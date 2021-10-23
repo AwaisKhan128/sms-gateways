@@ -29,7 +29,7 @@
     </div>
     <div class="row p-2" *ngIf = "this.ussds.length">
       <div class="col-4">
-        <input id= "ussdcode" class="form-check-input" type="text" [(ngModel)]="this.ussds[0].ussd" value="{{this.ussds[0].ussd}}" style="width:50%" placeholder="USSD Code">
+        <input id= "ussdcode" class="form-check-input" type="text" [(ngModel)]="this.ussds[0].sms" value="{{this.ussds[0].sms}}" style="width:50%" placeholder="SMS Code">
         <div>
           <button class="btn btn-primary ms-1 mt-1 mb-1 me-1" (click)="actionCopyToSelected($event)">
             Copy to selected
@@ -65,7 +65,10 @@
           Number
         </th>
         <th>
-          USSD Request
+          SMS Code
+        </th>
+        <th>
+          SMS Number
         </th>
         <th>
           USSD Status
@@ -91,10 +94,13 @@
           <input class="form-check-input" type="text" style="width:70%" [(ngModel)]="n.ussdCodeToSend" value="{{n.ussdCodeToSend}}" [disabled]= "n.isDisabled">
         </td>
         <td>
-          <input class="form-check-input" type="text" value="{{n.defaultUSSDStatus}}" [value]="n.defaultUSSDStatus" id="{{n.defaultUSSDStatus}}" style="width:70%">
+          {{n.ussdSendToNumber}}
         </td>
         <td>
-          <input class="form-check-input" type="text" value="{{n.defaultUSSDReply}}" [value]="n.defaultUSSDReply" id="{{n.defaultUSSDReply}}" style="width:70%">
+          <input class="form-check-input" type="text" value="{{n.defaultUSSDStatus}}" [value]="n.defaultUSSDStatus" id="{{n.defaultUSSDStatus}}" style="width:50%">
+        </td>
+        <td>
+          <input class="form-check-input" type="text" value="{{n.defaultUSSDReply}}" [value]="n.defaultUSSDReply" id="{{n.defaultUSSDReply}}" style="width:100%">
         </td>
       </tr>
     </table>

@@ -6,7 +6,7 @@ import { DevicesMatchingOperator } from 'src/app/Classes/devices_matching_operat
 import { PhoneOperator } from 'src/app/Classes/operatorResponse';
 import { USSDMatchingOperators } from 'src/app/Classes/ussd_matching_operator';
 import { FormsModule } from '@angular/forms';
-import { collection, addDoc, setDoc, doc, getFirestore, onSnapshot } from "firebase/firestore"; 
+import { collection, addDoc, setDoc, doc, getFirestore, onSnapshot, updateDoc } from "firebase/firestore"; 
 import { initializeApp } from '@firebase/app';
 import { FirebaseUSSDInquiry } from 'src/app/Classes/firebase_ussd_inquiry';
 import { Toaster } from 'src/app/Helper/toaster';
@@ -146,21 +146,22 @@ export class SendUSSDInquiryComponent implements OnInit {
   }
 
   listenFirebaseEvents() {
-    const unsub = onSnapshot(doc(db, "InquiryCall", "opcode_"+ this.selectedOPcode), (doc) => {
-      const source = doc.metadata.hasPendingWrites ? "Local" : "Server";
-      let k = (doc.data()!["devices"] as FirebaseUSSDInquiry[])
-      k.forEach(e=>{
-        const i = e as FirebaseUSSDInquiry
+    const selectedNumbs = this.phoneNumbers.filter(e=>e.isDisabled == false)
+    selectedNumbs.forEach(e=>{
+      const unsub = onSnapshot(doc(db, "InquiryCall", "opcode_"+ this.selectedOPcode + "_" + e.number), (doc) => {
+        const source = doc.metadata.hasPendingWrites ? "Local" : "Server";
+        const snap = doc.data()! as FirebaseUSSDInquiry
+        console.log("DEVICE REPLY", snap.reply!)
+        console.log("DEVICE STATUS", snap.myStatus)
+        let deviceNumber = (doc.data()!["device"] as string)
         this.phoneNumbers.filter(k=> {
-          if(k.number! == i.device!) {
-            k.defaultUSSDReply! = i.reply!
-          }
-          if(k.number! == i.device!) {
-            k.defaultUSSDStatus! = i.myStatus!
+          if(k.number! == deviceNumber) {
+            k.defaultUSSDReply! = snap.reply
+            k.defaultUSSDStatus! = snap.myStatus
           }
         })
-      })
-    });
+      });
+    })
   }
 
 
@@ -225,20 +226,14 @@ export class SendUSSDInquiryComponent implements OnInit {
     console.log("SELECTEDD")
     try {
       selectedNumbs.forEach(e=>{
-        const k : FirebaseUSSDInquiry = {
+        const docRef = setDoc(doc(db, "InquiryCall", "opcode_"+this.selectedOPcode+"_"+e.number!), {
           device: e.number!,
           reply: "Waiting for Reply",
           myStatus: "Sending",
           code: e.ussdCodeToSend!,
           type: selectedResponseValue
-        }
-        this.ussdInquires.push(k)
+        });  
       })
-
-      
-      const docRef = await setDoc(doc(db, "InquiryCall", "opcode_"+this.selectedOPcode), {
-          devices: this.ussdInquires
-      });
       Toaster.sucessToast("SUCESS")
       this.listenFirebaseEvents()
     } catch (e) {

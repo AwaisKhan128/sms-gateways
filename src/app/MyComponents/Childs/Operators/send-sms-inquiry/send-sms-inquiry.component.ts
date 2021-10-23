@@ -45,6 +45,8 @@ export class SendSMSInquiryComponent implements OnInit {
   selectedResponseType = 1
   ussdInquires : FirebaseUSSDInquiry[] = [];
 
+  
+
   constructor(private apiService: API_Services) { }
 
   ngOnInit(): void {
@@ -80,6 +82,7 @@ export class SendSMSInquiryComponent implements OnInit {
 
     this.responseTypes.push(rt1)
     this.responseTypes.push(rt2)
+    this.selectedResponseType = 1
   }
 
   
@@ -107,9 +110,11 @@ export class SendSMSInquiryComponent implements OnInit {
     if (this.selectedOPcode != "NONE") {
       if(rTypeSelectedID == 1) {
         this.getListOfUSSD(this.selectedOPcode.toString())
+        this.selectedResponseType = 1
       }
       else {
         this.getListOBalances(this.selectedOPcode.toString())
+        this.selectedResponseType = 2
       } 
     }
   }
@@ -150,33 +155,32 @@ export class SendSMSInquiryComponent implements OnInit {
   }
 
   listenFirebaseEvents() {
-    const unsub = onSnapshot(doc(db, "InquiryMessage", "opcode_"+ this.selectedOPcode), (doc) => {
-      const source = doc.metadata.hasPendingWrites ? "Local" : "Server";
-      let k = (doc.data()!["devices"] as FirebaseUSSDInquiry[])
-      k.forEach(e=>{
-        const i = e as FirebaseUSSDInquiry
+    const selectedNumbs = this.phoneNumbers.filter(e=>e.isDisabled == false)
+    selectedNumbs.forEach(e=>{
+      const unsub = onSnapshot(doc(db, "InquiryMessage", "opcode_"+ this.selectedOPcode + "_" + e.number), (doc) => {
+        const source = doc.metadata.hasPendingWrites ? "Local" : "Server";
+        const snap = doc.data()! as FirebaseUSSDInquiry
+        console.log("DEVICE REPLY", snap.reply!)
+        console.log("DEVICE STATUS", snap.myStatus)
+        let deviceNumber = (doc.data()!["device"] as string)
         this.phoneNumbers.filter(k=> {
-          if(k.number! == i.device!) {
-            k.defaultUSSDReply! = i.reply!
-          }
-          if(k.number! == i.device!) {
-            k.defaultUSSDStatus! = i.myStatus!
+          if(k.number! == deviceNumber) {
+            k.defaultUSSDReply! = snap.reply
+            k.defaultUSSDStatus! = snap.myStatus
           }
         })
-      })
-    });
+      });
+    })
   }
 
 
   //button clicks
   actionCopyToSelected(event: any) {
-    var v=0
     this.phoneNumbers.forEach(i=>{
-      v += 1
       if(i.isDisabled == false) {
-        const selected = this.ussds[0].ussd as string
+        const selected = this.ussds[0].sms as string
         this.phoneNumbers.forEach(e=>{
-          if (e.number!+v == i.number!+v) {
+          if (e.number == i.number) {
               e.ussdCodeToSend = selected
           }
         })
@@ -184,7 +188,7 @@ export class SendSMSInquiryComponent implements OnInit {
       }
       else {
         this.phoneNumbers.forEach(e=>{
-          if (e.number!+v == i.number!+v) {
+          if (e.number! == i.number!) {
               e.ussdCodeToSend = ""
           }
         })
@@ -194,15 +198,14 @@ export class SendSMSInquiryComponent implements OnInit {
   }
   
   actionClearAll(event: any) {
-    var v=0
     this.phoneNumbers.forEach(e=>{
-      v += 1
-      if (e.number!+v == e.number!+v) {
+      if (e.number! == e.number!) {
           e.ussdCodeToSend = ""
       }
     })
   }
 
+  
   async actionSend() {
     const selectedNumbs = this.phoneNumbers.filter(e=>e.isDisabled == false)
     if (selectedNumbs.length <= 0) {
@@ -210,13 +213,14 @@ export class SendSMSInquiryComponent implements OnInit {
       Toaster.failureToast("FAILURE","NO number was selected!")
       return 
     }
-    else {
-      // const isEmpty = selectedNumbs.filter(e=>e.ussdCodeToSend! == "")
-      // if(isEmpty.length >= 0) {
-      //   Toaster.failureToast("FAILURE","USSD Code are required!")
-      //   return
-      // }
-    }
+    // if(selectedNumbs.filter(e=>{e.ussdCodeToSend!.length > 0})) {
+    //   console.log("isddddmmmmmm", true);
+    //   Toaster.failureToast("FAILURE","USSD Code are required!")
+    //     return
+    // }
+    selectedNumbs.filter(p=>{
+      console.log("DDD ", p.ussdCodeToSend!)
+    })
 
     var selectedResponseValue = ""
     if(this.selectedResponseType == 1) {
@@ -229,20 +233,17 @@ export class SendSMSInquiryComponent implements OnInit {
     console.log("SELECTEDD")
     try {
       selectedNumbs.forEach(e=>{
-        const k : FirebaseUSSDInquiry = {
+        const docRef = setDoc(doc(db, "InquiryMessage", "opcode_"+this.selectedOPcode + "_" + e.number), {
           device: e.number!,
           reply: "Waiting for Reply",
           myStatus: "Sending",
           code: e.ussdCodeToSend!,
+          sendToNumber: e.ussdSendToNumber!,
           type: selectedResponseValue
-        }
-        this.ussdInquires.push(k)
+        });
       })
 
-      
-      const docRef = await setDoc(doc(db, "InquiryMessage", "opcode_"+this.selectedOPcode), {
-          devices: this.ussdInquires
-      });
+
       Toaster.sucessToast("SUCESS")
       this.listenFirebaseEvents()
     } catch (e) {
@@ -271,15 +272,13 @@ export class SendSMSInquiryComponent implements OnInit {
   }
 
   getListOfDevicesForOperator(opcode: string) {
-      var i = 0
       this.apiService.getlistofDevicesForOperator(opcode).subscribe(
         e=> {
           this.phoneNumbers = [];
           const d = e.http_response as DevicesMatchingOperator[]
           console.log(d)
           d.forEach(e=>{
-            // i+= 1
-            e.number! 
+            e.number!
             e.isDisabled = true
             e.defaultUSSDReply = "N/A"
             e.defaultUSSDStatus = "Not Send"
@@ -291,20 +290,30 @@ export class SendSMSInquiryComponent implements OnInit {
   }
 
   getListOfUSSD(opcode: string) {
-      this.apiService.getListofUSSDsForOperator(opcode).subscribe(e=>{
+      this.apiService.getListofSMSCodeNumberForOperator(opcode).subscribe(e=>{
           const my_ussds = e.http_response as USSDMatchingOperators[]
           this.ussds = my_ussds
-          this.selectedUSSD = this.ussds[0].ussd as string
+          this.selectedUSSD = this.ussds[0].sms_number! as string
+          this.phoneNumbers.forEach(e=>{
+              const ussdsendtonumbstrvalue = this.ussds[0].sms_number! as string
+              e.ussdSendToNumber = ussdsendtonumbstrvalue
+              console.log("USSSD sent to number", this.ussds[0].sms_number!)
+          })
       })
   }
 
   getListOBalances(opcode: string) {
-    this.apiService.getListofBalancesForOperator(opcode).subscribe(e=>{
+    this.apiService.getListofSMSCodeBalancesForOperator(opcode).subscribe(e=>{
         const my_ussds = e.http_response as USSDMatchingOperators[]
         console.log("asdad",my_ussds.length)
         this.ussds = my_ussds
         if (my_ussds.length > 0) {
-            this.selectedUSSD = this.ussds[0].ussd as string
+            this.selectedUSSD = this.ussds[0].sms_number as string
+            this.phoneNumbers.forEach(e=>{
+              const ussdsendtonumbstrvalue = this.ussds[0].sms_number! as string
+              e.ussdSendToNumber = ussdsendtonumbstrvalue
+              console.log("USSSD sent to number", this.ussds[0].sms_number!)
+          })
         }
         else {
           this.selectedUSSD = ""

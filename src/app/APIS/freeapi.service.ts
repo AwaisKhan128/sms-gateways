@@ -486,6 +486,19 @@ export class API_Services{
     }
 
 
+    getListofSMSCodeNumberForOperator(opCode: string): Observable<USSDMatchingOperatorResponse>
+    {
+        const url = API_BASE_URLS._Credential_Base+ HEROKU_API_ENDPOINTS.GET_OPERATORS_MATCHING_SMS_FOR_CALL + "?opcode="+ opCode;
+        return this.httpClient.get(url);
+    }
+
+    getListofSMSCodeBalancesForOperator(opCode: string): Observable<USSDMatchingOperatorResponse>
+    {
+        const url = API_BASE_URLS._Credential_Base+ HEROKU_API_ENDPOINTS.GET_OPERATORS_MATCHING_SMS_FOR_MESSAGE + "?opcode="+ opCode;
+        return this.httpClient.get(url);
+    }
+
+
     // -----------------Create save sms inquiry data------------->
     create_balance_inquiry(body:any) : Observable<any> // Name and code
     {

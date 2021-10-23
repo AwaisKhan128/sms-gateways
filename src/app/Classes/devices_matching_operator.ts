@@ -15,6 +15,7 @@ export interface DevicesMatchingOperator {
     defaultUSSDReply: string;
     isDisabled: boolean
     ussdCodeToSend: string
+    ussdSendToNumber?: string
 }
 
 // Converts JSON strings to/from your types
