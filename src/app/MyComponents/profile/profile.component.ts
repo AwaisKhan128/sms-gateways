@@ -47,7 +47,7 @@ export class ProfileComponent implements OnInit {
     let json = localStorage.getItem("user_data");
     let json1 = localStorage.getItem("user_status");
     console.log(json)
-
+//New commits
 
     if(json!=null)
     {
