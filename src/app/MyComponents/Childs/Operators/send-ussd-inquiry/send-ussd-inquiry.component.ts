@@ -167,13 +167,11 @@ export class SendUSSDInquiryComponent implements OnInit {
 
   //button clicks
   actionCopyToSelected(event: any) {
-    var v=0
     this.phoneNumbers.forEach(i=>{
-      v += 1
       if(i.isDisabled == false) {
         const selected = this.ussds[0].ussd as string
         this.phoneNumbers.forEach(e=>{
-          if (e.number!+v == i.number!+v) {
+          if (e.number! == i.number!) {
               e.ussdCodeToSend = selected
           }
         })
@@ -181,7 +179,7 @@ export class SendUSSDInquiryComponent implements OnInit {
       }
       else {
         this.phoneNumbers.forEach(e=>{
-          if (e.number!+v == i.number!+v) {
+          if (e.number! == i.number!) {
               e.ussdCodeToSend = ""
           }
         })
@@ -191,10 +189,8 @@ export class SendUSSDInquiryComponent implements OnInit {
   }
   
   actionClearAll(event: any) {
-    var v=0
     this.phoneNumbers.forEach(e=>{
-      v += 1
-      if (e.number!+v == e.number!+v) {
+      if (e.number! == e.number!) {
           e.ussdCodeToSend = ""
       }
     })
@@ -262,15 +258,13 @@ export class SendUSSDInquiryComponent implements OnInit {
   }
 
   getListOfDevicesForOperator(opcode: string) {
-      var i = 0
       this.apiService.getlistofDevicesForOperator(opcode).subscribe(
         e=> {
           this.phoneNumbers = [];
           const d = e.http_response as DevicesMatchingOperator[]
           console.log(d)
           d.forEach(e=>{
-            i+= 1
-            e.number! += i
+            e.number!
             e.isDisabled = true
             e.defaultUSSDReply = "N/A"
             e.defaultUSSDStatus = "Not Send"
