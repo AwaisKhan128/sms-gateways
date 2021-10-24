@@ -1,137 +1,292 @@
-<div class="card mt-5 w-auto h-auto">
+<div style="font-family: 'Times New Roman', Times, serif;font-size:medium">
 
-
-  <div class="d-flex">
-    <h1 class="ms-2">
-      <b>
-        Manage Contact Lists
-
-      </b>
-    </h1>
-
-    <div class="row ms-auto">
-
-      <div class="col ms-auto">
-
-        <button class="btn btn-outline-success ms-auto me-2" id="delete_it" (click)="C_Contact(C_List)"
-          type="button">Create List</button>
-        <button class="btn btn-outline-success ms-auto me-2" id="delete_it" (click)="C_Contact(C_List_u)"
-          type="button">Update List</button>
-
-
-        <button class="btn btn-outline-success ms-auto" id="delete_it" (click)="C_Contact(c_delete)"
-          type="button">Delete List</button>
-
-      </div>
-
-    </div>
-
-  </div>
-
-
-
-
-</div>
-
-<div class="card mt-1 w-auto h-auto">
-
-
-  <div class="d-flex">
-
+  <div class="card mt-5 " >
+  
+  
     <div class="d-flex">
-      <h3 class="ms-3 mt-2">
-        Show
-      </h3>
-      <select (change)='get_current_list()' id="list_selected" class="form-select form-select-sm mb-1 ms-1 me-1"
-        aria-label=".form-select-sm example">
-        <option selected>Default</option>
-        <option *ngFor="let packed of get_contact_list2_top" value="{{packed?.list_id}}">{{packed?.list_name}}</option>
-
-      </select>
-
-      <h4 class="me-2 mt-2 ">
-        entries
-      </h4>
-
-
-
+      <h1 class="ms-2">
+        <b>
+          Manage Contact Lists
+  
+        </b>
+      </h1>
+  
+      <div class="row ms-auto">
+  
+        <div class="col ms-auto">
+  
+          <button class="btn btn-outline-success ms-auto me-2" id="delete_it" (click)="C_Contact(C_List)"
+            type="button">Create List</button>
+          <button class="btn btn-outline-success ms-auto me-2" id="delete_it" (click)="C_Contact(C_List_u)"
+            type="button">Update List</button>
+  
+  
+          <button class="btn btn-outline-success ms-auto" id="delete_it" (click)="C_Contact(c_delete)"
+            type="button">Delete List</button>
+  
+        </div>
+  
+      </div>
+  
     </div>
-
-    <div class="ms-auto d-flex">
-      <mat-paginator (page)="ContactByPageno($event)" [length]="100" [pageSize]="10"
-        [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page">
-      </mat-paginator>
-
-    </div>
-
-
-
+  
   </div>
-
+  
+  <div class="card mt-1 w-auto h-auto">
+  
+  
+    <div class="d-flex">
+  
+      <div class="d-flex">
+        <h3 class="ms-3 mt-2">
+          Show
+        </h3>
+        <select (change)='get_current_list()' id="list_selected" class="form-select form-select-sm mb-1 ms-1 me-1"
+          aria-label=".form-select-sm example">
+          <option selected>Default</option>
+          <option *ngFor="let packed of get_contact_list2_top" value="{{packed?.list_id}}">{{packed?.list_name}}</option>
+  
+        </select>
+  
+        <h4 class="me-2 mt-2 ">
+          entries
+        </h4>
+  
+  
+  
+      </div>
+  
+      <div class="ms-auto d-flex">
+        <mat-paginator (page)="ContactByPageno($event)" [length]="100" [pageSize]="10"
+          [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page">
+        </mat-paginator>
+  
+      </div>
+  
+  
+  
+    </div>
+  
+  </div>
+  
+  
+  <div class="card mt-1 table-responsive">
+    <table class="test" >
+      <tr>
+        <th>
+          <div class="form-check">
+            <input class="form-check-input contacts_list" (change)="Checked_All()" type="checkbox" id="form_checked_list">
+  
+            <label class="form-check-label" for="flexCheckDefault">
+            </label>
+          </div>
+  
+  
+        <th>
+          List ID
+        </th>
+  
+        <th>
+          List Name
+        </th>
+  
+        <th>
+          List Email ID
+        </th>
+  
+        <th>
+          Contacts
+        </th>
+      </tr>
+  
+      <tr *ngFor="let packet of get_contact_list2">
+        <td>
+          <div class="form-check">
+            <input class="form-check-input contacts_list" (change)="store_contact_list(packet,ischeck=!ischeck)"
+              type="checkbox" id="form_checked_list">
+  
+            <label class="form-check-label" for="flexCheckDefault">
+            </label>
+          </div>
+        </td>
+  
+  
+        <td>
+          {{packet?.list_id}}
+        </td>
+  
+        <td>
+          {{packet?.list_name}}
+        </td>
+  
+        <td>
+          {{packet?.list_email_id}}
+        </td>
+  
+        <td>
+          {{packet?._contacts_count}}
+        </td>
+  
+  
+      </tr>
+    </table>
+  </div>
+  
+  
+  
+  <div class="card mt-5 w-auto h-auto">
+    
+    
+    <div class="d-flex">
+      <h1 class="ms-2">
+        <b>
+          Manage Contacts
+  
+        </b>
+      </h1>
+      
+      <div class="row ms-auto">
+  
+        <div class="col ms-auto">
+          <button class="btn btn-outline-success ms-auto me-2" id="create_it" (click)="C_Contact(C_contact)"
+            type="button">Create Contact</button>
+            <button class="btn btn-outline-success ms-auto me-2" id="delete_it" (click)="C_Contact(U_contact)"
+            type="button">Update Contact</button>
+  
+  
+          <button class="btn btn-outline-success ms-auto" id="delete_it" (click)="C_Contact(contact_delete)"
+            type="button">Delete Contact</button>
+  
+        </div>
+  
+      </div>
+  
+    </div>
+  
+  
+  
+    
+  </div>
+  
+  <div class="card mt-1 w-auto h-auto">
+  
+    
+    <div class="d-flex">
+      
+      <div class="d-flex">
+        <h3 class="ms-3 mt-2">
+          Show
+        </h3>
+        <select (change)="onSelected_list($event,'')" class="form-select form-select-sm mb-1 ms-1 me-1 selected_lists"
+        aria-label=".form-select-sm example">
+  
+          <option selected>Open this select menu</option>
+          <option *ngFor="let packet of get_contact_list2" value="{{packet?.list_id}}">{{packet?.list_name}}</option>
+        </select>
+  
+        <h4 class="me-2 mt-2 ">
+          Lists
+        </h4>
+      </div>
+      
+  
+      <div class="ms-auto d-flex">
+        <mat-paginator (page)="ContactsByPageno($event)" [length]="100" [pageSize]="10"
+          [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page">
+        </mat-paginator>
+  
+      </div>
+      
+  
+  
+    </div>
+  
+  </div>
+  
+  <div class="card mt-1 w-auto h-auto table-responsive d-flex justify-content-center text-center" ng-app="">
+    <table class="test ">
+      <tr>
+        <th>
+          <div class="form-check">
+            <input class="form-check-input contact_select" type="checkbox" value="" id="form_checked_contact"
+              (change)="Update_contact_checkedAll()">
+              <label class="form-check-label" for="flexCheckDefault">
+            </label>
+          </div>
+        </th>
+  
+        <th>
+          First Name
+        </th>
+        
+        <th>
+          Last Name
+        </th>
+  
+        <th>
+          Phone Number
+        </th>
+  
+        <th>
+          Custom 1
+        </th>
+  
+        <th>
+          Email
+        </th>
+  
+  
+        <th>
+          Country
+        </th>
+  
+        
+      </tr>
+  
+      <tr *ngFor="let data of get_contacts3_data">
+        <td>
+          <div class="form-check">
+            <input class="form-check-input contact_select" type="checkbox" id="form_checked_contact"
+              value="{{data.contact_id}}" (change)="Update_contact_byOne(data?.contact_id)">
+            <label class="form-check-label" for="flexCheckDefault">
+            </label>
+          </div>
+        </td>
+  
+        <td>
+          {{data?.first_name}}
+        </td>
+  
+        <td>
+          {{data?.last_name}}
+        </td>
+  
+        <td>
+          {{data?.phone_number}}
+        </td>
+  
+        <td>
+          {{data?.custom_1}}
+        </td>
+        
+        <td>
+          {{data?.email}}
+        </td>
+  
+        <td>
+          {{data?.address_country}}
+        </td>
+        
+  
+        
+  
+      </tr>
+    </table>
+  </div>
 </div>
 
 
-<div class="card mt-1 w-auto h-auto table-responsive">
-  <table>
-    <tr>
-      <th>
-        <div class="form-check">
-          <input class="form-check-input contacts_list" (change)="Checked_All()" type="checkbox" id="form_checked_list">
 
-          <label class="form-check-label" for="flexCheckDefault">
-          </label>
-        </div>
-
-
-      <th>
-        List ID
-      </th>
-
-      <th>
-        List Name
-      </th>
-
-      <th>
-        List Email ID
-      </th>
-
-      <th>
-        Contacts
-      </th>
-    </tr>
-
-    <tr *ngFor="let packet of get_contact_list2">
-      <td>
-        <div class="form-check">
-          <input class="form-check-input contacts_list" (change)="store_contact_list(packet,ischeck=!ischeck)"
-            type="checkbox" id="form_checked_list">
-
-          <label class="form-check-label" for="flexCheckDefault">
-          </label>
-        </div>
-      </td>
-
-
-      <td>
-        {{packet?.list_id}}
-      </td>
-
-      <td>
-        {{packet?.list_name}}
-      </td>
-
-      <td>
-        {{packet?.list_email_id}}
-      </td>
-
-      <td>
-        {{packet?._contacts_count}}
-      </td>
-
-
-    </tr>
-  </table>
-</div>
 
 <ng-template #contact let-modal>
   <div class="modal-header">
@@ -875,155 +1030,3 @@
     <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Save</button>
   </div> -->
 </ng-template>
-
-
-<div class="card mt-5 w-auto h-auto">
-
-
-  <div class="d-flex">
-    <h1 class="ms-2">
-      <b>
-        Manage Contacts
-
-      </b>
-    </h1>
-
-    <div class="row ms-auto">
-
-      <div class="col ms-auto">
-        <button class="btn btn-outline-success ms-auto me-2" id="create_it" (click)="C_Contact(C_contact)"
-          type="button">Create Contact</button>
-        <button class="btn btn-outline-success ms-auto me-2" id="delete_it" (click)="C_Contact(U_contact)"
-          type="button">Update Contact</button>
-
-
-        <button class="btn btn-outline-success ms-auto" id="delete_it" (click)="C_Contact(contact_delete)"
-          type="button">Delete Contact</button>
-
-      </div>
-
-    </div>
-
-  </div>
-
-
-
-
-</div>
-
-<div class="card mt-1 w-auto h-auto">
-
-
-  <div class="d-flex">
-
-    <div class="d-flex">
-      <h3 class="ms-3 mt-2">
-        Show
-      </h3>
-      <select (change)="onSelected_list($event,'')" class="form-select form-select-sm mb-1 ms-1 me-1 selected_lists"
-        aria-label=".form-select-sm example">
-
-        <option selected>Open this select menu</option>
-        <option *ngFor="let packet of get_contact_list2" value="{{packet?.list_id}}">{{packet?.list_name}}</option>
-      </select>
-
-      <h4 class="me-2 mt-2 ">
-        Lists
-      </h4>
-    </div>
-
-
-    <div class="ms-auto d-flex">
-      <mat-paginator (page)="ContactsByPageno($event)" [length]="100" [pageSize]="10"
-        [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page">
-      </mat-paginator>
-
-    </div>
-
-
-
-  </div>
-
-</div>
-
-
-<div class="card mt-1 w-auto h-auto table-responsive" ng-app="">
-  <table>
-    <tr>
-      <th>
-        <div class="form-check">
-          <input class="form-check-input contact_select" type="checkbox" value="" id="form_checked_contact"
-            (change)="Update_contact_checkedAll()">
-          <label class="form-check-label" for="flexCheckDefault">
-          </label>
-        </div>
-      </th>
-
-      <th>
-        First Name
-      </th>
-
-      <th>
-        Last Name
-      </th>
-
-      <th>
-        Phone Number
-      </th>
-
-      <th>
-        Custom 1
-      </th>
-
-      <th>
-        Email
-      </th>
-
-
-      <th>
-        Country
-      </th>
-
-
-    </tr>
-
-    <tr *ngFor="let data of get_contacts3_data">
-      <td>
-        <div class="form-check">
-          <input class="form-check-input contact_select" type="checkbox" id="form_checked_contact"
-            value="{{data.contact_id}}" (change)="Update_contact_byOne(data?.contact_id)">
-          <label class="form-check-label" for="flexCheckDefault">
-          </label>
-        </div>
-      </td>
-
-      <td>
-        {{data?.first_name}}
-      </td>
-
-      <td>
-        {{data?.last_name}}
-      </td>
-
-      <td>
-        {{data?.phone_number}}
-      </td>
-
-      <td>
-        {{data?.custom_1}}
-      </td>
-
-      <td>
-        {{data?.email}}
-      </td>
-
-      <td>
-        {{data?.address_country}}
-      </td>
-
-
-
-
-    </tr>
-  </table>
-</div>

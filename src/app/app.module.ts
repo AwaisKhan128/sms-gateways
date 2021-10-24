@@ -33,6 +33,8 @@ import { UsageComponent } from './MyComponents/Childs/Billing/usage/usage.compon
 import { OverlayModule } from "@angular/cdk/overlay";
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatSidenavModule} from '@angular/material/sidenav';
+import { MatButtonModule } from '@angular/material/button';
+import {MatDividerModule} from '@angular/material/divider'
 
 import {MatToolbarModule} from '@angular/material/toolbar'; 
 import {MatIconModule} from '@angular/material/icon'
@@ -152,6 +154,8 @@ import { SendUSSDInquiryComponent } from './MyComponents/Childs/Operators/send-u
     OverlayModule,
     MatDialogModule,    
     MatDatepickerModule,
+    MatButtonModule,
+    MatDividerModule,
     MatNativeDateModule,
     MatFormFieldModule,
     MatInputModule,

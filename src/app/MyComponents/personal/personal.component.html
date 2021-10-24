@@ -1,10 +1,10 @@
 
 
-  <div class="card mt-5 w-auto h-auto" >
+  <div class="card " style="width: max-content;">
 
     <div class="container-fluid ">
 
-      <h1 class="mb-5" >
+      <h1 class="mb-5 " >
 
         <b>
           Forgot Username
@@ -20,14 +20,14 @@
           <label for="user_email" class="form-label">Email address</label>
           <input type="email" [(ngModel)]="user_email" class="form-control" id="user_email" name="user_email" 
           aria-describedby="emailHelp">
-          <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+          <div id="emailHelp" style="font-size: small;" class="form-text mb-3">We'll never share your email with anyone else.</div>
         </div>
         <div class="mb-3">
           <label for="user_phone" class="form-label">Phone</label>
           <input type="number"  class="form-control" [(ngModel)]="user_phone" id="user_phone" name="user_phone">
         </div>
         
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="submit" class="btn btn-primary mb-2">Submit</button>
       </form>
 
     </div>
@@ -36,7 +36,7 @@
 
   </div>
 
-  <div class="card mt-5 w-auto h-auto" >
+  <div class="card mt-2" >
 
     <div class="container-fluid ">
 

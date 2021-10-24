@@ -43,7 +43,6 @@ export class SendSMSInquiryComponent implements OnInit {
   selectedUSSD = ""
   selectedOPcode = "0"
   selectedResponseType = 1
-
   ussdInquires : FirebaseUSSDInquiry[] = [];
 
   

@@ -370,7 +370,7 @@ export class SignInComponent implements OnInit {
               (
                 res => {
                   this.snakeBar.close_bar()
-                  var data_P = JSON.parse(JSON.parse(JSON.stringify(res)));
+                  var data_P = JSON.parse((JSON.stringify(res)));
                   // console.log(data);
                   // console.log(data.http_response);
                   // console.log(data.http_response.length);

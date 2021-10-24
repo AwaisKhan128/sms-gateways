@@ -1,5 +1,7 @@
 
-  <div class="card mt-5 p-1 w-auto h-auto" >
+<div style="font-family: 'Times New Roman', Times, serif;font-size:medium">
+
+  <div class="card mt-5 p-1" >
     <h1 class="mb-3">
       Messages
     </h1>
@@ -125,8 +127,8 @@
 
   </div>
 
-  <div class="card mt-2 w-auto h-auto " *ngIf="filtered_history_array.length table-responsive">
-    <table>
+  <div  class="card mt-2 w-auto h-auto " *ngIf="filtered_history_array.length table-responsive">
+    <table class="test">
       <tr>
         <th>
         </th>
@@ -195,3 +197,4 @@
   <div *ngIf = "filtered_history_array.length==0">
     <p>No Records Found</p>
   </div>
+</div>
