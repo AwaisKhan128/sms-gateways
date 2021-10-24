@@ -144,7 +144,17 @@ export class SendSMSInquiryComponent implements OnInit {
   allNumbersSelected(event: any) {
     this.phoneNumbers.forEach(i=>{
       let element = <HTMLInputElement> document.getElementById(i.number!);  
-      if (element.checked) { 
+      // if (element.checked) { 
+      //   element.checked = false
+      //   i.isDisabled! = true
+      //   i.ussdCodeToSend = ""
+      //   element.checked = false
+      // }
+      // else {
+      //   element.checked = true
+      //   i.isDisabled! = false
+      // }
+      if (this.areAllNumbersSelected == true) { 
         element.checked = false
         i.isDisabled! = true
         i.ussdCodeToSend = ""
@@ -154,6 +164,7 @@ export class SendSMSInquiryComponent implements OnInit {
         element.checked = true
         i.isDisabled! = false
       }
+      this.areAllNumbersSelected = !this.areAllNumbersSelected
     })
   }
 
