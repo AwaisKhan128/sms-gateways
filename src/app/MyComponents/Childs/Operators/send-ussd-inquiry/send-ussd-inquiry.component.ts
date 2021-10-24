@@ -148,6 +148,7 @@ export class SendUSSDInquiryComponent implements OnInit {
     })
   }
 
+  
   listenFirebaseEvents() {
     const selectedNumbs = this.phoneNumbers.filter(e=>e.isDisabled == false)
     selectedNumbs.forEach(e=>{
