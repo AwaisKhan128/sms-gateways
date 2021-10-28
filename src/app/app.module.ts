@@ -96,6 +96,7 @@ import { AddSMSInquiryComponent } from './MyComponents/Childs/Operators/add-sms-
 import { SendSMSInquiryComponent } from './MyComponents/Childs/Operators/send-sms-inquiry/send-sms-inquiry.component';
 import { AddUSSDInquiryComponent } from './MyComponents/Childs/Operators/add-ussd-inquiry/add-ussd-inquiry.component';
 import { SendUSSDInquiryComponent } from './MyComponents/Childs/Operators/send-ussd-inquiry/send-ussd-inquiry.component';
+import { EditslotDevicesettingComponent } from './MyComponents/Childs/editslot-devicesetting/editslot-devicesetting.component';
 
 
 
@@ -142,7 +143,8 @@ import { SendUSSDInquiryComponent } from './MyComponents/Childs/Operators/send-u
     AddSMSInquiryComponent,
     SendSMSInquiryComponent,
     AddUSSDInquiryComponent,
-    SendUSSDInquiryComponent
+    SendUSSDInquiryComponent,
+    EditslotDevicesettingComponent
   ],
   imports: [
     BrowserModule,

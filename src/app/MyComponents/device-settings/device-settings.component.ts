@@ -6,7 +6,8 @@ import {FlatTreeControl} from '@angular/cdk/tree';
 import {MatTreeFlatDataSource, MatTreeFlattener} from '@angular/material/tree';
 import * as $ from 'jquery';
 import { Router } from '@angular/router';
-
+import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { EditslotDevicesettingComponent } from '../Childs/editslot-devicesetting/editslot-devicesetting.component';
 
 
 
@@ -44,7 +45,7 @@ export class DeviceSettingsComponent implements OnInit {
   devices_list : devices_list[]|any;
   device_list_details: device_list_details[]|any;
 
-  constructor(private free_api: API_Services,public router: Router) {    
+  constructor(private free_api: API_Services,public router: Router, private modalService: NgbModal) {    
   }
 
   ngOnInit(): void {
@@ -153,8 +154,13 @@ export class DeviceSettingsComponent implements OnInit {
     console.log(event);
   }
 
-  actionEditSlot() {
-
+  actionEditSlot(content: any) {
+    this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then((result) => {
+      //this.closeResult = `Closed with: ${result}`;
+      console.log($(result));
+    }, (reason) => {
+      //this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+    });
   }
 
   actionEditNumber() {
