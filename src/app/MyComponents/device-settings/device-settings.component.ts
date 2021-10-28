@@ -15,6 +15,7 @@ import { initializeApp } from "firebase/app";
 import { collection, addDoc, setDoc, doc, getFirestore } from "firebase/firestore"; 
 import { HTTPResponseSubscribedDevices } from 'src/app/Classes/subscribed_devices';
 import { HTTPResponseSubscribedDeviceSim } from 'src/app/Classes/subscribed_devices_sim';
+import { Toaster } from 'src/app/Helper/toaster';
 
 
 
@@ -63,6 +64,10 @@ export class DeviceSettingsComponent implements OnInit {
 
   devices_list : devices_list[]|any;
   device_list_details: device_list_details[]|any;
+  imei!: string
+  number!: string
+  id!: string
+  slot!: string
 
 
   constructor(private free_api: API_Services,public router: Router, private modalService: NgbModal) {    
@@ -184,8 +189,12 @@ export class DeviceSettingsComponent implements OnInit {
     }
   }
 
-  actionEditSlot(content: any, index: number) {
+  actionEditSlot(content: any, index: number, imei: string, number: string, id: string, slot: string) {
     this.selectedRowIndex = index
+    this.imei = imei
+    this.number = number
+    this.id = id
+    this.slot = slot
     this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
       console.log($(result));
@@ -194,8 +203,12 @@ export class DeviceSettingsComponent implements OnInit {
     });
   }
 
-  actionEditNumber(content: any, index: number) {
+  actionEditNumber(content: any, index: number, imei: string, number: string, id: string, slot: string) {
     this.selectedRowIndex = index
+    this.imei = imei
+    this.number = number
+    this.id = id
+    this.slot = slot
     this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
       console.log($(result));
@@ -205,16 +218,14 @@ export class DeviceSettingsComponent implements OnInit {
   }
 
   callUpdateAPI() {
-    let d : device_list_details = device_list_details![this.selectedRowIndex] as device_list_details
-    let sid = d//.id! as number
-    //et sslot = device_list_details[this.selectedRowIndex].slot as number
-    //let simei = device_list_details[this.selectedRowIndex].imei
-    //let snumber = device_list_details[this.selectedRowIndex].number
-    //this.free_api.update_balance_sloy(sid,snumber,sslot,simei)
-    console.log(d.id)
-    //console.log(sslot)
-    //console.log(simei)
-    //console.log(snumber)
+    this.free_api.update_balance_sloy(this.id,this.number,this.slot,this.imei).subscribe(response=>{
+      console.log("response:",response)
+      // if (response.response_code == "SUCCESS") {
+      // }
+      // else {
+      //   //Toaster.failureToast(response.response_code!, response.response_msg!)
+      // }
+    })
   }
 
   async commitToFirebase(id:string, imei:string,number:string,slot:string) {
