@@ -221,7 +221,7 @@ export class DeviceSettingsComponent implements OnInit {
     try {
       
       // Add a new document in collection "cities"
-      const docRef = await setDoc(doc(db, "RemoteMessages", "ds_"+id+"_"+imei), {
+      const docRef = await setDoc(doc(db, "DeviceSetting", "ds_"+id+"_"+imei), {
         id: id,
         imei: imei,
         number: number,
