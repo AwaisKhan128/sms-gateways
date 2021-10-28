@@ -10,6 +10,27 @@ import { ModalDismissReasons, NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-
 import { EditslotDevicesettingComponent } from '../Childs/editslot-devicesetting/editslot-devicesetting.component';
 
 
+// Import the functions you need from the SDKs you need
+import { initializeApp } from "firebase/app";
+import { collection, addDoc, setDoc, doc, getFirestore } from "firebase/firestore"; 
+import { HTTPResponseSubscribedDevices } from 'src/app/Classes/subscribed_devices';
+import { HTTPResponseSubscribedDeviceSim } from 'src/app/Classes/subscribed_devices_sim';
+
+
+
+const firebaseConfig = {
+  apiKey: "AIzaSyDyiduM5noPodZMAYyXMeMZxY4gOac3_fI",
+  authDomain: "sms-gateway-app-bf4bc.firebaseapp.com",
+  projectId: "sms-gateway-app-bf4bc",
+  storageBucket: "sms-gateway-app-bf4bc.appspot.com",
+  messagingSenderId: "330157825905",
+  appId: "1:330157825905:web:e9d7e8575b215f0a22e0d0"
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const db = getFirestore();
+
 @Component({
   selector: 'app-device-settings',
   templateUrl: './device-settings.component.html',
@@ -24,6 +45,7 @@ export class DeviceSettingsComponent implements OnInit {
 
   closeResult: string='';
   selectedRowIndex : number = 0
+  thisWasSelectedToUpdateDevice : devices_list | undefined;
 
   enableEditMethod(e, i) {
     this.enableEdit = true;
@@ -41,6 +63,7 @@ export class DeviceSettingsComponent implements OnInit {
 
   devices_list : devices_list[]|any;
   device_list_details: device_list_details[]|any;
+
 
   constructor(private free_api: API_Services,public router: Router, private modalService: NgbModal) {    
   }
@@ -179,6 +202,34 @@ export class DeviceSettingsComponent implements OnInit {
     }, (reason) => {
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
     });
+  }
+
+  callUpdateAPI() {
+    let d : device_list_details = device_list_details![this.selectedRowIndex] as device_list_details
+    let sid = d//.id! as number
+    //et sslot = device_list_details[this.selectedRowIndex].slot as number
+    //let simei = device_list_details[this.selectedRowIndex].imei
+    //let snumber = device_list_details[this.selectedRowIndex].number
+    //this.free_api.update_balance_sloy(sid,snumber,sslot,simei)
+    console.log(d.id)
+    //console.log(sslot)
+    //console.log(simei)
+    //console.log(snumber)
+  }
+
+  async commitToFirebase(id:string, imei:string,number:string,slot:string) {
+    try {
+      
+      // Add a new document in collection "cities"
+      const docRef = await setDoc(doc(db, "RemoteMessages", "ds_"+id+"_"+imei), {
+        id: id,
+        imei: imei,
+        number: number,
+        slot: slot,
+      });
+    } catch (e) {
+      console.error("Error adding document: ", e);
+    }
   }
 
 }

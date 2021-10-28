@@ -550,6 +550,11 @@ export class API_Services{
     }
 
 
+    update_balance_sloy(id: string, number:string, slot: string, imei: string) {
+        let url = API_BASE_URLS._Credential_Base + HEROKU_API_ENDPOINTS.UPDATE_DEVICE_INFO_NUMBER_SLOT + "?id="+id+"&number="+number+"+&slot="+slot+"+&imei="+imei
+        return this.httpClient.get(url)
+    }
+
     /**
    * Handle Http operation that failed.
    * Let the app continue.

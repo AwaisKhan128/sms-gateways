@@ -101,7 +101,7 @@
                         <tr *ngFor= "let sim_data of device_list_details,index as i" class="hover-highlight" value = "sim_data?.id">
 
                             <td >
-                                {{sim_data?.sim}}
+                                {{sim_data?.imei}}
                             </td> 
 
                             <td >
@@ -241,7 +241,7 @@
                 </div>
                 <div>
                     <span>
-                        <button class="btn btn-primary mb-1">Update Slot</button>
+                        <button class="btn btn-primary mb-1" >Update Slot</button>
                     </span>
                     <span>
                         <button class="btn btn-info ms-1 mt-1 mb-1 me-1" (click)= "modal.dismiss('Cross click')" >Cancel</button>
@@ -273,7 +273,7 @@
                 </div>
                 <div>
                     <span>
-                        <button class="btn btn-primary mb-1">Update Number</button>
+                        <button class="btn btn-primary mb-1" (click)="callUpdateAPI()">Update Number</button>
                     </span>
                     <span>
                         <button class="btn btn-info ms-1 mt-1 mb-1 me-1" (click)= "modal.dismiss('Cross click')" >Cancel</button>
