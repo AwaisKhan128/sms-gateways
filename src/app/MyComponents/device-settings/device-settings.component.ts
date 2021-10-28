@@ -6,12 +6,8 @@ import {FlatTreeControl} from '@angular/cdk/tree';
 import {MatTreeFlatDataSource, MatTreeFlattener} from '@angular/material/tree';
 import * as $ from 'jquery';
 import { Router } from '@angular/router';
-import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ModalDismissReasons, NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { EditslotDevicesettingComponent } from '../Childs/editslot-devicesetting/editslot-devicesetting.component';
-
-
-
-
 
 
 @Component({
@@ -26,7 +22,7 @@ export class DeviceSettingsComponent implements OnInit {
   window: any["$"] = $;
   data: any;
 
-
+  closeResult: string='';
 
   enableEditMethod(e, i) {
     this.enableEdit = true;
@@ -154,12 +150,22 @@ export class DeviceSettingsComponent implements OnInit {
     console.log(event);
   }
 
+  getDismissReason(reason: any): string {
+    if (reason === ModalDismissReasons.ESC) {
+      return 'by pressing ESC';
+    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+      return 'by clicking on a backdrop';
+    } else {
+      return `with: ${reason}`;
+    }
+  }
+
   actionEditSlot(content: any) {
     this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then((result) => {
-      //this.closeResult = `Closed with: ${result}`;
+      this.closeResult = `Closed with: ${result}`;
       console.log($(result));
     }, (reason) => {
-      //this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
     });
   }
 

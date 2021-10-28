@@ -224,52 +224,32 @@
 
 
 <ng-template #C_List let-modal>
-
-
   <div  class=" mt-100 " style="font-size: large;font-family:'Times New Roman', Times, serif ;">
-  
-
     <p>Edit Slot</p>
-    
     <div class="card mt-5 w-auto h-auto">
         <div>
           <div class="container-fluid ">
             <form>
               <div class="card-block">
-
                 <div class="mb-3">
                   <label for="exampleInputEmail1" class="form-label">For Number </label>
                   <input type="string" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="messageFrom" disabled = true>
                 </div>
-    
-    
                 <div class="mb-3">
                   <label for="exampleInputPassword1" class="form-label">Slot</label>
                   <input type="string" class="form-control" id="exampleInputPassword1" placeholder="1" name="messageTo">
                 </div>
-    
-    
-                <!-- <button  type="submit" class="btn btn-primary mb-1" (click)="actionSendSMS()" >Send SMS</button> -->
                 <div>
                     <span>
                         <button class="btn btn-primary mb-1">Update Slot</button>
                     </span>
                     <span>
-                        <button class="btn btn-info ms-1 mt-1 mb-1 me-1">Cancel</button>
+                        <button class="btn btn-info ms-1 mt-1 mb-1 me-1" (click)= "modal.dismiss('Cross click')" >Cancel</button>
                     </span>
                 </div>
               </div>
             </form>
-        
-            <!-- Google Sign in -->
-        
-            
-        
-            <!--  -->
           </div>
-    
-    
-    
         </div>
     </div>
   </div>
