@@ -218,7 +218,14 @@ export class DeviceSettingsComponent implements OnInit {
   }
 
   callUpdateAPI() {
-    this.free_api.update_balance_sloy(this.id,this.number,this.slot,this.imei).subscribe(response=>{
+    var body = 
+    {
+      "id": this.id,
+      "number":this.number,
+      "slot":this.slot,
+      "imei":this.imei
+    }
+    this.free_api.update_balance_sloy(body).subscribe(response=>{
       console.log("response:",response)
       // if (response.response_code == "SUCCESS") {
       // }
