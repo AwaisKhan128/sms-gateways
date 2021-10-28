@@ -5,6 +5,8 @@ import { EncodeDecode } from 'src/app/Classes/EncodeDec64';
 import {FlatTreeControl} from '@angular/cdk/tree';
 import {MatTreeFlatDataSource, MatTreeFlattener} from '@angular/material/tree';
 import * as $ from 'jquery';
+import { Router } from '@angular/router';
+
 
 
 
@@ -21,6 +23,7 @@ export class DeviceSettingsComponent implements OnInit {
   enableEdit = false;
   enableEditIndex = null;
   window: any["$"] = $;
+  data: any;
 
 
 
@@ -41,7 +44,7 @@ export class DeviceSettingsComponent implements OnInit {
   devices_list : devices_list[]|any;
   device_list_details: device_list_details[]|any;
 
-  constructor(private free_api: API_Services) {    
+  constructor(private free_api: API_Services,public router: Router) {    
   }
 
   ngOnInit(): void {
@@ -50,62 +53,71 @@ export class DeviceSettingsComponent implements OnInit {
     let json1 = localStorage.getItem("user_status");
 
 
-    // if(json!=null)
+    if (json1!=null)
     {
-
-      // this.data = JSON.parse(json);
-
-      // let username = this.data.username;
-      // let password = EncodeDecode.b64DecodeUnicode( this.data.passcode);
-
-      // let username = myCredentials.username;
-      // let password = ( myCredentials.password);
-      // let auth = EncodeDecode.b64EncodeUnicode(username+':'+password)
-
-      let auth_id = "23911"
-      
-
-      this.free_api.get_subscribe_devices(auth_id)
-      .subscribe
-      (
-        res=>
+      if(json!=null)
+      {
+  
+        this.data = JSON.parse(json);
+  
+  
+        // let username = this.data.username;
+        // let password = EncodeDecode.b64DecodeUnicode( this.data.passcode);
+  
+        // let username = myCredentials.username;
+        // let password = ( myCredentials.password);
+        // let auth = EncodeDecode.b64EncodeUnicode(username+':'+password)
+  
         {
-            let data = JSON.parse(JSON.stringify(res));
-            this.devices_list = data.http_response;
-
-            // console.log(this.devices_list);
-
-
-
-            // $('#web_balance').attr('text', 'balance');
-            // $('#web_balance').text(balance);
-        },
-        err=>
-        {
-          console.log(err);
+          let auth_id = this.data.id;
+        
+  
+          this.free_api.get_subscribe_devices(auth_id)
+          .subscribe
+          (
+            res=>
+            {
+                let data = JSON.parse(JSON.stringify(res));
+                this.devices_list = data.http_response;
+  
+            },
+            err=>
+            {
+              console.log(err);
+            }
+          )
+    
+          this.free_api.get_subscribe_devices_details(auth_id)
+          .subscribe
+          (
+            res=>
+            {
+                let DATA = JSON.parse(JSON.stringify(res));
+                this.device_list_details = DATA.http_response;
+    
+                // let hidden_info = 
+            },
+            err=>
+            {
+                console.log(err);
+            }
+          )
         }
-      )
-
-      this.free_api.get_subscribe_devices_details(auth_id)
-      .subscribe
-      (
-        res=>
-        {
-            let DATA = JSON.parse(JSON.stringify(res));
-            this.device_list_details = DATA.http_response;
-
-            // let hidden_info = 
-        },
-        err=>
-        {
-            console.log(err);
-        }
-      )
-
-
-      
+        
+  
+  
+        
+  
+      }
 
     }
+    else
+    {
+      this.router.navigate(['./'])
+    }
+
+
+
   }
 
 
