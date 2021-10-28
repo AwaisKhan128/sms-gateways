@@ -153,4 +153,12 @@ export class DeviceSettingsComponent implements OnInit {
     console.log(event);
   }
 
+  actionEditSlot() {
+
+  }
+
+  actionEditNumber() {
+    
+  }
+
 }
