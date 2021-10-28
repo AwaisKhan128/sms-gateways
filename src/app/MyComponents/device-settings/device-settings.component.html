@@ -140,10 +140,10 @@
                             {{sim_data?.top_up}}
                           </td>
                           <td>
-                            <button class="btn btn-primary ms-1 mt-1 mb-1 me-1" (click)="actionEditSlot(C_List)">
+                            <button class="btn btn-primary ms-1 mt-1 mb-1 me-1" (click)="actionEditSlot(EDIT_SLOT)">
                               Edit Slot
                             </button>
-                            <button class="btn btn-primary ms-1 mt-1 mb-1 me-1" (click)="actionEditNumber()">
+                            <button class="btn btn-primary ms-1 mt-1 mb-1 me-1" (click)="actionEditNumber(EDIT_NUMBER)">
                               Edit Number
                             </button>
                           </td>
@@ -223,7 +223,7 @@
 
 
 
-<ng-template #C_List let-modal>
+<ng-template #EDIT_SLOT let-modal>
   <div  class=" mt-100 " style="font-size: large;font-family:'Times New Roman', Times, serif ;">
     <p>Edit Slot</p>
     <div class="card mt-5 w-auto h-auto">
@@ -255,6 +255,36 @@
   </div>
 </ng-template>
 
-
+<ng-template #EDIT_NUMBER let-modal>
+  <div  class=" mt-100 " style="font-size: large;font-family:'Times New Roman', Times, serif ;">
+    <p>Edit Number</p>
+    <div class="card mt-5 w-auto h-auto">
+        <div>
+          <div class="container-fluid ">
+            <form>
+              <div class="card-block">
+                <div class="mb-3">
+                  <label for="exampleInputEmail1" class="form-label">For Slot </label>
+                  <input type="string" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="messageFrom" disabled = true>
+                </div>
+                <div class="mb-3">
+                  <label for="exampleInputPassword1" class="form-label">Number</label>
+                  <input type="string" class="form-control" id="exampleInputPassword1" placeholder="+921234567891" name="messageTo">
+                </div>
+                <div>
+                    <span>
+                        <button class="btn btn-primary mb-1">Update Number</button>
+                    </span>
+                    <span>
+                        <button class="btn btn-info ms-1 mt-1 mb-1 me-1" (click)= "modal.dismiss('Cross click')" >Cancel</button>
+                    </span>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+    </div>
+  </div>
+</ng-template>
 
    

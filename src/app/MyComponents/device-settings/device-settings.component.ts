@@ -169,8 +169,13 @@ export class DeviceSettingsComponent implements OnInit {
     });
   }
 
-  actionEditNumber() {
-    
+  actionEditNumber(content: any) {
+    this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then((result) => {
+      this.closeResult = `Closed with: ${result}`;
+      console.log($(result));
+    }, (reason) => {
+      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+    });
   }
 
 }
