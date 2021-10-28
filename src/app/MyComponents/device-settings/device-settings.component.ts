@@ -23,6 +23,7 @@ export class DeviceSettingsComponent implements OnInit {
   data: any;
 
   closeResult: string='';
+  selectedRowIndex : number = 0
 
   enableEditMethod(e, i) {
     this.enableEdit = true;
@@ -160,7 +161,8 @@ export class DeviceSettingsComponent implements OnInit {
     }
   }
 
-  actionEditSlot(content: any) {
+  actionEditSlot(content: any, index: number) {
+    this.selectedRowIndex = index
     this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
       console.log($(result));
@@ -169,7 +171,8 @@ export class DeviceSettingsComponent implements OnInit {
     });
   }
 
-  actionEditNumber(content: any) {
+  actionEditNumber(content: any, index: number) {
+    this.selectedRowIndex = index
     this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
       console.log($(result));

@@ -140,10 +140,10 @@
                             {{sim_data?.top_up}}
                           </td>
                           <td>
-                            <button class="btn btn-primary ms-1 mt-1 mb-1 me-1" (click)="actionEditSlot(EDIT_SLOT)">
+                            <button class="btn btn-primary ms-1 mt-1 mb-1 me-1" value="{{i}}" (click)="actionEditSlot(EDIT_SLOT, i)">
                               Edit Slot
                             </button>
-                            <button class="btn btn-primary ms-1 mt-1 mb-1 me-1" (click)="actionEditNumber(EDIT_NUMBER)">
+                            <button class="btn btn-primary ms-1 mt-1 mb-1 me-1" (click)="actionEditNumber(EDIT_NUMBER, i)">
                               Edit Number
                             </button>
                           </td>
@@ -233,11 +233,11 @@
               <div class="card-block">
                 <div class="mb-3">
                   <label for="exampleInputEmail1" class="form-label">For Number </label>
-                  <input type="string" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="messageFrom" disabled = true>
+                  <input type="string" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="messageFrom" disabled = true value="{{device_list_details[selectedRowIndex].number}}">
                 </div>
                 <div class="mb-3">
                   <label for="exampleInputPassword1" class="form-label">Slot</label>
-                  <input type="string" class="form-control" id="exampleInputPassword1" placeholder="1" name="messageTo">
+                  <input type="string" class="form-control" id="exampleInputPassword1" placeholder="1" name="messageTo" value="{{device_list_details[selectedRowIndex].slots}}">
                 </div>
                 <div>
                     <span>
@@ -265,11 +265,11 @@
               <div class="card-block">
                 <div class="mb-3">
                   <label for="exampleInputEmail1" class="form-label">For Slot </label>
-                  <input type="string" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="messageFrom" disabled = true>
+                  <input type="string" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="messageFrom" disabled = true value="{{device_list_details[selectedRowIndex].slots}}">
                 </div>
                 <div class="mb-3">
                   <label for="exampleInputPassword1" class="form-label">Number</label>
-                  <input type="string" class="form-control" id="exampleInputPassword1" placeholder="+921234567891" name="messageTo">
+                  <input type="string" class="form-control" id="exampleInputPassword1" placeholder="+921234567891" name="messageTo" value="{{device_list_details[selectedRowIndex].number}}">
                 </div>
                 <div>
                     <span>
