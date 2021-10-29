@@ -167,6 +167,7 @@ export class DeviceSettingsComponent implements OnInit {
 
   }
 
+  
 
   showupdate_sim(event:any)
   {
