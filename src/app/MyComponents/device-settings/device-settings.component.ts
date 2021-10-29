@@ -231,14 +231,17 @@ export class DeviceSettingsComponent implements OnInit {
     var body = JSON.stringify(this.device_list_details[this.selectedRowIndex] as device_list_details) 
     console.log(body)
 
-    this.free_api.update_balance_sloy(body).subscribe(response=>{
-      console.log("response:",response)
-      // if (response.response_code == "SUCCESS") {
-      // }
-      // else {
-      //   //Toaster.failureToast(response.response_code!, response.response_msg!)
-      // }
-    })
+    this.free_api.update_balance_sloy(body).subscribe(
+      res=>
+      {
+        this.commitToFirebase(this.id,this.imei,this.number,this.slot) ;
+      },
+      err=>
+      {
+        console.log("Error due to = "+err);
+      }
+
+    )
   }
 
   async commitToFirebase(id:string, imei:string,number:string,slot:string) {
