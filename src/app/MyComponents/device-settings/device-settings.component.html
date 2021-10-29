@@ -229,26 +229,26 @@
     <div class="card mt-5 w-auto h-auto">
         <div>
           <div class="container-fluid ">
-            <form>
+            <form (ngSubmit)= "callUpdateAPI()">
               <div class="card-block">
                 <div class="mb-3">
-                  <label for="exampleInputEmail1" class="form-label">For Number </label>
-                  <input type="string" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="messageFrom" disabled = true value="{{device_list_details[selectedRowIndex].number}}">
+                  <label for="messageFrom" class="form-label">For Number </label>
+                  <input type="string" class="form-control" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="11" [(ngModel)]="messageFrom" id="messageFrom" placeholder="{{this.number}}" aria-describedby="emailHelp" name="messageFrom" disabled = true value="{{this.number}}">
                 </div>
                 <div class="mb-3">
-                  <label for="exampleInputPassword1" class="form-label">Slot</label>
-                  <input type="string" class="form-control" id="exampleInputPassword1" placeholder="1" name="messageTo" value="{{device_list_details[selectedRowIndex].slot}}">
+                  <label for="messageTo" class="form-label">Slot</label>
+                  <input type="string" class="form-control" inputmode="numeric" pattern="[0-1]*" oninput="javascript: if (this.value.length > this.maxLength  ) this.value = this.value.slice(0, this.maxLength); if(this.value!=0 && this.value!=1) this.value='' " maxlength="1" [(ngModel)]="messageTo" id="messageTo" placeholder="1" name="messageTo" value="{{this.slot}}">
                 </div>
                 <div>
                     <span>
-                        <button class="btn btn-primary mb-1" (click)="callUpdateAPI()" >Update Slot</button>
+                        <button class="btn btn-primary mb-1" type="submit" >Update Slot</button>
                     </span>
-                    <span>
-                        <button class="btn btn-info ms-1 mt-1 mb-1 me-1" (click)= "modal.dismiss('Cross click')" >Cancel</button>
-                    </span>
+                  </div>
                 </div>
-              </div>
-            </form>
+              </form>
+              <span>
+                  <button class="btn btn-info ms-1 mt-1 mb-1 me-1" (click)= "modal.dismiss('Cross click')" >Cancel</button>
+              </span>
           </div>
         </div>
     </div>
@@ -261,26 +261,26 @@
     <div class="card mt-5 w-auto h-auto">
         <div>
           <div class="container-fluid ">
-            <form>
+            <form (ngSubmit)= "callUpdateAPI()">
               <div class="card-block">
                 <div class="mb-3">
-                  <label for="exampleInputEmail1" class="form-label">For Slot </label>
-                  <input type="string" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="messageFrom" disabled = true value="{{device_list_details[selectedRowIndex].slot}}">
+                  <label for="messageTo" class="form-label">For Slot </label>
+                  <input type="string" class="form-control"  oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" [(ngModel)]="messageTo" maxlength="1" placeholder="{{this.slot}}" id="messageTo" aria-describedby="emailHelp" name="messageTo" disabled = true value="{{this.slot}}">
                 </div>
                 <div class="mb-3">
-                  <label for="exampleInputPassword1" class="form-label">Number</label>
-                  <input type="string" class="form-control" id="exampleInputPassword1" placeholder="+921234567891" name="messageTo" value="{{device_list_details[selectedRowIndex].number}}">
+                  <label for="messageFrom" class="form-label">Number</label>
+                  <input type="string" class="form-control" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" [(ngModel)]="messageFrom" maxlength="11" id="messageFrom"  name="messageFrom" value="{{this.number}}">
                 </div>
                 <div>
                     <span>
-                        <button class="btn btn-primary mb-1" (click)="callUpdateAPI()">Update Number</button>
+                        <button class="btn btn-primary mb-1" type="submit">Update Number</button>
                     </span>
-                    <span>
-                        <button class="btn btn-info ms-1 mt-1 mb-1 me-1" (click)= "modal.dismiss('Cross click')" >Cancel</button>
-                    </span>
+                  </div>
                 </div>
-              </div>
-            </form>
+              </form>
+              <span>
+                  <button class="btn btn-info ms-1 mt-1 mb-1 me-1" (click)= "modal.dismiss('Cross click')" >Cancel</button>
+              </span>
           </div>
         </div>
     </div>

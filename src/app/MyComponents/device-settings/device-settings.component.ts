@@ -16,6 +16,7 @@ import { collection, addDoc, setDoc, doc, getFirestore } from "firebase/firestor
 import { HTTPResponseSubscribedDevices } from 'src/app/Classes/subscribed_devices';
 import { HTTPResponseSubscribedDeviceSim } from 'src/app/Classes/subscribed_devices_sim';
 import { Toaster } from 'src/app/Helper/toaster';
+import { Toaster_Service } from 'src/app/Classes/ToasterNg';
 
 
 
@@ -43,6 +44,8 @@ export class DeviceSettingsComponent implements OnInit {
   enableEditIndex = null;
   window: any["$"] = $;
   data: any;
+  messageFrom :any;
+  messageTo :any;
 
   closeResult: string='';
   selectedRowIndex : number = 0
@@ -105,6 +108,7 @@ export class DeviceSettingsComponent implements OnInit {
             {
                 let data = JSON.parse(JSON.stringify(res));
                 this.devices_list = data.http_response;
+                
   
             },
             err=>
@@ -120,6 +124,12 @@ export class DeviceSettingsComponent implements OnInit {
             {
                 let DATA = JSON.parse(JSON.stringify(res));
                 this.device_list_details = DATA.http_response;
+
+                this.device_list_details?.forEach((element: { id: string; imei: string; }) => {
+                  this.id = element?.id;
+                  this.imei = element?.imei
+                });
+                
     
                 // let hidden_info = 
             },
@@ -228,20 +238,61 @@ export class DeviceSettingsComponent implements OnInit {
     // }
 
     
-    var body = JSON.stringify(this.device_list_details[this.selectedRowIndex] as device_list_details) 
-    console.log(body)
 
-    this.free_api.update_balance_sloy(body).subscribe(
-      res=>
-      {
-        this.commitToFirebase(this.id,this.imei,this.number,this.slot) ;
-      },
-      err=>
-      {
-        console.log("Error due to = "+err);
-      }
 
-    )
+    // console.log(this.messageFrom,this.messageTo);
+
+    if((this.messageFrom)==undefined)
+    {
+      let number:string|any = $("#messageFrom").attr('placeholder');
+      // console.log("number is undefined");
+      this.free_api.update_balance_sloy(this.id,number
+        ,this.messageTo,this.imei)
+        .subscribe(
+            res=>
+            {
+              console.log(res);
+              Toaster_Service.toastNotification_S("Success");
+              this.commitToFirebase(this.id,this.imei,number,this.messageTo) ;
+              
+            },
+            err=>
+            {
+              console.log("Error due to = "+err);
+              Toaster_Service.toastNotification_D("Failed");
+
+            }
+  
+      )
+    }
+
+    if((this.messageTo)==undefined)
+    {
+      let slot:string|any = $("#messageTo").attr('placeholder');
+
+      this.free_api.update_balance_sloy(this.id,this.messageFrom
+        ,slot,this.imei)
+        .subscribe(
+            res=>
+            {
+              console.log(res);
+              Toaster_Service.toastNotification_S("Success");
+
+              this.commitToFirebase(this.id,this.imei,this.messageFrom,slot)
+               ;
+              
+            },
+            err=>
+            {
+              Toaster_Service.toastNotification_D("Failed");
+
+              console.log("Error due to = "+err);
+            }
+  
+      )
+    }
+
+    
   }
 
   async commitToFirebase(id:string, imei:string,number:string,slot:string) {
@@ -254,6 +305,7 @@ export class DeviceSettingsComponent implements OnInit {
         number: number,
         slot: slot,
       });
+      this.modalService.dismissAll();
     } catch (e) {
       console.error("Error adding document: ", e);
     }
