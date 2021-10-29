@@ -218,13 +218,18 @@ export class DeviceSettingsComponent implements OnInit {
   }
 
   callUpdateAPI() {
-    var body = 
-    {
-      "id": this.id,
-      "number":this.number,
-      "slot":this.slot,
-      "imei":this.imei
-    }
+    // var body = 
+    // {
+    //   "id": this.id,
+    //   "number":this.number,
+    //   "slot":this.slot,
+    //   "imei":this.imei
+    // }
+
+    
+    var body = JSON.stringify(this.device_list_details[this.selectedRowIndex] as device_list_details) 
+    console.log(body)
+
     this.free_api.update_balance_sloy(body).subscribe(response=>{
       console.log("response:",response)
       // if (response.response_code == "SUCCESS") {
@@ -239,7 +244,7 @@ export class DeviceSettingsComponent implements OnInit {
     try {
       
       // Add a new document in collection "cities"
-      const docRef = await setDoc(doc(db, "DeviceSetting", "ds_"+id+"_"+imei), {
+      const docRef = await setDoc(doc(db, "DeviceSetting", "ds_"+id), {
         id: id,
         imei: imei,
         number: number,
