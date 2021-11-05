@@ -1,112 +1,118 @@
-
-  <div class="card mt-5 p-1 w-auto h-auto" >
-    <h1 class="mb-3">
-      Messages
-    </h1>
-    <div class="row p-1">
-      <div class="col-4">
-        <label for="selects"> Select Operators</label>
-        <select class="form-select form-select-sm me-auto" id="selects" aria-label=".form-select-sm example" (change)="onOperatorCodeSelected($event)">
-          <option selected *ngFor="let o of this.operators"
-          [value]="o.operator_code"
-          [ngValue]="o.operator_code"
-          [selected]="o.operator_name == 'NONE'" >
-            {{o.operator_code}}
-          </option>
-        </select>
-      </div>
-      <div class="col-4">
-        <label for="selects"> Select Response Type</label>
-        <select class="form-select form-select-sm me-auto" id="selects" aria-label=".form-select-sm example" (change)="onResponseTypeSelected($event)">
-          <option selected *ngFor="let r of this.responseTypes"
-          [value]="r.id"
-          [ngValue]="r.id"
-          [selected]="r.isSelected">
-            {{r.response_type!}}
-          </option>
-        </select>
+<div class="card mt-5 p-1 w-auto h-auto">
+  <h1 class="mb-3">
+    Messages
+  </h1>
+  <div class="row p-1">
+    <div class="col-4">
+      <label for="selects"> Select Operators</label>
+      <select class="form-select form-select-sm me-auto" id="selects" aria-label=".form-select-sm example"
+        (change)="onOperatorCodeSelected($event)">
+        <option selected *ngFor="let o of this.operators" [value]="o.operator_code" [ngValue]="o.operator_code"
+          [selected]="o.operator_name == 'NONE'">
+          {{o.operator_code}}
+        </option>
+      </select>
+    </div>
+    <div class="col-4">
+      <label for="selects"> Select Response Type</label>
+      <select class="form-select form-select-sm me-auto" id="selects" aria-label=".form-select-sm example"
+        (change)="onResponseTypeSelected($event)">
+        <option selected *ngFor="let r of this.responseTypes" [value]="r.id" [ngValue]="r.id" [selected]="r.isSelected">
+          {{r.response_type!}}
+        </option>
+      </select>
+    </div>
+  </div>
+  <div class="row p-2" *ngIf="this.ussds.length">
+    <div class="col-4">
+      <input id="ussdcode" class="form-check-input" type="text" [(ngModel)]="this.ussds[0].sms"
+        value="{{this.ussds[0].sms}}" style="width:50%" placeholder="SMS Code">
+      <div>
+        <button class="btn btn-primary ms-1 mt-1 mb-1 me-1" (click)="actionCopyToSelected($event)">
+          Copy to selected
+        </button>
+        &nbsp;&nbsp;
+        <span>
+          <button class="btn btn-info ms-1 mt-1 mb-1 me-1" (click)="actionClearAll($event)">
+            Clear All
+          </button>
+        </span>
+        &nbsp;&nbsp;
+        <button class="btn btn-warning ms-1 mt-1 mb-1 me-1" (click)="actionSend()">
+          Send Message
+        </button>
       </div>
     </div>
-    <div class="row p-2" *ngIf = "this.ussds.length">
-      <div class="col-4">
-        <input id= "ussdcode" class="form-check-input" type="text" [(ngModel)]="this.ussds[0].sms" value="{{this.ussds[0].sms}}" style="width:50%" placeholder="SMS Code">
-        <div>
-          <button class="btn btn-primary ms-1 mt-1 mb-1 me-1" (click)="actionCopyToSelected($event)">
-            Copy to selected
-          </button>
-          &nbsp;&nbsp;
-          <span >
-            <button class="btn btn-info ms-1 mt-1 mb-1 me-1" (click)="actionClearAll($event)">
-              Clear All
-            </button>
-          </span>
-          &nbsp;&nbsp;
-          <button class="btn btn-warning ms-1 mt-1 mb-1 me-1" (click)="actionSend()">
-            Send Message 
-          </button>
+  </div>
+</div>
+<div class="card mt-2 w-auto h-auto" *ngIf="this.phoneNumbers">
+  <table id="displayingData" *ngIf="this.phoneNumbers.length">
+    <tr>
+      <th>
+        <div class=" d-flex">
+          <div class="check">
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" value="{{areAllNumbersSelected}}"
+                id="{{areAllNumbersSelected}}" (click)="allNumbersSelected($event)">
+            </div>
+          </div>
+          <span>All</span>
         </div>
-      </div>
-    </div>
-  </div>
-  <div class="card mt-2 w-auto h-auto" *ngIf="this.phoneNumbers">
-    <table id="displayingData" *ngIf = "this.phoneNumbers.length">
-      <tr>
-        <th>
-          <div class=" d-flex">
-            <div class="check">
-              <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="{{areAllNumbersSelected}}" id="{{areAllNumbersSelected}}" (click)="allNumbersSelected($event)">
-              </div>
-            </div>
-            <span>All</span>
-          </div>
-        </th>
-        <th>
-          Number
-        </th>
-        <th>
-          SMS Code
-        </th>
-        <th>
-          SMS Number
-        </th>
-        <th>
-          USSD Status
-        </th>
-        <th>
-          USSD Reply
-        </th>
-      </tr>
-      <tr id="displayingNumbers" *ngFor="let n of this.phoneNumbers">
-        <td>
-          <div class=" d-flex">
-            <div class="check">
-              <div class="form-check">
-                <input class="form-check-input" value="{{n.number}}" id="{{n.number}}" type="checkbox" (click)="specificNumbersSelected($event)" >
-              </div>
+      </th>
+      <th>
+        Number
+      </th>
+      <th>
+        SMS Code
+      </th>
+      <th>
+        SMS Number
+      </th>
+      <th>
+        USSD Status
+      </th>
+      <th>
+        USSD Reply
+      </th>
+    </tr>
+    <tr id="displayingNumbers" *ngFor="let n of this.phoneNumbers">
+      <td>
+        <div class=" d-flex">
+          <div class="check">
+            <div class="form-check">
+              <input class="form-check-input" value="{{n.number}}" id="{{n.number}}" type="checkbox"
+                (click)="specificNumbersSelected($event)">
             </div>
           </div>
-        </td>
-        <td>
-          {{n.number}}
-        </td>
-        <td>
-          <input class="form-check-input" type="text" style="width:70%" [(ngModel)]="n.ussdCodeToSend" value="{{n.ussdCodeToSend}}" [disabled]= "n.isDisabled">
-        </td>
-        <td>
-          {{n.ussdSendToNumber}}
-        </td>
-        <td>
-          <input class="form-check-input" type="text" value="{{n.defaultUSSDStatus}}" [value]="n.defaultUSSDStatus" id="{{n.defaultUSSDStatus}}" style="width:50%">
-        </td>
-        <td>
-          <input class="form-check-input" type="text" value="{{n.defaultUSSDReply}}" [value]="n.defaultUSSDReply" id="{{n.defaultUSSDReply}}" style="width:100%">
-        </td>
-      </tr>
-    </table>
-  </div>
-  <div *ngIf="this.phoneNumbers.length == 0">
-    No devices found for this operator!
-  </div>
+        </div>
+      </td>
 
- 
+      <td>
+        {{n.number}}
+      </td>
+
+
+      <td>
+        {{n.ussdSendToNumber}}
+      </td>
+      <td>
+        <input class="form-check-input" type="text" style="width:70%" [(ngModel)]="n.ussdCodeToSend"
+          value="{{n.ussdCodeToSend}}" [disabled]="n.isDisabled">
+      </td>
+
+      <td>
+        <input class="form-check-input" type="text" value="{{n.defaultUSSDStatus}}" [value]="n.defaultUSSDStatus"
+          id="{{n.defaultUSSDStatus}}" style="width:50%">
+      </td>
+
+
+      <td>
+        <input class="form-check-input" type="text" value="{{n.defaultUSSDReply}}" [value]="n.defaultUSSDReply"
+          id="{{n.defaultUSSDReply}}" style="width:100%">
+      </td>
+    </tr>
+  </table>
+</div>
+<div *ngIf="this.phoneNumbers.length == 0">
+  No devices found for this operator!
+</div>
