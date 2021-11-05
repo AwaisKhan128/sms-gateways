@@ -257,8 +257,8 @@ export class SendSMSInquiryComponent implements OnInit {
           device: e.number!,
           reply: "Waiting for Reply",
           myStatus: "Sending",
-          code: e.ussdCodeToSend!,
-          sendToNumber: e.ussdSendToNumber!,
+          code: e.ussdSendToNumber!,
+          sendToNumber: e.ussdCodeToSend!,
           type: selectedResponseValue
         });
       })
