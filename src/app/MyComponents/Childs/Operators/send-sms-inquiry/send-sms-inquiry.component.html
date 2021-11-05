@@ -63,10 +63,10 @@
         Number
       </th>
       <th>
-        SMS Code
+        SMS Number
       </th>
       <th>
-        SMS Number
+        SMS Code
       </th>
       <th>
         USSD Status
@@ -95,6 +95,7 @@
       <td>
         {{n.ussdSendToNumber}}
       </td>
+
       <td>
         <input class="form-check-input" type="text" style="width:70%" [(ngModel)]="n.ussdCodeToSend"
           value="{{n.ussdCodeToSend}}" [disabled]="n.isDisabled">
