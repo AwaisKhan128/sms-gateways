@@ -438,9 +438,9 @@ export class ProfileComponent implements OnInit {
 
   onstartAnimate()
   {
-    $("#animate").text("Welcome to SMS Gateways")
-    setTimeout(()=>{                           // <<<---using ()=> syntax
-      $("#animate").text("")
-    }, 3000);
+    // $("#animate").text("Welcome to SMS Gateways")
+    // setTimeout(()=>{                           // <<<---using ()=> syntax
+    //   $("#animate").text("")
+    // }, 3000);
   }
 }
