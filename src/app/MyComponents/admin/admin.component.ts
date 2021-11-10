@@ -176,7 +176,10 @@ export class AdminComponent implements OnInit {
                             Toaster_Service.toastNotification_S("Success"+final_resp.http_response);
                             console.log(this.permission);
                             Toaster_Service.toastNotification_S(data_resp.response_msg);
-                            console.log(data);
+                            // console.log(data);
+                            location.reload();
+
+
                             // $('#api_username').val('');
                             // $('#first_name').val('');
                             // $('#last_name').val('');
@@ -370,6 +373,8 @@ export class AdminComponent implements OnInit {
                   let final_resp = JSON.parse(JSON.stringify(res));
                   console.log(final_resp);
                   Toaster_Service.toastNotification_S("Success"+final_resp.http_response);
+                  location.reload();
+
                 },
                 err=>
                 {
@@ -627,6 +632,8 @@ export class AdminComponent implements OnInit {
           {
             let data_resp = JSON.parse(JSON.stringify(data));
             Toaster_Service.toastNotification_S(data_resp.response_msg);
+            location.reload();
+
 
             
           },

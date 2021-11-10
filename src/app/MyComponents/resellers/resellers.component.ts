@@ -253,6 +253,8 @@ export class ResellersComponent implements OnInit {
                       console.log(data_resp);
                       Toaster_Service.toastNotification_S(data_resp.http_response);
                       this.modalService.dismissAll();
+                      location.reload();
+
         
                     },
                     err=>
@@ -418,6 +420,8 @@ export class ResellersComponent implements OnInit {
               // --------------------------------------->>>>
               Toaster_Service.toastNotification_S(data.response_msg);
               this.modalService.dismissAll();
+              location.reload();
+
 
               // console.log(res);
             },

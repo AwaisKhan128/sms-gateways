@@ -66,6 +66,7 @@ export class ContactsComponent implements OnInit {
 
           if(json!=null)
     {
+      this.Snake_Wait.start_bar("Please Wait!")
       this.data = JSON.parse(json);
       let username = this.data.username;
       let password = EncodeDecode.b64DecodeUnicode( this.data.passcode);
@@ -82,6 +83,8 @@ export class ContactsComponent implements OnInit {
           this.Create_Contact_List = data;
           this.modalService.dismissAll();
           Toaster_Service.toastNotification_S(this.Create_Contact_List.response_msg);
+          this.Snake_Wait.close_bar();
+          location.reload();
 
           // console.log(res);
         },
@@ -115,6 +118,7 @@ export class ContactsComponent implements OnInit {
 
         if(json!=null)
         {
+          this.Snake_Wait.start_bar("Please Wait");
         this.data = JSON.parse(json);
         let username = this.data.username;
         let password = EncodeDecode.b64DecodeUnicode( this.data.passcode);
@@ -129,6 +133,9 @@ export class ContactsComponent implements OnInit {
             this.Create_Contact_List = data;
             this.modalService.dismissAll();
             Toaster_Service.toastNotification_S(this.Create_Contact_List.response_msg);
+            this.Snake_Wait.close_bar();
+            location.reload();
+
   
             // console.log(res);
           },
@@ -319,6 +326,8 @@ this.freeAPI.get_contact_list(auths)
             // this.modalService.dismissAll();
             Toaster_Service.toastNotification_S(data.response_msg);
             this.Snake_Wait.close_bar();
+            location.reload();
+
 
             // console.log(res);
           },
@@ -459,6 +468,8 @@ this.freeAPI.get_contact_list(auths)
           // this.modalService.dismissAll();
           Toaster_Service.toastNotification_S(data.response_msg);
           this.Snake_Wait.close_bar();
+          location.reload();
+
           // console.log(res);
         },
         err=>
@@ -562,6 +573,8 @@ this.freeAPI.get_contact_list(auths)
               // this.modalService.dismissAll();
               Toaster_Service.toastNotification_S(data.response_msg);
               this.Snake_Wait.close_bar();
+              location.reload();
+
               // console.log(res);
             },
             err=>
@@ -702,6 +715,8 @@ this.freeAPI.get_contact_list(auths)
               // this.modalService.dismissAll();
               Toaster_Service.toastNotification_S(data.response_msg);
               this.Snake_Wait.close_bar();
+              location.reload();
+
               // console.log(res);
             },
             err=>

@@ -7,7 +7,7 @@ import { EncodeDecode } from 'src/app/Classes/EncodeDec64';
 import * as $ from 'jquery';
 import { getAccDetails, getAccDetails1, getAccCurrency, getsubAcc, getSignin_responseDBforSuper } from 'src/app/Classes/signin';
 import { ActivatedRoute, Router } from '@angular/router';
-import { empty } from 'rxjs';
+import { empty, Subscription } from 'rxjs';
 import { forget_password, forget_username, forget_username_resp } from 'src/app/Classes/forgets';
 import { Snake_Waiting } from 'src/app/Classes/Waiting_bar';
 import { GeolocationService } from '@ng-web-apis/geolocation';
@@ -25,6 +25,7 @@ import { take } from 'rxjs/operators';
   styleUrls: ['./sign-in.component.css']
 })
 export class SignInComponent implements OnInit {
+  private updateSubscription!: Subscription;
 
   uname: any;
   passcode: any;
@@ -100,6 +101,12 @@ export class SignInComponent implements OnInit {
 
   public LogIn() {
     this.Login(this.uname, this.passcode);
+    
+      
+ 
+     
+
+
     // this.test();
   }
 

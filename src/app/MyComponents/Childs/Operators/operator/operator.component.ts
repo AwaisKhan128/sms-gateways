@@ -162,6 +162,8 @@ export class OperatorComponent implements OnInit {
               console.log(operator_id);
 
               this.Snake_Wait.close_bar();
+              location.reload();
+
   
               // alert(a.response_msg);
             },
@@ -226,9 +228,9 @@ export class OperatorComponent implements OnInit {
             res => {
               var data = JSON.parse(JSON.stringify(res));
               Toaster_Service.toastNotification_S(data.http_response);
-              
-
               this.Snake_Wait.close_bar();
+              location.reload();
+
   
               // alert(a.response_msg);
             },

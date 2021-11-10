@@ -156,8 +156,8 @@ export class TemplatesComponent implements OnInit {
             // alert(a.response_msg);
             Toaster_Service.toastNotification_S(a.response_msg);
             this.modalService.dismissAll();
-
             this.Snake_Wait.close_bar();
+            location.reload();
 
           },
           err => {
@@ -204,6 +204,8 @@ export class TemplatesComponent implements OnInit {
                 this.Snake_Wait.close_bar();
                 Toaster_Service.toastNotification_S("Success");
                 this.modalService.dismissAll();
+                location.reload();
+
 
 
 
@@ -333,6 +335,8 @@ export class TemplatesComponent implements OnInit {
               Toaster_Service.toastNotification_S(data.response_msg);
               this.modalService.dismissAll();
               this.Snake_Wait.close_bar();
+              location.reload();
+
   
               // alert(a.response_msg);
             },

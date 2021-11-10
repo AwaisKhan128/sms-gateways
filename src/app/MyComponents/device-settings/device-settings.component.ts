@@ -306,6 +306,8 @@ export class DeviceSettingsComponent implements OnInit {
         slot: slot,
       });
       this.modalService.dismissAll();
+      location.reload();
+
     } catch (e) {
       console.error("Error adding document: ", e);
     }

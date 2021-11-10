@@ -118,6 +118,8 @@ export class AddUSSDInquiryComponent implements OnInit {
         {
           let data = JSON.parse(JSON.stringify(res));
           Toaster_Service.toastNotification_S(data.http_response);
+          location.reload();
+
         },
         err=>
         {
@@ -137,6 +139,8 @@ export class AddUSSDInquiryComponent implements OnInit {
         {
             let data = JSON.parse(JSON.stringify(res));
             Toaster_Service.toastNotification_S(data.http_response);
+            location.reload();
+
         },
         err=>
         {
