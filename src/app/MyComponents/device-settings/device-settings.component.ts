@@ -89,7 +89,8 @@ export class DeviceSettingsComponent implements OnInit {
     (
       res=>
       {
-        console.log("updated",ID,b)
+        // console.log("updated",ID,b)
+        location.reload()
       },
       err=>
       {
@@ -98,6 +99,50 @@ export class DeviceSettingsComponent implements OnInit {
       }
     )
     
+  }
+
+  OnName(ID:any)
+  {
+    let simid = ($(".input_name#"+ID).val())
+    let body = {
+      "simId" : simid
+    }
+    this.free_api.update_sim_information(ID,body)
+    .subscribe
+    (
+      res=>
+      {
+        // console.log("updated",ID,b)
+        location.reload()
+      },
+      err=>
+      {
+        console.log(err)
+
+      }
+    )
+  }
+
+  OnDelay(ID:any)
+  {
+    let delay = ($(".input_delay#"+ID).val())
+    let body = {
+      "delay" : delay
+    }
+    this.free_api.update_sim_information(ID,body)
+    .subscribe
+    (
+      res=>
+      {
+        // console.log("updated",ID,b)
+        location.reload()
+      },
+      err=>
+      {
+        console.log(err)
+
+      }
+    )
   }
 
 

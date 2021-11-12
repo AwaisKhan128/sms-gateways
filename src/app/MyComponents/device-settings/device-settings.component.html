@@ -142,7 +142,9 @@
                   </td>
 
                   <td style="font-size: smaller;">
-                    {{sim_data?.delay}}
+                    <input type="number" id="{{sim_data.simId}}"  class="input_delay  form-control w-20 h-5 " 
+                    placeholder="{{sim_data?.delay}}" > 
+
                   </td>
 
                   <td style="font-size: smaller;">
@@ -150,6 +152,34 @@
                   </td>
 
                   <td style="font-size: smaller;">
+                    <!-- <div *ngIf="sim_data?.top_up=='off'; then thenBlock else elseBlock"></div>
+                        <ng-template #thenBlock>
+                          <div class="col">
+                            <div ngbDropdown class="d-inline-block">
+                              <button class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle>
+                                Off
+                              </button>
+                              <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                                <button ngbDropdownItem>On</button>
+                                
+                              </div>
+                            </div>
+                          </div>
+                        </ng-template>
+
+                        <ng-template #elseBlock>
+                          <div class="col">
+                            <div ngbDropdown class="d-inline-block">
+                              <button class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle>
+                                On
+                              </button>
+                              <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                                <button ngbDropdownItem>off</button>
+                                
+                              </div>
+                            </div>
+                          </div>
+                        </ng-template> -->
                     {{sim_data?.top_up}}
                   </td>
                   <td>
@@ -189,22 +219,19 @@
                         </div>
 
                         <div >
-                          <button class="btn btn-outline-warning btn-sm " (click)="Onworking(sim_data.simId)">
+                          <button class="btn btn-outline-warning btn-sm " (click)="OnName(sim_data.simId)">
                             Name 
                          </button>
                         </div>
 
                         <div >
-                          <button class="btn btn-outline-warning btn-sm " (click)="Onworking(sim_data.simId)">
+                          <button class="btn btn-outline-warning btn-sm " (click)="OnDelay(sim_data.simId)">
                             Delay 
                          </button>
                         </div>
 
                       </div>
                     </div>
-
-
-                    
 
                     
                   </td>
@@ -401,3 +428,4 @@
   </div>
 
 </ng-template>
+
