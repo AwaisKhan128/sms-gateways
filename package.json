@@ -13,7 +13,6 @@
     "heroku-postbuild": "ng build"
   },
   "private": true,
-  
   "dependencies": {
     "@angular/animations": "~12.2.0",
     "@angular/cdk": "^12.2.8",
