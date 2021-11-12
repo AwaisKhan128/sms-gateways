@@ -51,3 +51,45 @@
       width: 70%;
     }
   }
+  table.test td {
+    margin: 5px 5px 5px 5px;
+    padding: 5px 5px 5px 5px;
+  }
+  
+  table.test {
+    border-collapse: separate;
+    border-spacing: 10px;
+    width: flex;
+    *border-collapse: expression('separate', cellSpacing='10px');
+  }
+
+  .padding-table-columns td
+{
+    padding:0 5px 0 0; /* Only right padding*/
+}
+
+table {
+  table-layout: auto;
+  
+}
+
+::ng-deep .cdk-overlay-container {
+  z-index: 2000;
+
+}
+
+
+/* .timepicker-overlay {
+  z-index: 1100 !important;
+}*/
+.modal {
+  z-index: 990;
+}
+.modal-backdrop {
+  z-index: 899;
+} 
+
+
+
+
+

@@ -17,6 +17,8 @@ import { HTTPResponseSubscribedDevices } from 'src/app/Classes/subscribed_device
 import { HTTPResponseSubscribedDeviceSim } from 'src/app/Classes/subscribed_devices_sim';
 import { Toaster } from 'src/app/Helper/toaster';
 import { Toaster_Service } from 'src/app/Classes/ToasterNg';
+import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
+
 
 
 
@@ -46,6 +48,8 @@ export class DeviceSettingsComponent implements OnInit {
   data: any;
   messageFrom :any;
   messageTo :any;
+  pickedDate : any;
+  pickedTime : any;
 
   closeResult: string='';
   selectedRowIndex : number = 0
@@ -71,6 +75,30 @@ export class DeviceSettingsComponent implements OnInit {
   number!: string
   id!: string
   slot!: string
+
+  
+
+  Onworking(ID : any)
+  {
+    let b = ($(".input_balance#"+ID).val())
+    let body = {
+      "balance" : b
+    }
+    this.free_api.update_sim_information(ID,body)
+    .subscribe
+    (
+      res=>
+      {
+        console.log("updated",ID,b)
+      },
+      err=>
+      {
+        console.log(err)
+
+      }
+    )
+    
+  }
 
 
   constructor(private free_api: API_Services,public router: Router, private modalService: NgbModal) {    
@@ -142,9 +170,16 @@ export class DeviceSettingsComponent implements OnInit {
         
   
   
+      //   $(".input_balance").on('keyup', function (e) {
+      //     if (e.key === 'Enter' || e.keyCode === 13) {
+      //       console.log("this way working");
+      //         // Do something
+      //     }
+      // });
         
   
       }
+
 
     }
     else
@@ -227,6 +262,25 @@ export class DeviceSettingsComponent implements OnInit {
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
     });
   }
+
+  OpenExpiry(content:any)
+  {
+    this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then((result) => {
+      this.closeResult = `Closed with: ${result}`;
+      console.log($(result));
+    }, (reason) => {
+      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+    });
+  }
+
+  callUpdateExpiry()
+  {
+
+    console.log(this.pickedDate, this.pickedTime);
+  }
+
+
+
 
   callUpdateAPI() {
     // var body = 

@@ -12,7 +12,7 @@
       <div class="col-4">
         <label for="selects"> Select Devices</label>
         <select class="form-select form-select-sm me-auto" id="selects" aria-label=".form-select-sm example" 
-        (change)="onSubscribedDeviceChange($event)">
+        (change)="onSubscribedDeviceChange($event)" >
           <option selected *ngFor="let sd of this.subscribedDevices" 
           [value]="sd.id"
           [ngValue]="sd.id"

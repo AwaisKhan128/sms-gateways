@@ -51,6 +51,7 @@ import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
 
 import { DatePipe } from '@angular/common';
 import {MatPaginatorModule} from '@angular/material/paginator';
+import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
 
 
 // Import from library
@@ -144,7 +145,8 @@ import { EditslotDevicesettingComponent } from './MyComponents/Childs/editslot-d
     SendSMSInquiryComponent,
     AddUSSDInquiryComponent,
     SendUSSDInquiryComponent,
-    EditslotDevicesettingComponent
+    EditslotDevicesettingComponent,
+    
   ],
   imports: [
     BrowserModule,
@@ -171,6 +173,7 @@ import { EditslotDevicesettingComponent } from './MyComponents/Childs/editslot-d
     MatProgressSpinnerModule,
     MatSnackBarModule,
     MatTreeModule,
+    OwlDateTimeModule, OwlNativeDateTimeModule,
     NgxAwesomePopupModule.forRoot({
       ColorList: {
         Success: '#3caea3', // optional

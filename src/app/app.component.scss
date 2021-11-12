@@ -17,6 +17,19 @@ mat-sidenav{
 
     }
 
+    .cdk-overlay-container {
+        z-index: 500 !important;
+    }
+
+    .timepicker-overlay {
+        z-index: 10000000 !important;
+    }
+    
+    .timepicker-backdrop-overlay {
+        z-index: 10000000 !important;
+    }
+
+
     .content{
         height:max-content;
         margin: 16px;

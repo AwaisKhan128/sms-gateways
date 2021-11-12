@@ -498,6 +498,13 @@ export class API_Services{
         return this.httpClient.get(url);
     }
 
+    // ----------------Update device sim information balance and delay and expiry..
+    update_sim_information(simId:any,body:any) :Observable<any>
+    {
+        const url = API_BASE_URLS._Credential_Base + HEROKU_API_ENDPOINTS.UPDATE_SIM_Info + "?simId="+simId
+        return this.httpClient.put(url, body)
+    }
+
 
     // -----------------Create save sms inquiry data------------->
     create_balance_inquiry(body:any) : Observable<any> // Name and code
