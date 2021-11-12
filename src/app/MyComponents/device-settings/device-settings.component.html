@@ -106,19 +106,26 @@
                   value="sim_data?.id">
 
                   <td class="table-row-action">
-                    <input style="font-size: smaller;" type="text" id="{{sim_data.simId}}"  class="input_name  form-control w-38 h-10 " placeholder="{{sim_data.simId}} [{{sim_data?.id}} ]" > 
+                    <input style="font-size: smaller;" type="text" id="{{sim_data?.simId}}"  class="input_name  form-control w-38 h-10 " placeholder="{{sim_data.simId}} [{{sim_data?.id}} ]" > 
 
                   </td>
 
-                  <td class=" h-5" style="font-size: smaller;">
-                    {{sim_data?.slot}}
+                  <td class=" w-15 h-5" style="font-size: smaller;">
+                    <input type="number" id="{{sim_data?.simId}}"  class="input_slot  form-control " 
+                    placeholder="{{sim_data?.slot}}" oninput="javascript: if (this.value.length > this.maxLength  ) this.value = this.value.slice(0, this.maxLength); if(this.value!=0 && this.value!=1) this.value='' "
+                    maxlength="1" > 
+                    <!-- {{sim_data?.slot}} -->
                   </td>
 
-                  <td class="btn btn-light  h-5" style="font-size: smaller;" (click)="popup = true">
-                    {{sim_data?.number}}
+                  <td class="btn btn-light h-5 mt-2" style="font-size: smaller;" >
+                    <input type="number" id="{{sim_data?.simId}}" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                    maxlength="11" class="input_number  form-control " 
+                    placeholder="{{sim_data?.number}}" > 
+                   
                   </td>
                   <td class="table-row-action" style="font-size: smaller;">
-                    <input type="number" id="{{sim_data.simId}}"  class="input_balance  form-control w-20 h-5 " placeholder="{{sim_data?.balance}}" > 
+                    <input type="number" id="{{sim_data?.simId}}"  class="input_balance  
+                    form-control w-20 h-5 " placeholder="{{sim_data?.balance}}" > 
                   </td>
                   <td style="font-size: smaller;">
                     {{sim_data?.date}}
@@ -142,7 +149,7 @@
                   </td>
 
                   <td style="font-size: smaller;">
-                    <input type="number" id="{{sim_data.simId}}"  class="input_delay  form-control w-20 h-5 " 
+                    <input type="number" id="{{sim_data?.simId}}"  class="input_delay  form-control w-20 h-5 " 
                     placeholder="{{sim_data?.delay}}" > 
 
                   </td>
@@ -190,14 +197,14 @@
   
                         <div >
                           <button class="btn btn-outline-warning btn-sm  " value="{{i}}"
-                          (click)="actionEditSlot(EDIT_SLOT, i, sim_data?.imei, sim_data?.number, sim_data?.id, sim_data?.slot)">
+                          (click)="OnSlot(sim_data?.simId,sim_data?.id,sim_data?.imei,sim_data?.number)">
                            Slot
                         </button>
                         </div>
   
                         <div >
                           <button class="btn btn-outline-warning btn-sm "
-                          (click)="actionEditNumber(EDIT_NUMBER, i, sim_data?.imei, sim_data?.number, sim_data?.id, sim_data?.slot)">
+                          (click)="OnNumber(sim_data?.simId,sim_data?.id,sim_data?.imei,sim_data?.slot)">
                            Numbers
                         </button>
                         </div>

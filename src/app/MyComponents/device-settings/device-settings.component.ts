@@ -75,6 +75,7 @@ export class DeviceSettingsComponent implements OnInit {
   number!: string
   id!: string
   slot!: string
+  simId:string|any
 
   
 
@@ -135,6 +136,57 @@ export class DeviceSettingsComponent implements OnInit {
       res=>
       {
         // console.log("updated",ID,b)
+        location.reload()
+      },
+      err=>
+      {
+        console.log(err)
+
+      }
+    )
+  }
+
+  OnNumber(ID:any,id:any,imei:any,slot:any)
+  {
+    let number1:any = ($(".input_number#"+ID).val())
+    // this.number = number;
+    let body = {
+      "number" : number1
+    }
+    this.free_api.update_sim_information(ID,body)
+    .subscribe
+    (
+      res=>
+      {
+        // console.log("updated",ID,b)
+        Toaster_Service.toastNotification_S("Success");
+        this.commitToFirebase(id,imei,number1,slot) ;
+        location.reload()
+      },
+      err=>
+      {
+        console.log(err)
+
+      }
+    )
+  }
+
+  OnSlot(ID:any,id:any,imei:any,number:any)
+  {
+    let slot1:any = ($(".input_slot#"+ID).val())
+    console.log(slot1)
+    let body = {
+      "slot" : slot1
+    }
+    this.free_api.update_sim_information(ID,body)
+    .subscribe
+    (
+      res=>
+      {
+        // console.log(res)
+        
+        Toaster_Service.toastNotification_S("Success");
+        this.commitToFirebase(id,imei,number,slot1) ;
         location.reload()
       },
       err=>
@@ -280,12 +332,13 @@ export class DeviceSettingsComponent implements OnInit {
     }
   }
 
-  actionEditSlot(content: any, index: number, imei: string, number: string, id: string, slot: string) {
+  actionEditSlot(content: any, index: number, imei: string, number: string, id: string, slot: string,simId:any) {
     this.selectedRowIndex = index
     this.imei = imei
     this.number = number
     this.id = id
     this.slot = slot
+    this.simId = simId;
     this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
       console.log($(result));
@@ -294,12 +347,13 @@ export class DeviceSettingsComponent implements OnInit {
     });
   }
 
-  actionEditNumber(content: any, index: number, imei: string, number: string, id: string, slot: string) {
+  actionEditNumber(content: any, index: number, imei: string, number: string, id: string, slot: string,simId:any) {
     this.selectedRowIndex = index
     this.imei = imei
     this.number = number
     this.id = id
     this.slot = slot
+    this.simId = simId;
     this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
       console.log($(result));
@@ -335,7 +389,11 @@ export class DeviceSettingsComponent implements OnInit {
     //   "slot":this.slot,
     //   "imei":this.imei
     // }
+    let slot:string|any = $("#messageTo").attr('placeholder');
+    let number:string|any = $("#messageFrom").attr('placeholder');
 
+
+    console.log(slot,number)
     
 
 
@@ -343,15 +401,24 @@ export class DeviceSettingsComponent implements OnInit {
 
     if((this.messageFrom)==undefined)
     {
-      let number:string|any = $("#messageFrom").attr('placeholder');
+      let number= this.number;
+      let json = 
+      {
+        "number":number
+      }
+
+
       // console.log("number is undefined");
-      this.free_api.update_balance_sloy(this.id,number
-        ,this.messageTo,this.imei)
+      this.free_api.update_balance_sloy(this.simId,json)
         .subscribe(
             res=>
             {
               console.log(res);
+              console.log(number);
+
+              
               Toaster_Service.toastNotification_S("Success");
+
               this.commitToFirebase(this.id,this.imei,number,this.messageTo) ;
               
             },
@@ -369,15 +436,22 @@ export class DeviceSettingsComponent implements OnInit {
     {
       let slot:string|any = $("#messageTo").attr('placeholder');
 
-      this.free_api.update_balance_sloy(this.id,this.messageFrom
-        ,slot,this.imei)
+      // let slot= this.slot;
+
+
+      let json = {
+        "slot": slot
+      }
+
+      this.free_api.update_balance_sloy(this.simId,json)
         .subscribe(
             res=>
             {
               console.log(res);
               Toaster_Service.toastNotification_S("Success");
 
-              this.commitToFirebase(this.id,this.imei,this.messageFrom,slot)
+
+              // this.commitToFirebase(this.id,this.imei,this.messageFrom,slot)
                ;
               
             },

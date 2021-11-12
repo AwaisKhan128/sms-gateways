@@ -557,10 +557,10 @@ export class API_Services{
     }
 
 
-    update_balance_sloy(id:any,number:any='',slot:any='',imei:any) {
+    update_balance_sloy(id:any,body:any) {
         const header = { 'Content-Type': 'application/json' };
-        let url = API_BASE_URLS._Credential_Base + HEROKU_API_ENDPOINTS.UPDATE_DEVICE_INFO_NUMBER_SLOT + "?id="+id+"&number="+number+"&slot="+slot+"&imei="+imei
-        return this.httpClient.put(url,{headers:header})
+        let url = API_BASE_URLS._Credential_Base + HEROKU_API_ENDPOINTS.UPDATE_DEVICE_INFO_NUMBER_SLOT + "?simId="+id;
+        return this.httpClient.put(url,body,{headers:header})
     }
 
     /**

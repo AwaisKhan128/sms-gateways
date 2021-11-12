@@ -45,7 +45,7 @@ export enum HEROKU_API_ENDPOINTS {
     GET_OPERATORS_MATCHING_BALANCE_NUMBERS = "bselect/ussd/operator_balance",
     GET_OPERATORS_MATCHING_SMS_FOR_MESSAGE = "nselect/sms/operator_number",
     GET_OPERATORS_MATCHING_SMS_FOR_CALL = "bselect/sms/operator_balance",
-    UPDATE_DEVICE_INFO_NUMBER_SLOT = "subscribe/sims/subscribe_devices_info",
+    UPDATE_DEVICE_INFO_NUMBER_SLOT = "subscribe/simupdates/subscribe_devices_info",
     UPDATE_SIM_Info = "subscribe/simupdates/subscribe_devices_info"
 }
 
