@@ -85,20 +85,32 @@ export class DeviceSettingsComponent implements OnInit {
     let body = {
       "balance" : b
     }
-    this.free_api.update_sim_information(ID,body)
-    .subscribe
-    (
-      res=>
-      {
-        // console.log("updated",ID,b)
-        location.reload()
-      },
-      err=>
-      {
-        console.log(err)
 
-      }
-    )
+    if (b!="" && b!=undefined && b !=null)
+    {
+
+        this.free_api.update_sim_information(ID,body)
+        .subscribe
+        (
+          res=>
+          {
+            // console.log("updated",ID,b)
+            Toaster_Service.toastNotification_S("Balance Updated Success");
+            location.reload()
+          },
+          err=>
+          {
+            Toaster_Service.toastNotification_D("Balance Updated Failed");
+
+            console.log(err)
+
+          }
+        )
+    }
+    else{
+      Toaster_Service.toastNotification_D("Can not entertain empty inputs");
+
+    }
     
   }
 
@@ -108,20 +120,33 @@ export class DeviceSettingsComponent implements OnInit {
     let body = {
       "simId" : simid
     }
-    this.free_api.update_sim_information(ID,body)
-    .subscribe
-    (
-      res=>
-      {
-        // console.log("updated",ID,b)
-        location.reload()
-      },
-      err=>
-      {
-        console.log(err)
 
-      }
-    )
+    if (simid!="" && simid!=undefined && simid !=null)
+    {
+      this.free_api.update_sim_information(ID,body)
+      .subscribe
+      (
+        res=>
+        {
+          Toaster_Service.toastNotification_S("Name Updated Success");
+
+          // console.log("updated",ID,b)
+          location.reload()
+        },
+        err=>
+        {
+          console.log(err)
+          Toaster_Service.toastNotification_D("Name Updated Failed");
+
+
+        }
+      )
+    }
+    else
+    {
+      Toaster_Service.toastNotification_D("Can not entertain empty inputs");
+    }
+    
   }
 
   OnDelay(ID:any)
@@ -130,20 +155,35 @@ export class DeviceSettingsComponent implements OnInit {
     let body = {
       "delay" : delay
     }
+
+    if (delay!="" && delay!=undefined && delay !=null)
+    {
+
     this.free_api.update_sim_information(ID,body)
     .subscribe
     (
       res=>
       {
         // console.log("updated",ID,b)
+        Toaster_Service.toastNotification_S("Delay Updated Success");
+
         location.reload()
       },
       err=>
       {
         console.log(err)
+        Toaster_Service.toastNotification_D("Delay Updated Failed");
+
 
       }
     )
+    }
+    else
+    {
+      Toaster_Service.toastNotification_D("Can not entertain empty inputs");
+
+    }
+
   }
 
   OnNumber(ID:any,id:any,imei:any,slot:any)
@@ -153,22 +193,37 @@ export class DeviceSettingsComponent implements OnInit {
     let body = {
       "number" : number1
     }
-    this.free_api.update_sim_information(ID,body)
-    .subscribe
-    (
-      res=>
-      {
-        // console.log("updated",ID,b)
-        Toaster_Service.toastNotification_S("Success");
-        this.commitToFirebase(id,imei,number1,slot) ;
-        location.reload()
-      },
-      err=>
-      {
-        console.log(err)
 
-      }
-    )
+    if (number1!="" && number1!=undefined && number1 !=null)
+    {
+      this.free_api.update_sim_information(ID,body)
+      .subscribe
+      (
+        res=>
+        {
+          // console.log("updated",ID,b)
+          Toaster_Service.toastNotification_S("Number Updated Success");
+          this.commitToFirebase(id,imei,number1,slot) ;
+          location.reload()
+        },
+        err=>
+        {
+          Toaster_Service.toastNotification_D("Number Updated Failed");
+
+          console.log(err)
+  
+        }
+      )
+    }
+    else{
+      Toaster_Service.toastNotification_D("Can not entertain empty inputs");
+
+    }
+
+    
+    
+
+
   }
 
   OnSlot(ID:any,id:any,imei:any,number:any)
@@ -178,23 +233,33 @@ export class DeviceSettingsComponent implements OnInit {
     let body = {
       "slot" : slot1
     }
-    this.free_api.update_sim_information(ID,body)
-    .subscribe
-    (
-      res=>
-      {
-        // console.log(res)
-        
-        Toaster_Service.toastNotification_S("Success");
-        this.commitToFirebase(id,imei,number,slot1) ;
-        location.reload()
-      },
-      err=>
-      {
-        console.log(err)
 
-      }
-    )
+          if (slot1!="" && slot1!=undefined && slot1 !=null)
+          {
+
+            this.free_api.update_sim_information(ID,body)
+            .subscribe
+            (
+              res=>
+              {
+                // console.log(res)
+                
+                Toaster_Service.toastNotification_S("Slot Updated Success");
+                this.commitToFirebase(id,imei,number,slot1) ;
+                location.reload()
+              },
+              err=>
+              {
+                Toaster_Service.toastNotification_D("Slot Updated Failed");
+
+                console.log(err)
+
+              }
+            )
+          }
+          else{
+            Toaster_Service.toastNotification_D("Can not entertain empty inputs");
+          }
   }
 
 
