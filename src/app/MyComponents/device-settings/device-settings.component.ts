@@ -314,11 +314,12 @@ export class DeviceSettingsComponent implements OnInit {
             {
                 let DATA = JSON.parse(JSON.stringify(res));
                 this.device_list_details = DATA.http_response;
+                console.log(DATA)
 
-                this.device_list_details?.forEach((element: { id: string; imei: string; }) => {
-                  this.id = element?.id;
-                  this.imei = element?.imei
-                });
+                // this.device_list_details?.forEach((element: { id: string; imei: string; }) => {
+                //   this.id = element?.id;
+                //   this.imei = element?.imei
+                // });
                 
     
                 // let hidden_info = 
@@ -354,23 +355,61 @@ export class DeviceSettingsComponent implements OnInit {
   }
 
 
-  filterby(id:any)
+  filterby(id:any,specify:any,logid:any)
   {
-    this.free_api.get_subscribe_devices_details(id)
-    .subscribe
-    (
-      res=>
-      {
-          let DATA = JSON.parse(JSON.stringify(res));
-          this.device_list_details = DATA.http_response;
+    
 
-          // let hidden_info = 
-      },
-      err=>
-      {
-          console.log(err);
-      }
-    )
+    if (specify== ("Default" || "default") )
+    {
+      this.free_api.get_subscribe_devices_details(logid)
+      .subscribe
+      (
+        res=>
+        {
+            let DATA = JSON.parse(JSON.stringify(res));
+            this.device_list_details = DATA.http_response;
+  
+  
+            this.device_list_details?.forEach((element: { id: string; imei: string; }) => {
+              this.id = element?.id;
+              this.imei = element?.imei
+            });
+  
+            // let hidden_info = 
+        },
+        err=>
+        {
+            console.log(err);
+        }
+      )
+    }
+    else
+    {
+
+      this.free_api.get_subscribe_devices_detailsimei(id)
+      .subscribe
+      (
+        res=>
+        {
+            let DATA = JSON.parse(JSON.stringify(res));
+            this.device_list_details = DATA.http_response;
+  
+  
+            this.device_list_details?.forEach((element: { id: string; imei: string; }) => {
+              this.id = element?.id;
+              this.imei = element?.imei
+            });
+  
+            // let hidden_info = 
+        },
+        err=>
+        {
+            console.log(err);
+        }
+      )
+    }
+
+
 
   }
 

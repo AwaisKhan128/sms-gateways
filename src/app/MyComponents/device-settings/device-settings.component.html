@@ -20,7 +20,7 @@
                     <select id="list_selected" class="form-select form-select-sm mb-1 ms-1 me-1"
                       aria-label=".form-select-sm example">
                       <option selected>Default</option>
-                      <option *ngFor="let data of this.devices_list" (click)=filterby(data?.id) value="data?.id">
+                      <option *ngFor="let data of this.devices_list" (click)=filterby(data?.imei,data?.device,data?.id) value="data?.imei">
                         {{data?.device}}</option>
                     </select>
                   </div>

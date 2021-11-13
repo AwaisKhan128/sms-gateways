@@ -113,6 +113,11 @@ export class API_Services{
         const headers = {'Access-Control-Allow-Origin':'*'};
         return this.httpClient.get(API_BASE_URLS._Credential_Base+'subscribe/sim/subscribe_devices_info?id='+id,{headers:headers})
     }
+    get_subscribe_devices_detailsimei(imei:any|number):Observable<any>
+    {
+        const headers = {'Access-Control-Allow-Origin':'*'};
+        return this.httpClient.get(API_BASE_URLS._Credential_Base+'subscribe/sim/subscribe_devices_info?imei='+imei,{headers:headers})
+    }
 
 
 
