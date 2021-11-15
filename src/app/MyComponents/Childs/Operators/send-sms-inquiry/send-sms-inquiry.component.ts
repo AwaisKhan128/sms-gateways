@@ -1,3 +1,5 @@
+import { Toaster_Service } from './../../../../Classes/ToasterNg';
+import { USSD_History_SMS } from './../../../../Classes/USSD_history';
 import { Component, OnInit } from '@angular/core';
 import * as $ from 'jquery';
 import { Operator } from 'rxjs';
@@ -45,11 +47,22 @@ export class SendSMSInquiryComponent implements OnInit {
   selectedResponseType = 1
   ussdInquires : FirebaseUSSDInquiry[] = [];
 
+  USSD_History_SMS : USSD_History_SMS[]|any;
+  historyProgressStatus : boolean | any = false;
+  id:string|any;
+
   
 
   constructor(private apiService: API_Services) { }
 
   ngOnInit(): void {
+
+    let json = localStorage.getItem('user_data');
+
+    if (json != null) {
+      let data = JSON.parse(json);
+      this.id = data.id;
+    }
     const rt1 : InquiryResponseType = {
       id:1,
       response_type: "Number",
@@ -65,6 +78,56 @@ export class SendSMSInquiryComponent implements OnInit {
     this.responseTypes.push(rt2)
 
     this.getOperators()
+    this.Populate_USSD_SMS_History();
+  }
+
+
+  Populate_USSD_SMS_History()
+  {
+    this.historyProgressStatus = true;
+
+    if (this.selectedResponseType==1)
+    {
+
+      this.apiService.Get_ussd_info("USSD_SMS","number",this.id)
+      .subscribe(
+        res=>
+        {
+          this.historyProgressStatus = false;
+          let data : any = res;
+          this.USSD_History_SMS = data.http_response;
+          
+        },
+        err=>
+        {
+          this.historyProgressStatus = false;
+          Toaster_Service.toastNotification_D("Looks Bad! loading failed");
+          console.log(err)
+        }
+      )
+
+    }
+    if (this.selectedResponseType==2)
+    {
+
+      this.apiService.Get_ussd_info("USSD_SMS","balance",this.id)
+      .subscribe(
+        res=>
+        {
+          this.historyProgressStatus = false;
+          let data : any = res;
+          this.USSD_History_SMS = data.http_response;
+        },
+        err=>
+        {
+          this.historyProgressStatus = false;
+
+          Toaster_Service.toastNotification_D("Looks Bad! loading failed");
+          console.log(err)
+        }
+      )
+
+    }
   }
 
   populateReponseTypes() {
@@ -111,10 +174,31 @@ export class SendSMSInquiryComponent implements OnInit {
       if(rTypeSelectedID == 1) {
         this.getListOfUSSD(this.selectedOPcode.toString())
         this.selectedResponseType = 1
+        this.Populate_USSD_SMS_History();
+
       }
       else {
         this.getListOBalances(this.selectedOPcode.toString())
         this.selectedResponseType = 2
+        this.Populate_USSD_SMS_History();
+
+      } 
+    }
+    else
+    {
+      if(rTypeSelectedID == 1) {
+        // this.getListOfUSSD(this.selectedOPcode.toString())
+        this.selectedResponseType = 1
+        console.log("first working")
+        this.Populate_USSD_SMS_History();
+      }
+      else {
+        // this.getListOBalances(this.selectedOPcode.toString())
+        this.selectedResponseType = 2
+        console.log("second working")
+
+        this.Populate_USSD_SMS_History();
+
       } 
     }
   }

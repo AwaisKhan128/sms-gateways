@@ -13,7 +13,7 @@
         </option>
       </select>
     </div>
-    <div class="col-4">
+    <div class="col-6">
       <label for="selects"> Select Response Type</label>
       <select class="form-select form-select-sm me-auto" id="selects" aria-label=".form-select-sm example"
         (change)="onResponseTypeSelected($event)">
@@ -117,3 +117,79 @@
 <div *ngIf="this.phoneNumbers.length == 0">
   No devices found for this operator!
 </div>
+
+
+<div class="mt-10 card d-flex mx-auto table-responsive table" >
+  <h1>
+    History
+  </h1>
+  <table id="displayingData1" class="table " >
+    <tr>
+      
+      <th>
+        Number
+      </th>
+      <th>
+        SMS Number
+      </th>
+      <th>
+        SMS Code
+      </th>
+      <th>
+        USSD Status
+      </th>
+      
+      <th>
+        USSD Reply
+      </th>
+    </tr>
+
+    
+    <div *ngIf="this.historyProgressStatus; then Onprogress else Offprogress"></div>
+    <ng-template #Onprogress>
+      <tr>
+        <div class="loader">
+        </div>
+      </tr>
+
+    </ng-template >
+
+    <ng-template #Offprogress>
+
+      <div *ngIf="this.USSD_History_SMS?.length; then thenBlock else elseBlock"></div>
+    </ng-template>
+
+
+
+
+    <ng-template #thenBlock>
+
+      <tr id="displayingNumbers" *ngFor="let data of this.USSD_History_SMS">
+        
+        <td >
+          {{data?.Number}}
+        </td>
+        <td>
+          {{data?.SMS_Number}}
+        </td>
+        <td>
+          {{data?.SMS_Code}}
+        </td>
+        <td>
+          {{data?.USSD_Status}}
+        </td>
+        <td>
+          {{data?.USSD_Reply}}
+        </td>
+      </tr>
+
+    </ng-template>
+    <ng-template #elseBlock>
+      <tr>
+        No Records Found!
+      </tr>
+    </ng-template>
+
+  </table>
+</div>
+

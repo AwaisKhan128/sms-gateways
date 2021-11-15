@@ -1,164 +1,186 @@
-<div style="font-family: 'Times New Roman', Times, serif;font-size:medium">
-
-
-
-  <div class=" h-auto w-auto p-2 " style="font-family: 'Times New Roman', Times, serif;font-size:medium">
+<div style="font-family: 'Times New Roman', Times, serif; font-size: medium">
+  <div
+    class="h-auto w-auto p-2"
+    style="font-family: 'Times New Roman', Times, serif; font-size: medium"
+  >
     <div class="row align-items-center h-100 p-2">
-      <div class="col-12 mx-auto ">
-        <div class="card h-auto shadow-sm p-3 mb-5 bg-white rounded border-primary justify-content-center">
+      <div class="col-12 mx-auto">
+        <div
+          class="
+            card
+            h-auto
+            shadow-sm
+            p-3
+            mb-5
+            bg-white
+            rounded
+            border-primary
+            justify-content-center
+          "
+        >
           <div class="mb-10 p-2">
-
-            <h1 class="display-4 justify-content-center">
-              Devices
-            </h1>
+            <h1 class="display-4 justify-content-center">Devices</h1>
             <div class="login-block d-flex justify-content-center">
-
               <div class="container-fluid mt-5">
-
                 <div class="row d-flex">
                   <div class="col-8">
-                    <select id="list_selected" class="form-select form-select-sm mb-1 ms-1 me-1"
-                      aria-label=".form-select-sm example">
+                    <select
+                      id="list_selected"
+                      class="form-select form-select-sm mb-1 ms-1 me-1"
+                      aria-label=".form-select-sm example"
+                    >
                       <option selected>Default</option>
-                      <option *ngFor="let data of this.devices_list" (click)=filterby(data?.imei,data?.device,data?.id) value="data?.imei">
-                        {{data?.device}}</option>
+                      <option
+                        *ngFor="let data of this.devices_list"
+                        (click)="filterby(data?.imei, data?.device, data?.id)"
+                        value="data?.imei">
+
+                        {{ data?.device }}
+                        
+                      </option>
                     </select>
                   </div>
 
                   <div class="col-2">
-                    <select id="list_selected" class="form-select form-select-sm mb-1 ms-1 me-1"
-                      aria-label=".form-select-sm example">
+                    <select
+                      id="list_selected"
+                      class="form-select form-select-sm mb-1 ms-1 me-1"
+                      aria-label=".form-select-sm example"
+                    >
                       <option selected>Auto</option>
-
                     </select>
                   </div>
                 </div>
-
-
               </div>
             </div>
-
           </div>
         </div>
       </div>
     </div>
   </div>
   <!-- New Work committed -->
-  <div class=" h-auto w-auto p-2  " style="font-family: 'Times New Roman', Times, serif;font-size:medium">
+  <div
+    class="h-auto w-auto p-2"
+    style="font-family: 'Times New Roman', Times, serif; font-size: medium"
+  >
     <div class="row align-items-center h-100 p-1">
-      <div class="col-30 mx-auto ">
-        <div class="card h-auto shadow-sm p-1 mb-5 bg-white rounded border-primary justify-content-center">
+      <div class="col-30 mx-auto">
+        <div
+          class="
+            card
+            h-auto
+            shadow-sm
+            p-1
+            mb-5
+            bg-white
+            rounded
+            border-primary
+            justify-content-center
+          "
+        >
           <div>
-
-            <h1 class="display-4 justify-content-center">
-              Devices Management
-            </h1>
-            <div class=" card d-inline-flex justify-content-center   w-100" style="overflow-x:auto;">
-              <table class=" table-responsive test" style="overflow-x:auto;">
+            <h1 class="display-4 justify-content-center">Devices Management</h1>
+            <div
+              class="card d-inline-flex justify-content-center w-100"
+              style="overflow-x: auto"
+            >
+              <table class="table-responsive test" style="overflow-x: auto">
                 <tr>
+                  <th>Name</th>
 
-                  <th>
-                    Name
-                  </th>
-
-                  <th>
-                    Slot
-                  </th>
-                  <th>
-                    Number
-                  </th>
-                  <th>
-                    Balance
-                  </th>
-                  <th>
-                    Date
-                  </th>
-                  <th>
-                    Time
-                  </th>
-                  <th>
-                    Expiry Time
-                  </th>
-                  <th>
-                    Sim Status
-                  </th>
-                  <th>
-                    Success %
-                  </th>
-                  <th>
-                    Delay
-                  </th>
-                  <th>
-                    Phone Status
-                  </th>
-                  <th>
-                    Top up
-                  </th>
-                  <th>
-                    Action
-                  </th>
-
-
-
+                  <th>Slot</th>
+                  <th>Number</th>
+                  <th>Balance</th>
+                  <th>Date</th>
+                  <th>Time</th>
+                  <th>Expiry Time</th>
+                  <th>Sim Status</th>
+                  <th>Success %</th>
+                  <th>Delay</th>
+                  <th>Phone Status</th>
+                  <th>Top up</th>
+                  <th>Action</th>
                 </tr>
 
-                <tr *ngFor="let sim_data of device_list_details,index as i" class="hover-highlight"
-                  value="sim_data?.id">
-
+                <tr
+                  *ngFor="let sim_data of device_list_details; index as i"
+                  class="hover-highlight"
+                  value="sim_data?.id"
+                >
                   <td class="table-row-action">
-                    <input style="font-size: smaller;" type="text" id="{{sim_data?.simId}}"  class="input_name  form-control w-38 h-10 " placeholder="{{sim_data.simId}} [{{sim_data?.id}} ]" > 
-
+                    <input
+                      style="font-size: smaller"
+                      type="text"
+                      id="{{ sim_data?.simId }}"
+                      class="input_name form-control w-38 h-10"
+                      placeholder="{{ sim_data.simId }} [{{ sim_data?.id }} ]"
+                    />
                   </td>
 
-                  <td class=" w-15 h-5" style="font-size: smaller;">
-                    <input type="number" id="{{sim_data?.simId}}"  class="input_slot  form-control " 
-                    placeholder="{{sim_data?.slot}}" oninput="javascript: if (this.value.length > this.maxLength  ) this.value = this.value.slice(0, this.maxLength); if(this.value!=0 && this.value!=1) this.value='' "
-                    maxlength="1" > 
+                  <td class="w-15 h-5" style="font-size: smaller">
+                    <input
+                      type="number"
+                      id="{{ sim_data?.simId }}"
+                      class="input_slot form-control"
+                      placeholder="{{ sim_data?.slot }}"
+                      oninput="javascript: if (this.value.length > this.maxLength  ) this.value = this.value.slice(0, this.maxLength); if(this.value!=0 && this.value!=1) this.value='' "
+                      maxlength="1"
+                    />
                     <!-- {{sim_data?.slot}} -->
                   </td>
 
-                  <td class="btn btn-light h-5 mt-2" style="font-size: smaller;" >
-                    <input type="number" id="{{sim_data?.simId}}" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
-                    maxlength="11" class="input_number  form-control " 
-                    placeholder="{{sim_data?.number}}" > 
-                   
+                  <td class="btn btn-light h-5 mt-2" style="font-size: smaller">
+                    <input
+                      type="number"
+                      id="{{ sim_data?.simId }}"
+                      oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                      maxlength="11"
+                      class="input_number form-control"
+                      placeholder="{{ sim_data?.number }}"
+                    />
                   </td>
-                  <td class="table-row-action" style="font-size: smaller;">
-                    <input type="number" id="{{sim_data?.simId}}"  class="input_balance  
-                    form-control w-20 h-5 " placeholder="{{sim_data?.balance}}" > 
+                  <td class="table-row-action" style="font-size: smaller">
+                    <input
+                      type="number"
+                      id="{{ sim_data?.simId }}"
+                      class="input_balance form-control w-20 h-5"
+                      placeholder="{{ sim_data?.balance }}"
+                    />
                   </td>
-                  <td style="font-size: smaller;">
-                    {{sim_data?.date}}
-                  </td>
-
-                  <td  style="font-size: smaller;">
-                    {{sim_data?.time}}
-                  </td>
-
-                  <td style="font-size: smaller;">
-                    {{sim_data?.ex_time}}
-                    
-                  </td>
-
-                  <td style="font-size: smaller;">
-                    {{sim_data?.sim_Status}}
+                  <td style="font-size: smaller">
+                    {{ sim_data?.date }}
                   </td>
 
-                  <td style="font-size: smaller;">
-                    {{sim_data?.success}}
+                  <td style="font-size: smaller">
+                    {{ sim_data?.time }}
                   </td>
 
-                  <td style="font-size: smaller;">
-                    <input type="number" id="{{sim_data?.simId}}"  class="input_delay  form-control w-20 h-5 " 
-                    placeholder="{{sim_data?.delay}}" > 
-
+                  <td style="font-size: smaller">
+                    {{ sim_data?.ex_time }}
                   </td>
 
-                  <td style="font-size: smaller;">
-                    {{sim_data?.phone_Status}}
+                  <td style="font-size: smaller">
+                    {{ sim_data?.sim_Status }}
                   </td>
 
-                  <td style="font-size: smaller;">
+                  <td style="font-size: smaller">
+                    {{ sim_data?.success }}
+                  </td>
+
+                  <td style="font-size: smaller">
+                    <input
+                      type="number"
+                      id="{{ sim_data?.simId }}"
+                      class="input_delay form-control w-20 h-5"
+                      placeholder="{{ sim_data?.delay }}"
+                    />
+                  </td>
+
+                  <td style="font-size: smaller">
+                    {{ sim_data?.phone_Status }}
+                  </td>
+
+                  <td style="font-size: smaller">
                     <!-- <div *ngIf="sim_data?.top_up=='off'; then thenBlock else elseBlock"></div>
                         <ng-template #thenBlock>
                           <div class="col">
@@ -187,171 +209,184 @@
                             </div>
                           </div>
                         </ng-template> -->
-                    {{sim_data?.top_up}}
+                    {{ sim_data?.top_up }}
                   </td>
                   <td>
-
                     <div class="container">
+                      <div class="d-flex" style="font-size: smaller">
+                        <div>
+                          <button
+                            class="btn btn-outline-warning btn-sm"
+                            value="{{ i }}"
+                            (click)="
+                              OnSlot(
+                                sim_data?.simId,
+                                sim_data?.id,
+                                sim_data?.imei,
+                                sim_data?.number
+                              )
+                            "
+                          >
+                            Slot
+                          </button>
+                        </div>
 
-                      <div class=" d-flex"  style="font-size: smaller;">
-  
-                        <div >
-                          <button class="btn btn-outline-warning btn-sm  " value="{{i}}"
-                          (click)="OnSlot(sim_data?.simId,sim_data?.id,sim_data?.imei,sim_data?.number)">
-                           Slot
-                        </button>
+                        <div>
+                          <button
+                            class="btn btn-outline-warning btn-sm"
+                            (click)="
+                              OnNumber(
+                                sim_data?.simId,
+                                sim_data?.id,
+                                sim_data?.imei,
+                                sim_data?.slot
+                              )
+                            "
+                          >
+                            Numbers
+                          </button>
                         </div>
-  
-                        <div >
-                          <button class="btn btn-outline-warning btn-sm "
-                          (click)="OnNumber(sim_data?.simId,sim_data?.id,sim_data?.imei,sim_data?.slot)">
-                           Numbers
-                        </button>
+
+                        <div>
+                          <button
+                            class="btn btn-outline-warning btn-sm"
+                            (click)="OpenExpiry(EDIT_Expiry)"
+                          >
+                            Expiry
+                          </button>
                         </div>
-  
-                        <div >
-                          <button class="btn btn-outline-warning btn-sm " (click)="OpenExpiry(EDIT_Expiry)">
-                            Expiry 
-                         </button>
-                        </div>
-  
-                        
                       </div>
 
-                      <div class="d-flex" style="font-size: smaller;">
-                        <div >
-                          <button class="btn btn-outline-warning btn-sm " (click)="Onworking(sim_data.simId)">
-                            Balance 
-                         </button>
+                      <div class="d-flex" style="font-size: smaller">
+                        <div>
+                          <button
+                            class="btn btn-outline-warning btn-sm"
+                            (click)="Onworking(sim_data.simId)"
+                          >
+                            Balance
+                          </button>
                         </div>
 
-                        <div >
-                          <button class="btn btn-outline-warning btn-sm " (click)="OnName(sim_data.simId)">
-                            Name 
-                         </button>
+                        <div>
+                          <button
+                            class="btn btn-outline-warning btn-sm"
+                            (click)="OnName(sim_data.simId)"
+                          >
+                            Name
+                          </button>
                         </div>
 
-                        <div >
-                          <button class="btn btn-outline-warning btn-sm " (click)="OnDelay(sim_data.simId)">
-                            Delay 
-                         </button>
+                        <div>
+                          <button
+                            class="btn btn-outline-warning btn-sm"
+                            (click)="OnDelay(sim_data.simId)"
+                          >
+                            Delay
+                          </button>
                         </div>
-
                       </div>
                     </div>
-
-                    
                   </td>
-
-
-
 
                   <div class="overlay" *ngIf="popup">
                     <div class="popup">
                       <h2>Details</h2>
                       <a class="close" (click)="popup = false">&times;</a>
                       <div class="content">
-
                         <div class="row">
-
                           <div class="col">
-                            <th>
-                              IMEI
-                            </th>
-
+                            <th>IMEI</th>
                           </div>
 
                           <div class="col">
-
-                            <th>
-                              Android Version
-                            </th>
+                            <th>Android Version</th>
                           </div>
-
-
-
                         </div>
-
 
                         <div class="row">
                           <div class="col">
-
                             <td>
-                              {{sim_data?.imei}}
-
+                              {{ sim_data?.imei }}
                             </td>
-
                           </div>
                           <div class="col">
-
                             <td>
-                              {{sim_data?.android_ver}}
+                              {{ sim_data?.android_ver }}
                             </td>
                           </div>
-
-
-
-
                         </div>
-
-
-
                       </div>
                     </div>
                   </div>
-
                 </tr>
-
               </table>
-
-
             </div>
-
-
           </div>
         </div>
       </div>
     </div>
   </div>
-
 </div>
 
-
-
 <ng-template #EDIT_SLOT let-modal>
-  <div class=" mt-100 " style="font-size: large;font-family:'Times New Roman', Times, serif ;">
+  <div
+    class="mt-100"
+    style="font-size: large; font-family: 'Times New Roman', Times, serif"
+  >
     <p>Edit Slot</p>
     <div class="card mt-5 w-auto h-auto">
       <div>
-        <div class="container-fluid ">
+        <div class="container-fluid">
           <form (ngSubmit)="callUpdateAPI()">
             <div class="card-block">
               <div class="mb-3">
                 <label for="messageFrom" class="form-label">For Number </label>
-                <input type="string" class="form-control"
+                <input
+                  type="string"
+                  class="form-control"
                   oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
-                  maxlength="11" [(ngModel)]="messageFrom" id="messageFrom" placeholder="{{this.number}}"
-                  aria-describedby="emailHelp" name="messageFrom" disabled=true value="{{this.number}}">
+                  maxlength="11"
+                  [(ngModel)]="messageFrom"
+                  id="messageFrom"
+                  placeholder="{{ this.number }}"
+                  aria-describedby="emailHelp"
+                  name="messageFrom"
+                  disabled="true"
+                  value="{{ this.number }}"
+                />
               </div>
               <div class="mb-3">
                 <label for="messageTo" class="form-label">Slot</label>
-                <input type="string" class="form-control" inputmode="numeric" pattern="[0-1]*"
+                <input
+                  type="string"
+                  class="form-control"
+                  inputmode="numeric"
+                  pattern="[0-1]*"
                   oninput="javascript: if (this.value.length > this.maxLength  ) this.value = this.value.slice(0, this.maxLength); if(this.value!=0 && this.value!=1) this.value='' "
-                  maxlength="1" [(ngModel)]="messageTo" id="messageTo" placeholder="1" name="messageTo"
-                  value="{{this.slot}}">
+                  maxlength="1"
+                  [(ngModel)]="messageTo"
+                  id="messageTo"
+                  placeholder="1"
+                  name="messageTo"
+                  value="{{ this.slot }}"
+                />
               </div>
               <div class="d-flex">
-                
-                  <button class="btn btn-primary mb-1" type="submit">Update Slot</button>
-                
+                <button class="btn btn-primary mb-1" type="submit">
+                  Update Slot
+                </button>
 
                 <span>
-                  <button class="btn btn-info ms-1 mt-1 mb-1 me-1" (click)="modal.dismiss('Cross click')">Cancel</button>
+                  <button
+                    class="btn btn-info ms-1 mt-1 mb-1 me-1"
+                    (click)="modal.dismiss('Cross click')"
+                  >
+                    Cancel
+                  </button>
                 </span>
               </div>
             </div>
           </form>
-          
         </div>
       </div>
     </div>
@@ -359,80 +394,130 @@
 </ng-template>
 
 <ng-template #EDIT_NUMBER let-modal>
-  <div class=" mt-100 " style="font-size: large;font-family:'Times New Roman', Times, serif ;">
+  <div
+    class="mt-100"
+    style="font-size: large; font-family: 'Times New Roman', Times, serif"
+  >
     <p>Edit Number</p>
     <div class="card mt-5 w-auto h-auto">
       <div>
-        <div class="container-fluid ">
+        <div class="container-fluid">
           <form (ngSubmit)="callUpdateAPI()">
             <div class="card-block">
               <div class="mb-3">
                 <label for="messageTo" class="form-label">For Slot </label>
-                <input type="string" class="form-control"
+                <input
+                  type="string"
+                  class="form-control"
                   oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
-                  [(ngModel)]="messageTo" maxlength="1" placeholder="{{this.slot}}" id="messageTo"
-                  aria-describedby="emailHelp" name="messageTo" disabled=true value="{{this.slot}}">
+                  [(ngModel)]="messageTo"
+                  maxlength="1"
+                  placeholder="{{ this.slot }}"
+                  id="messageTo"
+                  aria-describedby="emailHelp"
+                  name="messageTo"
+                  disabled="true"
+                  value="{{ this.slot }}"
+                />
               </div>
               <div class="mb-3">
                 <label for="messageFrom" class="form-label">Number</label>
-                <input type="string" class="form-control"
+                <input
+                  type="string"
+                  class="form-control"
                   oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
-                  [(ngModel)]="messageFrom" maxlength="11" id="messageFrom" name="messageFrom" value="{{this.number}}">
+                  [(ngModel)]="messageFrom"
+                  maxlength="11"
+                  id="messageFrom"
+                  name="messageFrom"
+                  value="{{ this.number }}"
+                />
               </div>
               <div class="d-flex">
-                
-                  <button class="btn btn-primary mb-1" type="submit">Update Number</button>
-                
+                <button class="btn btn-primary mb-1" type="submit">
+                  Update Number
+                </button>
+
                 <span>
-                  <button class="btn btn-info ms-1 mt-1 mb-1 me-1" (click)="modal.dismiss('Cross click')">Cancel</button>
+                  <button
+                    class="btn btn-info ms-1 mt-1 mb-1 me-1"
+                    (click)="modal.dismiss('Cross click')"
+                  >
+                    Cancel
+                  </button>
                 </span>
               </div>
             </div>
           </form>
-          
         </div>
       </div>
     </div>
   </div>
 </ng-template>
 
-
-<ng-template  #EDIT_Expiry let-modal>
-  <div class=" mt-100 " style="font-size: large;font-family:'Times New Roman', Times, serif ; ">
+<ng-template #EDIT_Expiry let-modal>
+  <div
+    class="mt-100"
+    style="font-size: large; font-family: 'Times New Roman', Times, serif"
+  >
     <p class="container-fluid">Update Expiry</p>
     <div class="card mt-5 w-auto h-auto">
       <div>
-        <div class="container-fluid ">
+        <div class="container-fluid">
           <form (ngSubmit)="callUpdateExpiry()">
             <div class="card-block">
               <div class="mb-3">
-                <div class="  mb-2 p-2" >
-                  <input class="form-control" id="schedule_input_sms_date" placeholder="Choose a Date" matInput [matDatepicker]="picker" [(ngModel)] = "this.pickedDate" (click)="picker.open()"  readonly>
-                  <mat-datepicker   #picker></mat-datepicker>
+                <div class="mb-2 p-2">
+                  <input
+                    class="form-control"
+                    id="schedule_input_sms_date"
+                    placeholder="Choose a Date"
+                    matInput
+                    [matDatepicker]="picker"
+                    [(ngModel)]="this.pickedDate"
+                    (click)="picker.open()"
+                    readonly
+                  />
+                  <mat-datepicker #picker></mat-datepicker>
 
-                  <input class="form-control" id="schedule_input_sms_time" placeholder="Choose a Time" aria-label="default time" [(ngModel)] = "this.pickedTime" [ngxTimepicker]="defaultValue" [value]="'23:15'"  readonly>
-                  <ngx-material-timepicker style="z-index: 1100;"  #defaultValue></ngx-material-timepicker>
+                  <input
+                    class="form-control"
+                    id="schedule_input_sms_time"
+                    placeholder="Choose a Time"
+                    aria-label="default time"
+                    [(ngModel)]="this.pickedTime"
+                    [ngxTimepicker]="defaultValue"
+                    [value]="'23:15'"
+                    readonly
+                  />
+                  <ngx-material-timepicker
+                    style="z-index: 1100"
+                    #defaultValue
+                  ></ngx-material-timepicker>
                 </div>
               </div>
 
               <div class="d-flex">
-                  <button class="btn btn-primary ms-1 mt-1 mb-1 me-1" type="submit">
-                      Update 
+                <button
+                  class="btn btn-primary ms-1 mt-1 mb-1 me-1"
+                  type="submit"
+                >
+                  Update
+                </button>
+
+                <span>
+                  <button
+                    class="btn btn-info ms-1 mt-1 mb-1 me-1"
+                    (click)="modal.dismiss('Cross click')"
+                  >
+                    Cancel
                   </button>
-
-                  <span>
-                    <button class="btn btn-info ms-1 mt-1 mb-1 me-1" (click)="modal.dismiss('Cross click')">Cancel</button>
-                  </span>
-
+                </span>
               </div>
-              
             </div>
           </form>
-          
         </div>
       </div>
     </div>
   </div>
-
 </ng-template>
-

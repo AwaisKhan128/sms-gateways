@@ -1,34 +1,46 @@
-import { devices_list, device_list_details } from './../../Classes/devices_list';
+import {
+  devices_list,
+  device_list_details,
+} from './../../Classes/devices_list';
 import { Component, OnInit } from '@angular/core';
 import { API_Services } from 'src/app/APIS/freeapi.service';
 import { EncodeDecode } from 'src/app/Classes/EncodeDec64';
-import {FlatTreeControl} from '@angular/cdk/tree';
-import {MatTreeFlatDataSource, MatTreeFlattener} from '@angular/material/tree';
+import { FlatTreeControl } from '@angular/cdk/tree';
+import {
+  MatTreeFlatDataSource,
+  MatTreeFlattener,
+} from '@angular/material/tree';
 import * as $ from 'jquery';
 import { Router } from '@angular/router';
-import { ModalDismissReasons, NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import {
+  ModalDismissReasons,
+  NgbActiveModal,
+  NgbModal,
+} from '@ng-bootstrap/ng-bootstrap';
 import { EditslotDevicesettingComponent } from '../Childs/editslot-devicesetting/editslot-devicesetting.component';
 
-
 // Import the functions you need from the SDKs you need
-import { initializeApp } from "firebase/app";
-import { collection, addDoc, setDoc, doc, getFirestore } from "firebase/firestore"; 
+import { initializeApp } from 'firebase/app';
+import {
+  collection,
+  addDoc,
+  setDoc,
+  doc,
+  getFirestore,
+} from 'firebase/firestore';
 import { HTTPResponseSubscribedDevices } from 'src/app/Classes/subscribed_devices';
 import { HTTPResponseSubscribedDeviceSim } from 'src/app/Classes/subscribed_devices_sim';
 import { Toaster } from 'src/app/Helper/toaster';
 import { Toaster_Service } from 'src/app/Classes/ToasterNg';
 import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
 
-
-
-
 const firebaseConfig = {
-  apiKey: "AIzaSyDyiduM5noPodZMAYyXMeMZxY4gOac3_fI",
-  authDomain: "sms-gateway-app-bf4bc.firebaseapp.com",
-  projectId: "sms-gateway-app-bf4bc",
-  storageBucket: "sms-gateway-app-bf4bc.appspot.com",
-  messagingSenderId: "330157825905",
-  appId: "1:330157825905:web:e9d7e8575b215f0a22e0d0"
+  apiKey: 'AIzaSyDyiduM5noPodZMAYyXMeMZxY4gOac3_fI',
+  authDomain: 'sms-gateway-app-bf4bc.firebaseapp.com',
+  projectId: 'sms-gateway-app-bf4bc',
+  storageBucket: 'sms-gateway-app-bf4bc.appspot.com',
+  messagingSenderId: '330157825905',
+  appId: '1:330157825905:web:e9d7e8575b215f0a22e0d0',
 };
 
 // Initialize Firebase
@@ -38,22 +50,22 @@ const db = getFirestore();
 @Component({
   selector: 'app-device-settings',
   templateUrl: './device-settings.component.html',
-  styleUrls: ['./device-settings.component.css']
+  styleUrls: ['./device-settings.component.css'],
 })
 export class DeviceSettingsComponent implements OnInit {
   name = 'Angular';
   enableEdit = false;
   enableEditIndex = null;
-  window: any["$"] = $;
+  window: any['$'] = $;
   data: any;
-  messageFrom :any;
-  messageTo :any;
-  pickedDate : any;
-  pickedTime : any;
+  messageFrom: any;
+  messageTo: any;
+  pickedDate: any;
+  pickedTime: any;
 
-  closeResult: string='';
-  selectedRowIndex : number = 0
-  thisWasSelectedToUpdateDevice : devices_list | undefined;
+  closeResult: string = '';
+  selectedRowIndex: number = 0;
+  thisWasSelectedToUpdateDevice: devices_list | undefined;
 
   enableEditMethod(e, i) {
     this.enableEdit = true;
@@ -61,368 +73,255 @@ export class DeviceSettingsComponent implements OnInit {
     console.log(i, e);
   }
 
-
-
-
   // ----------------------->
   show = 'A';
-  popup:any;
+  popup: any;
 
+  devices_list: devices_list[] | any;
+  device_list_details: device_list_details[] | any;
+  imei!: string;
+  number!: string;
+  id!: string;
+  slot!: string;
+  simId: string | any;
 
-  devices_list : devices_list[]|any;
-  device_list_details: device_list_details[]|any;
-  imei!: string
-  number!: string
-  id!: string
-  slot!: string
-  simId:string|any
-
-  
-
-  Onworking(ID : any)
-  {
-    let b = ($(".input_balance#"+ID).val())
+  Onworking(ID: any) {
+    let b = $('.input_balance#' + ID).val();
     let body = {
-      "balance" : b
+      balance: b,
+    };
+
+    if (b != '' && b != undefined && b != null) {
+      this.free_api.update_sim_information(ID, body).subscribe(
+        (res) => {
+          // console.log("updated",ID,b)
+          Toaster_Service.toastNotification_S('Balance Updated Success');
+          location.reload();
+        },
+        (err) => {
+          Toaster_Service.toastNotification_D('Balance Updated Failed');
+
+          console.log(err);
+        }
+      );
+    } else {
+      Toaster_Service.toastNotification_D('Can not entertain empty inputs');
     }
-
-    if (b!="" && b!=undefined && b !=null)
-    {
-
-        this.free_api.update_sim_information(ID,body)
-        .subscribe
-        (
-          res=>
-          {
-            // console.log("updated",ID,b)
-            Toaster_Service.toastNotification_S("Balance Updated Success");
-            location.reload()
-          },
-          err=>
-          {
-            Toaster_Service.toastNotification_D("Balance Updated Failed");
-
-            console.log(err)
-
-          }
-        )
-    }
-    else{
-      Toaster_Service.toastNotification_D("Can not entertain empty inputs");
-
-    }
-    
   }
 
-  OnName(ID:any)
-  {
-    let simid = ($(".input_name#"+ID).val())
+  OnName(ID: any) {
+    let simid = $('.input_name#' + ID).val();
     let body = {
-      "simId" : simid
-    }
+      simId: simid,
+    };
 
-    if (simid!="" && simid!=undefined && simid !=null)
-    {
-      this.free_api.update_sim_information(ID,body)
-      .subscribe
-      (
-        res=>
-        {
-          Toaster_Service.toastNotification_S("Name Updated Success");
+    if (simid != '' && simid != undefined && simid != null) {
+      this.free_api.update_sim_information(ID, body).subscribe(
+        (res) => {
+          Toaster_Service.toastNotification_S('Name Updated Success');
 
           // console.log("updated",ID,b)
-          location.reload()
+          location.reload();
         },
-        err=>
-        {
-          console.log(err)
-          Toaster_Service.toastNotification_D("Name Updated Failed");
-
-
+        (err) => {
+          console.log(err);
+          Toaster_Service.toastNotification_D('Name Updated Failed');
         }
-      )
+      );
+    } else {
+      Toaster_Service.toastNotification_D('Can not entertain empty inputs');
     }
-    else
-    {
-      Toaster_Service.toastNotification_D("Can not entertain empty inputs");
-    }
-    
   }
 
-  OnDelay(ID:any)
-  {
-    let delay = ($(".input_delay#"+ID).val())
+  OnDelay(ID: any) {
+    let delay = $('.input_delay#' + ID).val();
     let body = {
-      "delay" : delay
+      delay: delay,
+    };
+
+    if (delay != '' && delay != undefined && delay != null) {
+      this.free_api.update_sim_information(ID, body).subscribe(
+        (res) => {
+          // console.log("updated",ID,b)
+          Toaster_Service.toastNotification_S('Delay Updated Success');
+
+          location.reload();
+        },
+        (err) => {
+          console.log(err);
+          Toaster_Service.toastNotification_D('Delay Updated Failed');
+        }
+      );
+    } else {
+      Toaster_Service.toastNotification_D('Can not entertain empty inputs');
     }
-
-    if (delay!="" && delay!=undefined && delay !=null)
-    {
-
-    this.free_api.update_sim_information(ID,body)
-    .subscribe
-    (
-      res=>
-      {
-        // console.log("updated",ID,b)
-        Toaster_Service.toastNotification_S("Delay Updated Success");
-
-        location.reload()
-      },
-      err=>
-      {
-        console.log(err)
-        Toaster_Service.toastNotification_D("Delay Updated Failed");
-
-
-      }
-    )
-    }
-    else
-    {
-      Toaster_Service.toastNotification_D("Can not entertain empty inputs");
-
-    }
-
   }
 
-  OnNumber(ID:any,id:any,imei:any,slot:any)
-  {
-    let number1:any = ($(".input_number#"+ID).val())
+  OnNumber(ID: any, id: any, imei: any, slot: any) {
+    let number1: any = $('.input_number#' + ID).val();
     // this.number = number;
     let body = {
-      "number" : number1
-    }
+      number: number1,
+    };
 
-    if (number1!="" && number1!=undefined && number1 !=null)
-    {
-      this.free_api.update_sim_information(ID,body)
-      .subscribe
-      (
-        res=>
-        {
+    if (number1 != '' && number1 != undefined && number1 != null) {
+      this.free_api.update_sim_information(ID, body).subscribe(
+        (res) => {
           // console.log("updated",ID,b)
-          Toaster_Service.toastNotification_S("Number Updated Success");
-          this.commitToFirebase(id,imei,number1,slot) ;
-          location.reload()
+          Toaster_Service.toastNotification_S('Number Updated Success');
+          this.commitToFirebase(id, imei, number1, slot);
+          location.reload();
         },
-        err=>
-        {
-          Toaster_Service.toastNotification_D("Number Updated Failed");
+        (err) => {
+          Toaster_Service.toastNotification_D('Number Updated Failed');
 
-          console.log(err)
-  
+          console.log(err);
         }
-      )
+      );
+    } else {
+      Toaster_Service.toastNotification_D('Can not entertain empty inputs');
     }
-    else{
-      Toaster_Service.toastNotification_D("Can not entertain empty inputs");
-
-    }
-
-    
-    
-
-
   }
 
-  OnSlot(ID:any,id:any,imei:any,number:any)
-  {
-    let slot1:any = ($(".input_slot#"+ID).val())
-    console.log(slot1)
+  OnSlot(ID: any, id: any, imei: any, number: any) {
+    let slot1: any = $('.input_slot#' + ID).val();
+    console.log(slot1);
     let body = {
-      "slot" : slot1
+      slot: slot1,
+    };
+
+    if (slot1 != '' && slot1 != undefined && slot1 != null) {
+      this.free_api.update_sim_information(ID, body).subscribe(
+        (res) => {
+          // console.log(res)
+
+          Toaster_Service.toastNotification_S('Slot Updated Success');
+          this.commitToFirebase(id, imei, number, slot1);
+          location.reload();
+        },
+        (err) => {
+          Toaster_Service.toastNotification_D('Slot Updated Failed');
+
+          console.log(err);
+        }
+      );
+    } else {
+      Toaster_Service.toastNotification_D('Can not entertain empty inputs');
     }
-
-          if (slot1!="" && slot1!=undefined && slot1 !=null)
-          {
-
-            this.free_api.update_sim_information(ID,body)
-            .subscribe
-            (
-              res=>
-              {
-                // console.log(res)
-                
-                Toaster_Service.toastNotification_S("Slot Updated Success");
-                this.commitToFirebase(id,imei,number,slot1) ;
-                location.reload()
-              },
-              err=>
-              {
-                Toaster_Service.toastNotification_D("Slot Updated Failed");
-
-                console.log(err)
-
-              }
-            )
-          }
-          else{
-            Toaster_Service.toastNotification_D("Can not entertain empty inputs");
-          }
   }
 
-
-  constructor(private free_api: API_Services,public router: Router, private modalService: NgbModal) {    
-  }
+  constructor(
+    private free_api: API_Services,
+    public router: Router,
+    private modalService: NgbModal
+  ) {}
 
   ngOnInit(): void {
+    let json = localStorage.getItem('user_data');
+    let json1 = localStorage.getItem('user_status');
 
-    let json = localStorage.getItem("user_data");
-    let json1 = localStorage.getItem("user_status");
-
-
-    if (json1!=null)
-    {
-      if(json!=null)
-      {
-  
+    if (json1 != null) {
+      if (json != null) {
         this.data = JSON.parse(json);
-  
-  
+
         // let username = this.data.username;
         // let password = EncodeDecode.b64DecodeUnicode( this.data.passcode);
-  
+
         // let username = myCredentials.username;
         // let password = ( myCredentials.password);
         // let auth = EncodeDecode.b64EncodeUnicode(username+':'+password)
-  
+
         {
           let auth_id = this.data.id;
-        
-  
-          this.free_api.get_subscribe_devices(auth_id)
-          .subscribe
-          (
-            res=>
-            {
-                let data = JSON.parse(JSON.stringify(res));
-                this.devices_list = data.http_response;
-                
-  
+
+          this.free_api.get_subscribe_devices(auth_id).subscribe(
+            (res) => {
+              let data = JSON.parse(JSON.stringify(res));
+              this.devices_list = data.http_response;
             },
-            err=>
-            {
+            (err) => {
               console.log(err);
             }
-          )
-    
-          this.free_api.get_subscribe_devices_details(auth_id)
-          .subscribe
-          (
-            res=>
-            {
-                let DATA = JSON.parse(JSON.stringify(res));
-                this.device_list_details = DATA.http_response;
-                console.log(DATA)
+          );
 
-                // this.device_list_details?.forEach((element: { id: string; imei: string; }) => {
-                //   this.id = element?.id;
-                //   this.imei = element?.imei
-                // });
-                
-    
-                // let hidden_info = 
+          this.free_api.get_subscribe_devices_details(auth_id).subscribe(
+            (res) => {
+              let DATA = JSON.parse(JSON.stringify(res));
+              this.device_list_details = DATA.http_response;
+              console.log(DATA);
+
+              // this.device_list_details?.forEach((element: { id: string; imei: string; }) => {
+              //   this.id = element?.id;
+              //   this.imei = element?.imei
+              // });
+
+              // let hidden_info =
             },
-            err=>
-            {
-                console.log(err);
+            (err) => {
+              console.log(err);
             }
-          )
+          );
         }
-        
-  
-  
-      //   $(".input_balance").on('keyup', function (e) {
-      //     if (e.key === 'Enter' || e.keyCode === 13) {
-      //       console.log("this way working");
-      //         // Do something
-      //     }
-      // });
-        
-  
+
+        //   $(".input_balance").on('keyup', function (e) {
+        //     if (e.key === 'Enter' || e.keyCode === 13) {
+        //       console.log("this way working");
+        //         // Do something
+        //     }
+        // });
       }
-
-
+    } else {
+      this.router.navigate(['./']);
     }
-    else
-    {
-      this.router.navigate(['./'])
-    }
-
-
-
   }
 
+  filterby(id: any, specify: any, logid: any) {
+    if (specify == ('Default' || 'default')) {
+      this.free_api.get_subscribe_devices_details(logid).subscribe(
+        (res) => {
+          let DATA = JSON.parse(JSON.stringify(res));
+          this.device_list_details = DATA.http_response;
 
-  filterby(id:any,specify:any,logid:any)
-  {
-    
-
-    if (specify== ("Default" || "default") )
-    {
-      this.free_api.get_subscribe_devices_details(logid)
-      .subscribe
-      (
-        res=>
-        {
-            let DATA = JSON.parse(JSON.stringify(res));
-            this.device_list_details = DATA.http_response;
-  
-  
-            this.device_list_details?.forEach((element: { id: string; imei: string; }) => {
+          this.device_list_details?.forEach(
+            (element: { id: string; imei: string }) => {
               this.id = element?.id;
-              this.imei = element?.imei
-            });
-  
-            // let hidden_info = 
-        },
-        err=>
-        {
-            console.log(err);
-        }
-      )
-    }
-    else
-    {
+              this.imei = element?.imei;
+            }
+          );
 
-      this.free_api.get_subscribe_devices_detailsimei(id)
-      .subscribe
-      (
-        res=>
-        {
-            let DATA = JSON.parse(JSON.stringify(res));
-            this.device_list_details = DATA.http_response;
-  
-  
-            this.device_list_details?.forEach((element: { id: string; imei: string; }) => {
+          // let hidden_info =
+        },
+        (err) => {
+          console.log(err);
+        }
+      );
+    } else {
+      this.free_api.get_subscribe_devices_detailsimei(id).subscribe(
+        (res) => {
+          let DATA = JSON.parse(JSON.stringify(res));
+          this.device_list_details = DATA.http_response;
+
+          this.device_list_details?.forEach(
+            (element: { id: string; imei: string }) => {
               this.id = element?.id;
-              this.imei = element?.imei
-            });
-  
-            // let hidden_info = 
+              this.imei = element?.imei;
+            }
+          );
+
+          // let hidden_info =
         },
-        err=>
-        {
-            console.log(err);
+        (err) => {
+          console.log(err);
         }
-      )
+      );
     }
-
-
-
   }
 
-  
-
-  showupdate_sim(event:any)
-  {
+  showupdate_sim(event: any) {
     console.log(event);
-
   }
 
-  sim(event:any)
-  {
+  sim(event: any) {
     console.log(event);
   }
 
@@ -436,147 +335,152 @@ export class DeviceSettingsComponent implements OnInit {
     }
   }
 
-  actionEditSlot(content: any, index: number, imei: string, number: string, id: string, slot: string,simId:any) {
-    this.selectedRowIndex = index
-    this.imei = imei
-    this.number = number
-    this.id = id
-    this.slot = slot
+  actionEditSlot(
+    content: any,
+    index: number,
+    imei: string,
+    number: string,
+    id: string,
+    slot: string,
+    simId: any
+  ) {
+    this.selectedRowIndex = index;
+    this.imei = imei;
+    this.number = number;
+    this.id = id;
+    this.slot = slot;
     this.simId = simId;
-    this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then((result) => {
-      this.closeResult = `Closed with: ${result}`;
-      console.log($(result));
-    }, (reason) => {
-      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-    });
+    this.modalService
+      .open(content, { ariaLabelledBy: 'modal-basic-title' })
+      .result.then(
+        (result) => {
+          this.closeResult = `Closed with: ${result}`;
+          console.log($(result));
+        },
+        (reason) => {
+          this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+        }
+      );
   }
 
-  actionEditNumber(content: any, index: number, imei: string, number: string, id: string, slot: string,simId:any) {
-    this.selectedRowIndex = index
-    this.imei = imei
-    this.number = number
-    this.id = id
-    this.slot = slot
+  actionEditNumber(
+    content: any,
+    index: number,
+    imei: string,
+    number: string,
+    id: string,
+    slot: string,
+    simId: any
+  ) {
+    this.selectedRowIndex = index;
+    this.imei = imei;
+    this.number = number;
+    this.id = id;
+    this.slot = slot;
     this.simId = simId;
-    this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then((result) => {
-      this.closeResult = `Closed with: ${result}`;
-      console.log($(result));
-    }, (reason) => {
-      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-    });
+    this.modalService
+      .open(content, { ariaLabelledBy: 'modal-basic-title' })
+      .result.then(
+        (result) => {
+          this.closeResult = `Closed with: ${result}`;
+          console.log($(result));
+        },
+        (reason) => {
+          this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+        }
+      );
   }
 
-  OpenExpiry(content:any)
-  {
-    this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then((result) => {
-      this.closeResult = `Closed with: ${result}`;
-      console.log($(result));
-    }, (reason) => {
-      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-    });
+  OpenExpiry(content: any) {
+    this.modalService
+      .open(content, { ariaLabelledBy: 'modal-basic-title' })
+      .result.then(
+        (result) => {
+          this.closeResult = `Closed with: ${result}`;
+          console.log($(result));
+        },
+        (reason) => {
+          this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+        }
+      );
   }
 
-  callUpdateExpiry()
-  {
-
+  callUpdateExpiry() {
     console.log(this.pickedDate, this.pickedTime);
   }
 
-
-
-
   callUpdateAPI() {
-    // var body = 
+    // var body =
     // {
     //   "id": this.id,
     //   "number":this.number,
     //   "slot":this.slot,
     //   "imei":this.imei
     // }
-    let slot:string|any = $("#messageTo").attr('placeholder');
-    let number:string|any = $("#messageFrom").attr('placeholder');
+    let slot: string | any = $('#messageTo').attr('placeholder');
+    let number: string | any = $('#messageFrom').attr('placeholder');
 
-
-    console.log(slot,number)
-    
-
+    console.log(slot, number);
 
     // console.log(this.messageFrom,this.messageTo);
 
-    if((this.messageFrom)==undefined)
-    {
-      let number= this.number;
-      let json = 
-      {
-        "number":number
-      }
-
+    if (this.messageFrom == undefined) {
+      let number = this.number;
+      let json = {
+        number: number,
+      };
 
       // console.log("number is undefined");
-      this.free_api.update_balance_sloy(this.simId,json)
-        .subscribe(
-            res=>
-            {
-              console.log(res);
-              console.log(number);
+      this.free_api.update_balance_sloy(this.simId, json).subscribe(
+        (res) => {
+          console.log(res);
+          console.log(number);
 
-              
-              Toaster_Service.toastNotification_S("Success");
+          Toaster_Service.toastNotification_S('Success');
 
-              this.commitToFirebase(this.id,this.imei,number,this.messageTo) ;
-              
-            },
-            err=>
-            {
-              console.log("Error due to = "+err);
-              Toaster_Service.toastNotification_D("Failed");
-
-            }
-  
-      )
+          this.commitToFirebase(this.id, this.imei, number, this.messageTo);
+        },
+        (err) => {
+          console.log('Error due to = ' + err);
+          Toaster_Service.toastNotification_D('Failed');
+        }
+      );
     }
 
-    if((this.messageTo)==undefined)
-    {
-      let slot:string|any = $("#messageTo").attr('placeholder');
+    if (this.messageTo == undefined) {
+      let slot: string | any = $('#messageTo').attr('placeholder');
 
       // let slot= this.slot;
 
-
       let json = {
-        "slot": slot
-      }
+        slot: slot,
+      };
 
-      this.free_api.update_balance_sloy(this.simId,json)
-        .subscribe(
-            res=>
-            {
-              console.log(res);
-              Toaster_Service.toastNotification_S("Success");
+      this.free_api.update_balance_sloy(this.simId, json).subscribe(
+        (res) => {
+          console.log(res);
+          Toaster_Service.toastNotification_S('Success');
 
+          // this.commitToFirebase(this.id,this.imei,this.messageFrom,slot)
+        },
+        (err) => {
+          Toaster_Service.toastNotification_D('Failed');
 
-              // this.commitToFirebase(this.id,this.imei,this.messageFrom,slot)
-               ;
-              
-            },
-            err=>
-            {
-              Toaster_Service.toastNotification_D("Failed");
-
-              console.log("Error due to = "+err);
-            }
-  
-      )
+          console.log('Error due to = ' + err);
+        }
+      );
     }
-
-    
   }
 
-  async commitToFirebase(id:string, imei:string,number:string,slot:string) {
+  async commitToFirebase(
+    id: string,
+    imei: string,
+    number: string,
+    slot: string
+  ) {
     try {
-      
       // Add a new document in collection "cities"
-      const docRef = await setDoc(doc(db, "DeviceSetting", "ds_"+id), {
+      const docRef = await setDoc(doc(db, 'DeviceSetting', 'ds_' + id), {
         id: id,
         imei: imei,
         number: number,
@@ -584,10 +488,8 @@ export class DeviceSettingsComponent implements OnInit {
       });
       this.modalService.dismissAll();
       location.reload();
-
     } catch (e) {
-      console.error("Error adding document: ", e);
+      console.error('Error adding document: ', e);
     }
   }
-
 }

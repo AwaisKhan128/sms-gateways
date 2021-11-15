@@ -11,6 +11,7 @@ export interface SubscribedDevicesSim {
 
 export interface HTTPResponseSubscribedDeviceSim {
     id?:           number;
+    simId?:        string;
     sim?:          string;
     number?:       string;
     balance?:      string;

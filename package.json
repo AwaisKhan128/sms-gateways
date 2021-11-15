@@ -33,6 +33,7 @@
     "aggregate-error": "^4.0.0",
     "ajv": "^8.6.3",
     "ajv-errors": "^3.0.0",
+    "angular-responsive-tables": "^0.4.4",
     "ansi-colors": "^4.1.1",
     "ansi-escapes": "^5.0.0",
     "arr-diff": "^4.0.0",

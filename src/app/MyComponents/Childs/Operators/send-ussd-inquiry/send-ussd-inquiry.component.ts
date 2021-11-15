@@ -1,3 +1,5 @@
+import { Toaster_Service } from './../../../../Classes/ToasterNg';
+import { USSD_History } from './../../../../Classes/USSD_history';
 import { Component, OnInit } from '@angular/core';
 import * as $ from 'jquery';
 import { Operator } from 'rxjs';
@@ -45,8 +47,13 @@ export class SendUSSDInquiryComponent implements OnInit {
   selectedUSSD = ""
   selectedOPcode = "0"
   selectedResponseType = 1
+  historyProgressStatus:boolean = false;
+  records:boolean = false;
 
+  id :any;
   ussdInquires : FirebaseUSSDInquiry[] = [];
+
+  USSD_History : USSD_History[]|any;
 
   constructor(private apiService: API_Services) { }
 
@@ -55,8 +62,81 @@ export class SendUSSDInquiryComponent implements OnInit {
 
   
   ngOnInit(): void {
+    
+    let json = localStorage.getItem('user_data');
+
+    if (json != null) {
+      let data = JSON.parse(json);
+      this.id = data.id;
+    }
     this.populateReponseTypes()
     this.getOperators()
+    this.populateUSSDHistory()
+  }
+
+
+  populateUSSDHistory()
+  {
+    this.historyProgressStatus = true;
+
+    {
+
+      if (this.selectedResponseType==1)
+    {
+
+      this.apiService.Get_ussd_info("USSD_Response","number",this.id)
+      .subscribe
+      (
+        res=>
+        {
+
+          let data:any = (res);
+          console.log(data);
+          this.USSD_History = "Search"
+          this.USSD_History = (data.http_response);
+          console.log("number data success")
+          this.historyProgressStatus = false;
+
+
+        },
+        err=>
+        {
+          Toaster_Service.toastNotification_D("Error retreiving Data!");
+          this.historyProgressStatus = false;
+
+        }
+      )
+    }
+    else if (this.selectedResponseType==2)
+    {
+      this.apiService.Get_ussd_info("USSD_Response","balance",this.id)
+      .subscribe
+      (
+        res=>
+        {
+
+          let data:any = (res);
+          console.log(data)
+          this.USSD_History = "Search"
+          this.USSD_History = (data.http_response);
+          this.historyProgressStatus = false;
+          console.log("balance data success")
+
+
+
+        },
+        err=>
+        {
+          Toaster_Service.toastNotification_D("Error retreiving Data!");
+          this.historyProgressStatus = false;
+        }
+      )
+    }
+    }
+    
+    
+
+
   }
 
 
@@ -79,6 +159,7 @@ export class SendUSSDInquiryComponent implements OnInit {
 
   //change events
   onOperatorCodeSelected(event: any) {
+    this.records = true;
     const opCode = <string>event.target.value;
     console.log(opCode)
     this.selectedOPcode = opCode
@@ -87,10 +168,12 @@ export class SendUSSDInquiryComponent implements OnInit {
       this.populateReponseTypes()
       this.getListOfDevicesForOperator(opCode.toString())
       this.getListOfUSSD(this.selectedOPcode.toString())
+      this.records = false;
     }
     else {
       this.phoneNumbers = [];
       this.ussds = [];
+      this.records = false;
     }
   }
 
@@ -98,14 +181,35 @@ export class SendUSSDInquiryComponent implements OnInit {
     const rTypeSelectedID = <number>event.target.value;
     console.log("selected response type",rTypeSelectedID)
     console.log("selected 222",this.responseTypes)
+
     if (this.selectedOPcode != "NONE") {
       if(rTypeSelectedID == 1) {
-        this.selectedResponseType == 1
+        this.selectedResponseType = 1
+        this.populateUSSDHistory();
         this.getListOfUSSD(this.selectedOPcode.toString())
       }
       else {
-        this.selectedResponseType == 2
+        this.selectedResponseType = 2
+        this.populateUSSDHistory();
         this.getListOBalances(this.selectedOPcode.toString())
+
+      } 
+      
+    }
+    else
+    {
+      if(rTypeSelectedID == 1) {
+        console.log("working selected response1")
+        this.selectedResponseType = 1
+        this.populateUSSDHistory();
+        // this.getListOfUSSD(this.selectedOPcode.toString())
+      }
+      else {
+        console.log("working selected response2")
+        this.selectedResponseType = 2
+        this.populateUSSDHistory();
+        // this.getListOBalances(this.selectedOPcode.toString())
+
       } 
     }
   }

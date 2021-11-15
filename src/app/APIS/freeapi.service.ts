@@ -568,6 +568,16 @@ export class API_Services{
         return this.httpClient.put(url,body,{headers:header})
     }
 
+    Get_ussd_info(table:any,type:any,id:any)
+    {
+        const header = {'Content-Type':'application/json'};
+        let url = API_BASE_URLS._Credential_Base + HEROKU_API_ENDPOINTS.GET_USSD_Info+"/"+table+"/"+type+"?id="+id;
+        return this.httpClient.get(url,{headers:header})
+    }
+    
+
+
+
     /**
    * Handle Http operation that failed.
    * Let the app continue.

@@ -37,14 +37,16 @@
               "src/styles.css",
               "./node_modules/bootstrap/dist/css/bootstrap.min.css",
               "./node_modules/tailwindcss/dist/tailwind.min.css",
-              "./node_modules/bootstrap-icons/font/bootstrap-icons.css"
+              "./node_modules/bootstrap-icons/font/bootstrap-icons.css",
+              "release/angular-responsive-tables.min.css"
             ],
             "scripts": [
               "./node_modules/bootstrap/dist/js/bootstrap.js",
               "./node_modules/jquery/dist/jquery.js",
               "./node_modules/jquery/dist/jquery.min.js",
               "./node_modules/tailwindcss/scripts/build.js",
-              "./node_modules/popper.js/dist/umd/popper.min.js"
+              "./node_modules/popper.js/dist/umd/popper.min.js",
+              "release/angular-responsive-tables.min.js" 
               
             ]
           },

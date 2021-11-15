@@ -48,6 +48,7 @@ export class SenderRemoteSmsComponent implements OnInit {
   pickedDate: string = "" //new Date().toDateString();
   pickedTime: string = "";
   defaultValue:any;
+  simId:any|string;
 
   userSelectedASubscribedDevice = 0
   userID: number = 0; 
@@ -68,6 +69,7 @@ export class SenderRemoteSmsComponent implements OnInit {
     $('#schedule_input_sms_time').prop('disabled', true);
     this.fetchSMSTemplates()
     console.log("REMOTE MESSAGESSS")
+
 
 
     let json = localStorage.getItem("user_data");
@@ -106,7 +108,22 @@ export class SenderRemoteSmsComponent implements OnInit {
   simSelectionChangeHandler (event: any) {
     console.log("selected device SIM/PHONE is is 1")
     const selectedSim = <number>event.target.value;
+    let  simIds:any = "none";
+
+    this.sims.forEach( obj => {
+      
+      if (event.target.value==obj.number)
+      {
+        simIds = obj.simId;
+      }
+    });
+
+    console.log("SimID is "+ simIds)
+
+    // console.log(event.target);
     console.log("selected sim  is",selectedSim)
+
+
     if (selectedSim !== null || selectedSim != undefined) {
       this.messageFrom = selectedSim.toString()
       console.log("selected sim is",this.messageFrom)
@@ -223,6 +240,23 @@ export class SenderRemoteSmsComponent implements OnInit {
         userid: "rm"+this.userID,
         from: this.messageFrom,
       });
+
+      this.sims.forEach(obj => {
+        if (obj.number==this.messageFrom)
+        {
+          let delay = obj.delay;
+          if (delay !=null||undefined||"")
+          {
+            $("#MessageSender").hide();
+            setTimeout(()=>{                           // <<<---using ()=> syntax
+              $("#MessageSender").show();
+                }, Number(delay)*1000);
+          }
+        }
+        
+      });
+
+
     } catch (e) {
       console.error("Error adding document: ", e);
     }
