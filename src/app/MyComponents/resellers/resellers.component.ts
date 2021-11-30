@@ -210,6 +210,8 @@ export class ResellersComponent implements OnInit {
   
       // var auths = EncodeDecode.b64EncodeUnicode(myCredentials.username + ":" + myCredentials.password);
       
+
+      
       this.freeapi.create_reseller(this.create_Reseller)
       .subscribe
       (
