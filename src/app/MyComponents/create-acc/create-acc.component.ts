@@ -1,3 +1,5 @@
+import { Toaster_Service } from 'src/app/Classes/ToasterNg';
+import { Snake_Waiting } from 'src/app/Classes/Waiting_bar';
 import { send_Code } from './../../Classes/Verify_acc';
 import { Component, OnInit } from '@angular/core';
 
@@ -38,17 +40,13 @@ export class CreateAccComponent implements OnInit {
    _Currency:any;
    _subaccount:any;
 
-
-   
-
-
   // --------------->
 
 
  window: any["$"] = $; 
   //  ------------
 
-  constructor(private freeapi :API_Services) { }
+  constructor(private freeapi :API_Services,private snakeBar: Snake_Waiting) { }
 
   ngOnInit(): void {
     this.freeapi.getCountriess()
@@ -61,21 +59,50 @@ export class CreateAccComponent implements OnInit {
 
     )
 
-
-    
-
   }
   
 
   public async CreateIt()
   {
+this.snakeBar.start_bar("Please Wait");
+    let json = 
+    {
+      "first_name" : this.fname,
+      "last_name" : this.lname,
+      "username" : this.uname,
+      "user_email" : this.email,
+      "password" : this.email1,
+      "account_name" : this.business_name,
+      "user_phone" : this.number,
+      "country": $("#option_value").val()
 
+    }
+
+    this.freeapi.create_superadmin(json)
+    .subscribe
+    (
+        res =>
+        {
+          Toaster_Service.toastNotification_S(res);
+          this.snakeBar.close_bar()
+          console.log("Registration Completed! "+res);
+
+        },
+        err=>
+        {
+          Toaster_Service.toastNotification_D(err);
+          this.snakeBar.close_bar()
+          console.log(err);
+        }
+      
+    )
 
 
 
     // $("#fname").val('')
     // $("#email").val('')
     // $("#email1").val('')
+
   }
 
 

@@ -1,39 +1,60 @@
-<div class="container h-auto p-2">
-    <div class="row align-items-center h-100 p-2">
-        <div class="col-7 mx-auto ">
-            <div class="card h-100 border-primary justify-content-center">
-                <div class="mb-10 p-2">
-
-                    <div class="jumbotron ">
-                        <h2 class="display-3 d-flex justify-content-center">Type Your Code Here</h2>
-                        <p class="lead d-flex justify-content-center">Coder verifier powered by SMS Gateways </p>
-
-                        
-
-                        <div class="mt-10">
-                            
-                            <form (ngSubmit)="Verify()">
-                                <div class="card-block" >
-
-                                  <div class="mb-3">
-                                    <label for="otp1" class="form-label">OTP</label>
-                                    <input type="number" [(ngModel)]="code" name="code" class="form-control" id="otp1" aria-describedby="emailHelp">
-                                  </div>
-                                  
-                                  
-                                      <button type="submit"  class="btn btn-primary d-flex-inline ms-auto">
-                                          Verify</button>
-                          
-                                </div>
-                              </form>
 
 
-                        </div>
-                        
-                    </div>
+<link
+  href="https://fonts.googleapis.com/css?family=Lato:300,400,700&display=swap"
+  rel="stylesheet"
+/>
 
-                </div>
-            </div>
+<link
+  rel="stylesheet"
+  href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+/>
+<!-- <link rel="stylesheet" href="/src/app/MyComponents/sign-in/sign-in.component.css"> -->
+
+<body class="img js-fullheight">
+  <section class="ftco-section">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-md-6 text-center mb-5">
+          <h2 class="heading-section">Login</h2>
         </div>
+      </div>
+      <div class="row justify-content-center">
+        <div class="col-md-6 col-lg-4">
+          <div class="login-wrap p-0">
+            <h3 class="mb-4 text-center">SMS Gateways Pvt. Ltd</h3>
+            <form (ngSubmit)="Verify()" class="signin-form">
+              <div class="form-group">
+                <input
+                type="number"
+                [(ngModel)]="code"
+                name="code"
+                class="form-control"
+                id="otp1"
+                  class="form-control"
+                  placeholder="OTP"
+                  required
+                />
+              </div>
+              
+              <div class="form-group">
+                <button
+                  type="submit"
+                  style="background-color: blue"
+                  class="form-control btn btn-primary submit px-3"
+                >
+                  Verify
+                </button>
+              </div>
+              <div class="form-group d-md-flex">
+              
+                
+              </div>
+            </form>
+            
+          </div>
+        </div>
+      </div>
     </div>
-</div>
+  </section>
+</body>

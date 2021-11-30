@@ -1,92 +1,102 @@
-<div class="container h-auto p-2">
-  <div class="row align-items-center h-auto p-2">
-      <div class="col-7 mx-auto ">
-        <div class="card h-auto shadow-sm p-3 mb-5 bg-white rounded justify-content-center">
-              <div class="mb-10 p-2">
-                
- 
-                <div class="ms-auto">
-                  <h1 class="container-fluid display-4" id="heads">
-                    Create Account
-                  </h1>
-                
-                  <div class="container-fluid p-auto">
-                    <form (ngSubmit)="CreateIt()">
-                
-                      <div class="mb-3">
-                        <label for="uname" class="form-label">Username</label>
-                        <input class="form-control" [(ngModel)]="uname" name="uname" id="uname">
-                      </div>
-                
-                      <div class="mb-3">
-                        <label for="business_name" class="form-label">Business Profile</label>
-                        <input class="form-control" [(ngModel)]="business_name" name="business_name" id="business_name">
-                      </div>
-                
-                      <div class="mb-3">
-                        <label for="fname" class="form-label">First Name</label>
-                        <input class="form-control" [(ngModel)]="fname" name="fname" id="fname">
-                      </div>
-                
-                      <div class="mb-3">
-                        <label for="lname" class="form-label">Last Name</label>
-                        <input class="form-control" [(ngModel)]="lname" name="lname" id="lname">
-                      </div>
-                
-                
-                      <div class="row ">
-                        <div class="col-sm-2 mt-4">
-                
-                          <div class="ms-auto mt-3 ">
-                            <select class="form-select form-select-sm me-auto" id="selects1" aria-label=".form-select-sm example">
-                
-                              <!-- <option  id="options"  selected>Select Country</option> -->
-                              <option *ngFor="let country of contries_data" id="option_value" [value]="country.code">
-                                {{country.value}}
-                              </option>
-                
-                            </select>
-                          </div>
-                          
-                        </div>
-                        <div class="col">
-                
-                          <div class="mb-2">
-                            <label for="number" class="form-label">Phone</label>
-                            <input type="number" class="form-control" placeholder="Without Country Code" [(ngModel)]="number" name="number" id="number">
-                          </div>
-                
-                        </div>
-                      </div>
-                
-                
-                
-                      <div class="mb-3">
-                        <label for="email" class="form-label">Email</label>
-                        <input type="email" class="form-control" [(ngModel)]="email" name="email" id="email"
-                          aria-describedby="emailHelp">
-                        <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
-                      </div>
-                      <div class="mb-3">
-                        <label for="email1" class="form-label">Password</label>
-                        <input type="password" class="form-control" [(ngModel)]="email1" name="email1" id="email1"
-                          aria-describedby="emailHelp">
-                
-                      </div>
-                      <div class="mb-3 ">
-                      </div>
-                      <button type="submit" class="btn btn-primary">Create Account</button>
-                    </form>
+
+
+<link href="https://fonts.googleapis.com/css?family=Lato:300,400,700&display=swap" rel="stylesheet">
+
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <!-- <link rel="stylesheet" href="/src/app/MyComponents/sign-in/sign-in.component.css"> -->
+	
+
+	<body class="img js-fullheight" >
+	<section class="ftco-section">
+		<div class="container">
+			<div class="row justify-content-center">
+				<div class="col-md-6 text-center mb-5">
+					<h2 class="heading-section">Create Account </h2>
+				</div>
+			</div>
+			<div class="row justify-content-center">
+				<div class="col-md-6 col-lg-4">
+					<div class="login-wrap p-0">
+		      	<h3 class="mb-4 text-center">SMS Gateways Pvt. Ltd</h3>
+		      	<form (ngSubmit)="CreateIt()" class="signin-form">
+		      		<div class="form-group">
+                <input class="form-control" [(ngModel)]="uname" name="uname" id="uname" type="text" placeholder="Username">
+		      		</div>
+	            <div class="form-group">
+                <input class="form-control" [(ngModel)]="business_name" name="business_name" id="business_name" placeholder="Business Name">
+	            </div>
+
+              <div class="form-group">
+                <input class="form-control" [(ngModel)]="fname" name="fname" id="fname" placeholder="First Name">
+	            </div>
+
+              <div class="form-group">
+                <input class="form-control" [(ngModel)]="lname" name="lname" id="lname" placeholder="Last Name">
+	            </div>
+
+              <div class="form-group">
+                <div class="row ">
+                  <div class="col-sm-2 ">
+          
+                    <div class="ms-auto mt-3 ">
+                      <select class="form-select form-select-sm me-auto" id="selects1" aria-label=".form-select-sm example">
+          
+                        <!-- <option  id="options"  selected>Select Country</option> -->
+                        <option *ngFor="let country of contries_data" id="option_value" [value]="country.code">
+                          {{country.value}}
+                        </option>
+          
+                      </select>
+                    </div>
+                    
                   </div>
-                
+                  <div class="col">
+                    <div class="mb-2">
+                      <input type="number" class="form-control" placeholder="Without Country Code" [(ngModel)]="number" name="number" id="number">
+                    </div>
+          
+                  </div>
                 </div>
 
-              </div>
-          </div>
-      </div>
-  </div>
-</div>
+                <div class="form-group">
+                  <input type="email" class="form-control" [(ngModel)]="email" name="email" id="email"
+                    aria-describedby="emailHelp" placeholder="Email">
+                </div>
 
+                <div class="form-group">
+                  <input type="password" class="form-control" [(ngModel)]="email1" name="email1" id="email1"
+                          placeholder="Password">
+                </div>
+	            </div>
 
+	            <div class="form-group">
+	            	<button type="submit" style="background-color: blue;" class="form-control btn btn-primary submit px-3">Create Account</button>
+	            </div>
+	            <div class="form-group d-md-flex">
+	            	<!-- <div class="w-50">
+		            	<label class="checkbox-wrap checkbox-primary">Remember Me
+									  <input type="checkbox" checked>
+									  <span class="checkmark"></span>
+									</label>
+								</div> -->
+								<div class="w-50 text-md-right">
+									<a  style="color: #fff">Forgot Username</a>
+								</div>
+
+                <div class="w-50 text-md-right">
+									<a  style="color: #fff">Forgot Password</a>
+								</div>
+	            </div>
+	          </form>
+	          <!-- <p class="w-100 text-center">&mdash; Or Sign In With &mdash;</p>
+	          <div class="social d-flex text-center">
+	          	<a href="#" class="px-2 py-2 mr-md-1 rounded"><span class="ion-logo-facebook mr-2"></span> Facebook</a>
+	          	<a href="#" class="px-2 py-2 ml-md-1 rounded"><span class="ion-logo-twitter mr-2"></span> Twitter</a>
+	          </div> -->
+		      </div>
+				</div>
+			</div>
+		</div>
+	</section>
 
 

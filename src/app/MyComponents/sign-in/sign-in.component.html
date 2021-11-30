@@ -1,129 +1,61 @@
-<div class="container h-auto p-2">
-  <div class="row align-items-center h-100 p-2">
-    <div class="col-7 mx-auto ">
-      <div class="card h-auto shadow-sm p-3 mb-5 bg-white rounded border-primary justify-content-center">
-        <div class="mb-10 p-2">
-
-          <div class="row d-flex">
-            <div class="col-sm-6">
-              <h1 class="display-4 ms-5">
-                Log in
-              </h1>
-
-
-              
-
-            </div>
-
-
-            <div class="col-sm-4">
-              <select (change)="getChoice()" id="list_choice" class="form-select form-select-sm mb-1 ms-1 me-1"
-              aria-label=".form-select-sm example">
-              <option  value="0">Super Admin
-              </option>
-              <option  value="1">Admin
-              </option>
-              <option  value="2">Reseller
-              </option>
-
-            </select>
-            </div>
-          </div>
-
-
-
-          <div class="login-block d-flex justify-content-center">
-
-            <div class="container-fluid ">
-              <form (ngSubmit)="LogIn()">
-                <div class="card-block">
-
-                  <div class="mb-3">
-
-                    <div class="row">
-                      <div class="col">
-                        <label for="uname" class="form-label">User Name</label>
-                      </div>
-                      <div class="col-4 mt-1 ms-auto d-flex-inline" style="color: blue;">
-                        <!-- <a href="mailto:someone@example.com">Send email</a> -->
-                        <a [routerLink]=""  id="forget_user"> Forget Username?</a>
-                      </div>
-                    </div>
-                    <input type="text" [(ngModel)]="uname" name="uname" class="form-control" placeholder="Username"
-                      id="uname" aria-describedby="emailHelp">
-
-                  </div>
-                  <div class="mb-3">
-                    <div class="row">
-                      <div class="col">
-                        <label for="passcode" class="form-label">Password</label>
-
-                      </div>
-                      <div class="col-4 mt-1 ms-auto d-flex-inline" style="color: blue;">
-                        <a [routerLink]="" id="forget_pass" > Forget Password?</a>
-                      </div>
-                    </div>
-                    <input type="password" placeholder="Password" [(ngModel)]="passcode" name="passcode"
-                      class="form-control" id="passcode">
-                  </div>
-                  <div class="mb-3 ">
-                    <!-- <p>Not a Member?
-                      <a [routerLink]='["createacc"]' class="link-primary">Click Here </a>
-                    </p> -->
-
-
-                  </div>
-                  <div class="mb-3 ">
-                    <!-- <p>Wants to switch to board?
-                      <a [routerLink]='["profile"]' class="link-primary">Profile </a>
-                    </p> -->
-
-                  </div>
-
-                  <div class="mb-3 ">
-                    <!-- <p>Wants to switch to Verify?
-                      <a [routerLink]='["verify"]' class="link-primary">Verify </a>
-                    </p> -->
-
-                  </div>
-
-                  <button type="submit" class="btn btn-primary">Login</button>
-
-                </div>
-              </form>
-
-              <!-- Google Sign in -->
-
-              <!-- <div class="row">
-                      <div class="container-fluid ms-3" >
-                        <button  type="button" class="btn btn-light; mb-2">
-                          <img style="padding-left: 30;" src="https://img.icons8.com/color/16/000000/google-logo.png"> Signup Using Google
-                        </button>
-                      </div>
-
-                    </div>
-                
-                    <div class="row">
-                      <div class="container-fluid ms-3"  >
-                        <button type="button" class="btn btn-light">
-                          <img  width="30" height="20" src="https://1000logos.net/wp-content/uploads/2021/04/Facebook-logo-768x480.png"> Signup Using Facebook
-                        </button>
-                      </div>
-
-                    </div> -->
-
-
-              >
 
 
 
 
-              <!--  -->
-            </div>
-          </div>
 
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
+<link href="https://fonts.googleapis.com/css?family=Lato:300,400,700&display=swap" rel="stylesheet">
+
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <!-- <link rel="stylesheet" href="/src/app/MyComponents/sign-in/sign-in.component.css"> -->
+	
+
+	<body class="img js-fullheight" >
+	<section class="ftco-section">
+		<div class="container">
+			<div class="row justify-content-center">
+				<div class="col-md-6 text-center mb-5">
+					<h2 class="heading-section">Login </h2>
+				</div>
+			</div>
+			<div class="row justify-content-center">
+				<div class="col-md-6 col-lg-4">
+					<div class="login-wrap p-0">
+		      	<h3 class="mb-4 text-center">SMS Gateways Pvt. Ltd</h3>
+		      	<form (ngSubmit)="LogIn()" class="signin-form">
+		      		<div class="form-group">
+		      			<input [(ngModel)]="uname" name="uname" id="uname" type="text" 
+                class="form-control" placeholder="Username" required>
+		      		</div>
+	            <div class="form-group">
+	              <input id="passcode" [(ngModel)]="passcode" name="passcode" type="password" class="form-control" placeholder="Password" required>
+	              <span toggle="#password-field" class="fa fa-fw fa-eye field-icon toggle-password"></span>
+	            </div>
+	            <div class="form-group">
+	            	<button type="submit" style="background-color: blue;" class="form-control btn btn-primary submit px-3">Sign In</button>
+	            </div>
+	            <div class="form-group d-md-flex">
+	            	<!-- <div class="w-50">
+		            	<label class="checkbox-wrap checkbox-primary">Remember Me
+									  <input type="checkbox" checked>
+									  <span class="checkmark"></span>
+									</label>
+								</div> -->
+								<div class="w-50 text-md-right">
+									<a  style="color: #fff">Forgot Username</a>
+								</div>
+
+                <div class="w-50 text-md-right">
+									<a  style="color: #fff">Forgot Password</a>
+								</div>
+	            </div>
+	          </form>
+	          <!-- <p class="w-100 text-center">&mdash; Or Sign In With &mdash;</p>
+	          <div class="social d-flex text-center">
+	          	<a href="#" class="px-2 py-2 mr-md-1 rounded"><span class="ion-logo-facebook mr-2"></span> Facebook</a>
+	          	<a href="#" class="px-2 py-2 ml-md-1 rounded"><span class="ion-logo-twitter mr-2"></span> Twitter</a>
+	          </div> -->
+		      </div>
+				</div>
+			</div>
+		</div>
+	</section>

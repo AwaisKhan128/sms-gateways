@@ -58,6 +58,7 @@ export class VerifyComponent implements OnInit {
           let device = this.update_data.device;
           let country = this.update_data.country;
           let type = this.update_data.type;
+          console.log(type)
           // console.log(type+" "+country)
 
 
@@ -85,7 +86,7 @@ export class VerifyComponent implements OnInit {
             )
 
         }
-        this.router.navigate(['./profile'])
+        // this.router.navigate(['./profile'])
 
 
       }
@@ -93,33 +94,7 @@ export class VerifyComponent implements OnInit {
         console.log("Not matched "+data)
       }
 
-      // let data  = JSON.parse(JSON.stringify( localStorage.getItem("user_data")));
-      // if (data != null)
-      // {
-      //   let user_name = data.username;
-      //   let passcode = EncodeDecode.b64DecodeUnicode( data.passcode);
-      //   var auth = EncodeDecode.b64EncodeUnicode(user_name+':'+passcode);
-      //   this.freeapi.getVerify(auth,this.code)
-      //   .subscribe
-      //   (
-      //     res=>
-      //     {
-      //       localStorage.setItem("user_status", "Logged_in");
-      //       this.router.navigate(['./profile'])
-
-      //     },
-      //     err=>
-      //     {
-      //       Toaster_Service.toastNotification_D("Failed to Verify");
-      //       console.log(err);
-      //     }
-      //   )
-
-      // }
-      // else{
-      //   console.log("Data is null");
-      // }
-      
+  
 
     }
   }

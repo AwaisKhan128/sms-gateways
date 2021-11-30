@@ -1,21 +1,23 @@
 
 
-  <div class="card " style="width: max-content;">
+<div  style="align-items: flex-start;align-items:flex-end;display:flex;margin-left:50px;margin-top:100px;font-family: 'Times New Roman', Times, serif;font-size:medium">
 
-    <div class="container-fluid ">
-
+  <div class="card p-4" >
+  
+    <div class="container ">
+  
       <h1 class="mb-5 " >
-
+  
         <b>
           Forgot Username
-
+  
         </b>
           <i class="bi bi-info-circle"  >
         </i>
       </h1>
       
       <form (ngSubmit)="forget_username()">
-
+  
         <div class="mb-3 d-inline">
           <label for="user_email" class="form-label">Email address</label>
           <input type="email" [(ngModel)]="user_email" class="form-control" id="user_email" name="user_email" 
@@ -29,39 +31,35 @@
         
         <button type="submit" class="btn btn-primary mb-2">Submit</button>
       </form>
-
+  
     </div>
-
-    
-
+  
   </div>
-
-  <div class="card mt-2" >
-
-    <div class="container-fluid ">
-
+  
+  <div class="card  ms-2 p-6 mt-4" >
+  
+    <div class="container ">
+  
       <h1 class="mb-5" >
-
+  
         <b>
           Forgot Password
-
+  
         </b>
           <i class="bi bi-info-circle"  >
         </i>
       </h1>
       
       <form (ngSubmit)="forget_password()">
-        <div class="mb-10 d-inline">
+        <div class=" d-inline">
           <label for="user_name" class="form-label ">Username</label>
           <input type="text" [(ngModel)]="user_name" class="form-control mb-10" name="user_name" id="user_name" aria-describedby="emailHelp">
           
         </div>
         
-        <button type="submit" class="btn btn-primary" >Send</button>
+        <button type="submit" class="btn btn-primary mb-10" >Send</button>
       </form>
     </div>
-
-    
   
-
   </div>
+</div>
