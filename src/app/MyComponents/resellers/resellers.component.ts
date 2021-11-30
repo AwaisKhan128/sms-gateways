@@ -290,7 +290,8 @@ export class ResellersComponent implements OnInit {
         Toaster_Service.toastNotification_I('Update could only apply for one!');
       } else if (count_active < 1) {
         Toaster_Service.toastNotification_I('Need to select atleast one!');
-      } else {
+      } 
+      else {
         let sub_Acc_id = 0;
 
         this.Update_Admin_Sample.forEach(
@@ -301,7 +302,6 @@ export class ResellersComponent implements OnInit {
           }
         );
 
-        {
           let json = localStorage.getItem('user_data');
 
           {
@@ -363,10 +363,8 @@ export class ResellersComponent implements OnInit {
                 );
             }
           }
-        }
+        
       }
-    } else {
-      Toaster_Service.toastNotification_I('Must select one!');
     }
   }
 
